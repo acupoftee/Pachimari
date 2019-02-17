@@ -1,0 +1,25 @@
+{
+  "name": "pachimari",
+  "version": "1.0.0",
+  "description": "A discord bot retreiving the latest in OWL League news and memes!",
+  "main": "src/bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acupoftee/Pachimari.git"
+  },
+  "author": "Tee Diang",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/acupoftee/Pachimari/issues"
+  },
+  "homepage": "https://github.com/acupoftee/Pachimari#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.2.0",
+    "moment": "^2.24.0"  
+  }
+}
