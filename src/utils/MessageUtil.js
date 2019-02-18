@@ -1,7 +1,6 @@
 'use strict'
 const { Message } = require('discord.js');
 const Logger = require('./Logger');
-// send, and delete either bot or author
 
 /**
  * Utility class for message handling (send, delete, edit, etc.)
