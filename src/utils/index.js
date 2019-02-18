@@ -1,3 +1,8 @@
 'use strict'
 const Logger = require('./Logger')
-module.exports = Logger;
+const MessageUtil = require('./MessageUtil')
+
+module.exports = {
+    Logger,
+    MessageUtil
+};
