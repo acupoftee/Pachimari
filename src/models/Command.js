@@ -11,7 +11,7 @@ const {
 class Command {
 
     /**
-     * Instantiates a new Command object via subblass
+     * Instantiates a new Command object via subclass
      * @constructor
      */
     constructor() {
