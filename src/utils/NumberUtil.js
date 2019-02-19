@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /**
  * Utility class for handling numbers
@@ -6,6 +6,7 @@
 class NumberUtil {
     
     /**
+     * Instantiates a new Number utility object for localization
      * @constructor
      */
     constructor() {}

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const { Message } = require('discord.js');
 const Logger = require('./Logger');
 

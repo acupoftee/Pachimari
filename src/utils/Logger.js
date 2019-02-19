@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const { ConsoleColors } = require('../contstants');
 const moment = require('moment');
 
