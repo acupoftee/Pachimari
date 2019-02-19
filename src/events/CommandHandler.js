@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 const { Event } = require('../models');
 const { Logger } = require('../utils');
@@ -23,7 +24,7 @@ class CommandHandler extends Event {
      */
     execute(client) {
         client.on('message', (message) => {
-            const prefix = '!';
+            const prefix = process.env.PREFIX;
             if (!message.content.startsWith(prefix) || message.author.bot) {
                 return;
             }
