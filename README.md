@@ -19,9 +19,15 @@ Discord bot for retrieving the latest in Overwatch League news.
 ## To do
 * ~~Test Command~~
 * Create OWL Objects
-  * Player
-  * Account (Used for Team and Player)
+  ~~* Player~~
+  ~~* Account (Used for Team and Player)~~
   * Competitor (Denotes an OWL Team)
+    * Competitor Manager
+    * loading in all competitors from API
+      * store competitor values in array
+      * instantiate competitors for each Competitor
+        * O(n) time complexity
+        * O(n) space complexity
   * Match 
   * Standing
 * Data retrieval
