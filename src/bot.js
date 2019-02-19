@@ -23,7 +23,7 @@ client.login().then(() => {
     ${client.users.array().length} members.`);
     client.user.setPresence({
         game: {
-            name: `Overwatch League`
+            name: `Overwatch League News`
         }
     })
 }).catch(error => Logger.error(error));

@@ -1,5 +1,5 @@
 'use strict';
-const { ConsoleColors } = require('../contstants');
+const { ConsoleColors } = require('../constants');
 const moment = require('moment');
 
 /**
@@ -16,7 +16,8 @@ class Logger {
 	 * @param {String} message Message to log to console.
 	 */
 	static info(message) {
-		console.log(`${ConsoleColors.DIM}[${moment().format('lll')}]` +
+		console.log(
+			`${ConsoleColors.DIM}[${moment().format("lll")}]` +
 			`${ConsoleColors.RESET} ` +
 			`${ConsoleColors.FG_WHITE}${ConsoleColors.BG_CYAN}INFO` +
 			`${ConsoleColors.RESET} » ${message}`);
@@ -27,7 +28,8 @@ class Logger {
 	 * @param {String} message Message to log to console.
 	 */
 	static success(message) {
-		console.log(`${ConsoleColors.DIM}[${moment().format('lll')}]` +
+		console.log(
+			`${ConsoleColors.DIM}[${moment().format("lll")}]` +
 			`${ConsoleColors.RESET} ` +
 			`${ConsoleColors.FG_WHITE}${ConsoleColors.BG_GREEN}SUCCESS` +
 			`${ConsoleColors.RESET} » ${message}`);
@@ -38,7 +40,8 @@ class Logger {
 	 * @param {String} message Message to log to console.
 	 */
 	static error(message) {
-		console.log(`${ConsoleColors.DIM}[${moment().format('lll')}]` +
+		console.log(
+			`${ConsoleColors.DIM}[${moment().format("lll")}]` +
 			`${ConsoleColors.RESET} ` +
 			`${ConsoleColors.FG_WHITE}${ConsoleColors.BG_RED}ERROR` +
 			`${ConsoleColors.RESET} » ${message}`);
@@ -49,7 +52,8 @@ class Logger {
 	 * @param {String} message Message to log to console.
 	 */
 	static warn(message) {
-		console.log(`${ConsoleColors.DIM}[${moment().format('lll')}]` +
+		console.log(
+			`${ConsoleColors.DIM}[${moment().format("lll")}]` +
 			`${ConsoleColors.RESET} ` +
 			`${ConsoleColors.FG_BLACK}${ConsoleColors.BG_YELLOW}WARN` +
 			`${ConsoleColors.RESET} » ${message}`);
@@ -61,7 +65,8 @@ class Logger {
 	 * @param {String} message Message to log to console.
 	 */
 	static custom(tag, message) {
-		console.log(`${ConsoleColors.DIM}[${moment().format('lll')}]` +
+		console.log(
+			`${ConsoleColors.DIM}[${moment().format("lll")}]` +
 			`${ConsoleColors.RESET} ` +
 			`${ConsoleColors.FG_WHITE}${ConsoleColors.BG_GREEN}${tag.toUpperCase()}` +
 			`${ConsoleColors.RESET} » ${message}`);

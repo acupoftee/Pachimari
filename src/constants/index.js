@@ -2,4 +2,4 @@
 
 const ConsoleColors = require('./ConsoleColors');
 
-module.exports = ConsoleColors;
+module.exports = { ConsoleColors };

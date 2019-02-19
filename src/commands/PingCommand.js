@@ -16,7 +16,7 @@ class PingCommand extends Command {
 
     execute(client, message, args) {
         message.channel.send(':ping_pong: Pinging...').then(m => {
-            m.edit(`:ping_pong \`\`${client.ping} ms\`\``);
+            m.edit(`:ping_pong: \`\`${client.ping} ms\`\``);
         }).catch(Logger.error);
     }
 }

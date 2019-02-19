@@ -23,7 +23,7 @@ class CommandHandler extends Event {
      */
     execute(client) {
         client.on('message', (message) => {
-            const prefix = `<@${client.user.id}>` || `<@!${client.user.id}>`;
+            const prefix = '!';
             if (!message.content.startsWith(prefix) || message.author.bot) {
                 return;
             }
