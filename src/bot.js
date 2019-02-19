@@ -1,7 +1,9 @@
 'use strict'
 
-const PachimariClient = require('./models');
-const Logger = require('./utils');
+const { PachimariClient } = require('./models');
+const { Logger } = require('./utils');
+const { PingCommand } = require('./commands');
+const { CommandHandler } = require('./events');
 
 const client = new PachimariClient({
     messageCacheMaxSize: 200,
@@ -12,10 +14,14 @@ const client = new PachimariClient({
 
 module.exports = client;
 
+client.addCommand(new PingCommand());
+
+client.runEvent(new CommandHandler());
+
 client.login().then(() => { 
     Logger.info(`${client.user.tag} is logged in and active. Serving 
     ${client.users.array().length} members.`);
-    client.users.setPresence({
+    client.user.setPresence({
         game: {
             name: `Overwatch League`
         }

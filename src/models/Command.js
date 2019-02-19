@@ -35,8 +35,8 @@ class Command {
      * Updates the Command name.
      * @type {String}
      */
-    set name(name) {
-        this._name = name;
+    set name(val) {
+        this._name = val;
     }
 
     /**

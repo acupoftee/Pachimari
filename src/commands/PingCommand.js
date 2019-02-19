@@ -1,11 +1,12 @@
 'use strict';
 
-const Command = require('../models');
-const Logger = require('../utils');
+const { Command } = require('../models');
+const { Logger } = require('../utils');
 
 /**
  * A basic command in which Pachimari will 
  * ping the User who invokes the command.
+ * @extends {Command}
  */
 class PingCommand extends Command {
     constructor() {

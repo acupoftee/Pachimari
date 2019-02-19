@@ -1,10 +1,11 @@
 'use strict';
 
-const Event = require('../models');
-const Logger = require('../utils');
+const { Event } = require('../models');
+const { Logger } = require('../utils');
 
 /**
  * Responsible for handling various Pachimari Commands
+ * @extends {Event}
  */
 class CommandHandler extends Event {
 
@@ -30,6 +31,7 @@ class CommandHandler extends Event {
                 return;
             }
 
+            // https://anidiots.guide/first-bot/command-with-arguments
             const args = message.content.slice(prefix.length).trim().split(/ +/g);
             const commandName = args.shift().toLowerCase();
             const command = client.commands.get(commandName);

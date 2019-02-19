@@ -19,3 +19,4 @@ class Event {
      */
     execute(client) {}
 }
+module.exports = Event;
