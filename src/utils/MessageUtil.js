@@ -12,8 +12,8 @@ class MesageUtil {
     constructor() {}
 
     /**
-		 * Send a message from the bot.
-		 * Then delete the bot's message, author's message, or both.
+		 * Sends a message from Pachimari bot.
+		 * Then delete the bot's message, author's message, or both if specified
 		 * @param {String} message Message to send from the bot.
 		 * @param {Message} sent_message Message sent by the author.
 		 * @param {boolean} [delete_bot=false] Flag to determine deleting of the bot's message.
