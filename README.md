@@ -14,3 +14,20 @@ Discord bot for retrieving the latest in Overwatch League news.
 * Predition polls
 * Memes!
 * Standings
+
+
+## To do
+* ~~Test Command~~
+* Create OWL Objects
+  * Player
+  * Account (Used for Team and Player)
+  * Competitor (Denotes an OWL Team)
+  * Match 
+  * Standing
+* Data retrieval
+  * API Endpoints
+    * heroes
+    * team ids
+    * leagues
+    * accounts
+  * 

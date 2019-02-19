@@ -1,5 +1,5 @@
-'use strict'
-
+'use strict';
+// Color codes retrieved from https://dev.to/moriczgergo/nodejs-console-colors-101
 module.exports = {
 	// Misc.
 	RESET: "\x1b[0m",
