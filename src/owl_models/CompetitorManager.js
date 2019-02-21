@@ -3,7 +3,12 @@
 const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
+const teamNames = require('../data/teamnames.json');
 
+/**
+ * A collection of Competitors
+ * @type {Collection<number, Competitor}
+ */
 const competitors = new Collection();
 
 /**
@@ -75,6 +80,32 @@ class CompetitorManager {
 
             competitors.set(data.id, competitor);
             Logger.success(`Loaded ${data.id} ${data.name}`);
+        }
+    }
+
+    /**
+     * Finds a Competitor ID by name
+     * @param {string} val 
+     * @returns the Competitor's ID
+     */
+    static locateTeam(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < teamNames.length; i++) {
+            const competitor = teamNames[i];
+            const id = competitor.id;
+
+            // return id if keys are equal
+            if (key == id) {
+                return id;
+            }
+
+            // return id if names are equal
+            for (let j = 0; j < competitor.values.length; j++) {
+                const value = competitor.values[j];
+                if (key == value) {
+                    return id;
+                }
+            }
         }
     }
 }

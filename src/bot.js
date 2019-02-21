@@ -3,7 +3,7 @@
 const { PachimariClient } = require('./models');
 const { CompetitorManager } = require('./owl_models');
 const { Logger } = require('./utils');
-const { PingCommand, TeamsCommand } = require('./commands');
+const { PingCommand, TeamsCommand, TeamCommand } = require('./commands');
 const { CommandHandler } = require('./events');
 
 const client = new PachimariClient({
@@ -22,6 +22,7 @@ new Promise(function(resolve, reject) {
 }).then(function(result) {
     client.addCommand(new PingCommand());
     client.addCommand(new TeamsCommand());
+    client.addCommand(new TeamCommand());
 }).then(function(result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(Logger.error);
 }).then(function(result) {

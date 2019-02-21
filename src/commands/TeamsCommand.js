@@ -1,8 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed, Emojis } = require('../models');
+const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
 const { Divisions } = require('../constants');
+const { EmojiUtil } = require('../utils/EmojiUtil');
 
 //const divisions = require('../data/divisions.json');
 
@@ -27,16 +28,16 @@ class TeamsCommand extends Command {
 
     /**
      * 
-     * @param {*} client 
-     * @param {*} message 
-     * @param {*} args 
+     * @param {Client} client 
+     * @param {string} message 
+     * @param {string[]} args 
      */
     async execute(client, message, args) {
 
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
-                teams.push( `${ Emojis.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                teams.push( `${ EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
                     competitor.name}`
                   );
             });
@@ -56,7 +57,7 @@ class TeamsCommand extends Command {
                     CompetitorManager.competitors.forEach(competitor => {
                         if (competitor.divisionId === division.id) {
                             teams.push(`${
-                                Emojis.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                                EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
                                     competitor.name}`
                             );
                         }

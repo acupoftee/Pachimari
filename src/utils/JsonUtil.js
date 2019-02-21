@@ -10,11 +10,12 @@ const Logger = require('./Logger');
 class JsonUtil {
     constructor() {}
     
-    static async parse(uri) {
+    static async parse(uri, headers=null) {
         return new Promise(function (resolve, reject) {
             request({
                 url: uri,
-                json: true
+                json: true,
+                headers
             }, function(error, response, body) {
                 if (error || response.statusCode !== 200)
                     Logger.error(error);
