@@ -1,8 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
+const { Command, PachimariEmbed, Emojis } = require('../models');
 const { CompetitorManager } = require('../owl_models');
-const { Emojis, Divisions } = require('../constants');
+const { Divisions } = require('../constants');
+
 //const divisions = require('../data/divisions.json');
 
 /**
@@ -24,21 +25,27 @@ class TeamsCommand extends Command {
 
     }
 
-    execute(client, message, args) {
+    /**
+     * 
+     * @param {*} client 
+     * @param {*} message 
+     * @param {*} args 
+     */
+    async execute(client, message, args) {
 
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
-                teams.push( `${Emojis[`TEAM_${competitor.abbreviatedName.toUpperCase()}`]} ${
-                    competitor.name
-                  }`);
+                teams.push( `${ Emojis.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                    competitor.name}`
+                  );
             });
 
             // time complexity O(nlogn)
             teams.sort();
             let msg = teams.join('\n');
 
-            const embed = new PachimariEmbed();
+            const embed = new PachimariEmbed(client);
             embed.setTitle("Overwatch League Teams");
             embed.setDescription(msg);
             embed.buildEmbed().post(message.channel);
@@ -48,13 +55,16 @@ class TeamsCommand extends Command {
                 if (division.values.includes(args[0].toLowerCase())) {
                     CompetitorManager.competitors.forEach(competitor => {
                         if (competitor.divisionId === division.id) {
-                            teams.push(`${Emojis[`TEAM_${competitor.abbreviatedName.toUpperCase()}`]} ${competitor.name}`);
+                            teams.push(`${
+                                Emojis.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                                    competitor.name}`
+                            );
                         }
                     });
                     teams.sort();
                     let msg = teams.join('\n');
 
-                    const embed = new PachimariEmbed();
+                    const embed = new PachimariEmbed(client);
                     embed.setTitle(`${division.title} Teams`);
                     embed.setDescription(msg);
                     embed.buildEmbed().post(message.channel);

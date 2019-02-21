@@ -1,9 +1,6 @@
 'use strict' 
 
-const {
-    Client,
-    Message
-} = require('discord.js');
+const { Client, Message } = require('discord.js');
 
 /**
  * Super class for all command objects
@@ -116,6 +113,6 @@ class Command {
      * @param {Message} message a Command origin message
      * @param {String[]} args Arguments for the Command.
      */
-    execute(client, message, args) {}
+    async execute(client, message, args) {}
 }
 module.exports = Command;

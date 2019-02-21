@@ -1,10 +1,6 @@
 'use strict';
 
-const {
-    RichEmbed,
-    TextChannel,
-    GuildMember
-} = require('discord.js');
+const { RichEmbed, TextChannel, GuildMember } = require('discord.js');
 const PachimariClient = require('./PachimariClient');
 
 /**
@@ -23,9 +19,13 @@ class PachimariEmbed {
         this._fields = [];
         this._embed = new RichEmbed()
             .setColor('#FF69B4')
-            .setFooter("Pachimari", null);
+            .setTimestamp()
+            .setFooter(this._client.user.username, this._client.user.avatarURL);
     }
 
+    get getEmbed() {
+        return this._embed;
+    }
     /**
      * Sets the embed title.
      * @param {string} title Embed Title
@@ -56,6 +56,16 @@ class PachimariEmbed {
         return this;
     }
 
+    setFooter(footer) {
+        this._footer = footer;
+        return this;
+    }
+
+    setThumbnail(thumbnail) {
+        this._thumbnail = thumbnail;
+        return this;
+    }
+
     /**
      * Adds a field to an Embed. Optional inline param.
      * @param {string} name the name of the field.
@@ -81,6 +91,12 @@ class PachimariEmbed {
         }
         if (this._color != null) {
             this._embed.setColor(this._color);
+        }
+        if (this._thumbnail != null) {
+            this._embed.setThumbnail(this._thumbnail);
+        }
+        if (this._footer != null) {
+            this._embed.setFooter(this._footer);
         }
         for (const field of this._fields) {
             this._embed.addField(field.name, field.value. field.inline);

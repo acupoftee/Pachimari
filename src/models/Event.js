@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-    Client
-} = require('discord.js');
+const { Client } = require('discord.js');
 
 /**
  * Super class for Events

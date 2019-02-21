@@ -1,5 +1,5 @@
 # Pachimari
-Discord bot for retrieving the latest in Overwatch League news.
+Discord bot for retrieving the latest in Overwatch League and Contenders news.
 
 ## Features 
 * Player Information 
@@ -14,6 +14,7 @@ Discord bot for retrieving the latest in Overwatch League news.
 * Predition polls
 * Memes!
 * Standings
+* ADD CONTENDERS
 
 
 ## To do
