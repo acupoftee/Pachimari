@@ -4,6 +4,10 @@
  * Class for retrieving an emoji from a Guild
  */
 class Emojis {
+    /**
+     * Instantiates a new Emoji utility for finding Guild Emojis
+     * @constructor
+     */
     constructor() {}
 
     /**
@@ -12,8 +16,7 @@ class Emojis {
      * @param {string} emojiName the Emoji to search for
      */
     static getEmoji(client, emojiName) {
-        const emote = client.emojis.find(emoji => emoji.name === emojiName);
-        return emote;
+        return client.emojis.find(emoji => emoji.name === emojiName);
     }
 }
 module.exports = Emojis;
