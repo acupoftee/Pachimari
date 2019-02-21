@@ -4,6 +4,7 @@ const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
 const teamNames = require('../data/teamnames.json');
+const Endpoints = require('./Endpoints');
 
 /**
  * A collection of Competitors
@@ -43,7 +44,8 @@ class CompetitorManager {
      * @async
      */
     async getTeams() {
-        const body = await JsonUtil.parse('https://api.overwatchleague.com/v2/teams?locale=en_US');
+        //const body = await JsonUtil.parse('https://api.overwatchleague.com/v2/teams?locale=en_US');
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITORS'));
         body.data.forEach(competitor => {
             this._competitors.push(competitor.id);
         });
@@ -57,7 +59,7 @@ class CompetitorManager {
     async loadCompetitors() {
         for (let i = 0; i < this._competitors.length; i++) {
             const id = this._competitors[i];
-            const body = await JsonUtil.parse(`https://api.overwatchleague.com/v2/teams/${id}?locale=en_US`);
+            const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', id));
             const data = body.data;
 
             let competitor = new Competitor(

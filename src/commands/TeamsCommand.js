@@ -3,7 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
 const { Divisions } = require('../constants');
-const { EmojiUtil } = require('../utils/EmojiUtil');
+const { EmojiUtil } = require('../utils');
 
 //const divisions = require('../data/divisions.json');
 

@@ -11,6 +11,7 @@ const { Logger } = require('../utils');
 class CommandHandler extends Event {
 
     /**
+     * Instantiates a new CommandHandler for handling varous Pachimari Commands
      * @constructor
      */
     constructor() {

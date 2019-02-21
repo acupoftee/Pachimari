@@ -5,11 +5,6 @@
  * https://anidiots.guide/coding-guides/using-emojis
  */
 class EmojiUtil {
-    /**
-     * Instantiates a new Emoji utility for finding Guild Emojis
-     * @constructor
-     */
-    constructor() {}
 
     /**
      * Returns an emoji representation of a team

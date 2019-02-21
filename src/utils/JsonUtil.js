@@ -8,8 +8,12 @@ const Logger = require('./Logger');
  * @description Utility class for parsing JSON
  */
 class JsonUtil {
-    constructor() {}
     
+    /**
+     * Parses a JSON requiest
+     * @param {*} uri 
+     * @param {*} headers 
+     */
     static async parse(uri, headers=null) {
         return new Promise(function (resolve, reject) {
             request({
