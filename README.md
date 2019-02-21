@@ -23,9 +23,9 @@ Discord bot for retrieving the latest in Overwatch League news.
   * ✅ Account (Used for Team and Player) 
   * ✅ Competitor (Denotes an OWL Team)
     * ✅ Competitor Manager
-    * loading in all competitors from API
-      * store competitor values in array
-      * instantiate competitors for each Competitor
+    * ✅loading in all competitors from API
+      * ✅store competitor values in array
+      * ✅instantiate competitors for each Competitor
         * O(n) time complexity
         * O(n) space complexity
   * Match 
@@ -37,7 +37,7 @@ Discord bot for retrieving the latest in Overwatch League news.
     * leagues
     * accounts
 * Commands
-  * Teams
+  * ✅Teams
   * News
   * Match
   * Live Match

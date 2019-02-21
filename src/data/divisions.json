@@ -1,0 +1,14 @@
+[
+    {
+        "id": "79",
+        "string": "owl.teams.divisions.atlantic",
+        "name": "Atlantic Division",
+        "abbrev": "ATL"
+    },
+    {
+        "id": "80",
+        "string": "owl.teams.divisions.pacific",
+        "name": "Pacific Division",
+        "abbrev": "PAC"
+    }
+]

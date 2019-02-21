@@ -10,7 +10,7 @@ const Logger = require('./Logger');
 class JsonUtil {
     constructor() {}
     
-    static async parse(url) {
+    static async parse(uri) {
         return new Promise(function (resolve, reject) {
             request({
                 url: uri,

@@ -11,6 +11,7 @@ class Competitor {
      * @description Instantiates a new Competitor/Overwatch League Team Object 
      * @constructor
      * @param {number} id competitor id
+     * @param {number} divisoinId competitor division id
      * @param {string} name competitor name
      * @param {string} abbreviatedName abbreviated competitor name
      * @param {string} logo competitor logo
@@ -25,17 +26,18 @@ class Competitor {
      * @param {number} matchLoss number of losses
      * @param {number} matchDraw number of draws
      */
-    constructor(id, name, abbreviatedName, logo, logoName, location, 
+    constructor(id, divisionId, name, abbreviatedName, logo, logoName, location, 
         primaryColor, secondaryColor, tertiaryColor, website,
         placement, matchWin, matchLoss, matchDraw) {
             this._id = id;
+            this._divisionId = divisionId;
             this._name = name;
             this._abbreviatedName = abbreviatedName;
             this._logo = logo;
             this._logoName = logoName;
             this._location = location;
             this._primaryColor = primaryColor;
-            this._secondaryColor = secondaryColor;
+            this._secondåaryColor = secondaryColor;
             this._tertiaryColor = tertiaryColor;
             this._website = website;
             this._placement = placement;
@@ -62,6 +64,14 @@ class Competitor {
          */
         get id() {
             return this._id;
+        }
+
+        /**
+         * Returns a Competitor's division id
+         * @returns {number} a competitor's division id
+         */
+        get divisionId() {
+            return this._divisionId;
         }
         
         /**

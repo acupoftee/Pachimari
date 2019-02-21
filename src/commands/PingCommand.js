@@ -12,6 +12,9 @@ class PingCommand extends Command {
     constructor() {
         super();
         this.name = 'ping';
+        this.description = 'pings the bot to check timing';
+        this.usage = 'ping';
+        this.aliases = ['pong'];
     }
 
     execute(client, message, args) {

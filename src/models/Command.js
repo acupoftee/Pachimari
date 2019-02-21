@@ -21,6 +21,27 @@ class Command {
          * @public
          */
         this._name = null;
+
+        /**
+         * Sets the Command description
+         * @type {String}
+         * @public
+         */
+        this._description = null;
+
+        /**
+         * Sets the Command instructions
+         * @type {String}
+         * @public
+         */
+        this._usage = null;
+
+        /**
+         * Sets the Command aliases
+         * @type {Stringp[]}
+         * @public
+         */
+        this._aliases = null;
     }
 
     /**
@@ -37,6 +58,56 @@ class Command {
      */
     set name(val) {
         this._name = val;
+    }
+
+
+    /**
+     * Returns the Command description.
+     * @type {String}
+     */
+    get description() {
+        return this._description;
+    }
+
+    /**
+     * Updates the Command description.
+     * @type {String}
+     */
+    set description(val) {
+        this._description = val;
+    }
+
+
+    /**
+     * Returns the Command usage.
+     * @type {String}
+     */
+    get usage() {
+        return this._usage;
+    }
+
+    /**
+     * Updates the Command usage.
+     * @type {String}
+     */
+    set usage(val) {
+        this._usage = val;
+    }
+
+    /**
+     * Returns the Command name.
+     * @type {String[]}
+     */
+    get aliases() {
+        return this._aliases;
+    }
+
+    /**
+     * Updates the Command name.
+     * @type {String[]}
+     */
+    set aliases(val) {
+        this._aliases = val;
     }
 
     /**

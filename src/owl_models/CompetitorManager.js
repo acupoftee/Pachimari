@@ -2,7 +2,7 @@
 
 const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
-const { Competitor } = require('./Competitor');
+const Competitor  = require('./Competitor');
 
 const competitors = new Collection();
 
@@ -57,6 +57,7 @@ class CompetitorManager {
 
             let competitor = new Competitor(
                 data.id, 
+                data.divisionId,
                 data.name, 
                 data.abbreviatedName, 
                 data.logo,
