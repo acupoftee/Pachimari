@@ -22,14 +22,15 @@ class Player {
      * @param {String[]} heroes Player's Overwatch heroes.
      */
     constructor(id, competitorId, playerNumber, name, homeLocation, 
-        familyName, givenName, nationality, headshot, role, heroes) {
+        fullName, nationality, headshot, role, heroes) {
             this._id = id;
             this._competitorId = competitorId;
             this._playerNumber = playerNumber;
             this._name = name;
             this._homeLocation = homeLocation;
-            this._familyName = familyName;
-            this._givenName = givenName;
+            this._fullName = fullName;
+            // this._familyName = familyName;
+            // this._givenName = givenName;
             this._nationality = nationality;
             this._headshot = headshot;
             this._role = role;
@@ -87,22 +88,31 @@ class Player {
     }
 
     /**
-     * Returns a Player's family name (last name)
+     * Returns a Player's full name 
      * @type {String}
-     * @returns player's family name
+     * @returns player's full name
      */
-    get familyName() {
-        return this._familyName;
+    get fullName() {
+        return this._fullName;
     }
 
-    /**
-     * Returns a Player's given name
-     * @type {String}
-     * @returns player's given name
-     */
-    get givenName() {
-        return this._givenName;
-    }
+    // /**
+    //  * Returns a Player's family name (last name)
+    //  * @type {String}
+    //  * @returns player's family name
+    //  */
+    // get familyName() {
+    //     return this._familyName;
+    // }
+
+    // /**
+    //  * Returns a Player's given name
+    //  * @type {String}
+    //  * @returns player's given name
+    //  */
+    // get givenName() {
+    //     return this._givenName;
+    // }
 
     /**
      * Returns a Player's nationality

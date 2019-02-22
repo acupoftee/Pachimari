@@ -37,7 +37,7 @@ class Competitor {
             this._logoName = logoName;
             this._location = location;
             this._primaryColor = primaryColor;
-            this._secondåaryColor = secondaryColor;
+            this._secondaryColor = secondaryColor;
             this._tertiaryColor = tertiaryColor;
             this._website = website;
             this._placement = placement;
@@ -180,7 +180,7 @@ class Competitor {
 
         /**
          * Returns a Collection of social media accounts for a Competitor
-         * @returns {Collection<string, Object} a list of the Competitor's 
+         * @returns {Collection<string, Object>} a list of the Competitor's 
          * social media accounts.
          */
         get accounts() {

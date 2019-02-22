@@ -3,8 +3,11 @@
 const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
+const Player = require('./Player');
+const Account = require('./Account');
 const teamNames = require('../data/teamnames.json');
 const divisions = require('../data/divisions.json');
+const accountTypes = require('../data/accounts.json');
 const Endpoints = require('./Endpoints');
 
 /**
@@ -12,6 +15,13 @@ const Endpoints = require('./Endpoints');
  * @type {Collection<number, Competitor}
  */
 const competitors = new Collection();
+
+/**
+ * A collection of Players
+ * @type {Collection<number, Player}
+ */
+const players = new Collection();
+
 
 /**
  * @description Loads and manages Competitors 
@@ -30,6 +40,13 @@ class CompetitorManager {
          * @private
          */
         this._competitors = [];
+
+        /**
+         * Array of Player IDs
+         * @type {Array}
+         * @private
+         */
+        this._players = [];
     }
 
     /**
@@ -41,6 +58,15 @@ class CompetitorManager {
     }
 
     /**
+     * Returns Overwatch League Team Players
+     * @returns {Collection<string, Object>} players
+     */
+    static get players() {
+        return players;
+    }
+
+
+    /**
      * Obtains all 2019 Overwatch League Competitors
      * @async
      */
@@ -50,6 +76,12 @@ class CompetitorManager {
         body.data.forEach(competitor => {
             this._competitors.push(competitor.id);
         });
+
+        const playerBody = await JsonUtil.parse(Endpoints.get('PLAYERS'));
+        playerBody.content.forEach(player => {
+            this._players.push(player.id);
+        });
+
         return this;
     }
 
@@ -80,9 +112,39 @@ class CompetitorManager {
                 data.records.matchLoss,
                 data.records.matchDraw
             );
+
+            data.accounts.forEach(acc => {
+                let type = acc.type;
+                for (let i = 0; i < accountTypes.length; i++) {
+                    const a = accountTypes[i];
+                        if (a.type === acc.type)
+                            type = a.title;
+                }
+                let account = new Account(acc.id, type, acc.url);
+                competitor.accounts.set(acc.id, account);
+            });
             
             competitors.set(data.id, competitor);
-            Logger.success(`Loaded ${data.id} ${data.name}`);
+
+            for (let j = 0; j < data.players.length; j++) {
+                const playerData = data.players[j];
+                let player = new Player(
+                    playerData.id,
+                    data.id,
+                    playerData.playerNumber,
+                    playerData.name,
+                    playerData.homeLocation, 
+                    playerData.fullName,
+                    playerData.nationality,
+                    playerData.headshot,
+                    playerData.role,
+                    playerData.heroes
+                );
+                competitor.players.set(playerData.id, player);
+                players.set(playerData.id, player);
+                Logger.custom(`PLAYER`, `Loaded player ${playerData.id}`);
+            }
+            Logger.custom(`TEAM`, `Loaded ${data.id} ${data.name}`);
         }
     }
 

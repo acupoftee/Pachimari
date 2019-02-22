@@ -22,7 +22,7 @@ class Account {
      * @type {number}
      * @returns an Account id for a Player or Competitor
      */
-    get accountId() {
+    get id() {
         return this._id;
     }
 
@@ -31,7 +31,7 @@ class Account {
      * @type {Srting}
      * @returns an Account type for a Player or Competitor
      */
-    get accountType() {
+    get type() {
         return this._type;
     }
 
@@ -40,7 +40,7 @@ class Account {
      * @type {String}
      * @returns an Account URL for a Player or Competitor
      */
-    get accountUrl() {
+    get url() {
         return this._url;
     }
 }
