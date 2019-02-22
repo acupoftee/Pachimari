@@ -18,7 +18,7 @@ class PachimariEmbed {
         this._footer = null;
         this._fields = [];
         this._embed = new RichEmbed()
-            .setColor('#FF69B4')
+            .setColor('#FFB6E6')
             .setTimestamp()
             .setFooter(this._client.user.username, this._client.user.avatarURL);
     }

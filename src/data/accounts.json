@@ -1,0 +1,37 @@
+[{
+    "type": "TWITTER",
+    "title": "Twitter"
+},
+{
+    "type": "TWITCH",
+    "title": "Twitch"
+},
+{
+    "type": "FACEBOOK",
+    "title": "Facebook"
+},
+{
+    "type": "INSTAGRAM",
+    "title": "Instagram"
+},
+{
+    "type": "DISCORD",
+    "title": "Discord"
+},
+{
+    "type": "YOUTUBE_CHANNEL",
+    "title": "YouTube"
+},
+{
+    "type": "WEIBO",
+    "title": "Weibo"
+},
+{
+    "type": "REDDIT_SUB",
+    "title": "Reddit"
+},
+{
+    "type": "OTHER",
+    "title": "Other"
+}
+]

@@ -68,19 +68,19 @@ class CompetitorManager {
                 data.divisionId,
                 data.name, 
                 data.abbreviatedName, 
-                data.logo,
+                data.logo.main.png,
                 data.logoName,
                 data.location,
-                data.primaryColor,
-                data.secondaryColor,
-                data.tertiaryColor,
+                data.colors.primary.color,
+                data.colors.secondary.color,
+                data.colors.tertiary.color,
                 data.website,
                 data.placement,
                 data.records.matchWin,
                 data.records.matchLoss,
                 data.records.matchDraw
             );
-
+            
             competitors.set(data.id, competitor);
             Logger.success(`Loaded ${data.id} ${data.name}`);
         }

@@ -1,3 +1,7 @@
+<p align=center>
+  <img src="Spray_Pachimari.png">
+</p>
+
 # Pachimari
 Discord bot for retrieving the latest in Overwatch League and Contenders news.
 

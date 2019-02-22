@@ -43,14 +43,14 @@ class TeamCommand extends Command {
         if (args[1] === undefined) {
             embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
                 competitor.name}`);
-            embed.setDescription(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division.');
-
+            embed.setDescription(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
+            embed.setThumbnail(competitor.logo); 
             embed.addFields('Standing', NumberUtil.ordinal(competitor.placement), true);
             embed.addFields('W-L-T', `${competitor.matchWin}-${competitor.matchLoss}-${competitor.matchDraw}`, true);
             embed.addFields(`Players (${competitor.players.size})`, `\`\`team ${args[0]} players\`\``);
             embed.addFields(`Accounts (${competitor.accounts.size})`, `\`\`team ${args[0]} accounts\`\``);
         } else {
-            embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} Players`);
+            embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${competitor.name} Players`);
             embed.setDescription(`0 tanks, 0 offense, 0 support`);
             competitor.players.forEach(player => {
                 const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
