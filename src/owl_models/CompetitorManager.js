@@ -4,6 +4,7 @@ const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
 const teamNames = require('../data/teamnames.json');
+const divisions = require('../data/divisions.json');
 const Endpoints = require('./Endpoints');
 
 /**
@@ -75,9 +76,9 @@ class CompetitorManager {
                 data.tertiaryColor,
                 data.website,
                 data.placement,
-                data.matchWin,
-                data.matchLoss,
-                data.matchDraw
+                data.records.matchWin,
+                data.records.matchLoss,
+                data.records.matchDraw
             );
 
             competitors.set(data.id, competitor);
@@ -106,6 +107,28 @@ class CompetitorManager {
                 const value = competitor.values[j];
                 if (key == value) {
                     return id;
+                }
+            }
+        }
+    }
+
+    /**
+     * Convert a division from ID to name or vice-versa.
+     * @static
+     * @param {String|number} division Name or ID of the divison.
+     * @returns {String|number}
+     */
+    static getDivision(division) {
+        for (let i = 0; i < divisions.length; i++) {
+            const div = divisions[i];
+            if (typeof division === 'string') {
+                if (div.values.includes(division)) {
+                    return div.id;
+                }
+            } else if (typeof division === 'number') {
+                let long = div.values[0];
+                if (division == div.id) {
+                    return long.charAt(0).toUpperCase() + long.slice(1);
                 }
             }
         }

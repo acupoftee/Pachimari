@@ -11,18 +11,21 @@ class Player {
      * @constructor
      * @param {number} id Player's ID
      * @param {number} competitorId Player's Competitor ID
+     * @param {number} playerNumber Player's jersey number
      * @param {String} name Player's Battle.net Tag
      * @param {String} homeLocation a Player's hometown
-     * @param {String} famiyName Player's last name
+     * @param {String} familyName Player's last name
      * @param {String} givenName Player's given name
      * @param {String} nationality Player's nationality
      * @param {String} headshot Player's headshot URL
      * @param {String} role Player's Overwatch role.
+     * @param {String[]} heroes Player's Overwatch heroes.
      */
-    constructor(id, competitorId, name, homeLocation, 
-        famiyName, givenName, nationality, headshot, role) {
+    constructor(id, competitorId, playerNumber, name, homeLocation, 
+        familyName, givenName, nationality, headshot, role, heroes) {
             this._id = id;
             this._competitorId = competitorId;
+            this._playerNumber = playerNumber;
             this._name = name;
             this._homeLocation = homeLocation;
             this._familyName = familyName;
@@ -30,6 +33,7 @@ class Player {
             this._nationality = nationality;
             this._headshot = headshot;
             this._role = role;
+            this._heroes = heroes;
 
             /**
              * A Collection of Accounts
@@ -57,6 +61,13 @@ class Player {
         return this._competitorId;
     }
 
+    /**
+     * Returns a Player's team number
+     * @returns {number} player's jersey number
+     */
+    get playerNumber() {
+        return this._playerNumber;
+    }
     /**
      * Returns a Player's Battle.net name
      * @type {String}
@@ -118,6 +129,14 @@ class Player {
      */
     get role() {
         return this._role;
+    }
+
+    /**
+     * Returns a Player's heroes
+     * @returns {String[]} player's heroes
+     */
+    get heroes() {
+        return this._heroes;
     }
 }
 module.exports = Player;

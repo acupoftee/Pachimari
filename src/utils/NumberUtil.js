@@ -21,5 +21,22 @@ class NumberUtil {
             minimumFractionDigits: 0
         });
     }
+
+    /**
+     * Returns the ordinal of a number
+     * @param {number} number a Number to convert
+     */
+    static ordinal(number) {
+        let i = number % 10, j = number % 100;
+        if (i === 1 && j !== 11) {
+            return number + 'st';
+        } else if (i === 2 && j !== 12) {
+            return number + 'nd';
+        } else if (i === 3 && j !== 13) {
+            return number + 'rd';
+        } else {
+            return number + 'th';
+        }
+    }
 } 
 module.exports = NumberUtil;

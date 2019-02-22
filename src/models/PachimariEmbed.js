@@ -99,7 +99,7 @@ class PachimariEmbed {
             this._embed.setFooter(this._footer);
         }
         for (const field of this._fields) {
-            this._embed.addField(field.name, field.value. field.inline);
+            this._embed.addField(field.name, field.value, field.inline);
         }
         return this;
     }

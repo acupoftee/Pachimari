@@ -2,10 +2,10 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
-const { Divisions } = require('../constants');
+//const { Divisions } = require('../data/divisions.json');
 const { EmojiUtil } = require('../utils');
 
-//const divisions = require('../data/divisions.json');
+const divisions = require('../data/divisions.json');
 
 /**
  * @class TeamsCommand
@@ -52,7 +52,7 @@ class TeamsCommand extends Command {
             embed.buildEmbed().post(message.channel);
         } else {
             let teams = [];
-            Divisions.forEach(division => {
+            divisions.forEach(division => {
                 if (division.values.includes(args[0].toLowerCase())) {
                     CompetitorManager.competitors.forEach(competitor => {
                         if (competitor.divisionId === division.id) {

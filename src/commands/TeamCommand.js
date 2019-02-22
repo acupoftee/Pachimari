@@ -1,7 +1,8 @@
 'use strict';
 
-const { Command, PachimariEmbed, Emojis } = require('../models');
-const { CompetitorManager } = require('../owl_models');
+const { Command, PachimariEmbed } = require('../models');
+const { CompetitorManager, PlayerManager } = require('../owl_models');
+const { EmojiUtil, NumberUtil } = require('../utils');
 
 /**
  * @class TeamCommand
@@ -27,13 +28,36 @@ class TeamCommand extends Command {
             message.channel.send("Please specify an Overwatch League Team to look up.");
             return;
         }
-        const competitor = null;
-        CompetitorManager.competitors.forEach(competitor => {});
+
+        const locateId = CompetitorManager.locateTeam(args[0]);
+        const competitor = CompetitorManager.competitors.get(locateId);
+
+        if (competitor === undefined) {
+            message.channel.send("Could not locate team.");
+            return;
+        }
 
         const embed = new PachimariEmbed(client);
-        embed.setColor('#fff'); //TODO set to primary color
-        embed.setTitle('EMOJI TEAM_NAME');
-        embed.setDescription('LOCATION');
+        embed.setColor(competitor.primaryColor);
+
+        if (args[1] === undefined) {
+            embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                competitor.name}`);
+            embed.setDescription(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division.');
+
+            embed.addFields('Standing', NumberUtil.ordinal(competitor.placement), true);
+            embed.addFields('W-L-T', `${competitor.matchWin}-${competitor.matchLoss}-${competitor.matchDraw}`, true);
+            embed.addFields(`Players (${competitor.players.size})`, `\`\`team ${args[0]} players\`\``);
+            embed.addFields(`Accounts (${competitor.accounts.size})`, `\`\`team ${args[0]} accounts\`\``);
+        } else {
+            embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} Players`);
+            embed.setDescription(`0 tanks, 0 offense, 0 support`);
+            competitor.players.forEach(player => {
+                const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
+                embed.addFields(`${roleEmoji} ${player.name}`, `${player.givenName} ${player.familyName}`, true);
+                
+            });
+        }
         embed.buildEmbed().post(message.channel);
     }
 }
