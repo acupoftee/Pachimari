@@ -3,7 +3,7 @@
 </p>
 
 <h1 align=center>Pachimari</h1>
-Discord bot for retrieving the latest in Overwatch League and Contenders news.
+<p align=center>Discord bot for retrieving the latest in Overwatch League and Contenders news.</p>
 
 ## Features 
 * Player Information 
