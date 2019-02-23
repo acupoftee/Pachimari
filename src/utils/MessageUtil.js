@@ -5,7 +5,7 @@ const Logger = require('./Logger');
 /**
  * Utility class for message handling (send, delete, edit, etc.)
  */
-class MesageUtil {
+class MessageUtil {
     /**
      * @constructor instantiates a new MessageUtil object
      */
@@ -20,8 +20,8 @@ class MesageUtil {
 		 * @param {boolean} [delete_author=true] Flag to determine deleting of the author's message.
 		 * @param {number} [timeout=5] Delay in seconds for deleting the message.
 		 */
-    static sendMessage(messsage, sent_message, delete_bot=false, delete_author=true, timeout=5) {
-        sent_message.channel.send().then(m => {
+    static sendMessage(message, sent_message, delete_bot=false, delete_author=true, timeout=5) {
+        sent_message.channel.send(message).then(m => {
             if (sent_message.channel.type === 'text') {
                 if (delete_bot) {
                     m.delete(timeout * 1000);
@@ -30,6 +30,20 @@ class MesageUtil {
                     sent_message.delete(timeout * 1000);
                 }
             }
-        }).catch(Logger.error);
+        }).catch(function (err) {
+            Logger.error(err.stack);
+        });
     }
+
+
+    /**
+     * Capitalize the first letter of each word in a string
+     * @param {string} val a word
+     * @returns a new string with the first letter of each word capitalized
+     */
+    static capitalize(val) {
+        return val.charAt(0).toUpperCase() + val.slice(1);
+    }
+
 }
+module.exports = MessageUtil;

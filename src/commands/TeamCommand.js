@@ -63,7 +63,7 @@ class TeamCommand extends Command {
             let members = [];
             let offense = 0, tanks = 0, supports = 0;
             competitor.players.forEach(player => {
-                const countryEmoji = `:flag_${player.nationality.toLowerCase()}:`;
+                const countryEmoji = EmojiUtil.getFlag(player.nationality);
                 const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
                 members.push(`${countryEmoji}${roleEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
                 if (player.role === 'offense') {

@@ -44,8 +44,10 @@
     * accounts
 * Commands
   * ✅Teams
-  * Team 
+  * ✅Team 
     * Look up team info
+  * Player
+  * Discords
   * News
   * Match
   * Live Match

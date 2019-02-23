@@ -14,5 +14,16 @@ class EmojiUtil {
     static getEmoji(client, emojiName) {
         return client.emojis.find(emoji => emoji.name === emojiName);
     }
+
+     /**
+     * Returns a country's flag as an emoji
+     * @param {string} countryCode ISO 3166-1 country code.
+     * @returns {string} country emoji
+     */
+    static getFlag(countryCode) {
+        if (countryCode) {
+            return `:flag_${countryCode.toLowerCase()}:`;
+        }
+    }
 }
 module.exports = EmojiUtil;
