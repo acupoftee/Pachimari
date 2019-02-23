@@ -3,7 +3,6 @@
 const { JsonUtil, Logger } = require('../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
-const Player = require('./Player');
 const Account = require('./Account');
 const teamNames = require('../data/teamnames.json');
 const divisions = require('../data/divisions.json');

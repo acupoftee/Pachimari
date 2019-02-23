@@ -45,7 +45,6 @@ class TeamCommand extends Command {
         if (args[1] === undefined) {
             embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
                 competitor.name} (${competitor.abbreviatedName})`);
-            //embed.setDescription(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
@@ -58,7 +57,7 @@ class TeamCommand extends Command {
 
             //embed.('Record: ' + )
             if (competitor.website !== null) {
-                embed.addFields('Website', `[Click Here](${competitor.website})`);
+                embed.addFields('Website', `[Click Here](${competitor.website})`, true);
             }
 
             let members = [];
@@ -67,36 +66,30 @@ class TeamCommand extends Command {
                 const countryEmoji = `:flag_${player.nationality.toLowerCase()}:`;
                 const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
                 members.push(`${countryEmoji}${roleEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
-            })
+                if (player.role === 'offense') {
+                    offense++;
+                } else if (player.role === 'tank') {
+                    tanks++;
+                } else if (player.role === 'support') {
+                    supports++;
+                }
+            });
 
-            embed.addFields(`Players (${competitor.players.size})`, members);
-            embed.addFields(`Accounts (${competitor.accounts.size})`, `\`\`!team ${args[0]} accounts\`\``);
+            
+            embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} support`, members);
+            embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``);
             embed.setDescription(teamInfo);
-        // } else {
-        //     if (args[1].toLowerCase() === 'players') {
-        //         let offense = 0, tanks = 0, supports = 0;
-        //         embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${competitor.name} Players`);
-        //         competitor.players.forEach(player => {
-        //             const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
-        //             embed.addFields(`${roleEmoji} ${player.name}`, `${player.fullName}`, true);
-
-                    // if (player.role === 'offense') {
-                    //     offense++;
-                    // } else if (player.role === 'tank') {
-                    //     tanks++;
-                    // } else if (player.role === 'support') {
-                    //     supports++;
-                    // }
-        //         });
-        //         embed.setDescription(`${tanks} tanks, ${offense} offense, ${supports} support`);
-        //     } else if (args[1].toLowerCase() === 'accounts') {
-        //         embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${competitor.name} Accounts`);
-        //         competitor.accounts.forEach(account => {
-        //             const accountEmoji = EmojiUtil.getEmoji(client, account.type.toLowerCase());
-        //             embed.addFields(`${accountEmoji} ${account.type}`, `[Click here](${account.url})`);
-
-        //         });
-        //     }
+        } else {
+            if (args[1].toLowerCase() === 'accounts') {
+                let accs = []
+                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${competitor.name} Accounts`);
+                competitor.accounts.forEach(account => {
+                    const accountEmoji = EmojiUtil.getEmoji(client, account.type.toLowerCase());
+                    accs.push(`${accountEmoji} [${account.type}](${account.url})`);
+                });
+                let msg = accs.join('\n');
+                embed.setDescription(msg);
+            }
         }
         embed.buildEmbed().post(message.channel);
     }

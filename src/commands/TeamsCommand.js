@@ -2,9 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
-//const { Divisions } = require('../data/divisions.json');
 const { EmojiUtil } = require('../utils');
-
 const divisions = require('../data/divisions.json');
 
 /**
@@ -14,7 +12,7 @@ const divisions = require('../data/divisions.json');
  */
 class TeamsCommand extends Command {
     /**
-     * Instantiates a new TeamsComamand
+     * Instantiates a new TeamsComaman
      * @constructor
      */
     constructor() {
