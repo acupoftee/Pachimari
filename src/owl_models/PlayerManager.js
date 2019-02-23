@@ -69,11 +69,38 @@ class PlayerManager {
                 data.heroes
             );
 
+            data.accounts.forEach(acc => {
+                let type = acc.accountType;
+                for (let i = 0; i < accountTypes.length; i++) {
+                    const a = accountTypes[i];
+                    if (a.type === acc.accountType) {
+                        type = a.title;
+                    }
+                }
+                let account = new Account(acc.id, type, acc.value);
+                player.accounts.set(acc.id, account);
+            })
             const competitor = CompetitorManager.competitors.get(data.teams[0].team.id);
             competitor.players.set(data.id, player);
             players.set(data.id, player);
-            Logger.custom(`PLAYER`, `Loaded player ${data.id}`);
+            Logger.custom(`PLAYER`, `Loaded player ${data.id} ${data.name}`);
         }
+    }
+
+    /**
+     * Finds a Player ID by name
+     * @param {string} val the player's name
+     * @returns {number} the Player's ID
+     */
+    async locatePlayer(val) {
+        const key = val.toLowerCase();
+        let id = 0;
+        players.forEach(player => {
+            if (player.name.toLowerCase() === key) {
+                id = player.id;
+            }
+        });
+        return id;
     }
 }
 module.exports = PlayerManager;

@@ -1,8 +1,8 @@
 <p align=center>
-  <img src="Spray_Pachimari.png">
+  <img src="Spray_Pachimari.png" width="350">
 </p>
 
-# Pachimari
+<h1 align=center>Pachimari</h1>
 Discord bot for retrieving the latest in Overwatch League and Contenders news.
 
 ## Features 

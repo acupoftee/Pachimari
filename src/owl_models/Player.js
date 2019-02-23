@@ -20,9 +20,24 @@ class Player {
      * @param {String} headshot Player's headshot URL
      * @param {String} role Player's Overwatch role.
      * @param {String[]} heroes Player's Overwatch heroes.
+     * @param {number} eliminations Player's elimination average per 
+     * 10 minutes
+     * @param {number} deaths Player's death average per 
+     * 10 minutes
+     * @param {number} heroDamage Player's hero damage average per 
+     * 10 minutes
+     * @param {number} healing Player's healing average per 
+     * 10 minutes
+     * @param {number} ultimates Player's ultimate average per 
+     * 10 minutes
+     * @param {number} finalBlows Player's final blow average per 
+     * 10 minutes
+     * @param {number} timePlayed Player's total time played 
      */
     constructor(id, competitorId, playerNumber, name, homeLocation, 
-        familyName, givenName, nationality, headshot, role, heroes) {
+        familyName, givenName, nationality, headshot, role, heroes,
+        eliminations, deaths, heroDamage, healing, ultimates,
+        finalBlows, timePlayed) {
             this._id = id;
             this._competitorId = competitorId;
             this._playerNumber = playerNumber;
@@ -34,6 +49,13 @@ class Player {
             this._headshot = headshot;
             this._role = role;
             this._heroes = heroes;
+            this._eliminations = eliminations;
+            this._deaths = deaths;
+            this._heroDamage = heroDamage;
+            this._healing = healing;
+            this._ultimates = ultimates;
+            this._finalBlows = finalBlows;
+            this._timePlayed = timePlayed;
 
             /**
              * A Collection of Accounts
@@ -137,6 +159,70 @@ class Player {
      */
     get heroes() {
         return this._heroes;
+    }
+
+    /**
+     * Returns a Player's accounts
+     * @returns {Account[]} player's accounts
+     */
+    get accounts() {
+        return this._accounts;
+    }
+
+    /**
+     * Returns average eliminations per 10 minute
+     * @returns {number} average eliminations
+     */
+    get eliminations() {
+        return this._eliminations;
+    }
+
+    /**
+     * Returns average deaths per 10 minute
+     * @returns {number} average deaths
+     */
+    get deaths() {
+        return this._deaths;
+    }
+
+    /**
+     * Returns average damage per 10 minute
+     * @returns {number} average damage
+     */
+    get heroDamage() {
+        return this._heroDamage;
+    }
+
+    /**
+     * Returns average healing per 10 minute
+     * @returns {number} average healing
+     */
+    get healing() {
+        return this._healing;
+    }
+
+    /**
+     * Returns average ultimates per 10 minute
+     * @returns {number} average ultimates
+     */
+    get ultimates() {
+        return this._ultimates;
+    }
+
+    /**
+     * Returns average final blows per 10 minute
+     * @returns {number} average final blows
+     */
+    get finalBlows() {
+        return this._finalBlows;
+    }
+
+    /**
+     * Returns time played
+     * @returns {number} time played
+     */
+    get timePlayed() {
+        return this._timePlayed;
     }
 }
 module.exports = Player;

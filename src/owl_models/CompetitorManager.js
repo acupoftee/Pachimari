@@ -119,8 +119,8 @@ class CompetitorManager {
                 let type = acc.type;
                 for (let i = 0; i < accountTypes.length; i++) {
                     const a = accountTypes[i];
-                        if (a.type === acc.type)
-                            type = a.title;
+                    if (a.type === acc.type)
+                        type = a.title;
                 }
                 let account = new Account(acc.id, type, acc.url);
                 competitor.accounts.set(acc.id, account);
@@ -154,7 +154,7 @@ class CompetitorManager {
 
     /**
      * Finds a Competitor ID by name
-     * @param {string} val 
+     * @param {string} val the competitor's name
      * @returns the Competitor's ID
      */
     static locateTeam(val) {
