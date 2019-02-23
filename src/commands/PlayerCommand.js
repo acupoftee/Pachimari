@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, PlayerManager } = require('../owl_models');
-const { EmojiUtil } = require('../utils');
+const { EmojiUtil, NumberUtil } = require('../utils');
 
 /**
  * @class PlayerCommand
@@ -42,10 +42,21 @@ class PlayerCommand extends Command {
         embed.setThumbnail(player.headshot);
         if (args[1] === undefined) {
             const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
-            embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
+            embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
             let info = [];
-            info.push(`${EmojiUtil.getFlag(player.nationality)} ${EmojiUtil.getEmoji(client, player.role)}`)
+            info.push(`${teamEmoji} ${EmojiUtil.getEmoji(client, player.role)} **#${player.playerNumber}**`);
+            info.push(`${EmojiUtil.getFlag(player.nationality)} ${player.homeLocation}\n`);
+            embed.setDescription(info);
+
+            embed.addFields('Eliminations', player.eliminations.toFixed(2), true);
+            embed.addFields('Deaths', player.deaths.toFixed(2), true);
+            embed.addFields('Hero Damage', player.heroDamage.toFixed(2), true);
+            embed.addFields('Healing', player.healing.toFixed(2), true);
+            embed.addFields('Ultimates', player.ultimates.toFixed(2), true);
+            embed.addFields('Final Blows', player.finalBlows.toFixed(2), true);
+            embed.addFields('Time Played', NumberUtil.toTimeString(player.timePlayed), true);
         }
+        embed.setFooter("Stats are per 10 minutes, except for Time Played.");
         embed.buildEmbed().post(message.channel);
     }
 }

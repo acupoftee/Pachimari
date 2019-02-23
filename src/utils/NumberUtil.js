@@ -22,6 +22,14 @@ class NumberUtil {
         });
     }
 
+    static toTimeString(number) {
+        let h = Math.floor(number / 3600);
+        let m = Math.floor(number % 3600 / 60);
+        let s = Math.floor(number % 3600 % 60);
+    
+        return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+    }
+
     /**
      * Returns the ordinal of a number
      * @param {number} number a Number to convert

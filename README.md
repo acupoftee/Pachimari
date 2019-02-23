@@ -46,7 +46,7 @@
   * ✅Teams
   * ✅Team 
     * Look up team info
-  * Player
+  * ✅Player
   * Discords
   * News
   * Match

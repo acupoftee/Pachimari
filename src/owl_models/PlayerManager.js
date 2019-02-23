@@ -69,6 +69,7 @@ class PlayerManager {
                 data.heroes,
                 body.data.stats.all.eliminations_avg_per_10m,
                 body.data.stats.all.deaths_avg_per_10m,
+                body.data.stats.all.hero_damage_avg_per_10m,
                 body.data.stats.all.healing_avg_per_10m,
                 body.data.stats.all.ultimates_earned_avg_per_10m,
                 body.data.stats.all.final_blows_avg_per_10m,
