@@ -66,7 +66,13 @@ class PlayerManager {
                 data.nationality,
                 data.headshot,
                 data.attributes.role,
-                data.heroes
+                data.heroes,
+                body.data.stats.all.eliminations_avg_per_10m,
+                body.data.stats.all.deaths_avg_per_10m,
+                body.data.stats.all.healing_avg_per_10m,
+                body.data.stats.all.ultimates_earned_avg_per_10m,
+                body.data.stats.all.final_blows_avg_per_10m,
+                body.data.stats.all.time_played_total
             );
 
             data.accounts.forEach(acc => {
@@ -92,7 +98,7 @@ class PlayerManager {
      * @param {string} val the player's name
      * @returns {number} the Player's ID
      */
-    async locatePlayer(val) {
+    static locatePlayer(val) {
         const key = val.toLowerCase();
         let id = 0;
         players.forEach(player => {

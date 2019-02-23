@@ -43,7 +43,8 @@ class TeamCommand extends Command {
         embed.setThumbnail(competitor.logo);
 
         if (args[1] === undefined) {
-            embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+            const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
+            embed.setTitle(`${teamEmoji} ${
                 competitor.name} (${competitor.abbreviatedName})`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
@@ -64,7 +65,7 @@ class TeamCommand extends Command {
             let offense = 0, tanks = 0, supports = 0;
             competitor.players.forEach(player => {
                 const countryEmoji = EmojiUtil.getFlag(player.nationality);
-                const roleEmoji = EmojiUtil.getEmoji(client, player.role.toLowerCase());
+                const roleEmoji = EmojiUtil.getEmoji(client, player.role);
                 members.push(`${countryEmoji}${roleEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
                 if (player.role === 'offense') {
                     offense++;
@@ -74,17 +75,15 @@ class TeamCommand extends Command {
                     supports++;
                 }
             });
-
-            
-            embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} support`, members);
+            embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} supports`, members);
             embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``);
             embed.setDescription(teamInfo);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 let accs = []
-                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${competitor.name} Accounts`);
+                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${competitor.name} Accounts`);
                 competitor.accounts.forEach(account => {
-                    const accountEmoji = EmojiUtil.getEmoji(client, account.type.toLowerCase());
+                    const accountEmoji = EmojiUtil.getEmoji(client, account.type);
                     accs.push(`${accountEmoji} [${account.type}](${account.url})`);
                 });
                 let msg = accs.join('\n');

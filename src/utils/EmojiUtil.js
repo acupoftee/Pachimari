@@ -12,7 +12,7 @@ class EmojiUtil {
      * @param {string} emojiName the Emoji to search for
      */
     static getEmoji(client, emojiName) {
-        return client.emojis.find(emoji => emoji.name === emojiName);
+        return client.emojis.find(emoji => emoji.name === emojiName.toLowerCase());
     }
 
      /**

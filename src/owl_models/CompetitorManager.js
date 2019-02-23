@@ -58,13 +58,13 @@ class CompetitorManager {
         return competitors;
     }
 
-    /**
-     * Returns Overwatch League Team Players
-     * @returns {Collection<string, Object>} players
-     */
-    static get players() {
-        return players;
-    }
+    // /**
+    //  * Returns Overwatch League Team Players
+    //  * @returns {Collection<string, Object>} players
+    //  */
+    // static get players() {
+    //     return players;
+    // }
 
 
     /**

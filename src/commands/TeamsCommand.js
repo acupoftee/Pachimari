@@ -35,7 +35,7 @@ class TeamsCommand extends Command {
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
-                teams.push( `${ EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                teams.push( `${ EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${
                     competitor.name}`
                   );
             });
@@ -55,7 +55,7 @@ class TeamsCommand extends Command {
                     CompetitorManager.competitors.forEach(competitor => {
                         if (competitor.divisionId === division.id) {
                             teams.push(`${
-                                EmojiUtil.getEmoji(client, competitor.abbreviatedName.toLowerCase())} ${
+                                EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${
                                     competitor.name}`
                             );
                         }
