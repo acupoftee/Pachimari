@@ -45,8 +45,10 @@
 * Commands
   * ✅Teams
   * ✅Team 
-    * Look up team info
+    * ✅Look up team info
   * ✅Player
+    * ✅Load hero information
+    * load account information
   * Discords
   * News
   * Match

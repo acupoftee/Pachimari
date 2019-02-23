@@ -1,5 +1,5 @@
 'use strict';
-const { Message } = require('discord.js');
+const { Message, TextChannel, GuildMember } = require('discord.js');
 const Logger = require('./Logger');
 
 /**
@@ -35,14 +35,22 @@ class MessageUtil {
         });
     }
 
-
     /**
-     * Capitalize the first letter of each word in a string
-     * @param {string} val a word
-     * @returns a new string with the first letter of each word capitalized
+     * Sends a success message to the user
+     * @param {TextChannel|GuildMember} destination channel to send the message
+     * @param {string} message sucess message
      */
-    static capitalize(val) {
-        return val.charAt(0).toUpperCase() + val.slice(1);
+    static sendSuccess(destination, message) {
+        destination.send(`:white_check_mark: ${message}`);
+    }
+
+     /**
+     * Sends an error message to the user
+     * @param {TextChannel|GuildMember} destination channel to send the message
+     * @param {string} message error message
+     */
+    static sendError(destination, message) {
+        destination.send(`:x: ${message}`);
     }
 
 }

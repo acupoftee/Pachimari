@@ -7,6 +7,7 @@ const Player = require('./Player');
 const Account = require('./Account');
 const accountTypes = require('../data/accounts.json');
 const Endpoints = require('./Endpoints');
+const heroData = require('../data/heroes.json');
 
 /**
  * A collection of Players
@@ -54,7 +55,15 @@ class PlayerManager {
             const id = this._players[i];
             const body = await JsonUtil.parse(Endpoints.get('PLAYER', id));
             const data = body.data.player;
+            const heroArray = [];
 
+            if (data.attributes.heroes !== undefined) {
+                heroData.forEach(hero => {
+                    if (data.attributes.heroes.includes(hero.key)) {
+                        heroArray.push(hero.title);
+                    }
+                })   
+            }
             let player = new Player(
                 data.id,
                 data.teams[0].team.id,
@@ -66,7 +75,7 @@ class PlayerManager {
                 data.nationality,
                 data.headshot,
                 data.attributes.role,
-                data.heroes,
+                heroArray,
                 body.data.stats.all.eliminations_avg_per_10m,
                 body.data.stats.all.deaths_avg_per_10m,
                 body.data.stats.all.hero_damage_avg_per_10m,

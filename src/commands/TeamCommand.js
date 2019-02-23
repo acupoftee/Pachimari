@@ -53,14 +53,12 @@ class TeamCommand extends Command {
             if (competitor.matchDraw > 0) {
                 teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}-${competitor.matchDraw}\n`);
             } else {
-                teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}\n`);
+                teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}`);
             }
 
-            //embed.('Record: ' + )
             if (competitor.website !== null) {
                 embed.addFields('Website', `[Click Here](${competitor.website})`, true);
             }
-
             let members = [];
             let offense = 0, tanks = 0, supports = 0;
             competitor.players.forEach(player => {
@@ -76,7 +74,9 @@ class TeamCommand extends Command {
                 }
             });
             embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} supports`, members);
-            embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``);
+            if (competitor.accounts.size > 0) {
+                embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``);
+            }
             embed.setDescription(teamInfo);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
