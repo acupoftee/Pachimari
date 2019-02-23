@@ -44,7 +44,7 @@ class TeamsCommand extends Command {
 
             // time complexity O(nlogn)
             teams.sort();
-            let msg = teams.join('\n');
+            let msg = teams;
 
             const embed = new PachimariEmbed(client);
             embed.setTitle("Overwatch League Teams");

@@ -16,11 +16,11 @@ const Endpoints = require('./Endpoints');
  */
 const competitors = new Collection();
 
-/**
- * A collection of Players
- * @type {Collection<number, Player}
- */
-const players = new Collection();
+// /**
+//  * A collection of Players
+//  * @type {Collection<number, Player}
+//  */
+// const players = new Collection();
 
 
 /**
@@ -41,12 +41,14 @@ class CompetitorManager {
          */
         this._competitors = [];
 
-        /**
-         * Array of Player IDs
-         * @type {Array}
-         * @private
-         */
-        this._players = [];
+        // /**
+        //  * Array of Player IDs
+        //  * @type {Array}
+        //  * @private
+        //  */
+        // this._players = [];
+
+        
     }
 
     /**
@@ -77,10 +79,11 @@ class CompetitorManager {
             this._competitors.push(competitor.id);
         });
 
-        const playerBody = await JsonUtil.parse(Endpoints.get('PLAYERS'));
-        playerBody.content.forEach(player => {
-            this._players.push(player.id);
-        });
+        // const playerBody = await JsonUtil.parse(Endpoints.get('PLAYERS'));
+        // playerBody.content.forEach(player => {
+        //     this._players.push(player.id);
+        //     this._nationalities.push(player.nationality);
+        // });
 
         return this;
     }
@@ -126,24 +129,26 @@ class CompetitorManager {
             
             competitors.set(data.id, competitor);
 
-            for (let j = 0; j < data.players.length; j++) {
-                const playerData = data.players[j];
-                let player = new Player(
-                    playerData.id,
-                    data.id,
-                    playerData.playerNumber,
-                    playerData.name,
-                    playerData.homeLocation, 
-                    playerData.fullName,
-                    playerData.nationality,
-                    playerData.headshot,
-                    playerData.role,
-                    playerData.heroes
-                );
-                competitor.players.set(playerData.id, player);
-                players.set(playerData.id, player);
-                Logger.custom(`PLAYER`, `Loaded player ${playerData.id}`);
-            }
+            // for (let j = 0; j < data.players.length; j++) {
+            //     const playerData = data.players[j];
+            //     // const body = await JsonUtil.parse(Endpoints.get('PLAYER', playerData.id));
+            //     // const p = body.data.player;
+            //     let player = new Player(
+            //         playerData.id,
+            //         data.id,
+            //         playerData.playerNumber,
+            //         playerData.name,
+            //         playerData.homeLocation, 
+            //         playerData.fullName,
+            //         ,
+            //         playerData.headshot,
+            //         playerData.role,
+            //         playerData.heroes
+            //     );
+            //     competitor.players.set(playerData.id, player);
+            //     players.set(playerData.id, player);
+            //     Logger.custom(`PLAYER`, `Loaded player ${playerData.id} ${}`);
+            // }
             Logger.custom(`TEAM`, `Loaded ${data.id} ${data.name}`);
         }
     }

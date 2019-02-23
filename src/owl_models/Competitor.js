@@ -140,6 +140,13 @@ class Competitor {
         }
 
         /**
+         * Returns a Competitor's website url
+         * @returns {string} a website url
+         */
+        get website() {
+            return this._website;
+        }
+        /**
          * Returns a Competitor's current placement in the League
          * @returns {number} current placement
          */

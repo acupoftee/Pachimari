@@ -1,7 +1,7 @@
 'use strict'
 
 const { PachimariClient } = require('./models');
-const { CompetitorManager } = require('./owl_models');
+const { CompetitorManager, PlayerManager } = require('./owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand } = require('./commands');
 const { CommandHandler } = require('./events');
@@ -28,6 +28,9 @@ new Promise(function(resolve, reject) {
     client.addCommand(new TeamCommand());
 }).then(function(result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch( function(err) {
+        Logger.error(err.stack)});
+}).then(function(result) {
+    return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch( function(err) {
         Logger.error(err.stack)});
 }).then(function(result) {
     client.login().then(() => { 

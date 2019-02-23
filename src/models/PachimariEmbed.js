@@ -21,10 +21,15 @@ class PachimariEmbed {
             .setColor('#FFB6E6')
             .setTimestamp()
             .setFooter(this._client.user.username, this._client.user.avatarURL);
+        this._spaceChar = '\u200B';
     }
 
     get getEmbed() {
         return this._embed;
+    }
+
+    get spaceChar() {
+        return this._spaceChar;
     }
     /**
      * Sets the embed title.
