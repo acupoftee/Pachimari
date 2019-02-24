@@ -58,15 +58,6 @@ class CompetitorManager {
         return competitors;
     }
 
-    // /**
-    //  * Returns Overwatch League Team Players
-    //  * @returns {Collection<string, Object>} players
-    //  */
-    // static get players() {
-    //     return players;
-    // }
-
-
     /**
      * Obtains all 2019 Overwatch League Competitors
      * @async
@@ -77,12 +68,6 @@ class CompetitorManager {
         body.data.forEach(competitor => {
             this._competitors.push(competitor.id);
         });
-
-        // const playerBody = await JsonUtil.parse(Endpoints.get('PLAYERS'));
-        // playerBody.content.forEach(player => {
-        //     this._players.push(player.id);
-        //     this._nationalities.push(player.nationality);
-        // });
 
         return this;
     }
@@ -127,27 +112,6 @@ class CompetitorManager {
             });
             
             competitors.set(data.id, competitor);
-
-            // for (let j = 0; j < data.players.length; j++) {
-            //     const playerData = data.players[j];
-            //     // const body = await JsonUtil.parse(Endpoints.get('PLAYER', playerData.id));
-            //     // const p = body.data.player;
-            //     let player = new Player(
-            //         playerData.id,
-            //         data.id,
-            //         playerData.playerNumber,
-            //         playerData.name,
-            //         playerData.homeLocation, 
-            //         playerData.fullName,
-            //         ,
-            //         playerData.headshot,
-            //         playerData.role,
-            //         playerData.heroes
-            //     );
-            //     competitor.players.set(playerData.id, player);
-            //     players.set(playerData.id, player);
-            //     Logger.custom(`PLAYER`, `Loaded player ${playerData.id} ${}`);
-            // }
             Logger.custom(`TEAM`, `Loaded ${data.id} ${data.name}`);
         }
     }
@@ -176,6 +140,21 @@ class CompetitorManager {
                 }
             }
         }
+    }
+
+    /**
+     * Finds a Competitor account by name
+     * @param {string} val the competitor's account type
+     * @returns {string} the Competitor's account url
+     */
+    static locateAccount(competitor, val) {
+        const key = val.toLowerCase();
+        competitor.accounts.forEach(acc => {
+            let type = acc.type.toLowerCase();
+            if (key === type) {
+                return acc.url;
+            }
+        }); // O(c*a) time. try to optimize
     }
 
     /**
