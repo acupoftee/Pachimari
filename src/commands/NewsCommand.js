@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { Article, Endpoints } = require('../owl_models');
+const { Article, Endpoints } = require('../models/owl_models');
 const { JsonUtil } = require('../utils');
 
 class NewsCommand extends Command {

@@ -1,12 +1,12 @@
 'use strict';
 
-const { JsonUtil, Logger } = require('../utils');
+const { JsonUtil, Logger } = require('../../utils');
 const { Collection } = require('discord.js');
 const Competitor  = require('./Competitor');
 const Account = require('./Account');
-const teamNames = require('../data/teamnames.json');
-const divisions = require('../data/divisions.json');
-const accountTypes = require('../data/accounts.json');
+const teamNames = require('../../data/teamnames.json');
+const divisions = require('../../data/divisions.json');
+const accountTypes = require('../../data/accounts.json');
 const Endpoints = require('./Endpoints');
 
 /**
@@ -14,13 +14,6 @@ const Endpoints = require('./Endpoints');
  * @type {Collection<number, Competitor}
  */
 const competitors = new Collection();
-
-// /**
-//  * A collection of Players
-//  * @type {Collection<number, Player}
-//  */
-// const players = new Collection();
-
 
 /**
  * @description Loads and manages Competitors 

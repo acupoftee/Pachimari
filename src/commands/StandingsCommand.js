@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints } = require('../owl_models');
+const { CompetitorManager, Endpoints } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil } = require('../utils');
 
 /**

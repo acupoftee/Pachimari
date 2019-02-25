@@ -1,6 +1,6 @@
 'use strict';
 
-const endpoints = require('../data/endpoints.json');
+const endpoints = require('../../data/endpoints.json');
 
 /**
  * Obtains a URL for an API Endpoint

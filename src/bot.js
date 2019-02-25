@@ -1,7 +1,7 @@
 'use strict'
 
 const { PachimariClient } = require('./models');
-const { CompetitorManager, PlayerManager } = require('./owl_models');
+const { CompetitorManager, PlayerManager } = require('./models/owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
     TeamcordsCommand, StandingsCommand, NewsCommand } = require('./commands');
