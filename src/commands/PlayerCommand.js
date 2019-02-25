@@ -40,6 +40,8 @@ class PlayerCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(player.headshot);
+
+        // retrieve player data
         if (args[1] === undefined) {
             const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
             embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
@@ -61,7 +63,9 @@ class PlayerCommand extends Command {
                 embed.addFields(`${player.accounts.size} Accounts`, `\`\`!player ${args[0]} accounts\`\``);
             }            
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-        } else if (args[1].toLowerCase() === 'accounts') {
+        } else if (args[1].toLowerCase() === 'accounts') { 
+
+            // return if there are no accounts to be displayed
             if (player.accounts.size === 0) {
                 MessageUtil.sendError(message.channel, "This player does not have any accounts.");
                 return;
