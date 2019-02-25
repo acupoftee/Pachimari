@@ -15,7 +15,7 @@
 * News Updates
 * Schedule Updates
 * Live Match Statistics
-* Predition polls
+* Prediction polls
 * Memes!
 * Standings
 * ADD CONTENDERS
@@ -25,7 +25,7 @@
 * ✅ Test Command 
 * Create OWL Objects
   * ✅ Player 
-  * News
+  * ✅ News
   * ✅ Account (Used for Team and Player) 
   * ✅ Competitor (Denotes an OWL Team)
     * ✅ Competitor Manager
@@ -35,7 +35,7 @@
         * O(n) time complexity
         * O(n) space complexity
   * Match 
-  * Standing
+  * ~~Standing~~
 * Data retrieval
   * API Endpoints
     * heroes
@@ -48,8 +48,8 @@
     * ✅Look up team info
   * ✅Player
     * ✅Load hero information
-    *✅ load account information
-  *✅ Discords
+    * ✅Load account information
+  * ✅Discords
   * ✅News
   * Match
   * Live Match
