@@ -41,7 +41,7 @@ class TeamsCommand extends Command {
 
             let msg = teams;
             const embed = new PachimariEmbed(client);
-            embed.setTitle("Overwatch League Teams");
+            embed.setTitle("__Overwatch League Teams__");
             embed.setDescription(msg);
             embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
             embed.buildEmbed().post(message.channel);
@@ -59,7 +59,7 @@ class TeamsCommand extends Command {
                     });
                     let msg = teams.join('\n');
                     const embed = new PachimariEmbed(client);
-                    embed.setTitle(`${division.title} Teams`);
+                    embed.setTitle(`__${division.title} Teams__`);
                     embed.setDescription(msg);
                     embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
                     embed.buildEmbed().post(message.channel);

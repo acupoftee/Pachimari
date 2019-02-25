@@ -62,8 +62,12 @@ class PlayerCommand extends Command {
             }            
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
         } else if (args[1].toLowerCase() === 'accounts') {
+            if (player.accounts.size === 0) {
+                MessageUtil.sendError(message.channel, "This player does not have any accounts.");
+                return;
+            }
             const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
-            embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName} Accounts`);
+            embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 
             let accs = [];
             player.accounts.forEach(account => {

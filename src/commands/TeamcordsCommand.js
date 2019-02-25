@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
-const { EmojiUtil, Logger } = require('../utils');
+const { EmojiUtil } = require('../utils');
 const discordServers = require('../data/discords.json');
 /**
  * @class TeamcordsCommand
@@ -19,7 +19,7 @@ class TeamcordsCommand extends Command {
         this.name = 'teamcords';
         this.description = 'Displays Discord servers for OWL teams';
         this.usage = 'teamcords [division|team]';
-        this.aliases = [];
+        this.aliases = ['discords', 'teamdiscords'];
     }
 
     // O(n*d) time. Optimize?
@@ -41,7 +41,7 @@ class TeamcordsCommand extends Command {
              });
             let msg = discords.join('\n');
             const embed = new PachimariEmbed(client);
-            embed.setTitle("Overwatch League Team Discords");
+            embed.setTitle("__Overwatch League Team Discords__");
             embed.setThumbnail('https://cdn.discordapp.com/emojis/549030645226143757.png?v=1');
             embed.setColor('#7289DA');
             embed.setDescription(msg);

@@ -20,7 +20,7 @@ class NewsCommand extends Command {
     async execute(client, message, args) {
         let articles = [];
         const embed = new PachimariEmbed(client);
-        embed.setTitle("Recent News");
+        embed.setTitle("__Recent Overwatch League News__");
 
         const body = await JsonUtil.parse(Endpoints.get('NEWS'));
         let promise = new Promise(function(resolve, reject) {
@@ -36,6 +36,7 @@ class NewsCommand extends Command {
             articles.forEach(article => {
                 let date = new Date(article.publish);
                 embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}`);
+                //embed.addFields(`__${article.title}__`, `[!np${article.summary}](${article.defaultUrl})\n${date.toDateString()}`);
             });
         });
 

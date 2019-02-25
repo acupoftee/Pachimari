@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../owl_models');
-const { EmojiUtil, NumberUtil } = require('../utils');
+const { EmojiUtil, NumberUtil, MessageUtil } = require('../utils');
 
 /**
  * @class TeamCommand
@@ -34,7 +34,7 @@ class TeamCommand extends Command {
         
 
         if (competitor === undefined) {
-            message.channel.send("Could not locate team.");
+            MessageUtil.sendError(message.channel, "Could not locate team.");
             return;
         }
 
@@ -44,8 +44,8 @@ class TeamCommand extends Command {
 
         if (args[1] === undefined) {
             const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
-            embed.setTitle(`${teamEmoji} ${
-                competitor.name} (${competitor.abbreviatedName})`);
+            embed.setTitle(`${teamEmoji} __${
+                competitor.name} (${competitor.abbreviatedName})__`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
@@ -80,8 +80,12 @@ class TeamCommand extends Command {
             embed.setDescription(teamInfo);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
+                if (competitor.accounts.size === 0) {
+                    MessageUtil.sendError(message.channel, "This team does not have any accounts.");
+                    return;
+                }
                 let accs = []
-                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${competitor.name} Accounts`);
+                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName)} __${competitor.name}'s Accounts__`);
                 competitor.accounts.forEach(account => {
                     const accountEmoji = EmojiUtil.getEmoji(client, account.type);
                     accs.push(`${accountEmoji} [${account.type}](${account.url})`);

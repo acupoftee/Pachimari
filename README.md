@@ -48,10 +48,11 @@
     * ✅Look up team info
   * ✅Player
     * ✅Load hero information
-    * load account information
-  * Discords
-  * News
+    *✅ load account information
+  *✅ Discords
+  * ✅News
   * Match
   * Live Match
-  * Player
-  *  
+  *  Schedule
+  *  Social Media Updates
+  *  MEMESSSSS

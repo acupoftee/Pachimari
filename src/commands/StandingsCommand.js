@@ -25,7 +25,7 @@ class StandingsCommand extends Command {
     async execute(client, message, args) {
         let info = [];
         const embed = new PachimariEmbed(client);
-        embed.setTitle("Overwatch League Standings");
+        embed.setTitle("__Overwatch League Standings__");
         
         const body = await JsonUtil.parse(Endpoints.get('STANDINGS'));
         let promise = new Promise(function(resolve, reject){
