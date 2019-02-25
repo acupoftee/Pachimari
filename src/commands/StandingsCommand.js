@@ -42,13 +42,8 @@ class StandingsCommand extends Command {
                     mapDiff = '+' + mapDiff;
                 }
                 const teamEmoji = EmojiUtil.getEmoji(client, standing.competitor.abbreviatedName);
-                // info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} **${
-                //     standing.competitor.abbreviatedName}**   \`${matchWin}-${matchLoss}\t ${mapDiff}\``);
                 const numberData = `${matchWin} - ${matchLoss}    ${mapDiff}`
-                // info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} ${
-                //     standing.competitor.name}` + numberData.padStart(20, '\t'));
                 info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
-                //info.push(`${NumberUtil.ordinal(standing.placement).padstart(4)}  ${teamEmoji}  \`${numberData}\``)
             }
             resolve(1);
         });
