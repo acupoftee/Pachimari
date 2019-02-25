@@ -35,7 +35,7 @@
         * O(n) time complexity
         * O(n) space complexity
   * Match 
-  * ~~Standing~~
+  * Prediction
 * Data retrieval
   * API Endpoints
     * heroes
@@ -52,6 +52,8 @@
   * ✅Discords
   * ✅News
   * Match
+  * Schedule
+    * Pagitation
   * Live Match
   *  Schedule
   *  Social Media Updates
