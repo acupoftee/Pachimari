@@ -4,7 +4,7 @@ const { PachimariClient } = require('./models');
 const { CompetitorManager, PlayerManager } = require('./owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
-TeamcordsCommand} = require('./commands');
+TeamcordsCommand, StandingsCommand, NewsCommand} = require('./commands');
 const { CommandHandler } = require('./events');
 const { performance } = require('perf_hooks');
 
@@ -29,6 +29,8 @@ new Promise(function(resolve, reject) {
     client.addCommand(new TeamCommand());
     client.addCommand(new PlayerCommand());
     client.addCommand(new TeamcordsCommand());
+    client.addCommand(new StandingsCommand());
+    client.addCommand(new NewsCommand());
 }).then(function(result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch( function(err) {
         Logger.error(err.stack)});

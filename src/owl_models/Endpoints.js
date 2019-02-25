@@ -7,6 +7,12 @@ const endpoints = require('../data/endpoints.json');
  * @returns {string} an API url
  */
 class Endpoints {
+
+    /**
+	 * Obtain the URL for an API endpoint.
+	 * @param {('MAIN'|'COMPETITORS_LIST'|'COMPETITOR'|'PLAYERS_LIST'|'PLAYER'|'SCHEDULE'|'LIVE_MATCH' | 'NEWS')} endpoint 
+	 * @param {number} [id=0] 
+	 */
     static get(endpoint, id=0) {
         let extension = endpoints[0].extension;
         for (let i = 0; i < endpoints.length; i++) {

@@ -5,11 +5,15 @@ const TeamsCommand = require('./TeamsCommand');
 const TeamCommand = require('./TeamCommand');
 const PlayerCommand = require('./PlayerCommand');
 const TeamcordsCommand = require('./TeamcordsCommand');
+const StandingsCommand = require('./StandingsCommand');
+const NewsCommand = require('./NewsCommand');
 
 module.exports = {
     PingCommand,
     TeamsCommand,
     TeamCommand,
     PlayerCommand,
-    TeamcordsCommand
+    TeamcordsCommand,
+    StandingsCommand,
+    NewsCommand
 };

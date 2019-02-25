@@ -89,6 +89,9 @@ class TeamCommand extends Command {
                 let msg = accs.join('\n');
                 embed.setDescription(msg);
             }
+            else {
+                return;
+            }
         }
         embed.buildEmbed().post(message.channel);
     }

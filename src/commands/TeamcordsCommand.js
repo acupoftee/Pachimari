@@ -39,7 +39,6 @@ class TeamcordsCommand extends Command {
                 } 
                 discords.push(`${teamEmoji}[${competitor.name}](${discord})`);
              });
-            discords.sort();
             let msg = discords.join('\n');
             const embed = new PachimariEmbed(client);
             embed.setTitle("Overwatch League Team Discords");

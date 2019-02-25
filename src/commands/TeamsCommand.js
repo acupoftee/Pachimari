@@ -12,7 +12,7 @@ const divisions = require('../data/divisions.json');
  */
 class TeamsCommand extends Command {
     /**
-     * Instantiates a new TeamsComaman
+     * Instantiates a new TeamsComamand
      * @constructor
      */
     constructor() {
@@ -31,7 +31,6 @@ class TeamsCommand extends Command {
      * @param {string[]} args 
      */
     async execute(client, message, args) {
-
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
@@ -40,13 +39,11 @@ class TeamsCommand extends Command {
                   );
             });
 
-            // time complexity O(nlogn)
-            teams.sort();
             let msg = teams;
-
             const embed = new PachimariEmbed(client);
             embed.setTitle("Overwatch League Teams");
             embed.setDescription(msg);
+            embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
             embed.buildEmbed().post(message.channel);
         } else {
             let teams = [];
@@ -60,12 +57,11 @@ class TeamsCommand extends Command {
                             );
                         }
                     });
-                    teams.sort();
                     let msg = teams.join('\n');
-
                     const embed = new PachimariEmbed(client);
                     embed.setTitle(`${division.title} Teams`);
                     embed.setDescription(msg);
+                    embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
                     embed.buildEmbed().post(message.channel);
                 }
             });
