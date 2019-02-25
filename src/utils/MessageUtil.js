@@ -34,6 +34,15 @@ class MessageUtil {
             Logger.error(err.stack);
         });
     }
+    
+    /**
+     * Capitalizes the first letter in a message
+     * @param {string} message 
+     * @returns {string} a string with a capitalized letter
+     */
+    static capitalize(message) {
+        return message.charAt(0).toUpperCase() + message.slice(1);
+    }
 
     /**
      * Sends a success message to the user

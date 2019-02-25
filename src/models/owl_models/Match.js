@@ -60,3 +60,4 @@ class Match {
         return this._scoreAway;
     }
 }
+module.exports = Match;

@@ -7,6 +7,7 @@ const CompetitorManager = require('./CompetitorManager');
 const Endpoints = require('./Endpoints');
 const PlayerManager = require('./PlayerManager');
 const Article = require('./Article');
+const Match = require('./Match');
 
 module.exports = {
     Account,
@@ -15,5 +16,6 @@ module.exports = {
     CompetitorManager,
     Endpoints,
     PlayerManager,
-    Article
+    Article,
+    Match
 };
