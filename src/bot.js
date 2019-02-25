@@ -4,7 +4,7 @@ const { PachimariClient } = require('./models');
 const { CompetitorManager, PlayerManager } = require('./owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
-TeamcordsCommand, StandingsCommand, NewsCommand} = require('./commands');
+    TeamcordsCommand, StandingsCommand, NewsCommand } = require('./commands');
 const { CommandHandler } = require('./events');
 const { performance } = require('perf_hooks');
 
@@ -17,13 +17,13 @@ const client = new PachimariClient({
 
 let boot;
 module.exports = client;
-new Promise(function(resolve, reject) {
+new Promise(function (resolve, reject) {
     boot = performance.now();
     Logger.info('Logging on');
     setTimeout(() => resolve(1), 1);
-}).then(function(result) {
+}).then(function (result) {
     client.runEvent(new CommandHandler());
-}).then(function(result) {
+}).then(function (result) {
     client.addCommand(new PingCommand());
     client.addCommand(new TeamsCommand());
     client.addCommand(new TeamCommand());
@@ -31,22 +31,26 @@ new Promise(function(resolve, reject) {
     client.addCommand(new TeamcordsCommand());
     client.addCommand(new StandingsCommand());
     client.addCommand(new NewsCommand());
-}).then(function(result) {
-    return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch( function(err) {
-        Logger.error(err.stack)});
-}).then(function(result) {
-    return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch( function(err) {
-        Logger.error(err.stack)});
-}).then(function(result) {
-    client.login().then(() => { 
+}).then(function (result) {
+    return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+        Logger.error(err.stack)
+    });
+}).then(function (result) {
+    return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+        Logger.error(err.stack)
+    });
+}).then(function (result) {
+    client.login().then(() => {
         Logger.info(`${client.user.tag} is logged in and active. Serving 
-        ${client.users.array().length} members. Took ${((performance.now()-boot)/1000).toFixed(0)} seconds.`);
+        ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
                 name: `Overwatch League News`
             }
         })
-    }).catch(function(err) {
-        Logger.error(err.stack)});
-}).catch(function(err) {
-    Logger.error(err.stack)});
+    }).catch(function (err) {
+        Logger.error(err.stack)
+    });
+}).catch(function (err) {
+    Logger.error(err.stack)
+});
