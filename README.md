@@ -1,5 +1,5 @@
 <p align=center>
-  <img src="Spray_Pachimari.png" width="350">
+  <img src="assets/Spray_Pachimari.png" width="350">
 </p>
 
 <h1 align=center>Pachimari</h1>

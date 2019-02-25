@@ -146,7 +146,7 @@ class CompetitorManager {
      * @param {String|number} division Name or ID of the divison.
      * @returns {String|number}
      */
-    static getDivision(division) {
+    static getDivision(division, abbreviated=false) {
         for (let i = 0; i < divisions.length; i++) {
             const div = divisions[i];
             if (typeof division === 'string') {
@@ -156,6 +156,9 @@ class CompetitorManager {
             } else if (typeof division === 'number') {
                 let long = div.values[0];
                 if (division == div.id) {
+                    if (abbreviated) {
+                        return div.abbrev;
+                    }
                     return long.charAt(0).toUpperCase() + long.slice(1);
                 }
             }

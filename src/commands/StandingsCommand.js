@@ -32,9 +32,6 @@ class StandingsCommand extends Command {
         let promise = new Promise(function(resolve, reject){
             for (let i = 0; i < CompetitorManager.competitors.size; i++) {
                 const standing = body.ranks.content[i];
-                //const comp = CompetitorManager.locateTeam(standing.competitor.name);
-                const comp = CompetitorManager.competitors[i];
-                //const division = comp.divisionId == 79 ? "ATL" : "PAC";
                 const matchWin = standing.records[0].matchWin;
                 const matchLoss = standing.records[0].matchLoss;
                 let mapDiff = standing.records[0].comparisons[1].value;

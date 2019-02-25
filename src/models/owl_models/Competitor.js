@@ -11,7 +11,7 @@ class Competitor {
      * @description Instantiates a new Competitor/Overwatch League Team Object 
      * @constructor
      * @param {number} id competitor id
-     * @param {number} divisoinId competitor division id
+     * @param {number} divisionId competitor division id
      * @param {string} name competitor name
      * @param {string} abbreviatedName abbreviated competitor name
      * @param {string} logo competitor logo
