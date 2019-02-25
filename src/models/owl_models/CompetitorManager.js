@@ -32,15 +32,6 @@ class CompetitorManager {
          * @private
          */
         this._competitors = [];
-
-        // /**
-        //  * Array of Player IDs
-        //  * @type {Array}
-        //  * @private
-        //  */
-        // this._players = [];
-
-        
     }
 
     /**
@@ -56,7 +47,6 @@ class CompetitorManager {
      * @async
      */
     async getTeams() {
-        //const body = await JsonUtil.parse('https://api.overwatchleague.com/v2/teams?locale=en_US');
         const body = await JsonUtil.parse(Endpoints.get('COMPETITORS'));
         body.data.forEach(competitor => {
             this._competitors.push(competitor.id);
