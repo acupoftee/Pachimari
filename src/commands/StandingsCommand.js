@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil } = require('../utils');
+const { LeagueLogo } = require('../constants');
 
 /**
  * @class StandingsCommand
@@ -54,7 +55,7 @@ class StandingsCommand extends Command {
 
         promise.then(function(result) {
             embed.setDescription(info);
-            embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
+            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         });
 

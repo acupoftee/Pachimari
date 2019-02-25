@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { Article, Endpoints } = require('../models/owl_models');
 const { JsonUtil } = require('../utils');
+const { LeagueLogo } = require('../constants');
 
 class NewsCommand extends Command {
     /**
@@ -41,7 +42,7 @@ class NewsCommand extends Command {
         });
 
         promise.then(function(result) {
-            embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
+            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         });
 

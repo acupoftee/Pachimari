@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
 const { EmojiUtil } = require('../utils');
+const { LeagueLogo } = require('../constants');
 const divisions = require('../data/divisions.json');
 
 /**
@@ -43,7 +44,7 @@ class TeamsCommand extends Command {
             const embed = new PachimariEmbed(client);
             embed.setTitle("__Overwatch League Teams__");
             embed.setDescription(msg);
-            embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
+            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         } else {
             let teams = [];
@@ -61,7 +62,7 @@ class TeamsCommand extends Command {
                     const embed = new PachimariEmbed(client);
                     embed.setTitle(`__${division.title} Teams__`);
                     embed.setDescription(msg);
-                    embed.setThumbnail("https://image.redbull.com/rbcom/010/2016-11-07/1331828036498_2/0010/1/1500/1000/1/the-overwatch-league-logo-is-an-instant-classic.png");
+                    embed.setThumbnail(LeagueLogo.URL);
                     embed.buildEmbed().post(message.channel);
                 }
             });
