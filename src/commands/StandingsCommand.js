@@ -3,7 +3,6 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil } = require('../utils');
-const { LeagueLogo } = require('../constants');
 
 /**
  * @class StandingsCommand
@@ -47,7 +46,6 @@ class StandingsCommand extends Command {
 
         promise.then(function(result) {
             embed.setDescription(info);
-            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         });
 

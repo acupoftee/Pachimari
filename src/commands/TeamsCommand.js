@@ -3,7 +3,6 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
 const { EmojiUtil } = require('../utils');
-const { LeagueLogo } = require('../constants');
 const divisions = require('../data/divisions.json');
 
 /**
@@ -44,7 +43,6 @@ class TeamsCommand extends Command {
             const embed = new PachimariEmbed(client);
             embed.setTitle("__Overwatch League Teams__");
             embed.setDescription(msg);
-            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         } else {
             let teams = [];
@@ -62,7 +60,6 @@ class TeamsCommand extends Command {
                     const embed = new PachimariEmbed(client);
                     embed.setTitle(`__${division.title} Teams__`);
                     embed.setDescription(msg);
-                    embed.setThumbnail(LeagueLogo.URL);
                     embed.buildEmbed().post(message.channel);
                 }
             });

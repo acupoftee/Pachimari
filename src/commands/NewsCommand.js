@@ -3,7 +3,6 @@
 const { Command, PachimariEmbed } = require('../models');
 const { Article, Endpoints } = require('../models/owl_models');
 const { JsonUtil } = require('../utils');
-const { LeagueLogo } = require('../constants');
 
 class NewsCommand extends Command {
     /**
@@ -37,12 +36,10 @@ class NewsCommand extends Command {
             articles.forEach(article => {
                 let date = new Date(article.publish);
                 embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}`);
-                //embed.addFields(`__${article.title}__`, `[!np${article.summary}](${article.defaultUrl})\n${date.toDateString()}`);
             });
         });
 
         promise.then(function(result) {
-            embed.setThumbnail(LeagueLogo.URL);
             embed.buildEmbed().post(message.channel);
         });
 
