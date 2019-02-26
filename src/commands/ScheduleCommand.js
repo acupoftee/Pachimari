@@ -6,6 +6,7 @@ const { EmojiUtil, JsonUtil, MessageUtil, Logger } = require('../utils');
 const { LeagueLogo } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
+//const moment = require('moment');
 
 class ScheduleCommand extends Command {
     constructor() {
@@ -19,6 +20,7 @@ class ScheduleCommand extends Command {
     async execute(client, message, args) {
         let embed = new PachimariEmbed(client);
         let matches = [];
+        let stage_week = "";
 
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
@@ -34,7 +36,8 @@ class ScheduleCommand extends Command {
                 if (_stage.slug === slug) {
                     _stage.weeks.forEach(week => {
                         if (currentTime > week.startDate && currentTime < week.endDate) {
-                            embed.setTitle(`${_stage.name} - ${week.name}`);
+                            stage_week = `${_stage.name} - ${week.name}`
+                           // embed.setTitle(`${_stage.name} - ${week.name}`);
                             week.matches.forEach(_match => {
                                 let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
                                 let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
@@ -50,19 +53,27 @@ class ScheduleCommand extends Command {
         });
 
         promise.then(function (result) {
-            matches.forEach(match => {
-                let awayTitle = `${EmojiUtil.getEmoji(client, match.away.abbreviatedName)} **${match.away.name}**`;
-                let homeTitle = `**${match.home.name}** ${EmojiUtil.getEmoji(client, match.home.abbreviatedName)}`;
-                if (match.pending) {
-                    embed.addFields(`${awayTitle} vs ${homeTitle}`, 
-                    `*${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('MMM D, h:mm A z')}*`,
-                    true);
+            let numMatches = 4;
+            let daysMatch = [];
+            for (let i = 0; i < numMatches; i++) { //YYYY-MM-DD
+                embed.setTitle(`${stage_week}: ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('MMM Do, YYYY')}`)
+                let awayTitle = `${EmojiUtil.getEmoji(client, matches[i].away.abbreviatedName)} **${matches[i].away.name}**`;
+                let homeTitle = `**${matches[i].home.name}** ${EmojiUtil.getEmoji(client, matches[i].home.abbreviatedName)}`;
+                let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
+                let utcTime = moment_timezone(matches[i].startDateTS).utc().format('h:mm A z');
+                if (matches[i].pending) {
+                    daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
+                    // embed.addFields(`${awayTitle} vs ${homeTitle}`, 
+                    // `*${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z')}*`,
+                    // true);
                 } else {
-                    embed.addFields(`${awayTitle} vs ${homeTitle}`, 
-                    `*${MessageUtil.capitalize(match.state.toLowerCase())}* ||${match.scoreAway}-${match.scoreHome}||`,
-                    true);
+                    daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
+                    // embed.addFields(`${awayTitle} vs ${homeTitle}`, 
+                    // `*${MessageUtil.capitalize(matches[i].state.toLowerCase())}* ||${matches[i].scoreAway}-${matches[i].scoreHome}||`,
+                    // true);
                 }
-            });
+            }
+            embed.setDescription(daysMatch);
         });
         promise.then(function(result) {
             embed.buildEmbed().post(message.channel);

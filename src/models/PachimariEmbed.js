@@ -2,6 +2,7 @@
 
 const { RichEmbed, TextChannel, GuildMember } = require('discord.js');
 const PachimariClient = require('./PachimariClient');
+const { LeagueLogo } = require('../constants');
 
 /**
  * @class PachimariEmbed
@@ -20,6 +21,7 @@ class PachimariEmbed {
         this._embed = new RichEmbed()
             .setColor('#FFB6E6')
             .setTimestamp()
+            .setThumbnail(LeagueLogo.URL)
             .setFooter(this._client.user.username, this._client.user.avatarURL);
         //this._spaceChar = '\u200B';
     }
