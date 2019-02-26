@@ -8,6 +8,7 @@ const TeamcordsCommand = require('./TeamcordsCommand');
 const StandingsCommand = require('./StandingsCommand');
 const NewsCommand = require('./NewsCommand');
 const ScheduleCommand = require('./ScheduleCommand');
+const PageCommand = require('./PageCommand');
 
 module.exports = {
     PingCommand,
@@ -17,5 +18,6 @@ module.exports = {
     TeamcordsCommand,
     StandingsCommand,
     NewsCommand,
-    ScheduleCommand
+    ScheduleCommand,
+    PageCommand
 };

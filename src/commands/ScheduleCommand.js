@@ -21,6 +21,8 @@ class ScheduleCommand extends Command {
         let embed = new PachimariEmbed(client);
         let matches = [];
         let stage_week = "";
+        let pages = [];
+        let page = 1;
 
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
@@ -36,7 +38,7 @@ class ScheduleCommand extends Command {
                 if (_stage.slug === slug) {
                     _stage.weeks.forEach(week => {
                         if (currentTime > week.startDate && currentTime < week.endDate) {
-                            stage_week = `${_stage.name} - ${week.name}`
+                            stage_week = `${_stage.name}/${week.name}`
                            // embed.setTitle(`${_stage.name} - ${week.name}`);
                             week.matches.forEach(_match => {
                                 let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
@@ -53,10 +55,10 @@ class ScheduleCommand extends Command {
         });
 
         promise.then(function (result) {
-            let numMatches = 4;
+            //let numMatches = 4;
             let daysMatch = [];
-            for (let i = 0; i < numMatches; i++) { //YYYY-MM-DD
-                embed.setTitle(`${stage_week}: ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('MMM Do, YYYY')}`)
+            for (let i = 0; i <  matches.length; i++) { 
+                embed.setTitle(`${stage_week} - ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`)
                 let awayTitle = `${EmojiUtil.getEmoji(client, matches[i].away.abbreviatedName)} **${matches[i].away.name}**`;
                 let homeTitle = `**${matches[i].home.name}** ${EmojiUtil.getEmoji(client, matches[i].home.abbreviatedName)}`;
                 let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');

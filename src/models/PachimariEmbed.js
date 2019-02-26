@@ -122,6 +122,15 @@ class PachimariEmbed {
         return this;
     }
 
+    /**
+     * Edits the embed to a channel
+     * @param {TextChannel|GuildMember} destination destination Channel for the embed
+     * @returns {PachimariEmbed}
+     */
+    edit(destination) {
+        destination.edit(this._embed);
+        return this;
+    }
 }
 
 /**
