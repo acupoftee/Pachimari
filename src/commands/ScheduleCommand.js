@@ -63,14 +63,8 @@ class ScheduleCommand extends Command {
                 let utcTime = moment_timezone(matches[i].startDateTS).utc().format('h:mm A z');
                 if (matches[i].pending) {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
-                    // embed.addFields(`${awayTitle} vs ${homeTitle}`, 
-                    // `*${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z')}*`,
-                    // true);
                 } else {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
-                    // embed.addFields(`${awayTitle} vs ${homeTitle}`, 
-                    // `*${MessageUtil.capitalize(matches[i].state.toLowerCase())}* ||${matches[i].scoreAway}-${matches[i].scoreHome}||`,
-                    // true);
                 }
             }
             embed.setDescription(daysMatch);
