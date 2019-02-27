@@ -39,10 +39,10 @@ class TeamsCommand extends Command {
                   );
             });
 
-            let msg = teams;
+            teams.sort();
             const embed = new PachimariEmbed(client);
             embed.setTitle("__Overwatch League Teams__");
-            embed.setDescription(msg);
+            embed.setDescription(teams);
             embed.buildEmbed().post(message.channel);
         } else {
             let teams = [];
@@ -56,10 +56,10 @@ class TeamsCommand extends Command {
                             );
                         }
                     });
-                    let msg = teams.join('\n');
+                    teams.sort();
                     const embed = new PachimariEmbed(client);
                     embed.setTitle(`__${division.title} Teams__`);
-                    embed.setDescription(msg);
+                    embed.setDescription(teams);
                     embed.buildEmbed().post(message.channel);
                 }
             });
