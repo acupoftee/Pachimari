@@ -2,8 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { EmojiUtil, JsonUtil, MessageUtil, Logger } = require('../utils');
-const { LeagueLogo } = require('../constants');
+const { EmojiUtil, JsonUtil, Logger } = require('../utils');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
 //const moment = require('moment');
@@ -56,9 +55,12 @@ class ScheduleCommand extends Command {
 
         promise.then(function (result) {
             //let numMatches = 4;
+            // if the next match date isn't equal to the current
+            // create a new description array
+            // push current array into pages
             let daysMatch = [];
-            for (let i = 0; i <  matches.length; i++) { 
-                embed.setTitle(`${stage_week} - ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`)
+            for (let i = 0; i <  matches.length-1; i++) { 
+                let title = `${stage_week} - ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
                 let awayTitle = `${EmojiUtil.getEmoji(client, matches[i].away.abbreviatedName)} **${matches[i].away.name}**`;
                 let homeTitle = `**${matches[i].home.name}** ${EmojiUtil.getEmoji(client, matches[i].home.abbreviatedName)}`;
                 let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
@@ -68,11 +70,46 @@ class ScheduleCommand extends Command {
                 } else {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
                 }
+                if (moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY') !== moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')) {
+                    console.log("make new array");
+                    pages.push(daysMatch);
+                    daysMatch = [];
+                    title = `${stage_week} - ${moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
+                }
+                embed.setTitle(title);
             }
             embed.setDescription(daysMatch);
+            embed.setFooter(`Page ${page} of ${pages.length}`);
         });
         promise.then(function(result) {
-            embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+            message.channel.send(mess).then(msg => {
+                msg.react("⬅").then(r => {
+                    msg.react("➡");
+    
+                    const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
+                    const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
+    
+                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
+                    const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 });
+    
+                    backwards.on('collect', r => {
+                        if (page === 1) return;
+                        page--;
+                        embed.setDescription(pages[page-1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    })
+    
+                    forwards.on('collect', r => {
+                        if (page === pages.length) return;
+                        page++;
+                        embed.setDescription(pages[page-1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    });
+                })
+            });
         });
         promise.catch(function(err) {
             Logger.error(err.stack);
