@@ -16,8 +16,7 @@ class PageCommand extends Command {
     async execute(client, message, args) {
         let pages = ["This is the first page", "This is the second", "third", "fourth", "i can do this!"];
         let page = 1;
-        //const msg = null;
-        const embed = new PachimariEmbed(client);
+        let embed = new PachimariEmbed(client);
         embed.setTitle("Page Test");
         embed.setDescription(pages[page-1]);
         embed.setFooter(`Page ${page} of ${pages.length}`);
@@ -78,15 +77,15 @@ class PageCommand extends Command {
                     page--;
                     embed.setDescription(pages[page-1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
-                    msg.edit(embed);
+                    msg.edit(embed.buildEmbed().getEmbed);
                 })
 
                 forwards.on('collect', r => {
                     if (page === pages.length) return;
                     page++;
-                    embed.setDescription(pages[page+1]);
+                    embed.setDescription(pages[page-1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
-                    msg.edit(embed);
+                    msg.edit(embed.buildEmbed().getEmbed);
                 });
             })
         });
