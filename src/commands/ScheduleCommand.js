@@ -20,9 +20,9 @@ class ScheduleCommand extends Command {
         let embed = new PachimariEmbed(client);
         let matches = [];
         let stage_week = "";
-        let pages = [];
-        let page = 1;
-
+        let pages = [], dates = [];
+        let page = 1, days = 1;
+        
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
             let currentTime = new Date().getTime();
@@ -38,7 +38,6 @@ class ScheduleCommand extends Command {
                     _stage.weeks.forEach(week => {
                         if (currentTime > week.startDate && currentTime < week.endDate) {
                             stage_week = `${_stage.name}/${week.name}`
-                           // embed.setTitle(`${_stage.name} - ${week.name}`);
                             week.matches.forEach(_match => {
                                 let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
                                 let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
@@ -53,14 +52,16 @@ class ScheduleCommand extends Command {
             resolve(1);
         });
 
+        // try to optimize using this: https://stackoverflow.com/questions/6237537/finding-matching-objects-in-an-array-of-objects
         promise.then(function (result) {
-            //let numMatches = 4;
-            // if the next match date isn't equal to the current
-            // create a new description array
-            // push current array into pages
             let daysMatch = [];
+            //let lastPage = [];
             for (let i = 0; i <  matches.length-1; i++) { 
-                let title = `${stage_week} - ${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
+                let date = `${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`
+                let next_day = `${moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
+                if (!dates.includes(date)) {
+                    dates.push(date);
+                }
                 let awayTitle = `${EmojiUtil.getEmoji(client, matches[i].away.abbreviatedName)} **${matches[i].away.name}**`;
                 let homeTitle = `**${matches[i].home.name}** ${EmojiUtil.getEmoji(client, matches[i].home.abbreviatedName)}`;
                 let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
@@ -70,15 +71,15 @@ class ScheduleCommand extends Command {
                 } else {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
                 }
-                if (moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY') !== moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')) {
-                    console.log("make new array");
+                if (date !== next_day) {
                     pages.push(daysMatch);
                     daysMatch = [];
-                    title = `${stage_week} - ${moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
                 }
-                embed.setTitle(title);
             }
-            embed.setDescription(daysMatch);
+            // push data for last day 
+            pages.push(daysMatch);
+            embed.setTitle(`${dates[days-1]} - ${stage_week}`);
+            embed.setDescription(pages[page-1]);
             embed.setFooter(`Page ${page} of ${pages.length}`);
         });
         promise.then(function(result) {
@@ -90,12 +91,14 @@ class ScheduleCommand extends Command {
                     const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                     const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
     
-                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
-                    const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 });
+                    const backwards = msg.createReactionCollector(backwardsFilter);
+                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
     
                     backwards.on('collect', r => {
                         if (page === 1) return;
                         page--;
+                        days--;
+                        embed.setTitle(`${dates[days-1]} - ${stage_week}`);
                         embed.setDescription(pages[page-1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
@@ -104,6 +107,8 @@ class ScheduleCommand extends Command {
                     forwards.on('collect', r => {
                         if (page === pages.length) return;
                         page++;
+                        days++;
+                        embed.setTitle(`${dates[days-1]} - ${stage_week}`);
                         embed.setDescription(pages[page-1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
