@@ -1,6 +1,6 @@
 'use strict';
 
-const { RichEmbed, TextChannel, GuildMember } = require('discord.js');
+const { RichEmbed, TextChannel, GuildMember, Message } = require('discord.js');
 const PachimariClient = require('./PachimariClient');
 const { LeagueLogo } = require('../constants');
 
@@ -121,7 +121,6 @@ class PachimariEmbed {
         destination.send(this._embed);
         return this;
     }
-
     /**
      * Edits the embed to a channel
      * @param {TextChannel|GuildMember} destination destination Channel for the embed
@@ -129,6 +128,16 @@ class PachimariEmbed {
      */
     edit(destination) {
         destination.edit(this._embed);
+        return this;
+    }
+
+    /**
+     * Reacts to an embedded message
+     * @param {Message} destination destination Channel for the reaction 
+     * @param {string|Emoji|ReactionEmoji} emojiname the emoji for the reaction
+     */
+    react(destination, emojiname) {
+        destination.react(emojiname);
         return this;
     }
 }
