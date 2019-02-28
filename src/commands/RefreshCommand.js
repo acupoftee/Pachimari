@@ -16,10 +16,9 @@ class RefreshCommand extends Command {
         let page = 1;
         let embed = new PachimariEmbed(client);
         let list = new StandingsManager();
+        list.loadStandings(client);
         embed.setTitle("Page Test");
-        let array = [];
-        array = list.loadStandings(client).info;
-        embed.setDescription(array);
+        embed.setDescription(list.loadStandings().info);
         let mess = embed.buildEmbed().getEmbed;
 
         message.channel.send(mess).then(msg => {
@@ -30,9 +29,9 @@ class RefreshCommand extends Command {
                 const refresh = msg.createReactionCollector(backwardsFilter, { time: 60000 });
 
                 refresh.on('collect', r => {
+                    list.loadStandings(client);
                     embed.setDescription("Refreshing..."); 
-                    array = list.loadStandings(client).info;
-                    embed.setDescription(array);
+                    embed.setDescription(list.loadStandings().info);
                     msg.edit(embed.buildEmbed().getEmbed);
                 })
             })

@@ -46,25 +46,25 @@ class StandingsCommand extends Command {
 
         promise.then(function(result) {
             embed.setDescription(info);
-            message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
-                msg.react("🔄").then(r => {
+            // message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
+            //     msg.react("🔄").then(r => {
     
-                    const backwardsFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
+            //         const backwardsFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
     
-                    const refresh = msg.createReactionCollector(backwardsFilter, { time: 60000 });
+            //         const refresh = msg.createReactionCollector(backwardsFilter, { time: 60000 });
     
-                    refresh.on('collect', r => {
-                        info = [];
-                        embed.setDescription("Refreshing..."); 
-                        Promise.all([promise]).then(function(values) {
-                            info.push(values);
-                        })
-                        embed.setDescription(info);
-                        msg.edit(embed.buildEmbed().getEmbed);
-                    })
-                })
-            });
-            //embed.buildEmbed().post(message.channel);
+            //         refresh.on('collect', r => {
+            //             info = [];
+            //             embed.setDescription("Refreshing..."); 
+            //             Promise.all([promise]).then(function(values) {
+            //                 info.push(values);
+            //             });
+            //             embed.setDescription(info);
+            //             msg.edit(embed.buildEmbed().getEmbed);
+            //         })
+            //     })
+            // });
+            embed.buildEmbed().post(message.channel);
         });
 
         promise.catch(function(err) {

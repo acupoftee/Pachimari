@@ -1,8 +1,10 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager } = require('../models/owl_models');
-const { EmojiUtil, NumberUtil, MessageUtil } = require('../utils');
+const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
+const { EmojiUtil, NumberUtil, MessageUtil, JsonUtil, Logger } = require('../utils');
+const stageData = require('../data/stages.json');
+const moment_timezone = require('moment-timezone');
 
 /**
  * @class TeamCommand
@@ -31,7 +33,7 @@ class TeamCommand extends Command {
 
         const locateId = CompetitorManager.locateTeam(args[0]);
         const competitor = CompetitorManager.competitors.get(locateId);
-        
+        const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
 
         if (competitor === undefined) {
             MessageUtil.sendError(message.channel, "Could not locate team.");
@@ -43,13 +45,12 @@ class TeamCommand extends Command {
         embed.setThumbnail(competitor.logo);
 
         if (args[1] === undefined) {
-            const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
             embed.setTitle(`${teamEmoji} __${
                 competitor.name} (${competitor.abbreviatedName})__`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
-            
+
             if (competitor.matchDraw > 0) {
                 teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}-${competitor.matchDraw}\n`);
             } else {
@@ -74,10 +75,11 @@ class TeamCommand extends Command {
                 }
             });
             embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} supports`, members);
-            if (competitor.accounts.size > 0) {
-                embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``);
-            }
             embed.setDescription(teamInfo);
+            if (competitor.accounts.size > 0) {
+                embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``, true);
+            }
+            embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
@@ -92,6 +94,51 @@ class TeamCommand extends Command {
                 });
                 let msg = accs.join('\n');
                 embed.setDescription(msg);
+            } else if (args[1].toLowerCase() === 'schedule') {
+                let matches = [];
+                const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
+                let currentTime = new Date().getTime();
+                let slug = null;
+                for (let i = 0; i < stageData.length; i++) {
+                    const stage = stageData[i];
+                    if (currentTime > stage.startDate && currentTime < stage.endDate) {
+                        slug = stage.slug;
+                    }
+                }
+
+                body.data.stages.forEach(_stage => {
+                    if (_stage.slug === slug) {
+                        _stage.weeks.forEach(week => {
+                            embed.setTitle(`__${teamEmoji} ${body.data.id} ${competitor.name} ${_stage.name} Schedule__`);
+                            week.matches.forEach(_match => {
+                                if (_match.competitors[0].id == competitor.id || _match.competitors[1].id === competitor.id) {
+                                    let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
+                                    let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
+                                    let match = new Match(_match.id, (_match.state === 'PENDING') ? true : false,
+                                        _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value);
+                                    matches.push(match);
+                                }
+                            })
+                        })
+                    }
+                });
+
+                let daysMatch = [];
+                let previousMatches = [];
+                matches.forEach(match => {
+                    let awayTitle = `${EmojiUtil.getEmoji(client, match.away.abbreviatedName)} **${match.away.name}**`;
+                    let homeTitle = `**${match.home.name}** ${EmojiUtil.getEmoji(client, match.home.abbreviatedName)}`;
+                    let date = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('dddd MMM Do');
+                    let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
+                    let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
+                    if (match.pending) {
+                        daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
+                    } else {
+                        previousMatches.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
+                    }
+                });
+                embed.addFields("Upcoming Matches:", daysMatch);
+                embed.addFields("Previous Matches:", previousMatches);
             }
             else {
                 return;

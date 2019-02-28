@@ -2,13 +2,14 @@
 
 const CompetitorManager = require('./CompetitorManager');
 const Endpoints = require('./Endpoints');
-const  {Collection } = require('discord.js');
+const { Collection } = require('discord.js');
 const { EmojiUtil, JsonUtil, Logger } = require('../../utils');
 
 /**
  * A colletion of standings
+ * @type {Collection<number, string>}
  */
-let teamStandings = []
+let teamStandings = new Collection();
 /**
  * @class StandingsManager
  * @description represents a command that lists all Standings
@@ -24,7 +25,7 @@ class StandingsManager {
      * Returns standings
      * @returns {string[]} standings
      */
-     get info() {
+     static get info() {
         return teamStandings;
     }
     /**
@@ -32,7 +33,7 @@ class StandingsManager {
      * @returns {StandingsManager} refreshed standings
      */
     async loadStandings(client) {
-        teamStandings = [];
+        //teamStandings = [];
         const body = await JsonUtil.parse(Endpoints.get('STANDINGS'));
         for (let i = 0; i < CompetitorManager.competitors.size; i++) {
             const standing = body.ranks.content[i];
@@ -44,13 +45,13 @@ class StandingsManager {
             }
             const teamEmoji = EmojiUtil.getEmoji(client, standing.competitor.abbreviatedName);
             const numberData = `${matchWin} - ${matchLoss} ${mapDiff}`;
-            teamStandings.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
+            teamStandings.set(standing.competitor.id, `\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
            // Logger.custom(`STANDING`, `Loaded standing for ${standing.competitor.abbreviatedName}`);
         }
         //console.log(teamStandings.length);
-        teamStandings.forEach(team => {
-            this._teamstandings.push(team);
-        })
+        // teamStandings.forEach(team => {
+        //     this._teamstandings.push(team);
+        // });
         return this;
     }
 }
