@@ -86,6 +86,7 @@ class ScheduleCommand extends Command {
             embed.setFooter(`Page ${page} of ${pages.length}`);
         });
         promise.then(function(result) {
+            // pagination
             let mess = embed.buildEmbed().getEmbed;
             message.channel.send(mess).then(msg => {
                 msg.react("⬅").then(r => {
