@@ -5,7 +5,6 @@ const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil, Logger } = require('../utils');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
-//const moment = require('moment');
 
 class ScheduleCommand extends Command {
     constructor() {
@@ -54,10 +53,10 @@ class ScheduleCommand extends Command {
             resolve(1);
         });
 
-        // sorts matches by dat
-        // try to optimize using this: https://stackoverflow.com/questions/6237537/finding-matching-objects-in-an-array-of-objects
-        // or https://discord.js.org/#/docs/main/stable/class/Collection?scrollTo=partition
         promise.then(function (result) {
+            // add dummy match as a stop value 
+            let last = matches[0];
+            matches.push(last);
             let daysMatch = [];
             for (let i = 0; i < matches.length-1; i++) { 
                 let date = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY');
@@ -81,16 +80,7 @@ class ScheduleCommand extends Command {
                     daysMatch = [];
                 }
             }
-            // push data for last day (optimize)
-            let last = matches.length-1;
-            let awayTitle = `${EmojiUtil.getEmoji(client, matches[last].away.abbreviatedName)} **${matches[last].away.name}**`;
-            let homeTitle = `**${matches[last].home.name}** ${EmojiUtil.getEmoji(client, matches[last].home.abbreviatedName)}`;
-            let lastPacificTime = moment_timezone(matches[last].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
-            let lastUtcTime = moment_timezone(matches[last].startDateTS).utc().format('h:mm A z');
-            let lastMatch = matches[last].pending ? daysMatch.push(`*${lastPacificTime} / ${lastUtcTime}*\n${awayTitle} vs ${homeTitle}\n`) :
 
-            daysMatch.push(lastMatch)
-            pages.push(daysMatch);
             embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
             embed.setDescription(pages[page-1]);
             embed.setFooter(`Page ${page} of ${pages.length}`);
