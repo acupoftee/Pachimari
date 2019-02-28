@@ -140,7 +140,7 @@ class TeamCommand extends Command {
                     if (match.pending) {
                         daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                     } else {
-                        previousMatches.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
+                        previousMatches.push(`${date}, ${moment_timezone(match.startDateTS).startOf('hour').fromNow()}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }
                 });
                 pages.push(daysMatch);
