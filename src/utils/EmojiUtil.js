@@ -1,5 +1,5 @@
 'use strict';
-
+require('dotenv').config();
 /**
  * Class for retrieving an emoji from a Guild
  * https://anidiots.guide/coding-guides/using-emojis
@@ -7,12 +7,12 @@
 class EmojiUtil {
 
     /**
-     * Returns an emoji representation of a team
+     * Returns a Emoji from a specific guild given an Emoji name
      * @param {Client} client a Discord client
      * @param {string} emojiName the Emoji to search for
      */
     static getEmoji(client, emojiName) {
-        return client.emojis.find(emoji => emoji.name === emojiName.toLowerCase());
+        return client.guilds.get(process.env.ORIGIN_GUILD_ID).emojis.find(emoji => emoji.name === emojiName.toLowerCase());
     }
 
      /**
