@@ -33,7 +33,6 @@ class TeamCommand extends Command {
 
         const locateId = CompetitorManager.locateTeam(args[0]);
         const competitor = CompetitorManager.competitors.get(locateId);
-        const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
         let pages = [];
         let page = 1;
 
@@ -45,6 +44,7 @@ class TeamCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(competitor.logo);
+        const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
         //embed.setFooter(`Page ${page} of ${pages.length}`);
 
         if (args[1] === undefined) {
@@ -101,6 +101,7 @@ class TeamCommand extends Command {
                 embed.buildEmbed().post(message.channel);
             } else if (args[1].toLowerCase() === 'schedule') {
                 let matches = [];
+                let stage = "";
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
                 let currentTime = new Date().getTime();
                 let slug = null;
@@ -114,7 +115,8 @@ class TeamCommand extends Command {
                 body.data.stages.forEach(_stage => {
                     if (_stage.slug === slug) {
                         _stage.weeks.forEach(week => {
-                            embed.setTitle(`__${teamEmoji} ${body.data.id} ${competitor.name} ${_stage.name} Schedule__`);
+                            stage = _stage.name;
+                            //embed.setTitle(`__${teamEmoji} ${body.data.id} ${competitor.name} ${_stage.name} Schedule__`);
                             week.matches.forEach(_match => {
                                 if (_match.competitors[0].id == competitor.id || _match.competitors[1].id === competitor.id) {
                                     let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
@@ -128,8 +130,7 @@ class TeamCommand extends Command {
                     }
                 });
 
-                let daysMatch = [`***Upcoming Matches:***`];
-                let previousMatches = [`***Previous Matches:***`];
+                let daysMatch = [], previousMatches = [];
                 matches.forEach(match => {
                     let awayTitle = `${EmojiUtil.getEmoji(client, match.away.abbreviatedName)} **${match.away.name}**`;
                     let homeTitle = `**${match.home.name}** ${EmojiUtil.getEmoji(client, match.home.abbreviatedName)}`;
@@ -145,6 +146,8 @@ class TeamCommand extends Command {
                 pages.push(daysMatch);
                 pages.push(previousMatches);
                 embed.setDescription(pages[page-1]);
+                embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
+                embed.setFooter(`Page ${page} of ${pages.length}`);
                 message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
                     msg.react("🔄").then(r => {
                         const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
@@ -152,8 +155,10 @@ class TeamCommand extends Command {
                         refresh.on('collect', r => {
                             if (page % 2 == 0) {
                                 page--;
+                                embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
                             } else {
                                 page++;
+                                embed.setTitle(`__Previous ${stage} Matches for ${competitor.name}__`);
                             }
                             embed.setDescription(pages[page-1]);
                             embed.setFooter(`Page ${page} of ${pages.length}`);
