@@ -34,6 +34,8 @@ class TeamCommand extends Command {
         const locateId = CompetitorManager.locateTeam(args[0]);
         const competitor = CompetitorManager.competitors.get(locateId);
         const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
+        let pages = [];
+        let page = 1;
 
         if (competitor === undefined) {
             MessageUtil.sendError(message.channel, "Could not locate team.");
@@ -43,6 +45,7 @@ class TeamCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(competitor.logo);
+        //embed.setFooter(`Page ${page} of ${pages.length}`);
 
         if (args[1] === undefined) {
             embed.setTitle(`${teamEmoji} __${
@@ -80,6 +83,7 @@ class TeamCommand extends Command {
                 embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``, true);
             }
             embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
+            embed.buildEmbed().post(message.channel);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
@@ -94,6 +98,7 @@ class TeamCommand extends Command {
                 });
                 let msg = accs.join('\n');
                 embed.setDescription(msg);
+                embed.buildEmbed().post(message.channel);
             } else if (args[1].toLowerCase() === 'schedule') {
                 let matches = [];
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
@@ -123,8 +128,8 @@ class TeamCommand extends Command {
                     }
                 });
 
-                let daysMatch = [];
-                let previousMatches = [];
+                let daysMatch = [`***Upcoming Matches:***`];
+                let previousMatches = [`***Previous Matches:***`];
                 matches.forEach(match => {
                     let awayTitle = `${EmojiUtil.getEmoji(client, match.away.abbreviatedName)} **${match.away.name}**`;
                     let homeTitle = `**${match.home.name}** ${EmojiUtil.getEmoji(client, match.home.abbreviatedName)}`;
@@ -137,14 +142,30 @@ class TeamCommand extends Command {
                         previousMatches.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }
                 });
-                embed.addFields("Upcoming Matches:", daysMatch);
-                embed.addFields("Previous Matches:", previousMatches);
+                pages.push(daysMatch);
+                pages.push(previousMatches);
+                embed.setDescription(pages[page-1]);
+                message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
+                    msg.react("🔄").then(r => {
+                        const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
+                        const refresh = msg.createReactionCollector(switchFilter, { time: 60000 });
+                        refresh.on('collect', r => {
+                            if (page % 2 == 0) {
+                                page--;
+                            } else {
+                                page++;
+                            }
+                            embed.setDescription(pages[page-1]);
+                            embed.setFooter(`Page ${page} of ${pages.length}`);
+                            msg.edit(embed.buildEmbed().getEmbed);
+                        })
+                    })
+                });
             }
             else {
                 return;
             }
         }
-        embed.buildEmbed().post(message.channel);
     }
 }
 module.exports = TeamCommand;
