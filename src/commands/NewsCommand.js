@@ -3,7 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { Article, Endpoints } = require('../models/owl_models');
 const { JsonUtil } = require('../utils');
-
+const moment_timezone = require('moment-timezone');
 class NewsCommand extends Command {
     /**
      * Instantiates a new NewsCommand
@@ -35,7 +35,8 @@ class NewsCommand extends Command {
         promise.then(function(result) {
             articles.forEach(article => {
                 let date = new Date(article.publish);
-                embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}`);
+                embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}, ${
+                    moment_timezone(date).startOf('hour').fromNow()}`);
             });
         });
 
