@@ -8,6 +8,7 @@ const Endpoints = require('./Endpoints');
 const PlayerManager = require('./PlayerManager');
 const Article = require('./Article');
 const Match = require('./Match');
+const StandingsManager = require('./StandingsManager');
 
 module.exports = {
     Account,
@@ -17,5 +18,6 @@ module.exports = {
     Endpoints,
     PlayerManager,
     Article,
-    Match
+    Match,
+    StandingsManager
 };

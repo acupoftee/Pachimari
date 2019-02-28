@@ -23,6 +23,7 @@ class ScheduleCommand extends Command {
         let pages = [], dates = [];
         let page = 1, days = 1;
         
+        // retrieve schedule data from API
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
             let currentTime = new Date().getTime();
@@ -33,6 +34,7 @@ class ScheduleCommand extends Command {
                     slug = stage.slug;
                 }
             }
+            // organize data by stage and week
             body.data.stages.forEach(_stage => {
                 if (_stage.slug === slug) {
                     _stage.weeks.forEach(week => {
@@ -52,12 +54,13 @@ class ScheduleCommand extends Command {
             resolve(1);
         });
 
+        // sorts matches by dat
         // try to optimize using this: https://stackoverflow.com/questions/6237537/finding-matching-objects-in-an-array-of-objects
+        // or https://discord.js.org/#/docs/main/stable/class/Collection?scrollTo=partition
         promise.then(function (result) {
             let daysMatch = [];
-            //let lastPage = [];
-            for (let i = 0; i <  matches.length-1; i++) { 
-                let date = `${moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`
+            for (let i = 0; i < matches.length-1; i++) { 
+                let date = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY');
                 let next_day = `${moment_timezone(matches[i+1].startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}`;
                 if (!dates.includes(date)) {
                     dates.push(date);
@@ -71,14 +74,24 @@ class ScheduleCommand extends Command {
                 } else {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
                 }
+                // if we've gone through all matches for that week,
+                // start the next page for the next day
                 if (date !== next_day) {
                     pages.push(daysMatch);
                     daysMatch = [];
                 }
             }
-            // push data for last day 
+            // push data for last day (optimize)
+            let last = matches.length-1;
+            let awayTitle = `${EmojiUtil.getEmoji(client, matches[last].away.abbreviatedName)} **${matches[last].away.name}**`;
+            let homeTitle = `**${matches[last].home.name}** ${EmojiUtil.getEmoji(client, matches[last].home.abbreviatedName)}`;
+            let lastPacificTime = moment_timezone(matches[last].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
+            let lastUtcTime = moment_timezone(matches[last].startDateTS).utc().format('h:mm A z');
+            let lastMatch = matches[last].pending ? daysMatch.push(`*${lastPacificTime} / ${lastUtcTime}*\n${awayTitle} vs ${homeTitle}\n`) :
+
+            daysMatch.push(lastMatch)
             pages.push(daysMatch);
-            embed.setTitle(`${dates[days-1]} - ${stage_week}`);
+            embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
             embed.setDescription(pages[page-1]);
             embed.setFooter(`Page ${page} of ${pages.length}`);
         });
@@ -98,7 +111,7 @@ class ScheduleCommand extends Command {
                         if (page === 1) return;
                         page--;
                         days--;
-                        embed.setTitle(`${dates[days-1]} - ${stage_week}`);
+                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
                         embed.setDescription(pages[page-1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
@@ -108,7 +121,7 @@ class ScheduleCommand extends Command {
                         if (page === pages.length) return;
                         page++;
                         days++;
-                        embed.setTitle(`${dates[days-1]} - ${stage_week}`);
+                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
                         embed.setDescription(pages[page-1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);

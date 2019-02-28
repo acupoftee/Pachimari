@@ -34,8 +34,8 @@
       * ✅instantiate competitors for each Competitor
         * O(n) time complexity
         * O(n) space complexity
-  * Match 
-  * Prediction
+  * ✅ Match 
+  * ✅ Prediction**
 * Data retrieval
   * API Endpoints
     * heroes
@@ -51,9 +51,9 @@
     * ✅Load account information
   * ✅Discords
   * ✅News
-  * Match
-  * Schedule
-    * Pagitation
+  * Match poll
+  * ✅Schedule
+    * ✅ Pagitation
   * Live Match
   *  Schedule
   *  Social Media Updates
