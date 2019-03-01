@@ -23,7 +23,6 @@ class PachimariEmbed {
             .setTimestamp()
             .setThumbnail(LeagueLogo.URL)
             .setFooter(this._client.user.username, this._client.user.avatarURL);
-        //this._spaceChar = '\u200B';
     }
 
     get getEmbed() {
