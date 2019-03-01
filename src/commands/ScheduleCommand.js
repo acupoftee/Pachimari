@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil, Logger } = require('../utils');
+const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
 
@@ -64,11 +65,11 @@ class ScheduleCommand extends Command {
                 if (!dates.includes(date)) {
                     dates.push(date);
                 }
-                let awayTitle = `${EmojiUtil.getEmoji(client, matches[i].away.abbreviatedName)} **${matches[i].away.name}**`;
-                let homeTitle = `**${matches[i].home.name}** ${EmojiUtil.getEmoji(client, matches[i].home.abbreviatedName)}`;
+                let awayTitle = `${Emojis[matches[i].away.abbreviatedName]} **${matches[i].away.name}**`;
+                let homeTitle = `**${matches[i].home.name}** ${Emojis[matches[i].home.abbreviatedName]}`;
                 let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
                 let utcTime = moment_timezone(matches[i].startDateTS).utc().format('h:mm A z');
-                let live = `${EmojiUtil.getEmoji(client, "yay")}`;
+                let live = `🔴`;
                 if (matches[i].pending) {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                 } else if (matches[i].state === 'IN_PROGRESS') {

@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, PlayerManager } = require('../models/owl_models');
 const { EmojiUtil, NumberUtil, MessageUtil } = require('../utils');
+const { Emojis } = require('../constants');
 
 /**
  * @class PlayerCommand
@@ -40,13 +41,13 @@ class PlayerCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(player.headshot);
+        const teamEmoji = Emojis[competitor.abbreviatedName];
 
         // retrieve player data
         if (args[1] === undefined) {
-            const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
             embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
             let info = [];
-            info.push(`${teamEmoji}${EmojiUtil.getEmoji(client, player.role)} **#${player.playerNumber}**`);
+            info.push(`${teamEmoji}${Emojis[player.role.toUpperCase()]} **#${player.playerNumber}**`);
             info.push(`${EmojiUtil.getFlag(player.nationality)} ${player.homeLocation}`);
             embed.setDescription(info);
             if (player.heroes.length !== 0) {
@@ -70,12 +71,11 @@ class PlayerCommand extends Command {
                 MessageUtil.sendError(message.channel, "This player does not have any accounts.");
                 return;
             }
-            const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
             embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 
             let accs = [];
             player.accounts.forEach(account => {
-                const accountEmoji = EmojiUtil.getEmoji(client, account.type);
+                const accountEmoji = Emojis[account.type.toUpperCase()];
                 accs.push(`${accountEmoji} [${account.type}](${account.url})`);
             });
             let msg = accs.join('\n');

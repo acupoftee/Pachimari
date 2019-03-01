@@ -18,9 +18,8 @@ class PingCommand extends Command {
     }
 
     execute(client, message, args) {
-        const atl = '<:atl:546919118746419222>';
         message.channel.send(':ping_pong: Pinging...').then(m => {
-            m.edit(`${atl} :ping_pong: \`\`${client.ping} ms\`\``);
+            m.edit(`:ping_pong: \`\`${client.ping} ms\`\``);
         }).catch(Logger.error);
     }
 }

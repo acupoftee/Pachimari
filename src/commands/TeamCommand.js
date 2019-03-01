@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
 const { EmojiUtil, NumberUtil, MessageUtil, JsonUtil, Logger } = require('../utils');
+const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
 
@@ -44,7 +45,7 @@ class TeamCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(competitor.logo);
-        const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
+        const teamEmoji = Emojis[competitor.abbreviatedName];
         //embed.setFooter(`Page ${page} of ${pages.length}`);
 
         if (args[1] === undefined) {
@@ -67,7 +68,7 @@ class TeamCommand extends Command {
             let offense = 0, tanks = 0, supports = 0;
             competitor.players.forEach(player => {
                 const countryEmoji = EmojiUtil.getFlag(player.nationality);
-                const roleEmoji = EmojiUtil.getEmoji(client, player.role);
+                const roleEmoji = Emojis[player.role.toUpperCase()];
                 members.push(`${countryEmoji}${roleEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
                 if (player.role === 'offense') {
                     offense++;
@@ -91,9 +92,9 @@ class TeamCommand extends Command {
                     return;
                 }
                 let accs = []
-                embed.setTitle(`${EmojiUtil.getEmoji(client, competitor.abbreviatedName)} __${competitor.name}'s Accounts__`);
+                embed.setTitle(`${Emojis[competitor.abbreviatedName]} __${competitor.name}'s Accounts__`);
                 competitor.accounts.forEach(account => {
-                    const accountEmoji = EmojiUtil.getEmoji(client, account.type);
+                    const accountEmoji = Emojis[account.type.toUpperCase()];
                     accs.push(`${accountEmoji} [${account.type}](${account.url})`);
                 });
                 let msg = accs.join('\n');
@@ -132,12 +133,12 @@ class TeamCommand extends Command {
 
                 let daysMatch = [], previousMatches = [];
                 matches.forEach(match => {
-                    let awayTitle = `${EmojiUtil.getEmoji(client, match.away.abbreviatedName)} **${match.away.name}**`;
-                    let homeTitle = `**${match.home.name}** ${EmojiUtil.getEmoji(client, match.home.abbreviatedName)}`;
+                    let awayTitle = `${Emojis[match.away.abbreviatedName]} **${match.away.name}**`;
+                    let homeTitle = `**${match.home.name}** ${Emojis[match.home.abbreviatedName]}`;
                     let date = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('dddd MMM Do');
                     let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
                     let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
-                    let live = `${EmojiUtil.getEmoji(client, "yay")}`;
+                    let live = `🔴`;
                     if (match.pending) {
                         daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                     } else if (match.state === 'IN_PROGRESS') {

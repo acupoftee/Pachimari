@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
 const { EmojiUtil } = require('../utils');
+const { Emojis } = require('../constants');
 const divisions = require('../data/divisions.json');
 
 /**
@@ -34,7 +35,7 @@ class TeamsCommand extends Command {
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
-                teams.push( `${ EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${
+                teams.push( `${ Emojis[competitor.abbreviatedName]} ${
                     competitor.name}`
                   );
             });
@@ -51,7 +52,7 @@ class TeamsCommand extends Command {
                     CompetitorManager.competitors.forEach(competitor => {
                         if (competitor.divisionId === division.id) {
                             teams.push(`${
-                                EmojiUtil.getEmoji(client, competitor.abbreviatedName)} ${
+                                Emojis[competitor.abbreviatedName]} ${
                                     competitor.name}`
                             );
                         }

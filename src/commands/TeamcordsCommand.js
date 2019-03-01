@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
 const { EmojiUtil } = require('../utils');
+const { Emojis } = require('../constants');
 const discordServers = require('../data/discords.json');
 /**
  * @class TeamcordsCommand
@@ -27,7 +28,7 @@ class TeamcordsCommand extends Command {
         if (args.length <= 0) {
             let discords = [];
             CompetitorManager.competitors.forEach(competitor => {
-                const teamEmoji = EmojiUtil.getEmoji(client, competitor.abbreviatedName);
+                const teamEmoji = Emojis[competitor.abbreviatedName];
                 let discord = CompetitorManager.locateAccount(competitor, "DISCORD");
                 if (discord === undefined) {
                     for (let i = 0; i < discordServers.length; i++) {

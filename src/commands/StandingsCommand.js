@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints } = require('../models/owl_models');
 const { EmojiUtil, JsonUtil } = require('../utils');
+const { Emojis } = require('../constants');
 
 /**
  * @class StandingsCommand
@@ -37,7 +38,7 @@ class StandingsCommand extends Command {
                 if (mapDiff >= 0) {
                     mapDiff = '+' + mapDiff;
                 }
-                const teamEmoji = EmojiUtil.getEmoji(client, standing.competitor.abbreviatedName);
+                const teamEmoji = Emojis[standing.competitor.abbreviatedName];
                 const numberData = `${matchWin} - ${matchLoss} ${mapDiff}`
                 info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
             }
