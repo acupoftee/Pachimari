@@ -45,7 +45,7 @@ class LiveCommand extends Command {
                 match.scoreAway}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName]}`);
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            embed.setDescription(`*${pacificTime} / ${utcTime}*\n*Match starts ${moment_timezone(match.startDateTS).endOf('hour').fromNow()}*\n${
+            embed.setDescription(`*${pacificTime} / ${utcTime}*\n*Match starts ${moment_timezone(match.startDateTS).endOf('hour').fromNow()}*\n\n${
                 Emojis[match.home.abbreviatedName]} **${match.home.name}** vs **${
                     match.away.name}** ${Emojis[match.away.abbreviatedName]}\n`);
         } else {
