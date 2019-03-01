@@ -37,5 +37,7 @@ module.exports = {
     YOUTUBE: '<:youtube:548532730783203348>',
     WEIBO: '<:weibo:548532732272181259>',
     REDDIT: '<:reddit:548532719487811599>',
-    OTHER: '<:other:548570290674991124>'
+    OTHER: '<:other:548570290674991124>',
+
+    LIVE:'<:live:550905594433896461>'
 }

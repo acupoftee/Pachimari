@@ -2,7 +2,6 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
-const { EmojiUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const discordServers = require('../data/discords.json');
 /**

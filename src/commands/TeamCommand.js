@@ -49,8 +49,7 @@ class TeamCommand extends Command {
         //embed.setFooter(`Page ${page} of ${pages.length}`);
 
         if (args[1] === undefined) {
-            embed.setTitle(`${teamEmoji} __${
-                competitor.name} (${competitor.abbreviatedName})__`);
+            embed.setTitle(`${teamEmoji} __${competitor.name} (${competitor.abbreviatedName})__`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
@@ -138,11 +137,11 @@ class TeamCommand extends Command {
                     let date = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('dddd MMM Do');
                     let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
                     let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
-                    let live = `🔴`;
+                    let live = Emojis["LIVE"];
                     if (match.pending) {
                         daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                     } else if (match.state === 'IN_PROGRESS') {
-                        daysMatch.push(`*${pacificTime} / ${utcTime}*: ${live} **NOW LIVE** \n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
+                        daysMatch.push(`*${pacificTime} / ${utcTime}* ${live}\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     } else {
                         previousMatches.push(`${date}, ${moment_timezone(match.startDateTS).startOf('hour').fromNow()}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }
