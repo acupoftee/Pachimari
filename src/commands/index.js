@@ -10,6 +10,7 @@ const NewsCommand = require('./NewsCommand');
 const ScheduleCommand = require('./ScheduleCommand');
 const PageCommand = require('./PageCommand');
 const RefreshCommand = require('./RefreshCommand');
+const LiveCommand = require('./LiveCommand');
 
 module.exports = {
     PingCommand,
@@ -21,5 +22,6 @@ module.exports = {
     NewsCommand,
     ScheduleCommand,
     PageCommand,
-    RefreshCommand
+    RefreshCommand,
+    LiveCommand
 };
