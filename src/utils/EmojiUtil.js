@@ -1,5 +1,6 @@
 'use strict';
 require('dotenv').config();
+
 /**
  * Class for retrieving an emoji from a Guild
  * https://anidiots.guide/coding-guides/using-emojis

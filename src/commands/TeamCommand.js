@@ -137,8 +137,11 @@ class TeamCommand extends Command {
                     let date = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('dddd MMM Do');
                     let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
                     let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
+                    let live = `${EmojiUtil.getEmoji(client, "yay")}`;
                     if (match.pending) {
                         daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
+                    } else if (match.state === 'IN_PROGRESS') {
+                        daysMatch.push(`*${pacificTime} / ${utcTime}*: ${live} **NOW LIVE** \n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     } else {
                         previousMatches.push(`${date}, ${moment_timezone(match.startDateTS).startOf('hour').fromNow()}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }
