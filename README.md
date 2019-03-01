@@ -54,7 +54,7 @@
   * Match poll
   * ✅Schedule
     * ✅ Pagitation
-  * Live Match
-  *  Schedule
+  * ✅Live Match
+  *  ✅Schedule
   *  Social Media Updates
   *  MEMESSSSS
