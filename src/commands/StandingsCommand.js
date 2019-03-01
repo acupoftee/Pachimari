@@ -39,13 +39,14 @@ class StandingsCommand extends Command {
                     mapDiff = '+' + mapDiff;
                 }
                 const teamEmoji = Emojis[standing.competitor.abbreviatedName];
-                const numberData = `${matchWin}W - ${matchLoss}L`+ "      " +`${mapDiff}`
+                const numberData = `${matchWin}W - ${matchLoss}L  ${mapDiff}`
                 info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
             }
             resolve(1);
         });
 
         promise.then(function(result) {
+            info.splice(8, 0, `--------------------------\n\u0020*Stage Playoffs Cutoff*\n--------------------------`)
             embed.setDescription(info);
             // message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
             //     msg.react("🔄").then(r => {

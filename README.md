@@ -36,7 +36,7 @@
         * O(n) space complexity
   * ✅ Match 
   * ✅ Prediction**
-* Data retrieval
+* ✅Data retrieval
   * API Endpoints
     * heroes
     * team ids
