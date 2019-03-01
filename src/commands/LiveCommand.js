@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
+const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
 const { JsonUtil, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
@@ -36,9 +36,10 @@ class LiveCommand extends Command {
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 
+        let banner = new Banner(home.primaryColor, away.primaryColor, home.logo, away.logo);
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
-        
+
         if (match.state === 'IN_PROGRESS') {
             embed.setTitle(`${Emojis["LIVE"]}__Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`${Emojis[match.home.abbreviatedName]} **${match.home.name}** ||${match.scoreHome}-${
@@ -47,13 +48,14 @@ class LiveCommand extends Command {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n${
                 Emojis[match.home.abbreviatedName]} **${match.home.name}** vs **${
-                    match.away.name}** ${Emojis[match.away.abbreviatedName]}\nStarts ${
-                        moment_timezone(match.startDateTS).endOf('hour').fromNow()}\n`);
+                match.away.name}** ${Emojis[match.away.abbreviatedName]}\nStarts ${
+                moment_timezone(match.startDateTS).endOf('hour').fromNow()}\n`);
         } else {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
-        embed.buildEmbed().post(message.channel)
+        embed.buildEmbed().post(message.channel);
+        banner.buildBanner();
     }
 }
 module.exports = LiveCommand;

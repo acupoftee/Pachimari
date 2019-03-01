@@ -9,6 +9,7 @@ const PlayerManager = require('./PlayerManager');
 const Article = require('./Article');
 const Match = require('./Match');
 const StandingsManager = require('./StandingsManager');
+const Banner = require('./Banner');
 
 module.exports = {
     Account,
@@ -19,5 +20,6 @@ module.exports = {
     PlayerManager,
     Article,
     Match,
-    StandingsManager
+    StandingsManager,
+    Banner
 };

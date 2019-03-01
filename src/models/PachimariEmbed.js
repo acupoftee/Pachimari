@@ -17,6 +17,7 @@ class PachimariEmbed {
         this._color = null;
         this._thumbnail = null;
         this._footer = null;
+        this._image = null;
         this._fields = [];
         this._embed = new RichEmbed()
             .setColor('#FFB6E6')
@@ -73,6 +74,11 @@ class PachimariEmbed {
         return this;
     }
 
+    setImage(image) {
+        this._image = image;
+        return this;
+    }
+
     /**
      * Adds a field to an Embed. Optional inline param.
      * @param {string} name the name of the field.
@@ -101,6 +107,9 @@ class PachimariEmbed {
         }
         if (this._thumbnail != null) {
             this._embed.setThumbnail(this._thumbnail);
+        }
+        if (this._image != null) {
+            this._embed.setImage(this._image);
         }
         if (this._footer != null) {
             this._embed.setFooter(this._footer);
