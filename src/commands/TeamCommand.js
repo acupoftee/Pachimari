@@ -46,7 +46,6 @@ class TeamCommand extends Command {
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(competitor.logo);
         const teamEmoji = Emojis[competitor.abbreviatedName];
-        //embed.setFooter(`Page ${page} of ${pages.length}`);
 
         if (args[1] === undefined) {
             embed.setTitle(`${teamEmoji} __${competitor.name} (${competitor.abbreviatedName})__`);
@@ -55,9 +54,9 @@ class TeamCommand extends Command {
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
 
             if (competitor.matchDraw > 0) {
-                teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}-${competitor.matchDraw}\n`);
+                teamInfo.push('Record: ' + `${competitor.matchWin}W - ${competitor.matchLoss}L - ${competitor.matchDraw}T\n`);
             } else {
-                teamInfo.push('Record: ' + `${competitor.matchWin}-${competitor.matchLoss}`);
+                teamInfo.push('Record: ' + `${competitor.matchWin}W - ${competitor.matchLoss}L`);
             }
 
             if (competitor.website !== null) {
