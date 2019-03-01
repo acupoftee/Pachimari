@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { EmojiUtil, JsonUtil, Logger } = require('../utils');
+const { JsonUtil, Logger } = require('../utils');
 const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');

@@ -23,6 +23,10 @@
     "title": "YouTube"
 },
 {
+    "type": "YOUTUBE_USER",
+    "title": "YouTube"
+},
+{
     "type": "WEIBO",
     "title": "Weibo"
 },
