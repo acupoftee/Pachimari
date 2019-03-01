@@ -39,7 +39,7 @@ class StandingsCommand extends Command {
                     mapDiff = '+' + mapDiff;
                 }
                 const teamEmoji = Emojis[standing.competitor.abbreviatedName];
-                const numberData = `${matchWin} - ${matchLoss} ${mapDiff}`
+                const numberData = `${matchWin}W - ${matchLoss}L`+ "      " +`${mapDiff}`
                 info.push(`\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
             }
             resolve(1);
