@@ -3,8 +3,8 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
 const { JsonUtil, MessageUtil, Logger } = require('../utils');
-const { Emojis } = require('../constants');
-const darklogos = require('../data/darklogos.json')
+//const { Emojis } = require('../constants');
+//const darklogos = require('../data/darklogos.json')
 const moment_timezone = require('moment-timezone');
 
 class LiveCommand extends Command {
@@ -77,7 +77,6 @@ class LiveCommand extends Command {
             return;
         }
         embed.setImageFileName('src/res/banner.png', 'banner.png');
-        //embed.setColor("#D40000");
         embed.setColor(home.primaryColor);
         embed.buildEmbed().post(message.channel);
         // try {
