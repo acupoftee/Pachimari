@@ -53,7 +53,7 @@ class Banner {
                     canvas.height / 2 - height / 2, width, height);
             awayLogo.onerror = err => { throw err };
 
-            const out = fs.createWriteStream('test.png');
+            const out = fs.createWriteStream('./src/res/banner.png');
             const stream = canvas.createPNGStream();
             stream.pipe(out);
             out.on('finish', () => console.log('The File was created'));

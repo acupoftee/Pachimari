@@ -44,18 +44,20 @@ class LiveCommand extends Command {
             embed.setTitle(`${Emojis["LIVE"]}__Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`${Emojis[match.home.abbreviatedName]} **${match.home.name}** ||${match.scoreHome}-${
                 match.scoreAway}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName]}`);
+            banner.buildBanner();
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n${
                 Emojis[match.home.abbreviatedName]} **${match.home.name}** vs **${
                 match.away.name}** ${Emojis[match.away.abbreviatedName]}\nStarts ${
                 moment_timezone(match.startDateTS).endOf('hour').fromNow()}\n`);
+            banner.buildBanner();
         } else {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
+        //embed.setImage('src/res/banner.png');
         embed.buildEmbed().post(message.channel);
-        banner.buildBanner();
     }
 }
 module.exports = LiveCommand;
