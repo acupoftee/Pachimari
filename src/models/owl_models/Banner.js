@@ -1,7 +1,8 @@
 'use strict';
 const { Attachment } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, loadImage} = require('canvas');
 const fs = require('fs');
+const path = require('path');
 
 /**
  * @class Banner
@@ -100,14 +101,14 @@ class Banner {
 
     }
 
-    // /**
-    //  * Deletes a file from the directory
-    //  */
-    // async deleteFile() {
-    //     fs.unlinkSync('./src/res/banner.png', (err) => {
-    //         if (err) throw err;
-    //         console.log('banner was deleted');
-    //     });
-    // }
+    /**
+     * Deletes a file from the directory
+     */
+     deleteFile() {
+        fs.unlink('./src/res/banner.png', (err) => {
+            if (err) throw err;
+            console.log('banner was deleted');
+        });
+    }
 }
 module.exports = Banner;
