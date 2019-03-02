@@ -16,6 +16,7 @@ class Competitor {
      * @param {string} abbreviatedName abbreviated competitor name
      * @param {string} logo competitor logo
      * @param {string} logoName competitor logo name
+     * @param {boolean} altDark competitor logo for dark backgrounds
      * @param {string} location competitor location 
      * @param {string} primaryColor primary team color
      * @param {string} secondaryColor secondary team color
@@ -26,7 +27,7 @@ class Competitor {
      * @param {number} matchLoss number of losses
      * @param {number} matchDraw number of draws
      */
-    constructor(id, divisionId, name, abbreviatedName, logo, logoName, location, 
+    constructor(id, divisionId, name, abbreviatedName, logo, logoName, altDark, location, 
         primaryColor, secondaryColor, tertiaryColor, website,
         placement, matchWin, matchLoss, matchDraw) {
             this._id = id;

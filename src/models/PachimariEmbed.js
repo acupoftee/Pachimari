@@ -18,6 +18,8 @@ class PachimariEmbed {
         this._thumbnail = null;
         this._footer = null;
         this._image = null;
+        this._imageFileName = null;
+        this._imageFilePath = null;
         this._fields = [];
         this._embed = new RichEmbed()
             .setColor('#FFB6E6')
@@ -64,18 +66,42 @@ class PachimariEmbed {
         return this;
     }
 
+    /**
+     * sets the footer given an 
+     * @param {string} footer 
+     */
     setFooter(footer) {
         this._footer = footer;
         return this;
     }
 
+    /**
+     * Sets the embed thumbnail given a URL
+     * @param {string} thumbnail 
+     */
     setThumbnail(thumbnail) {
         this._thumbnail = thumbnail;
         return this;
     }
 
+    /**
+     * Adds an image url. Must be an image from an online source.
+     * Use setImageFileName() for local images
+     * @param {string} image image url. 
+     */
     setImage(image) {
         this._image = image;
+        return this;
+    }
+    /**
+     * Sets the filepath and name for a RichEmbed to read the local file. 
+     * See https://discordjs.guide/popular-topics/embeds.html#local-images
+     * @param {string} filepath full image URI
+     * @param {string} filename image filename with the extension. 
+     */
+    setImageFileName(filepath, filename) {
+        this._imageFilePath = filepath;
+        this._imageFileName = filename;
         return this;
     }
 
@@ -109,7 +135,10 @@ class PachimariEmbed {
             this._embed.setThumbnail(this._thumbnail);
         }
         if (this._image != null) {
-            this._embed.setImage(this._image);
+            this._embed.setImage(this._image); 
+        }
+        if (this._imageFileName != null && this._imageFilePath != null) {
+            this._embed.attachFile(this._imageFilePath).setImage(`attachment://${this._imageFileName}`);
         }
         if (this._footer != null) {
             this._embed.setFooter(this._footer);

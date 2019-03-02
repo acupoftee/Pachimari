@@ -69,3 +69,5 @@ contenders.json
 news.json
 live.json
 .DS_Store
+
+src/res

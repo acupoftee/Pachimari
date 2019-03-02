@@ -41,9 +41,10 @@ class LiveCommand extends Command {
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
         if (match.state === 'IN_PROGRESS') {
-            embed.setTitle(`${Emojis["LIVE"]}__Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            embed.setDescription(`${Emojis[match.home.abbreviatedName]} **${match.home.name}** ||${match.scoreHome}-${
+            embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+            embed.setDescription(`${Emojis[match.home.abbreviatedName]}**${match.home.name}** ||${match.scoreHome}-${
                 match.scoreAway}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName]}`);
+            embed.setThumbnail(null);
             banner.buildBanner();
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
@@ -56,7 +57,7 @@ class LiveCommand extends Command {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
-        //embed.setImage('src/res/banner.png');
+        embed.setImageFileName('src/res/banner.png', 'banner.png');
         embed.buildEmbed().post(message.channel);
     }
 }
