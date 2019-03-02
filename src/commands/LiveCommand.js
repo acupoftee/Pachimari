@@ -31,22 +31,22 @@ class LiveCommand extends Command {
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
-        let homeLogo = "", awayLogo = "";
-        for (let i = 0; i < darklogos.length; i++) {
-            if (live.competitors[0].abbreviatedName === darklogos[i].team) {
-                homeLogo = darklogos[i].logo;
-            }
-            if (live.competitors[1].abbreviatedName === darklogos[i].team) {
-                awayLogo = darklogos[i].logo;
-            }
-        }
+        //let homeLogo = "", awayLogo = "";
+        // for (let i = 0; i < darklogos.length; i++) {
+        //     if (live.competitors[0].abbreviatedName === darklogos[i].team) {
+        //         homeLogo = darklogos[i].logo;
+        //     }
+        //     if (live.competitors[1].abbreviatedName === darklogos[i].team) {
+        //         awayLogo = darklogos[i].logo;
+        //     }
+        // }
 
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         //TODO improve houson outlaws edge case
         let banner = new Banner(home.primaryColor, away.primaryColor,
-        home.secondaryColor, away.secondaryColor, homeLogo, awayLogo);
+        home.secondaryColor, away.secondaryColor, home.logoName, away.logoName);
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');
             banner.setHomeSecondaryColor(home.primaryColor);

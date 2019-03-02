@@ -72,7 +72,7 @@ class CompetitorManager {
                 data.name, 
                 data.abbreviatedName, 
                 data.logo.main.png,
-                data.logoName,
+                data.logo.mainName.svg,
                 data.location,
                 getPrimaryColor(data.abbreviatedName).hex,
                 getSecondaryColor(data.abbreviatedName).hex,
