@@ -23,7 +23,9 @@ class LiveCommand extends Command {
             return;
         }
 
+
         let live = body.data.liveMatch;
+        let next = body.data.nextMatch;
         let embed = new PachimariEmbed(client);
         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[0].abbreviatedName));
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
@@ -42,9 +44,17 @@ class LiveCommand extends Command {
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 
-        //TODO figure out why colors are differnt from live than competitor endpoint
+        //TODO improve houson outlaws edge case
         let banner = new Banner(home.primaryColor, away.primaryColor,
         home.secondaryColor, away.secondaryColor, homeLogo, awayLogo);
+        if (home.abbreviatedName === "HOU") {
+            banner.setHomePrimaryColor('#000000');
+            banner.setHomeSecondaryColor(home.primaryColor);
+        } else if (away.abbreviatedName === "HOU") {
+            banner.setAwayPrimaryColor('#000000');
+            banner.setAwaySecondaryColor(away.primaryColor);
+        }
+        banner.buildBanner();
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
@@ -53,19 +63,22 @@ class LiveCommand extends Command {
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
                 match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`);
             embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
-            banner.buildBanner();
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\nStarts ${
-                moment_timezone(match.startDateTS).endOf('hour').fromNow()}\n`);
-                banner.buildBanner();
+                match.away.name}**\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}}\n`);
+        
+        // } else if (next !== undefined) {
+        //     let nextMatch = new Match(next.id, next.state === 'PENDING' ? true : false, next.state, next.startDateTS,
+        //     next.competitors[0].abbreviatedName, next.competitors[1].abbreviatedName, next.scores[0].value, next.scores[1].val);
+        // } 
         } else {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
         embed.setImageFileName('src/res/banner.png', 'banner.png');
-        embed.setColor("#D40000");
+        //embed.setColor("#D40000");
+        embed.setColor(home.primaryColor);
         embed.buildEmbed().post(message.channel);
         // try {
         //     banner.deleteFile();

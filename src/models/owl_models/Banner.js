@@ -36,12 +36,20 @@ class Banner {
         return this._homePrimaryColor;
     }
 
+    setHomePrimaryColor(color) {
+        this._homePrimaryColor = color;
+    }
+
     /**
      * Returns the away team's primary color
      * @returns {string} away primaryColor
      */
     get awayPrimaryColor() {
         return this._awayPrimaryColor;
+    }
+
+    setAwayPrimaryColor(color) {
+        this._awayPrimaryColor = color;
     }
 
     /**
@@ -52,6 +60,10 @@ class Banner {
         return this._awaySecondaryColor;
     }
 
+    setHomeSecondaryColor(color) {
+        this._homeSecondaryColor = color;
+    }
+
     /**
      * Returns the away team's secondary color
      * @returns {string} away secondary color
@@ -59,12 +71,18 @@ class Banner {
     get awaySecondaryColor() {
         return this._awaySecondaryColor;
     }
+
+    setAwaySecondaryColor(color) {
+        this._awaySecondaryColor = color;
+    }
+
     /**
      * Constructs a banner displaying the teams that are 
      * currently facing off in an Overwatch League Match
      * @returns {Attachment} a new Image attachment
      */
     async buildBanner() {
+        // TODO resolve bug where it loads a previously saved image
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
         let width = 150, height = 150;
@@ -94,8 +112,8 @@ class Banner {
                 canvas.height / 2 - height / 2, width, height);
         awayLogo.onerror = err => { throw err };
 
-        const out = fs.createWriteStream('./src/res/banner.png');
         const stream = canvas.createPNGStream();
+        const out = fs.createWriteStream('./src/res/banner.png');
         stream.pipe(out);
         out.on('finish', () => console.log('The File was created'));
 
