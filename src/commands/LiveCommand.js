@@ -43,10 +43,10 @@ class LiveCommand extends Command {
         if (match.state === 'IN_PROGRESS') {
             embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
-                match.scoreAway}|| **${match.away.name}**`);
+                match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`);
             embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
             banner.buildBanner();
-            embed.setColor(banner.homePrimaryColor);
+            embed.setColor("#D40000");
             embed.setImageFileName('src/res/banner.png', 'banner.png');
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
