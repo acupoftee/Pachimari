@@ -2,6 +2,7 @@
 
 const { JsonUtil, Logger } = require('../../utils');
 const { Collection } = require('discord.js');
+const { getPrimaryColor, getSecondaryColor, getTertiaryColor } = require('owl-colors');
 const Competitor  = require('./Competitor');
 const Account = require('./Account');
 const teamNames = require('../../data/teamnames.json');
@@ -73,9 +74,9 @@ class CompetitorManager {
                 data.logo.main.png,
                 data.logoName,
                 data.location,
-                data.colors.primary.color,
-                data.colors.secondary.color,
-                data.colors.tertiary.color,
+                getPrimaryColor(data.abbreviatedName).hex,
+                getSecondaryColor(data.abbreviatedName).hex,
+                getTertiaryColor(data.abbreviatedName).hex,
                 data.website,
                 data.placement,
                 data.records.matchWin,

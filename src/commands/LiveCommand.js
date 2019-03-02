@@ -43,8 +43,8 @@ class LiveCommand extends Command {
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         //TODO figure out why colors are differnt from live than competitor endpoint
-        let banner = new Banner(`#${live.competitors[0].primaryColor}`, `#${live.competitors[1].primaryColor}`,
-        `#${live.competitors[0].secondaryColor}`, `#${live.competitors[1].secondaryColor}`, homeLogo, awayLogo);
+        let banner = new Banner(home.primaryColor, away.primaryColor,
+        home.secondaryColor, away.secondaryColor, homeLogo, awayLogo);
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
@@ -53,20 +53,19 @@ class LiveCommand extends Command {
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
                 match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`);
             embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
-            embed.setColor("#D40000");
             banner.buildBanner();
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
                 match.away.name}**\nStarts ${
                 moment_timezone(match.startDateTS).endOf('hour').fromNow()}\n`);
-                embed.setColor("#D40000");
                 banner.buildBanner();
         } else {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
         embed.setImageFileName('src/res/banner.png', 'banner.png');
+        embed.setColor("#D40000");
         embed.buildEmbed().post(message.channel);
         // try {
         //     banner.deleteFile();
