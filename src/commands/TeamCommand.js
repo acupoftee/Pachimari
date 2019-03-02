@@ -140,7 +140,7 @@ class TeamCommand extends Command {
                     if (match.pending) {
                         daysMatch.push(`${date}\n*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                     } else if (match.state === 'IN_PROGRESS') {
-                        daysMatch.push(`*${pacificTime} / ${utcTime}* ***NOW LIVE***\n[Watch full match here!]"https://overwatchleague.com/en-us/)\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
+                        daysMatch.push(`*${pacificTime} / ${utcTime}* ***NOW LIVE***\n[Watch full match here!](https://overwatchleague.com/en-us/)\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     } else {
                         previousMatches.push(`${date}, ${moment_timezone(match.startDateTS).startOf('hour').fromNow()}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }

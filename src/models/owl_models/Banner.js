@@ -17,16 +17,46 @@ class Banner {
      * @param {string} homeLogo home team logo URL
      * @param {string} awayLogo away team logo URL
      */
-    constructor(homePrimaryColor, awayPrimaryColor, 
+    constructor(homePrimaryColor, awayPrimaryColor, homeSecondaryColor, awaySecondaryColor, 
         homeLogo, awayLogo) {
             this._homePrimaryColor = homePrimaryColor;
             this._awayPrimaryColor = awayPrimaryColor;
+            this._homeSecondaryColor = homeSecondaryColor;
+            this._awaySecondaryColor = awaySecondaryColor;
             this._homeLogo = homeLogo;
             this._awayLogo = awayLogo;
         }
 
+    /**
+     * Returns the home team's primary color
+     * @returns {string} home primaryColor
+     */
     get homePrimaryColor() {
         return this._homePrimaryColor;
+    }
+
+    /**
+     * Returns the away team's primary color
+     * @returns {string} away primaryColor
+     */
+    get awayPrimaryColor() {
+        return this._awayPrimaryColor;
+    }
+
+    /**
+     * Returns the home team's secondary color
+     * @returns {string} home secondary color
+     */
+    get homeSecondaryColor() {
+        return this._awaySecondaryColor;
+    }
+
+    /**
+     * Returns the away team's secondary color
+     * @returns {string} away secondary color
+     */
+    get awaySecondaryColor() {
+        return this._awaySecondaryColor;
     }
     /**
      * Constructs a banner displaying the teams that are 
@@ -37,12 +67,19 @@ class Banner {
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
         let width = 150, height = 150;
+        let side1 = 20, side2 = 20;
 
         ctx.fillStyle = this._homePrimaryColor;
         ctx.fillRect(0, 0, 250, 250);
 
         ctx.fillStyle = this._awayPrimaryColor;
         ctx.fillRect(250, 0, 250, 250);
+
+        ctx.fillStyle = this._homeSecondaryColor;
+        ctx.fillRect(0, 0, side1, 250);
+
+        ctx.fillStyle = this._awaySecondaryColor;
+        ctx.fillRect(canvas.width - side2, 0, side2, 250);
 
         let homeLogo = await loadImage(this._homeLogo);
         ctx.drawImage(homeLogo, 
@@ -62,5 +99,15 @@ class Banner {
         out.on('finish', () => console.log('The File was created'));
 
     }
+
+    // /**
+    //  * Deletes a file from the directory
+    //  */
+    // async deleteFile() {
+    //     fs.unlinkSync('./src/res/banner.png', (err) => {
+    //         if (err) throw err;
+    //         console.log('banner was deleted');
+    //     });
+    // }
 }
 module.exports = Banner;

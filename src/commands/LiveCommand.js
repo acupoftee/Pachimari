@@ -28,15 +28,18 @@ class LiveCommand extends Command {
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
-        let maps = [];
-        live.games.forEach(game => {
-            maps.push(game.attributes.map);
-        })
+        // let maps = [];
+        // live.games.forEach(game => {
+        //     maps.push(game.attributes.map);
+        // })
 
+        console.log(home.primaryColor)
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 
-        let banner = new Banner(`#${live.competitors[0].primaryColor}`, `#${live.competitors[1].primaryColor}`, home.logo, away.logo);
+        //TODO figure out why colors are differnt from live than competitor endpoint
+        let banner = new Banner(`#${live.competitors[0].primaryColor}`, `#${live.competitors[1].primaryColor}`,
+        `#${live.competitors[0].secondaryColor}`, `#${live.competitors[1].secondaryColor}`, home.logo, away.logo);
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
@@ -60,6 +63,7 @@ class LiveCommand extends Command {
             return;
         }
         embed.buildEmbed().post(message.channel);
+        //banner.deleteFile();
     }
 }
 module.exports = LiveCommand;
