@@ -1,6 +1,6 @@
 'use strict';
 const { Attachment } = require('discord.js');
-const { createCanvas, loadImage} = require('canvas');
+const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const path = require('path');
 
