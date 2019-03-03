@@ -35,13 +35,8 @@
         * O(n) time complexity
         * O(n) space complexity
   * ✅ Match 
-  * ✅ Prediction**
+  * ✅ Prediction
 * ✅Data retrieval
-  * API Endpoints
-    * heroes
-    * team ids
-    * leagues
-    * accounts
 * Commands
   * ✅Teams
   * ✅Team 

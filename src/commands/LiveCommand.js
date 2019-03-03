@@ -29,6 +29,8 @@ class LiveCommand extends Command {
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
+        let pages = [];
+        let page = 1;
 
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
@@ -63,12 +65,15 @@ class LiveCommand extends Command {
         }
         embed.setImageFileName('src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
+        //let mess = embed.buildEmbed().getEmbed;
         embed.buildEmbed().post(message.channel);
         // try {
         //     banner.deleteFile();
         // } catch (error) {
         //     Logger.error(error.stack);
         // }
+
+
     }
 }
 module.exports = LiveCommand;

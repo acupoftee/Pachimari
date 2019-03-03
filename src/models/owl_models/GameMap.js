@@ -7,7 +7,7 @@ const Endpoints = require('./Endpoints');
  * @class Map
  * @description locates Overwatch Maps
  */
-class OverwatchMap {
+class GameMap {
 
     /**
      * Finds the name of a map by ID
@@ -42,4 +42,4 @@ class OverwatchMap {
         })
     }
 }
-module.exports = OverwatchMap;
+module.exports = GameMap;
