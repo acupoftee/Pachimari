@@ -1,6 +1,6 @@
 'use strict';
 const { Attachment } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, loadImage, registerFont} = require('canvas');
 const fs = require('fs');
 const path = require('path');
 
@@ -83,10 +83,10 @@ class Banner {
      */
     async buildBanner() {
         // TODO resolve bug where it loads a previously saved image
+        //const fnt = registerFont('./assets/industry-medium.ttf');
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
-        let width = 150, height = 150;
-        let side1 = 20, side2 = 20;
+        let side1 = 15, side2 = 15;
 
         ctx.fillStyle = this._homePrimaryColor;
         ctx.fillRect(0, 0, 250, 250);
@@ -101,16 +101,21 @@ class Banner {
         ctx.fillRect(canvas.width - side2, 0, side2, 250);
 
         let homeLogo = await loadImage(this._homeLogo);
+        let homeWidth = homeLogo.width / 3, homeHeight = homeLogo.height / 3;
         ctx.drawImage(homeLogo, 
-                ((canvas.width / 2) - width) / 2,
-                canvas.height / 2 - height / 2, width, height);
+                ((canvas.width / 2) - homeWidth) / 2,
+                canvas.height / 2 - homeHeight / 2, homeWidth, homeHeight);
         homeLogo.onerror = err => { throw err };
 
         let awayLogo = await loadImage(this._awayLogo);
+        let awayWidth = awayLogo.width / 3, awayHeight = awayLogo.height / 3;
             ctx.drawImage(awayLogo, 
-            ((canvas.width / 2) - width) * 3,
-                canvas.height / 2 - height / 2, width, height);
+            ((canvas.width / 2) - awayWidth) * 3.3,
+                canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
+
+        // ctx.fillStyle = '#ffffff';
+        // ctx.fillRect(canvas.width / 2, canvas.height / 2, 40, 20);
 
         const stream = canvas.createPNGStream();
         const out = fs.createWriteStream('./src/res/banner.png');
