@@ -24,6 +24,11 @@ class StandingsCommand extends Command {
     }
     
     async execute(client, message, args) {
+        let msg = message.channel.send(Emojis["LOADING"]);
+        msg.then(async message => message.edit(await(this.buildMessage(client))))
+    }
+
+    async buildMessage(client) {
         let info = [];
         const embed = new PachimariEmbed(client);
         embed.setTitle("__Overwatch League Standings__");
@@ -44,34 +49,14 @@ class StandingsCommand extends Command {
             }
             resolve(1);
         });
-
-        promise.then(function(result) {
-            info.splice(8, 0, `--------------------------\n\u0020*Stage Playoffs Cutoff*\n--------------------------`)
-            embed.setDescription(info);
-            // message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
-            //     msg.react("🔄").then(r => {
-    
-            //         const backwardsFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
-    
-            //         const refresh = msg.createReactionCollector(backwardsFilter, { time: 60000 });
-    
-            //         refresh.on('collect', r => {
-            //             info = [];
-            //             embed.setDescription("Refreshing..."); 
-            //             Promise.all([promise]).then(function(values) {
-            //                 info.push(values);
-            //             });
-            //             embed.setDescription(info);
-            //             msg.edit(embed.buildEmbed().getEmbed);
-            //         })
-            //     })
-            // });
-            embed.buildEmbed().post(message.channel);
-        });
-
         promise.catch(function(err) {
             Logger.error(err.stack);
-        })
+        });
+
+        info.splice(8, 0, `--------------------------\n\u0020*Stage Playoffs Cutoff*\n--------------------------`)
+        embed.setDescription(info);
+        embed.buildEmbed();
+        return {embed : embed.getEmbed}
     }
 }
 module.exports = StandingsCommand;
