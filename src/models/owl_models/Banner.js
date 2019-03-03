@@ -83,7 +83,8 @@ class Banner {
      */
     async buildBanner() {
         // TODO resolve bug where it loads a previously saved image
-        //const fnt = registerFont('./assets/industry-medium.ttf');
+        // const fnt = registerFont('/Users/deedee/Desktop/Coding/Web Dev/Pachimari/assets/industry-medium.ttf',
+        //     {family: 'Industry'});
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
         let side1 = 15, side2 = 15;
@@ -100,6 +101,13 @@ class Banner {
         ctx.fillStyle = this._awaySecondaryColor;
         ctx.fillRect(canvas.width - side2, 0, side2, 250);
 
+        // ctx.fillStyle = '#ffffff';
+        // ctx.fillRect((canvas.width / 2) - 20, (canvas.height / 2) - 10, 40, 20);
+
+        // ctx.fillStyle = '#000000';
+        // ctx.font = '20px Calibri bold';
+        // ctx.fillText("VS", (canvas.width / 2) - 20, (canvas.height/2) + 5);
+
         let homeLogo = await loadImage(this._homeLogo);
         let homeWidth = homeLogo.width / 3, homeHeight = homeLogo.height / 3;
         ctx.drawImage(homeLogo, 
@@ -113,9 +121,6 @@ class Banner {
             ((canvas.width / 2) - awayWidth) * 3.3,
                 canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
-
-        // ctx.fillStyle = '#ffffff';
-        // ctx.fillRect(canvas.width / 2, canvas.height / 2, 40, 20);
 
         const stream = canvas.createPNGStream();
         const out = fs.createWriteStream('./src/res/banner.png');

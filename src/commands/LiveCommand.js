@@ -23,30 +23,19 @@ class LiveCommand extends Command {
             return;
         }
 
-
         let live = body.data.liveMatch;
-        let next = body.data.nextMatch;
         let embed = new PachimariEmbed(client);
         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[0].abbreviatedName));
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
-        //let homeLogo = "", awayLogo = "";
-        // for (let i = 0; i < darklogos.length; i++) {
-        //     if (live.competitors[0].abbreviatedName === darklogos[i].team) {
-        //         homeLogo = darklogos[i].logo;
-        //     }
-        //     if (live.competitors[1].abbreviatedName === darklogos[i].team) {
-        //         awayLogo = darklogos[i].logo;
-        //     }
-        // }
 
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 
-        //TODO improve houson outlaws edge case
         let banner = new Banner(home.primaryColor, away.primaryColor,
         home.secondaryColor, away.secondaryColor, home.logoName, away.logoName);
+        
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');
             banner.setHomeSecondaryColor(home.primaryColor);
@@ -55,6 +44,7 @@ class LiveCommand extends Command {
             banner.setAwaySecondaryColor(away.primaryColor);
         }
         banner.buildBanner();
+        
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
@@ -67,12 +57,6 @@ class LiveCommand extends Command {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
                 match.away.name}**`);
-                //\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}\n`    
-        
-        // } else if (next !== undefined) {
-        //     let nextMatch = new Match(next.id, next.state === 'PENDING' ? true : false, next.state, next.startDateTS,
-        //     next.competitors[0].abbreviatedName, next.competitors[1].abbreviatedName, next.scores[0].value, next.scores[1].val);
-        // } 
         } else {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
