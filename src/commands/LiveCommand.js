@@ -66,7 +66,8 @@ class LiveCommand extends Command {
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}}\n`);
+                match.away.name}**`);
+                //\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}\n`    
         
         // } else if (next !== undefined) {
         //     let nextMatch = new Match(next.id, next.state === 'PENDING' ? true : false, next.state, next.startDateTS,
