@@ -45,6 +45,18 @@ class MessageUtil {
     }
 
     /**
+     * Capitalizes the first letter of each word in a sentence
+     * @param {string} sentence 
+     */
+    static capitalizeSentence(sentence) {
+        let str = sentence.toLowerCase().split(" ");
+        for (let i = 0; i < str.length; i++) {
+            str[i] = str[i].charAt(0).toUpperCase() + str[1].substring(1);
+        }
+        return str.join(" ");
+    }
+
+    /**
      * Sends a success message to the user
      * @param {TextChannel|GuildMember} destination channel to send the message
      * @param {string} message sucess message

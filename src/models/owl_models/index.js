@@ -10,6 +10,7 @@ const Article = require('./Article');
 const Match = require('./Match');
 const StandingsManager = require('./StandingsManager');
 const Banner = require('./Banner');
+const OverwatchMap = require('./OverwatchMap');
 
 module.exports = {
     Account,
@@ -21,5 +22,6 @@ module.exports = {
     Article,
     Match,
     StandingsManager,
-    Banner
+    Banner,
+    OverwatchMap
 };
