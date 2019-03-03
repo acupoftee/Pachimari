@@ -1,13 +1,13 @@
 'use strict';
 const { Attachment } = require('discord.js');
-const { createCanvas, loadImage, registerFont} = require('canvas');
+const { createCanvas, loadImage, registerFont } = require('canvas');
 const fs = require('fs');
 const path = require('path');
 
 /**
  * @class Banner
  * @description defines a Banner image object showing the logos 
- * of  two Overwatch League Teams facing off
+ * of two Overwatch League Teams facing off
  */
 class Banner {
     /**
@@ -126,7 +126,6 @@ class Banner {
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The File was created'));
-
     }
 
     /**

@@ -63,6 +63,7 @@ class LiveCommand extends Command {
             MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
             return;
         }
+        
         embed.setImageFileName('src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
         //let mess = embed.buildEmbed().getEmbed;

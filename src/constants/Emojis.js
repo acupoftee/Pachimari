@@ -39,5 +39,6 @@ module.exports = {
     REDDIT: '<:reddit:548532719487811599>',
     OTHER: '<:other:548570290674991124>',
 
+    LOADING: '<a:loading:551877104380411904>',
     LIVE:'<:live:550922871153623050>'
 }
