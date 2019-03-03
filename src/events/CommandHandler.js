@@ -23,7 +23,7 @@ class CommandHandler extends Event {
      * Message content.
      * @param {Client} client a Discord bot Client
      */
-    execute(client) {
+    async execute(client) {
         client.on('message', (message) => {
             const prefix = process.env.PREFIX;
             if (!message.content.startsWith(prefix) || message.author.bot) {

@@ -15,6 +15,6 @@ class Event {
      * Executes an event
      * @param {Client} a Discord bot client 
      */
-    execute(client) {}
+    async execute(client) {}
 }
 module.exports = Event;
