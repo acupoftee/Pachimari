@@ -7,9 +7,6 @@ const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
 
-let pages = [], dates = [];
-let page = 1, days = 1;
-
 class ScheduleCommand extends Command {
     constructor() {
         super();
@@ -21,47 +18,17 @@ class ScheduleCommand extends Command {
 
     async execute(client, message, args) {
         let embed = new PachimariEmbed(client);
+        // retrieve schedule data from API
         let msg = message.channel.send(Emojis["LOADING"]);
         msg.then(async message => message.edit(await(this.buildMessage(client, embed))));
-            // pagination
-        msg.then(msg => {
-                msg.react("⬅").then(r => {
-                    msg.react("➡");
-    
-                    const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
-                    const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
-    
-                    const backwards = msg.createReactionCollector(backwardsFilter);
-                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
-    
-                    backwards.on('collect', r => {
-                        if (page === 1) return;
-                        page--;
-                        days--;
-                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
-                        embed.setDescription(pages[page-1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
-                        msg.edit(embed.buildEmbed().getEmbed);
-                    })
-    
-                    forwards.on('collect', r => {
-                        if (page === pages.length) return;
-                        page++;
-                        days++;
-                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
-                        embed.setDescription(pages[page-1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
-                        msg.edit(embed.buildEmbed().getEmbed);
-                    });
-                })
-            });
         
     }
 
-    async buildMessage(client, embed) {
+    async buildEmbed(client, embed) {
         let matches = [];
         let stage_week = "";
-        // retrieve schedule data from API
+        let pages = [], dates = [];
+        let page = 1, days = 1;
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
             let currentTime = new Date().getTime();
@@ -125,9 +92,38 @@ class ScheduleCommand extends Command {
             embed.setDescription(pages[page-1]);
             embed.setFooter(`Page ${page} of ${pages.length}`);
 
-            embed.buildEmbed();
-            return { embed: embed.getEmbed };
-
+            // pagination
+            embed.buildEmbed().post().then(msg => {
+                msg.react("⬅").then(r => {
+                    msg.react("➡");
+    
+                    const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
+                    const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
+    
+                    const backwards = msg.createReactionCollector(backwardsFilter);
+                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
+    
+                    backwards.on('collect', r => {
+                        if (page === 1) return;
+                        page--;
+                        days--;
+                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
+                        embed.setDescription(pages[page-1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    })
+    
+                    forwards.on('collect', r => {
+                        if (page === pages.length) return;
+                        page++;
+                        days++;
+                        embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
+                        embed.setDescription(pages[page-1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    });
+                })
+            });
     }
 }
 module.exports = ScheduleCommand;

@@ -2,9 +2,8 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
-const { JsonUtil, MessageUtil, Logger } = require('../utils');
-//const { Emojis } = require('../constants');
-//const darklogos = require('../data/darklogos.json')
+const { JsonUtil, AlertUtil } = require('../utils');
+const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
 class LiveCommand extends Command {
@@ -17,10 +16,14 @@ class LiveCommand extends Command {
     }
 
     async execute(client, message, args) {
+        let msg = message.channel.send(Emojis["LOADING"]);
+        msg.then(async message => message.edit(await(this.buildMessage(client, message))));
+    }
+
+    async buildMessage(client, message) {
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
-        if (body.data.liveMatch === undefined) {
-            MessageUtil.sendError(message.channel, "There's no live match today");
-            return;
+        if (body.data.liveMatch === undefined || Object.keys(body.data.liveMatch).length === 0) {
+            return AlertUtil.ERROR("There's no live match coming up. Check back Later!");
         }
 
         let live = body.data.liveMatch;
@@ -29,8 +32,6 @@ class LiveCommand extends Command {
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
-        let pages = [];
-        let page = 1;
 
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
@@ -45,7 +46,7 @@ class LiveCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-        banner.buildBanner();
+       await banner.buildBanner();
         
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
@@ -60,21 +61,19 @@ class LiveCommand extends Command {
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
                 match.away.name}**`);
         } else {
-            MessageUtil.sendSuccess(message.channel, "Check back later for the next match!");
-            return;
+            return AlertUtil.SUCCESS("Check back later for the next match!");
         }
         
         embed.setImageFileName('src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
         //let mess = embed.buildEmbed().getEmbed;
-        embed.buildEmbed().post(message.channel);
+        embed.buildEmbed();
+        return { embed : embed.getEmbed };
         // try {
         //     banner.deleteFile();
         // } catch (error) {
         //     Logger.error(error.stack);
         // }
-
-
     }
 }
 module.exports = LiveCommand;
