@@ -24,12 +24,6 @@ class TeamsCommand extends Command {
 
     }
 
-    /**
-     * 
-     * @param {Client} client 
-     * @param {string} message 
-     * @param {string[]} args 
-     */
     async execute(client, message, args) {
         if (args.length <= 0) {
             let teams = [];

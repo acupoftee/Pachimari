@@ -3,7 +3,13 @@
 const { Command, PachimariEmbed } = require('../models');
 const { Article, Endpoints } = require('../models/owl_models');
 const { JsonUtil } = require('../utils');
+const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
+
+/**
+ * @class NewsCommand
+ * @description represents an Embed object with OWL news data
+ */
 class NewsCommand extends Command {
     /**
      * Instantiates a new NewsCommand
@@ -18,6 +24,11 @@ class NewsCommand extends Command {
     }
 
     async execute(client, message, args) {
+        let msg = message.channel.send(Emojis["LOADING"]);
+        msg.then(async message => message.edit(await(this.buildMessage(client))));
+    }
+
+    async buildMessage(client) {
         let articles = [];
         const embed = new PachimariEmbed(client);
         embed.setTitle("__Recent Overwatch League News__");
@@ -31,22 +42,18 @@ class NewsCommand extends Command {
             });
             resolve(1);
         });
-
-        promise.then(function(result) {
-            articles.forEach(article => {
-                let date = new Date(article.publish);
-                embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}, ${
-                    moment_timezone(date).startOf('hour').fromNow()}`);
-            });
-        });
-
-        promise.then(function(result) {
-            embed.buildEmbed().post(message.channel);
-        });
-
         promise.catch(function(err) {
             Logger.error(err.stack);
         });
+
+        articles.forEach(article => {
+            let date = new Date(article.publish);
+            embed.addFields(article.title, `[${article.summary}](${article.defaultUrl})\n${date.toDateString()}, ${
+                moment_timezone(date).startOf('hour').fromNow()}`);
+        });
+
+        embed.buildEmbed();
+        return { embed: embed.getEmbed };
     }
 }
 module.exports = NewsCommand;

@@ -25,7 +25,7 @@ class StandingsCommand extends Command {
     
     async execute(client, message, args) {
         let msg = message.channel.send(Emojis["LOADING"]);
-        msg.then(async message => message.edit(await(this.buildMessage(client))))
+        msg.then(async message => message.edit(await(this.buildMessage(client))));
     }
 
     async buildMessage(client) {
