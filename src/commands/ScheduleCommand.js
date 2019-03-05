@@ -22,7 +22,6 @@ class ScheduleCommand extends Command {
         let stage_week = "";
         let pages = [], dates = [];
         let page = 1, days = 1;
-        let ready = false;
         
         // retrieve schedule data from API
        message.channel.send(Emojis["LOADING"]);
@@ -71,7 +70,6 @@ class ScheduleCommand extends Command {
                 let homeTitle = `**${matches[i].home.name}** ${Emojis[matches[i].home.abbreviatedName]}`;
                 let pacificTime = moment_timezone(matches[i].startDateTS).tz('America/Los_Angeles').format('h:mm A z');
                 let utcTime = moment_timezone(matches[i].startDateTS).utc().format('h:mm A z');
-                let live = Emojis["LIVE"];
                 if (matches[i].pending) {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                 } else if (matches[i].state === 'IN_PROGRESS') {
@@ -93,7 +91,6 @@ class ScheduleCommand extends Command {
         });
         promise.then(function(result) {
             let mess = embed.buildEmbed().getEmbed;
-            //message.delete(0);
             message.channel.send(mess).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");

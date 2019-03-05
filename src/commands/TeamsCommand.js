@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager } = require('../models/owl_models');
 const { Emojis } = require('../constants');
+const { AlertUtil } = require('../utils');
 const divisions = require('../data/divisions.json');
 
 /**
@@ -25,6 +26,10 @@ class TeamsCommand extends Command {
     }
 
     async execute(client, message, args) {
+        let msg = message.channel.send(Emojis["LOADING"]);
+        msg.then(async message => message.edit(await(this.buildMessage(client, args))));
+    }
+    async buildMessage(client, args) {
         if (args.length <= 0) {
             let teams = [];
             CompetitorManager.competitors.forEach(competitor => {
@@ -37,26 +42,41 @@ class TeamsCommand extends Command {
             const embed = new PachimariEmbed(client);
             embed.setTitle("__Overwatch League Teams__");
             embed.setDescription(teams);
-            embed.buildEmbed().post(message.channel);
+            embed.buildEmbed();
+            return { embed : embed.getEmbed };
         } else {
             let teams = [];
+            let run = false;
+            let div;
             divisions.forEach(division => {
                 if (division.values.includes(args[0].toLowerCase())) {
-                    CompetitorManager.competitors.forEach(competitor => {
-                        if (competitor.divisionId === division.id) {
-                            teams.push(`${
-                                Emojis[competitor.abbreviatedName]} ${
-                                    competitor.name}`
-                            );
-                        }
-                    });
-                    teams.sort();
-                    const embed = new PachimariEmbed(client);
-                    embed.setTitle(`__${division.title} Teams__`);
-                    embed.setDescription(teams);
-                    embed.buildEmbed().post(message.channel);
+                    run = true;
+                    div = division;
                 }
             });
+
+            if (run) {
+                const embed = new PachimariEmbed(client);
+                CompetitorManager.competitors.forEach(competitor => {
+                    if (competitor.divisionId === div.id) {
+                        teams.push(`${
+                            Emojis[competitor.abbreviatedName]} ${
+                                competitor.name}`
+                        );
+                    }
+                });
+
+                teams.sort();
+                   
+                embed.setTitle(`__${div.title} Teams__`);
+                embed.setDescription(teams);
+                embed.buildEmbed();
+
+                return { embed : embed.getEmbed };
+            } else {
+                return AlertUtil.ERROR("Could not find division.");
+            }
+
         }
     }
 }
