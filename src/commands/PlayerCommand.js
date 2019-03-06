@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, PlayerManager } = require('../models/owl_models');
-const { EmojiUtil, NumberUtil, MessageUtil } = require('../utils');
+const { EmojiUtil, NumberUtil, MessageUtil, AlertUtil } = require('../utils');
 const { Emojis } = require('../constants');
 
 /**
@@ -24,17 +24,20 @@ class PlayerCommand extends Command {
     }
 
     async execute(client, message, args) {
+        let loading = message.channel.send(Emojis["LOADING"]);
+        loading.then(async message => message.edit(await(this.buildMessage(client, args))));
+    }
+
+    async buildMessage(client, args) {
         if (args.length <= 0) {
-            MessageUtil.sendError(message.channel, "Please specify an Overwatch League Player to look up");
-            return;
+            return AlertUtil.ERROR("Please specify an Overwatch League Player to look up");
         }
 
         const locateId = PlayerManager.locatePlayer(args[0]);
         const player = PlayerManager.players.get(locateId);
 
         if (player === undefined) {
-            MessageUtil.sendError(message.channel, "Could not find player");
-            return;
+            return AlertUtil.ERROR("Could not find player");
         }
 
         const competitor = CompetitorManager.competitors.get(player.competitorId)
@@ -68,8 +71,7 @@ class PlayerCommand extends Command {
 
             // return if there are no accounts to be displayed
             if (player.accounts.size === 0) {
-                MessageUtil.sendError(message.channel, "This player does not have any accounts.");
-                return;
+                AlertUtil.ERROR("This player does not have any accounts.");
             }
             embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 
@@ -80,11 +82,11 @@ class PlayerCommand extends Command {
             });
             let msg = accs.join('\n');
             embed.setDescription(msg);
-
         } else {
             return;
         }
-        embed.buildEmbed().post(message.channel);
+        embed.buildEmbed();
+        return { embed : embed.getEmbed };
     }
 }
 module.exports = PlayerCommand;

@@ -46,6 +46,7 @@ class TeamCommand extends Command {
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(competitor.logo);
         const teamEmoji = Emojis[competitor.abbreviatedName];
+        let loading = message.channel.send(Emojis["LOADING"]);
 
         if (args[1] === undefined) {
             embed.setTitle(`${teamEmoji} __${competitor.name} (${competitor.abbreviatedName})__`);
@@ -82,6 +83,7 @@ class TeamCommand extends Command {
                 embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``, true);
             }
             embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
+            loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
@@ -97,6 +99,7 @@ class TeamCommand extends Command {
                 });
                 let msg = accs.join('\n');
                 embed.setDescription(msg);
+                loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             } else if (args[1].toLowerCase() === 'schedule') {
                 let matches = [];
@@ -149,6 +152,7 @@ class TeamCommand extends Command {
                 embed.setDescription(pages[page-1]);
                 embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
                 embed.setFooter(`Page ${page} of ${pages.length}`);
+                loading.then(message => message.delete());
                 message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
                     msg.react("🔄").then(r => {
                         const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
