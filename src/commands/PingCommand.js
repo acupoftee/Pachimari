@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command } = require('../models');
-const { Logger} = require('../utils');
+const { Logger } = require('../utils');
 
 /**
  * A basic command in which Pachimari will 

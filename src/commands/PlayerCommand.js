@@ -71,7 +71,7 @@ class PlayerCommand extends Command {
 
             // return if there are no accounts to be displayed
             if (player.accounts.size === 0) {
-                AlertUtil.ERROR("This player does not have any accounts.");
+                return AlertUtil.ERROR("This player does not have any accounts.");
             }
             embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 

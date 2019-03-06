@@ -7,11 +7,6 @@ const Logger = require('./Logger');
  */
 class MessageUtil {
     /**
-     * @constructor instantiates a new MessageUtil object
-     */
-    constructor() {}
-
-    /**
 		 * Sends a message from Pachimari bot.
 		 * Then delete the bot's message, author's message, or both if specified
 		 * @param {String} message Message to send from the bot.

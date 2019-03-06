@@ -44,6 +44,17 @@ class PachimariClient extends Client {
         Logger.success(`Loaded command ${command.name.toUpperCase()}`);
     }
 
+   /**
+     * Adds a list of commands to the Pachimari Client
+     * @param {Command[]} command an array of Discord Command Objects
+     */
+    addCommands(...commands) {
+        commands.forEach(command => {
+            this.commands.set(command.name, command);
+            Logger.success(`Loaded command ${command.name.toUpperCase()}`);
+        });
+    }
+
     /**
      * Starts an Event execution
      * @param {Event} event a Discord Event

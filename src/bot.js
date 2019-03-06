@@ -5,7 +5,7 @@ const { CompetitorManager, PlayerManager } = require('./models/owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
     TeamcordsCommand, StandingsCommand, NewsCommand, ScheduleCommand, 
-    PageCommand, RefreshCommand, LiveCommand} = require('./commands');
+    PageCommand, RefreshCommand, LiveCommand, NextCommand } = require('./commands');
 const { CommandHandler } = require('./events');
 const { performance } = require('perf_hooks');
 
@@ -25,17 +25,17 @@ new Promise(function (resolve, reject) {
 }).then(function (result) {
     client.runEvent(new CommandHandler());
 }).then(function (result) {
-    client.addCommand(new PingCommand());
-    client.addCommand(new TeamsCommand());
-    client.addCommand(new TeamCommand());
-    client.addCommand(new PlayerCommand());
-    client.addCommand(new TeamcordsCommand());
-    client.addCommand(new StandingsCommand());
-    client.addCommand(new NewsCommand());
-    client.addCommand(new ScheduleCommand());
-    client.addCommand(new PageCommand());
-    //client.addCommand(new RefreshCommand());
-    client.addCommand(new LiveCommand());
+    client.addCommands(
+        new TeamsCommand(),
+        new TeamCommand(),
+        new PlayerCommand(),
+        new TeamcordsCommand(),
+        new StandingsCommand(),
+        new NewsCommand(),
+        new ScheduleCommand(),
+        new LiveCommand(),
+        new NextCommand()
+    );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
         Logger.error(err.stack)

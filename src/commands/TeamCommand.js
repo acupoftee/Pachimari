@@ -88,8 +88,7 @@ class TeamCommand extends Command {
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
-                    MessageUtil.sendError(message.channel, "This team does not have any accounts.");
-                    return;
+                    return AlertUtil.ERROR("This player does not have any accounts.");
                 }
                 let accs = []
                 embed.setTitle(`${Emojis[competitor.abbreviatedName]} __${competitor.name}'s Accounts__`);
