@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { EmojiUtil, NumberUtil, MessageUtil, JsonUtil, Logger } = require('../utils');
+const { NumberUtil, MessageUtil, JsonUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
@@ -66,7 +66,7 @@ class TeamCommand extends Command {
             let members = [];
             let offense = 0, tanks = 0, supports = 0;
             competitor.players.forEach(player => {
-                const countryEmoji = EmojiUtil.getFlag(player.nationality);
+                const countryEmoji = MessageUtil.getFlag(player.nationality);
                 const roleEmoji = Emojis[player.role.toUpperCase()];
                 members.push(`${countryEmoji}${roleEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`);
                 if (player.role === 'offense') {

@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, PlayerManager } = require('../models/owl_models');
-const { EmojiUtil, NumberUtil, MessageUtil, AlertUtil } = require('../utils');
+const { NumberUtil, MessageUtil, AlertUtil } = require('../utils');
 const { Emojis } = require('../constants');
 
 /**
@@ -51,7 +51,7 @@ class PlayerCommand extends Command {
             embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
             let info = [];
             info.push(`${teamEmoji}${Emojis[player.role.toUpperCase()]} **#${player.playerNumber}**`);
-            info.push(`${EmojiUtil.getFlag(player.nationality)} ${player.homeLocation}`);
+            info.push(`${MessageUtil.getFlag(player.nationality)} ${player.homeLocation}`);
             embed.setDescription(info);
             if (player.heroes.length !== 0) {
                 embed.addFields('Top Heroes', `${player.heroes.join(', ')}`, true);

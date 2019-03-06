@@ -3,7 +3,8 @@
 const CompetitorManager = require('./CompetitorManager');
 const Endpoints = require('./Endpoints');
 const { Collection } = require('discord.js');
-const { EmojiUtil, JsonUtil, Logger } = require('../../utils');
+const { JsonUtil } = require('../../utils');
+const { Emojis } = require('../../constants');
 
 /**
  * A colletion of standings
@@ -43,7 +44,7 @@ class StandingsManager {
             if (mapDiff >= 0) {
                 mapDiff = '+' + mapDiff;
             }
-            const teamEmoji = EmojiUtil.getEmoji(client, standing.competitor.abbreviatedName);
+            const teamEmoji = Emojis[standing.competitor.abbreviatedName];
             const numberData = `${matchWin} - ${matchLoss} ${mapDiff}`;
             teamStandings.set(standing.competitor.id, `\`${('0' + standing.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
            // Logger.custom(`STANDING`, `Loaded standing for ${standing.competitor.abbreviatedName}`);
