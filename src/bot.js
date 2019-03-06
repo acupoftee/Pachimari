@@ -5,7 +5,7 @@ const { CompetitorManager, PlayerManager } = require('./models/owl_models');
 const { Logger } = require('./utils');
 const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
     TeamcordsCommand, StandingsCommand, NewsCommand, ScheduleCommand, 
-    PageCommand, RefreshCommand, LiveCommand, NextCommand } = require('./commands');
+    LiveCommand, NextCommand, BeatCommand } = require('./commands');
 const { CommandHandler } = require('./events');
 const { performance } = require('perf_hooks');
 
@@ -34,7 +34,8 @@ new Promise(function (resolve, reject) {
         new NewsCommand(),
         new ScheduleCommand(),
         new LiveCommand(),
-        new NextCommand()
+        new NextCommand(),
+        new BeatCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
