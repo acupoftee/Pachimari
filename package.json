@@ -18,12 +18,13 @@
   },
   "homepage": "https://github.com/acupoftee/Pachimari#readme",
   "dependencies": {
+    "async": "^2.6.2",
     "canvas": "^2.3.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
-    "mysql": "^2.16.0",
+    "mysql2": "^1.6.5",
     "owl-colors": "0.0.4",
     "request": "^2.88.0"
   }

@@ -1,6 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
+const { Emojis } = require('../constants');
 
 
 class PageCommand extends Command {
@@ -20,11 +21,13 @@ class PageCommand extends Command {
         embed.setDescription(pages[page-1]);
         embed.setFooter(`Page ${page} of ${pages.length}`);
         let mess = embed.buildEmbed().getEmbed;
+        let loading = message.channel.send(Emojis["LOADING"]);
 
         message.channel.send(mess).then(msg => {
+            //loading.then(message => message.edit(""));
+            loading.then(message => message.delete());
             msg.react("⬅").then(r => {
                 msg.react("➡");
-
                 const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                 const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
 

@@ -22,9 +22,11 @@ class ScheduleCommand extends Command {
         let stage_week = "";
         let pages = [], dates = [];
         let page = 1, days = 1;
+
+        let loading = message.channel.send(Emojis["LOADING"]);
         
         // retrieve schedule data from API
-       message.channel.send(Emojis["LOADING"]);
+       //message.channel.send(Emojis["LOADING"]);
         const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
         let promise = new Promise(function(resolve, reject) {
             let currentTime = new Date().getTime();
@@ -91,6 +93,7 @@ class ScheduleCommand extends Command {
         });
         promise.then(function(result) {
             let mess = embed.buildEmbed().getEmbed;
+            loading.then(message => message.delete());
             message.channel.send(mess).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");

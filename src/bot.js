@@ -33,7 +33,7 @@ new Promise(function (resolve, reject) {
     client.addCommand(new StandingsCommand());
     client.addCommand(new NewsCommand());
     client.addCommand(new ScheduleCommand());
-   // client.addCommand(new PageCommand());
+    client.addCommand(new PageCommand());
     //client.addCommand(new RefreshCommand());
     client.addCommand(new LiveCommand());
 }).then(function (result) {
