@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { NumberUtil, MessageUtil, JsonUtil } = require('../utils');
+const { NumberUtil, MessageUtil, JsonUtil, AlertUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
@@ -38,8 +38,7 @@ class TeamCommand extends Command {
         let page = 1;
 
         if (competitor === undefined) {
-            MessageUtil.sendError(message.channel, "Could not locate team.");
-            return;
+            return AlertUtil.ERROR("Could not locate team.");
         }
 
         const embed = new PachimariEmbed(client);
@@ -88,7 +87,7 @@ class TeamCommand extends Command {
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
-                    return AlertUtil.ERROR("This player does not have any accounts.");
+                    return AlertUtil.ERROR("This team does not have any accounts.");
                 }
                 let accs = []
                 embed.setTitle(`${Emojis[competitor.abbreviatedName]} __${competitor.name}'s Accounts__`);
@@ -104,31 +103,34 @@ class TeamCommand extends Command {
                 let matches = [];
                 let stage = "";
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
-                let currentTime = new Date().getTime();
-                let slug = null;
-                for (let i = 0; i < stageData.length; i++) {
-                    const stage = stageData[i];
-                    if (currentTime > stage.startDate && currentTime < stage.endDate) {
-                        slug = stage.slug;
+                let promise = new Promise(function (resolve, reject) {
+                    let currentTime = new Date().getTime();
+                    let slug = null;
+                    for (let i = 0; i < stageData.length; i++) {
+                        stage = stageData[i];
+                        if (currentTime > stage.startDate && currentTime < stage.endDate) {
+                            slug = stage.slug;
+                        }
                     }
-                }
-
-                body.data.stages.forEach(_stage => {
-                    if (_stage.slug === slug) {
-                        _stage.weeks.forEach(week => {
+                    // organize data by stage and week
+                    body.data.stages.forEach(_stage => {
+                        if (_stage.slug === slug) {
                             stage = _stage.name;
-                            //embed.setTitle(`__${teamEmoji} ${body.data.id} ${competitor.name} ${_stage.name} Schedule__`);
-                            week.matches.forEach(_match => {
-                                if (_match.competitors[0].id == competitor.id || _match.competitors[1].id === competitor.id) {
-                                    let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
-                                    let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
-                                    let match = new Match(_match.id, (_match.state === 'PENDING') ? true : false,
-                                        _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value);
-                                    matches.push(match);
-                                }
-                            })
-                        })
-                    }
+                            _stage.weeks.forEach(week => {
+                                week.matches.forEach(_match => {
+                                    if (_match.competitors[0].id == competitor.id || _match.competitors[1].id == competitor.id) {
+                                        let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
+                                        let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
+                                        let match = new Match(_match.id, (_match.state === 'PENDING') ? true : false,
+                                            _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value);
+                                        matches.push(match);
+                                    }
+                                });
+
+                            });
+                        }
+                    });
+                    resolve(1);
                 });
 
                 let daysMatch = [], previousMatches = [];
@@ -148,7 +150,7 @@ class TeamCommand extends Command {
                 });
                 pages.push(daysMatch);
                 pages.push(previousMatches);
-                embed.setDescription(pages[page-1]);
+                embed.setDescription(pages[page - 1]);
                 embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
                 embed.setFooter(`Page ${page} of ${pages.length}`);
                 loading.then(message => message.delete());
@@ -164,7 +166,7 @@ class TeamCommand extends Command {
                                 page++;
                                 embed.setTitle(`__Previous ${stage} Matches for ${competitor.name}__`);
                             }
-                            embed.setDescription(pages[page-1]);
+                            embed.setDescription(pages[page - 1]);
                             embed.setFooter(`Page ${page} of ${pages.length}`);
                             msg.edit(embed.buildEmbed().getEmbed);
                         })

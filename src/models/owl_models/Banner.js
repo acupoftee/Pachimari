@@ -79,7 +79,6 @@ class Banner {
     /**
      * Constructs a banner displaying the teams that are 
      * currently facing off in an Overwatch League Match
-     * @returns {Attachment} a new Image attachment
      */
     async buildBanner() {
         // TODO resolve bug where it loads a previously saved image
@@ -122,10 +121,17 @@ class Banner {
                 canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
 
+
+        //const fileName = 'src/res/banner.png';
+
+        // canvas.toBuffer();
         const out = fs.createWriteStream('src/res/banner.png');
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The File was created'));
+
+
+        //return new Attachment(canvas.toBuffer(), 'banner.png');
     }
 
     /**

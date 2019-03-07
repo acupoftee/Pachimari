@@ -23,7 +23,7 @@ class NextCommand extends Command {
     async buildMessage(client, message) {
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
-            return AlertUtil.ERROR("There's no live match coming up. Check back Later!");
+            return AlertUtil.ERROR("There's no next match coming up. Check back Later!");
         }
 
         let live = body.data.nextMatch;

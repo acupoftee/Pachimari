@@ -138,7 +138,8 @@ class PachimariEmbed {
             this._embed.setImage(this._image); 
         }
         if (this._imageFileName != null && this._imageFilePath != null) {
-            this._embed.attachFile(this._imageFilePath).setImage(`attachment://${this._imageFileName}`);
+            this._embed.attachFile(this._imageFilePath)
+            this._embed.setImage(`attachment://${this._imageFileName}`);
         }
         if (this._footer != null) {
             this._embed.setFooter(this._footer);

@@ -16,11 +16,8 @@ class LiveCommand extends Command {
     }
 
     async execute(client, message, args) {
-        let msg = message.channel.send(Emojis["LOADING"]);
-        msg.then(async message => message.edit(await(this.buildMessage(client, message))));
-    }
-
-    async buildMessage(client, message) {
+        let loading = message.channel.send(Emojis["LOADING"]);
+        //msg.then(async message => message.edit(await(this.buildMessage(client, message))));
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.liveMatch === undefined || Object.keys(body.data.liveMatch).length === 0) {
             return AlertUtil.ERROR("There's no live match coming up. Check back Later!");
@@ -46,7 +43,7 @@ class LiveCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-       await banner.buildBanner();
+        banner.buildBanner();
         
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
@@ -63,17 +60,11 @@ class LiveCommand extends Command {
         } else {
             return AlertUtil.SUCCESS("Check back later for the next match!");
         }
-        
+        loading.then(message => message.delete());
         embed.setImageFileName('src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
-        //let mess = embed.buildEmbed().getEmbed;
-        embed.buildEmbed();
-        return { embed : embed.getEmbed };
-        // try {
-        //     banner.deleteFile();
-        // } catch (error) {
-        //     Logger.error(error.stack);
-        // }
+        embed.setThumbnail("");
+        embed.buildEmbed().post(message.channel);
     }
 }
 module.exports = LiveCommand;
