@@ -48,7 +48,7 @@ class TeamCommand extends Command {
         let loading = message.channel.send(Emojis["LOADING"]);
 
         if (args[1] === undefined) {
-            embed.setTitle(`${teamEmoji} __${competitor.name} (${competitor.abbreviatedName})__`);
+            embed.setTitle(`${teamEmoji} __${competitor.name}__ (${competitor.abbreviatedName})`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
             teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');

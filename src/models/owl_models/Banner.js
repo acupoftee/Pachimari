@@ -124,14 +124,15 @@ class Banner {
 
         //const fileName = 'src/res/banner.png';
 
-        // canvas.toBuffer();
+        canvas.toBuffer();
         const out = fs.createWriteStream('src/res/banner.png');
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The File was created'));
+        
+        //const banner = new Attachment(canvas.toBuffer(), 'banner.png');
 
-
-        //return new Attachment(canvas.toBuffer(), 'banner.png');
+       // return banner;
     }
 
     /**
