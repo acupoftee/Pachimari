@@ -80,7 +80,7 @@ class Banner {
      * Constructs a banner displaying the teams that are 
      * currently facing off in an Overwatch League Match
      */
-    async buildBanner() {
+    async buildBanner(filename) {
         // TODO resolve bug where it loads a previously saved image
         // const fnt = registerFont('/Users/deedee/Desktop/Coding/Web Dev/Pachimari/assets/industry-medium.ttf',
         //     {family: 'Industry'});
@@ -125,7 +125,7 @@ class Banner {
         //const fileName = 'src/res/banner.png';
 
         //canvas.toBuffer();
-        const out = fs.createWriteStream('src/res/banner.png');
+        const out = fs.createWriteStream(`src/res/${filename}`);
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The File was created'));

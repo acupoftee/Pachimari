@@ -43,7 +43,7 @@ class LiveCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-        banner.buildBanner();
+        banner.buildBanner('banner.png');
         
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
@@ -56,14 +56,14 @@ class LiveCommand extends Command {
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}`);
+                match.away.name}**`); //Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}
+            embed.setThumbnail("");
         } else {
             return AlertUtil.SUCCESS("Check back later for the next match!");
         }
         loading.then(message => message.delete());
         embed.setImageFileName('./src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
-        embed.setThumbnail("");
         embed.buildEmbed().post(message.channel);
     }
 }
