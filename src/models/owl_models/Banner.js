@@ -13,6 +13,8 @@ class Banner {
     /**
      * Instantiates a new Banner object
      * @constructor
+     * @param {string} homeTeam
+     * @param {string} awayTeam
      * @param {string} homePrimaryColor home team bg color
      * @param {string} awayPrimaryColor away team bg color
      * @param {string} homeLogo home team logo URL
@@ -107,6 +109,7 @@ class Banner {
         // ctx.font = '20px Calibri bold';
         // ctx.fillText("VS", (canvas.width / 2) - 20, (canvas.height/2) + 5);
 
+        // https://jsfiddle.net/dustybutton/Ljdbtk79/2/
         let homeLogo = await loadImage(this._homeLogo);
         let homeWidth = homeLogo.width / 3, homeHeight = homeLogo.height / 3;
         ctx.drawImage(homeLogo, 
@@ -117,7 +120,7 @@ class Banner {
         let awayLogo = await loadImage(this._awayLogo);
         let awayWidth = awayLogo.width / 3, awayHeight = awayLogo.height / 3;
             ctx.drawImage(awayLogo, 
-            ((canvas.width / 2) - awayWidth) * 3.3,
+            (((canvas.width / 2) * 3) - awayWidth) / 2,
                 canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
 
