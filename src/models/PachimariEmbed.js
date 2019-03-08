@@ -1,6 +1,6 @@
 'use strict';
 
-const { RichEmbed, TextChannel, GuildMember, Message } = require('discord.js');
+const { RichEmbed, TextChannel, GuildMember, Message, Attachment } = require('discord.js');
 const PachimariClient = require('./PachimariClient');
 const { LeagueLogo } = require('../constants');
 
@@ -96,7 +96,7 @@ class PachimariEmbed {
     /**
      * Sets the filepath and name for a RichEmbed to read the local file. 
      * See https://discordjs.guide/popular-topics/embeds.html#local-images
-     * @param {string} filepath full image URI
+     * @param {string|Attachment} filepath full image URI
      * @param {string} filename image filename with the extension. 
      */
     setImageFileName(filepath, filename) {
@@ -138,7 +138,7 @@ class PachimariEmbed {
             this._embed.setImage(this._image); 
         }
         if (this._imageFileName != null && this._imageFilePath != null) {
-            this._embed.attachFile(this._imageFilePath)
+            this._embed.attachFile({attachment: this._imageFilePath, name: this._imageFileName});
             this._embed.setImage(`attachment://${this._imageFileName}`);
         }
         if (this._footer != null) {

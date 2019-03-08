@@ -56,12 +56,12 @@ class LiveCommand extends Command {
         } else if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**`);
+                match.away.name}**\nStarts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}`);
         } else {
             return AlertUtil.SUCCESS("Check back later for the next match!");
         }
         loading.then(message => message.delete());
-        embed.setImageFileName('src/res/banner.png', 'banner.png');
+        embed.setImageFileName('./src/res/banner.png', 'banner.png');
         embed.setColor(home.primaryColor);
         embed.setThumbnail("");
         embed.buildEmbed().post(message.channel);
