@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
-const { JsonUtil, AlertUtil } = require('../utils');
+const { JsonUtil, AlertUtil, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -17,11 +17,11 @@ class NextCommand extends Command {
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
-        //msg.then(async message => message.edit(await(this.buildMessage(client, message))));
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
             loading.then(message => message.delete());
-            return AlertUtil.ERROR("There's no next match coming up. Check back Later!");
+            MessageUtil.sendError(message.channel, "There's no next match coming up. Check back Later!");
+            return;
         }
 
         let live = body.data.nextMatch;
@@ -49,12 +49,7 @@ class NextCommand extends Command {
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
-        if (match.state === 'IN_PROGRESS') {
-            embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            embed.setDescription(`*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
-                match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`);
-            embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
-        } else if (match.pending) {
+        if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
                 match.away.name}**`);
@@ -63,7 +58,7 @@ class NextCommand extends Command {
             return AlertUtil.SUCCESS("Check back later for the next match!");
         }
         
-        //embed.setImageFileName('src/res/next.png', 'next.png');
+        embed.setImageFileName('src/res/next.png', 'next.png');
         embed.setColor(home.primaryColor);
         //let mess = embed.buildEmbed().getEmbed;
         loading.then(message => message.delete());

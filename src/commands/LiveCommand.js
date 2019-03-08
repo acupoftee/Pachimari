@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
-const { JsonUtil, AlertUtil } = require('../utils');
+const { JsonUtil, AlertUtil, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -20,7 +20,8 @@ class LiveCommand extends Command {
         //msg.then(async message => message.edit(await(this.buildMessage(client, message))));
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.liveMatch === undefined || Object.keys(body.data.liveMatch).length === 0) {
-            return AlertUtil.ERROR("There's no live match coming up. Check back Later!");
+            MessageUtil.sendError(message.channel, "There's no live match coming up. Check back Later!");
+            return;
         }
 
         let live = body.data.liveMatch;
