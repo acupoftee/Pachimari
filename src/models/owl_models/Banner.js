@@ -1,8 +1,6 @@
 'use strict';
-const { Attachment } = require('discord.js');
 const { createCanvas, loadImage, registerFont } = require('canvas');
 const fs = require('fs');
-const path = require('path');
 
 /**
  * @class Banner
@@ -81,6 +79,7 @@ class Banner {
     /**
      * Constructs a banner displaying the teams that are 
      * currently facing off in an Overwatch League Match
+     * @returns {string} filepath
      */
     async buildBanner(filename) {
         // TODO resolve bug where it loads a previously saved image
@@ -124,26 +123,22 @@ class Banner {
                 canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
 
-
-        //const fileName = 'src/res/banner.png';
-
-        //canvas.toBuffer();
-        const out = fs.createWriteStream(`src/res/${filename}`);
-        const stream = canvas.createPNGStream();
-        stream.pipe(out);
-        out.on('finish', () => console.log('The File was created'));
-    
-        //return stream;
+         const fileName = `src/res/${filename}`;
+         fs.writeFile(fileName, canvas.toBuffer(), (err) => {
+             if (err) throw err;
+             console.log(`${filename} was created`);
+         });
+         return fileName;
     }
 
-    /**
-     * Deletes a file from the directory
-     */
-     deleteFile() {
-        fs.unlink('./src/res/banner.png', (err) => {
-            if (err) throw err;
-            console.log('banner was deleted');
-        });
-    }
+    // /**
+    //  * Deletes a file from the directory
+    //  */
+    //  deleteFile() {
+    //     fs.unlink('./src/res/banner.png', (err) => {
+    //         if (err) throw err;
+    //         console.log('banner was deleted');
+    //     });
+    // }
 }
 module.exports = Banner;

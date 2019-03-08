@@ -38,7 +38,8 @@ class TeamCommand extends Command {
         let page = 1;
 
         if (competitor === undefined) {
-            return AlertUtil.ERROR("Could not locate team.");
+            MessageUtil.sendError(message.channel, "Could not locate team.");
+            return;
         }
 
         const embed = new PachimariEmbed(client);

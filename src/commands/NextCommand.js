@@ -58,16 +58,12 @@ class NextCommand extends Command {
             return AlertUtil.SUCCESS("Check back later for the next match!");
         }
         
-        embed.setImageFileName('src/res/next.png', 'next.png');
+        const filename = await banner.buildBanner('next.png');
+        embed.setImageFileName(filename, 'next.png');
         embed.setColor(home.primaryColor);
-        //let mess = embed.buildEmbed().getEmbed;
+
         loading.then(message => message.delete());
         embed.buildEmbed().post(message.channel);
-        // try {
-        //     banner.deleteFile();
-        // } catch (error) {
-        //     Logger.error(error.stack);
-        // }
     }
 
 }

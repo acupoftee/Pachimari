@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
-const { JsonUtil, AlertUtil, MessageUtil } = require('../utils');
+const { JsonUtil, AlertUtil, MessageUtil, Logger} = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -44,7 +44,6 @@ class LiveCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-        banner.buildBanner('banner.png');
         
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
@@ -60,11 +59,14 @@ class LiveCommand extends Command {
                 match.away.name}**`); //Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}
             embed.setThumbnail("");
         } else {
-            return AlertUtil.SUCCESS("Check back later for the next match!");
+            MessageUtil.sendSuccess(message.channel, "Check back Later for the next match!");
+            return;
         }
-        loading.then(message => message.delete());
-        embed.setImageFileName('./src/res/banner.png', 'banner.png');
+        const filename = await banner.buildBanner('pic.png');
+        embed.setImageFileName(filename, 'pic.png');
         embed.setColor(home.primaryColor);
+
+        loading.then(message => message.delete());
         embed.buildEmbed().post(message.channel);
     }
 }
