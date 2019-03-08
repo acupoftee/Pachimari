@@ -13,10 +13,10 @@ class Banner {
     /**
      * Instantiates a new Banner object
      * @constructor
-     * @param {string} homeTeam
-     * @param {string} awayTeam
      * @param {string} homePrimaryColor home team bg color
      * @param {string} awayPrimaryColor away team bg color
+     * @param {string} homeSecondaryColor home team bg color
+     * @param {string} awaySecondaryColor away team bg color
      * @param {string} homeLogo home team logo URL
      * @param {string} awayLogo away team logo URL
      */
