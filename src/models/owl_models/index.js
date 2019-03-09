@@ -11,6 +11,7 @@ const Match = require('./Match');
 const StandingsManager = require('./StandingsManager');
 const Banner = require('./Banner');
 const MapManager = require('./MapManager');
+const Map = require('./Map');
 
 module.exports = {
     Account,
@@ -23,5 +24,6 @@ module.exports = {
     Match,
     StandingsManager,
     Banner,
-    MapManager
+    MapManager,
+    Map
 };

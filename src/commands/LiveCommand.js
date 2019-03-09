@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match, Banner, MapManager } = require('../models/owl_models');
+const { CompetitorManager, Endpoints, Match, Banner, Map, MapManager} = require('../models/owl_models');
 const { JsonUtil, AlertUtil, MessageUtil, Logger } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
@@ -68,6 +68,12 @@ class LiveCommand extends Command {
                 MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
                 return;
             }
+            const filename = await banner.buildBanner('pic.png');
+            embed.setImageFileName(filename, 'pic.png');
+            embed.setColor(home.primaryColor);
+            embed.setThumbnail("");
+            loading.then(message => message.delete());
+            embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'maps') {
             if (match.state === 'CONCLUDED') {
                 loading.then(message => message.delete());
@@ -83,6 +89,7 @@ class LiveCommand extends Command {
                     embed.setTitle(`__NOW LIVE: Maps for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                     const homeMapScore = live.games[i].points[0];
                     const awayMapScore = live.games[i].points[1];
+                    
                     mapStr = `***${map}***: *${mapType}*\n**${match.home.name}** ||${homeMapScore}-${
                         awayMapScore}|| **${match.away.name}**\n`;
                     maps.push(mapStr);
@@ -94,12 +101,6 @@ class LiveCommand extends Command {
             }
             embed.setDescription(maps);
         }
-        const filename = await banner.buildBanner('pic.png');
-        embed.setImageFileName(filename, 'pic.png');
-        embed.setColor(home.primaryColor);
-        embed.setThumbnail("");
-        loading.then(message => message.delete());
-        embed.buildEmbed().post(message.channel);
     }
 }
 module.exports = LiveCommand;
