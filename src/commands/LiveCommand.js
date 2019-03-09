@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner, Map, MapManager} = require('../models/owl_models');
-const { JsonUtil, AlertUtil, MessageUtil, Logger } = require('../utils');
+const { JsonUtil, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -102,7 +102,7 @@ class LiveCommand extends Command {
                         awayMapScore}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
                     embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
                 } else {
-                    embed.setTitle(`__Maps for Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    embed.setTitle(`__Maps for Next Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                     mapStr = `*${pacificTime} / ${utcTime}*\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** vs **${
                         match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${Emojis[mapType.toUpperCase()]} ***${map.name}***: *${map.type}*\n`;
                     //embed.addFields(`${Emojis[mapType.toUpperCase()]} ${mapName}`, `${mapType}`, true);
