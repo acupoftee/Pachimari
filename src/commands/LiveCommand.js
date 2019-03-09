@@ -61,7 +61,7 @@ class LiveCommand extends Command {
         if (args[0] === undefined) {
             if (match.state === 'IN_PROGRESS') {
                 embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-                let description = `*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
+                let description = `*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome} - ${
                     match.scoreAway}|| **${match.away.name}**\n Map ${currentGame} of ${games}: ${Emojis[currentMapType.toUpperCase()]} *${
                         currentMap}*\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
                 embed.setDescription(description);
@@ -110,7 +110,7 @@ class LiveCommand extends Command {
                     title = `__NOW LIVE: Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`;
                     homeMapScore = live.games[i].points === undefined ? 0 : live.games[i].points[0];
                     awayMapScore = live.games[i].points === undefined ? 0 : live.games[i].points[1];
-                    mapStr = `${Emojis[match.home.abbreviatedName.toUpperCase()]}**${match.home.name}** ||${homeMapScore}-${
+                    mapStr = `${Emojis[match.home.abbreviatedName.toUpperCase()]}**${match.home.name}** ||${homeMapScore} - ${
                         awayMapScore}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${
                             Emojis[mapType.toUpperCase()]} *${mapName}*: *${mapType}*\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
                     //embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
@@ -124,7 +124,7 @@ class LiveCommand extends Command {
                     title = `__Maps for Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`;
                     homeMapScore = live.games[i].points[0];
                     awayMapScore = live.games[i].points[1];
-                    mapStr = `**Finished Game**\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** ||${homeMapScore}-${
+                    mapStr = `**Finished Game**\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** ||${homeMapScore} - ${
                         awayMapScore}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${Emojis[mapType.toUpperCase()]} *${mapName}*: *${mapType}*`;
                     //embed.setThumbnail("");
                 }

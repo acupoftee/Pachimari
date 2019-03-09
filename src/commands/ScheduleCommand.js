@@ -75,9 +75,9 @@ class ScheduleCommand extends Command {
                 if (matches[i].pending) {
                     daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} vs ${homeTitle}\n`);
                 } else if (matches[i].state === 'IN_PROGRESS') {
-                    daysMatch.push(`*${pacificTime} / ${utcTime}* - ***NOW LIVE***\n[Watch full match here!](https://overwatchleague.com/en-us/)\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
+                    daysMatch.push(`*${pacificTime} / ${utcTime}* - ***NOW LIVE***\n[Watch full match here!](https://overwatchleague.com/en-us/)\n${awayTitle} ||${matches[i].scoreAway} - ${matches[i].scoreHome}|| ${homeTitle}\n`);
                 } else {
-                    daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway}-${matches[i].scoreHome}|| ${homeTitle}\n`);
+                    daysMatch.push(`*${pacificTime} / ${utcTime}*\n${awayTitle} ||${matches[i].scoreAway} - ${matches[i].scoreHome}|| ${homeTitle}\n`);
                 }
                 // if we've gone through all matches for that week,
                 // start the next page for the next day
