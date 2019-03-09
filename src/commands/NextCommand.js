@@ -51,7 +51,8 @@ class NextCommand extends Command {
 
         if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            let description = `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${match.away.name}**`
+            let description = `*${pacificTime} / ${utcTime}*\n ${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** vs **${
+                match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}`
 
             embed.setDescription(description);
             embed.setThumbnail("");

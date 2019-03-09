@@ -59,27 +59,43 @@ class MapManager {
     }
 
     /**
-     * 
-     * @param {string} guid 
+     * Finds the map thumbnail by ID
+     * @param {string} guid the Map GUID
      */
-    static async getLiveMapStatus(guid) {
-        const body = await JsonUtil.parse(Endpoints.get("LIVE-MATCH"));
+    static async getMapThumbnail(guid) {
+        const body = await JsonUtil.parse(Endpoints.get("MAPS"));
         return new Promise((resolve, reject) => {
-            body.data.liveMatch.games.forEach(element => {
-                if (element.attributes.mapGuid == guid) {
-                    resolve(element.status);
+            body.forEach(element => {
+                if (element.guid == guid) {
+                    resolve(element.thumbnail);
                 }
             });
             reject(null);
         });
     }
 
-    static async getNextMapStatus(guid) {
+    /**
+     * 
+     * @param {string} guid 
+     */
+    static async getLiveMapState(guid) {
+        const body = await JsonUtil.parse(Endpoints.get("LIVE-MATCH"));
+        return new Promise((resolve, reject) => {
+            body.data.liveMatch.games.forEach(element => {
+                if (element.attributes.mapGuid == guid) {
+                    resolve(element.state);
+                }
+            });
+            reject(null);
+        });
+    }
+
+    static async getNextMapState(guid) {
         const body = await JsonUtil.parse(Endpoints.get("LIVE-MATCH"));
         return new Promise((resolve, reject) => {
             body.data.nextMatch.games.forEach(element => {
                 if (element.attributes.mapGuid == guid) {
-                    resolve(element.status);
+                    resolve(element.state);
                 }
             });
             reject(null);

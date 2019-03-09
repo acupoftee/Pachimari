@@ -12,17 +12,17 @@ class Map {
      * @param {string} icon 
      * @param {string} thumbnail 
      * @param {string} type 
+     * @param {boolean} pending 
      * @param {string} state 
-     * @param {string} status 
      */
-    constructor(guid, name, icon, thumbnail, type, state, status) {
+    constructor(guid, name, icon, thumbnail, type, pending, state) {
         this._guid = guid;
         this._name = name;
         this._icon = icon;
         this._thumbnail = thumbnail;
         this._type = type;
+        this._pending = pending;
         this._state = state;
-        this._status = status;
     }
 
     get guid() {
@@ -45,11 +45,12 @@ class Map {
         return this._type;
     }
 
+    get pending() {
+        return this._pending;
+    }
+
     get state() {
         return this._state;
     }
-
-    get status() {
-        return this._status;
-    }
 }
+module.exports = Map;
