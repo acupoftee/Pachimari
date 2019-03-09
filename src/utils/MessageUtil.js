@@ -46,7 +46,7 @@ class MessageUtil {
     static capitalizeSentence(sentence) {
         let str = sentence.toLowerCase().split(" ");
         for (let i = 0; i < str.length; i++) {
-            str[i] = str[i].charAt(0).toUpperCase() + str[1].substring(1);
+            str[i] = str[i].charAt(0).toUpperCase() + str[i].substring(1);
         }
         return str.join(" ");
     }

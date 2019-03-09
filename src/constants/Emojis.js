@@ -40,5 +40,10 @@ module.exports = {
     OTHER: '<:other:548570290674991124>',
 
     LOADING: '<a:loading:551877104380411904>',
-    LIVE:'<:live:550922871153623050>'
+    LIVE:'<:live:550922871153623050>',
+
+    ESCORT: '<:escort:553834925900562446>',
+    ASSAULT: '<:assault:553834925858488321>',
+    HYBRID: '<:hybrid:553834926043299842>',
+    CONTROL: '<:control:553834925812351001>'
 }

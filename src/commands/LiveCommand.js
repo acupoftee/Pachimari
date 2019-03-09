@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
+const { CompetitorManager, Endpoints, Match, Banner, GameMap } = require('../models/owl_models');
 const { JsonUtil, AlertUtil, MessageUtil, Logger } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
@@ -11,7 +11,7 @@ class LiveCommand extends Command {
         super();
         this.name = 'live';
         this.description = 'Displays information about a live match';
-        this.usage = 'live';
+        this.usage = 'live [maps]';
         this.aliases = ['livematch'];
     }
 
@@ -35,7 +35,7 @@ class LiveCommand extends Command {
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         let banner = new Banner(home.primaryColor, away.primaryColor,
-            home.tertiaryColor, away.secondaryColor, home.logoName, away.logoName);
+            live.competitors[0].secondaryColor, live.competitors[1].secondaryColor, home.logoName, away.logoName);
 
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');
@@ -47,31 +47,57 @@ class LiveCommand extends Command {
 
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
+        if (args[0] === undefined) {
+            if (match.state === 'IN_PROGRESS') {
+                embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                let description = `*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
+                    match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
+                embed.setDescription(description);
+                embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
+            } else if (match.pending) {
+                embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                let currentTime = new Date().getTime();
+                let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
+                    match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` :
+                    `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
+                    match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
 
-        if (match.state === 'IN_PROGRESS') {
-            embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            embed.setDescription(`*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome}-${
-                match.scoreAway}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`);
-            embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
-        } else if (match.pending) {
-            embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            let currentTime = new Date().getTime();
-            let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` :
-                `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
-
-            embed.setDescription(description);
-            embed.setThumbnail("");
-        } else {
-            loading.then(message => message.delete());
-            MessageUtil.sendSuccess(message.channel, `The match between **${home}** vs **${away}** just finished. Check back in a little bit for the next match!`);
-            return;
+                embed.setDescription(description);
+            } else {
+                loading.then(message => message.delete());
+                MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                return;
+            }
+        } else if (args[0].toLowerCase() === 'maps') {
+            if (match.state === 'CONCLUDED') {
+                loading.then(message => message.delete());
+                MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                return;
+            }
+            let maps = [];
+            for (let i = 0; i < live.games.length; i++) {
+                const map = await GameMap.getMap(live.games[i].attributes.mapGuid);
+                const mapType = await GameMap.getMapType(live.games[i].attributes.mapGuid);
+                let mapStr;
+                if (live.games[i].state !== 'PENDING') {
+                    embed.setTitle(`__NOW LIVE: Maps for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    const homeMapScore = live.games[i].points[0];
+                    const awayMapScore = live.games[i].points[1];
+                    mapStr = `***${map}***: *${mapType}*\n**${match.home.name}** ||${homeMapScore}-${
+                        awayMapScore}|| **${match.away.name}**\n`;
+                    maps.push(mapStr);
+                } else {
+                    embed.setTitle(`__Maps for Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    //mapStr = `***${map}***: *${mapType}*\n`;
+                    embed.addFields(`${Emojis[mapType.toUpperCase()]} ${map}`, `${mapType}`, true);
+                }
+            }
+            embed.setDescription(maps);
         }
         const filename = await banner.buildBanner('pic.png');
         embed.setImageFileName(filename, 'pic.png');
         embed.setColor(home.primaryColor);
-
+        embed.setThumbnail("");
         loading.then(message => message.delete());
         embed.buildEmbed().post(message.channel);
     }
