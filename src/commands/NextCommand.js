@@ -35,7 +35,7 @@ class NextCommand extends Command {
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         let banner = new Banner(home.primaryColor, away.primaryColor,
-        home.tertiaryColor, away.secondaryColor, home.logoName, away.logoName);
+        home.secondary, away.secondaryColor, home.logoName, away.logoName);
         
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');

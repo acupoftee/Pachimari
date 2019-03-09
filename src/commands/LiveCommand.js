@@ -35,7 +35,7 @@ class LiveCommand extends Command {
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         let banner = new Banner(home.primaryColor, away.primaryColor,
-            live.competitors[0].secondaryColor, live.competitors[1].secondaryColor, home.logoName, away.logoName);
+            home.secondaryColor, away.secondaryColor, home.logoName, away.logoName);
 
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');
@@ -64,6 +64,7 @@ class LiveCommand extends Command {
                     match.away.name} ${Emojis[match.away.abbreviatedName.toUpperCase()]}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
 
                 embed.setDescription(description);
+                embed.setThumbnail("");
             } else {
                 loading.then(message => message.delete());
                 MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
@@ -72,7 +73,6 @@ class LiveCommand extends Command {
             const filename = await banner.buildBanner('pic.png');
             embed.setImageFileName(filename, 'pic.png');
             embed.setColor(home.primaryColor);
-            embed.setThumbnail("");
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'maps') {
@@ -95,17 +95,18 @@ class LiveCommand extends Command {
                 let map = new Map(mapGuid, mapName, mapIcon, mapThumbnail, mapType, (live.games[i].state === 'PENDING') ? true : false,
                     live.games[i].state)
                 if (map.state === 'IN_PROGRESS') {
-                    embed.setTitle(`__NOW LIVE: Maps for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-                    const homeMapScore = live.games[i].points[0];
-                    const awayMapScore = live.games[i].points[1];
+                    embed.setTitle(`__Maps for Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    const homeMapScore = live.games[i].points[0] === undefined ? 0 : live.games[i].points[0];
+                    const awayMapScore = live.games[i].points[1] === undefined ? 0 : live.games[i].points[1];
                     mapStr = `***${mapName}***: *${mapType}*\n**${match.home.name}** ||${homeMapScore}-${
                         awayMapScore}|| **${match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
                     embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
                 } else {
-                    embed.setTitle(`__Maps for Next Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    embed.setTitle(`__Maps for Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                     mapStr = `*${pacificTime} / ${utcTime}*\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** vs **${
                         match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${Emojis[mapType.toUpperCase()]} ***${map.name}***: *${map.type}*\n`;
                     //embed.addFields(`${Emojis[mapType.toUpperCase()]} ${mapName}`, `${mapType}`, true);
+                    embed.setThumbnail("");
                 }
                 pages.push(mapStr);
                 icons.push(map.icon);
@@ -113,7 +114,6 @@ class LiveCommand extends Command {
             embed.setDescription(pages[page-1]);
             embed.setImage(icons[icon-1]);
             embed.setColor(home.primaryColor);
-            embed.setThumbnail("");
             embed.setFooter(`Page ${page} of ${pages.length}`);
             let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.delete());
@@ -133,7 +133,6 @@ class LiveCommand extends Command {
                         icon--;
                         embed.setDescription(pages[page-1]);
                         embed.setImage(icons[icon-1]);
-                        embed.setThumbnail("");
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -144,7 +143,6 @@ class LiveCommand extends Command {
                         icon++;
                         embed.setDescription(pages[page-1]);
                         embed.setImage(icons[icon-1]);
-                        embed.setThumbnail("");
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
