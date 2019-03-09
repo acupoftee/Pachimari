@@ -51,8 +51,13 @@ class NextCommand extends Command {
 
         if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            embed.setDescription(`*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**`);
+            let currentTime = new Date().getTime();
+            let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
+                match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` :
+                `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
+                match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
+            
+            embed.setDescription(description);
             embed.setThumbnail("");
         } else {
             return AlertUtil.SUCCESS("Check back later for the next match!");

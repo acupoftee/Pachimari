@@ -50,6 +50,7 @@
   * ✅Schedule
     * ✅ Pagitation
   * ✅Live Match
+    * Paginate maps
   *  ✅Schedule
   *  Social Media Updates
   *  MEMESSSSS

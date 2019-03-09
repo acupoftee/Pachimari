@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../models/owl_models');
-const { JsonUtil, AlertUtil, MessageUtil, Logger} = require('../utils');
+const { JsonUtil, AlertUtil, MessageUtil, Logger } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -35,8 +35,8 @@ class LiveCommand extends Command {
             live.startDateTS, home, away, scoreHome, scoreAway);
 
         let banner = new Banner(home.primaryColor, away.primaryColor,
-        home.secondaryColor, away.secondaryColor, home.logoName, away.logoName);
-        
+            home.secondaryColor, away.secondaryColor, home.logoName, away.logoName);
+
         if (home.abbreviatedName === "HOU") {
             banner.setHomePrimaryColor('#000000');
             banner.setHomeSecondaryColor(home.primaryColor);
@@ -44,7 +44,7 @@ class LiveCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-        
+
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
 
@@ -57,10 +57,10 @@ class LiveCommand extends Command {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             let currentTime = new Date().getTime();
             let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` : 
+                match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` :
                 `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                    match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
-           
+                match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
+
             embed.setDescription(description);
             embed.setThumbnail("");
         } else {
