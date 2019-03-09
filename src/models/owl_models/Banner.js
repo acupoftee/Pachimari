@@ -83,11 +83,11 @@ class Banner {
      */
     async buildBanner(filename) {
         // TODO resolve bug where it loads a previously saved image
-        // const fnt = registerFont('/Users/deedee/Desktop/Coding/Web Dev/Pachimari/assets/industry-medium.ttf',
-        //     {family: 'Industry'});
+        registerFont('assets/industry-medium.ttf',
+            {family: 'Industry Medium'});
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
-        let side1 = 15, side2 = 15;
+        let side1 = 10, side2 = 10;
 
         ctx.fillStyle = this._homePrimaryColor;
         ctx.fillRect(0, 0, 250, 250);
@@ -101,14 +101,16 @@ class Banner {
         ctx.fillStyle = this._awaySecondaryColor;
         ctx.fillRect(canvas.width - side2, 0, side2, 250);
 
-        // ctx.fillStyle = '#ffffff';
-        // ctx.fillRect((canvas.width / 2) - 20, (canvas.height / 2) - 10, 40, 20);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect((canvas.width / 2) - 20, (canvas.height / 2) - 25 / 2, 40, 25);
 
-        // ctx.fillStyle = '#000000';
-        // ctx.font = '20px Calibri bold';
-        // ctx.fillText("VS", (canvas.width / 2) - 20, (canvas.height/2) + 5);
+        ctx.fillStyle = '#000';
+        ctx.font = '20px "Industry Medium"';
+        let text = "VS";
+        let textWidth = ctx.measureText(text).width;
+        ctx.fillText("VS", (canvas.width / 2) - (textWidth / 2), (canvas.height / 2) + 7);
 
-        // https://jsfiddle.net/dustybutton/Ljdbtk79/2/
+        // basic algorithm: https://jsfiddle.net/dustybutton/Ljdbtk79/2/
         let homeLogo = await loadImage(this._homeLogo);
         let homeWidth = homeLogo.width / 3, homeHeight = homeLogo.height / 3;
         ctx.drawImage(homeLogo, 
