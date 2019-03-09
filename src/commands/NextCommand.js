@@ -51,12 +51,8 @@ class NextCommand extends Command {
 
         if (match.pending) {
             embed.setTitle(`__Next Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-            let currentTime = new Date().getTime();
-            let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\n*Starts ${moment_timezone(match.startDateTS).endOf('minute').fromNow()}*` :
-                `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${
-                match.away.name}**\n[Watch full match here!](https://overwatchleague.com/en-us/)`
-            
+            let description = `*${pacificTime} / ${utcTime}*\n **${match.home.name}** vs **${match.away.name}**`
+
             embed.setDescription(description);
             embed.setThumbnail("");
         } else {
@@ -70,6 +66,5 @@ class NextCommand extends Command {
         loading.then(message => message.delete());
         embed.buildEmbed().post(message.channel);
     }
-
 }
 module.exports = NextCommand;

@@ -64,7 +64,8 @@ class LiveCommand extends Command {
             embed.setDescription(description);
             embed.setThumbnail("");
         } else {
-            MessageUtil.sendSuccess(message.channel, "Check back Later for the next match!");
+            loading.then(message => message.delete());
+            MessageUtil.sendSuccess(message.channel, `The match between **${home}** vs **${away}** just finished. Check back in a little bit for the next match!`);
             return;
         }
         const filename = await banner.buildBanner('pic.png');

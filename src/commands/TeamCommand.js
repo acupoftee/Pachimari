@@ -149,6 +149,9 @@ class TeamCommand extends Command {
                         previousMatches.push(`${date}, ${moment_timezone(match.startDateTS).startOf('hour').fromNow()}\n*${pacificTime} / ${utcTime}*\n${awayTitle} ||${match.scoreAway}-${match.scoreHome}|| ${homeTitle}\n`);
                     }
                 });
+                if (daysMatch.length == 0) {
+                    daysMatch.push(`***No upcoming ${stage} matches.***`)
+                }
                 pages.push(daysMatch);
                 pages.push(previousMatches);
                 embed.setDescription(pages[page - 1]);

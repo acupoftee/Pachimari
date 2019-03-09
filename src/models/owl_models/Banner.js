@@ -82,7 +82,6 @@ class Banner {
      * @returns {string} filepath
      */
     async buildBanner(filename) {
-        // TODO resolve bug where it loads a previously saved image
         registerFont('assets/industry-medium.ttf',
             {family: 'Industry Medium'});
         const canvas = createCanvas(500, 250);
@@ -136,10 +135,10 @@ class Banner {
     // /**
     //  * Deletes a file from the directory
     //  */
-    //  deleteFile() {
-    //     fs.unlink('./src/res/banner.png', (err) => {
+    //  deleteFile(filename) {
+    //     fs.unlinkSync(`src/res/${filename}`, (err) => {
     //         if (err) throw err;
-    //         console.log('banner was deleted');
+    //         console.log(`${filename} was deleted`);
     //     });
     // }
 }
