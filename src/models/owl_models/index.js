@@ -10,7 +10,7 @@ const Article = require('./Article');
 const Match = require('./Match');
 const StandingsManager = require('./StandingsManager');
 const Banner = require('./Banner');
-const GameMap = require('./GameMap');
+const MapManager = require('./MapManager');
 
 module.exports = {
     Account,
@@ -23,5 +23,5 @@ module.exports = {
     Match,
     StandingsManager,
     Banner,
-    GameMap
+    MapManager
 };

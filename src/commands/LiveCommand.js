@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match, Banner, GameMap } = require('../models/owl_models');
+const { CompetitorManager, Endpoints, Match, Banner, MapManager } = require('../models/owl_models');
 const { JsonUtil, AlertUtil, MessageUtil, Logger } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
@@ -76,8 +76,8 @@ class LiveCommand extends Command {
             }
             let maps = [];
             for (let i = 0; i < live.games.length; i++) {
-                const map = await GameMap.getMap(live.games[i].attributes.mapGuid);
-                const mapType = await GameMap.getMapType(live.games[i].attributes.mapGuid);
+                const map = await MapManager.getMap(live.games[i].attributes.mapGuid);
+                const mapType = await MapManager.getMapType(live.games[i].attributes.mapGuid);
                 let mapStr;
                 if (live.games[i].state !== 'PENDING') {
                     embed.setTitle(`__NOW LIVE: Maps for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
