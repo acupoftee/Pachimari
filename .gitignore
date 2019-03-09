@@ -60,16 +60,10 @@ typings/
 # next.js build output
 .next
 
-team.json
-teams.json
-players.json
-player.json
-ranking.json
-contenders.json
-news.json
-live.json
+
 .DS_Store
 
 src/res
+jsonexamples/
 test.js
 copy.js

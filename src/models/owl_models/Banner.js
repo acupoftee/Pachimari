@@ -82,8 +82,8 @@ class Banner {
      * @returns {string} filepath
      */
     async buildBanner(filename) {
-        registerFont('assets/industry-medium.ttf',
-            {family: 'Industry Medium'});
+        // registerFont('assets/industry-medium.ttf',
+        //     {family: 'Industry Medium'});
         const canvas = createCanvas(500, 250);
         const ctx = canvas.getContext('2d');
         let side1 = 10, side2 = 10;
@@ -100,14 +100,14 @@ class Banner {
         ctx.fillStyle = this._awaySecondaryColor;
         ctx.fillRect(canvas.width - side2, 0, side2, 250);
 
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect((canvas.width / 2) - 20, (canvas.height / 2) - 25 / 2, 40, 25);
+        // ctx.fillStyle = '#ffffff';
+        // ctx.fillRect((canvas.width / 2) - 20, (canvas.height / 2) - 25 / 2, 40, 25);
 
-        ctx.fillStyle = '#000';
-        ctx.font = '20px "Industry Medium"';
-        let text = "VS";
-        let textWidth = ctx.measureText(text).width;
-        ctx.fillText("VS", (canvas.width / 2) - (textWidth / 2), (canvas.height / 2) + 7);
+        // ctx.fillStyle = '#000';
+        // ctx.font = '20px "Industry Medium"';
+        // let text = "VS";
+        // let textWidth = ctx.measureText(text).width;
+        // ctx.fillText("VS", (canvas.width / 2) - (textWidth / 2), (canvas.height / 2) + 7);
 
         // basic algorithm: https://jsfiddle.net/dustybutton/Ljdbtk79/2/
         let homeLogo = await loadImage(this._homeLogo);
