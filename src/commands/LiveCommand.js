@@ -124,8 +124,8 @@ class LiveCommand extends Command {
                     const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                     const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
     
-                    const backwards = msg.createReactionCollector(backwardsFilter);
-                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
+                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
+                    const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
     
                     backwards.on('collect', r => {
                         if (page === 1) return;
