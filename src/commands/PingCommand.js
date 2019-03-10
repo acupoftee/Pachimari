@@ -1,5 +1,6 @@
 'use strict';
 
+const { Attachment } = require('discord.js');
 const { Command } = require('../models');
 const { Logger } = require('../utils');
 
@@ -19,7 +20,12 @@ class PingCommand extends Command {
 
     execute(client, message, args) {
         message.channel.send(':ping_pong: Pinging...').then(m => {
-            m.edit(`:ping_pong: \`\`${client.ping} ms\`\``);
+            m.edit(`:ping_pong: \`\`${client.ping} ms\`\``).then(msg => {
+                msg.channel.send({files: [{
+                    attachment: 'assets/pong_12.gif',
+                    name: 'pong_12.gif'
+                  }]});
+            })
         }).catch(Logger.error);
     }
 }

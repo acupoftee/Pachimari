@@ -89,7 +89,10 @@ class LiveCommand extends Command {
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {
+            loading.then(message => message.delete());
+            console.log(live.games.length);
             for (let i = 0; i < live.games.length; i++) {
+                console.log(live.games[i].state);
                 if (live.games[i].state === 'IN_PROGRESS') {
                     const mapGuid = live.games[i].attributes.mapGuid;
                     const mapName = await MapManager.getMap(mapGuid);
@@ -105,15 +108,13 @@ class LiveCommand extends Command {
                     embed.setImage(mapIcon);
                     embed.setDescription(mapStr);
                     embed.setColor(home.primaryColor);
-                    embed.setTitle(`__NOW LIVE: Map for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                    embed.setTitle(`__NOW LIVE: Current Map for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                     embed.buildEmbed().post(message.channel);
-                    break;
-                } else {
-                    loading.then(message => message.delete());
-                    MessageUtil.sendError(message.channel, "There is no live map yet. Check back later!");
                     return;
-                }
+                } 
             }
+            MessageUtil.sendError(message.channel, "There is no live game yet. Check back later!");
+            return;
         } else if (args[0].toLowerCase() === 'maps') {
             if (match.state === 'CONCLUDED') {
                 loading.then(message => message.delete());
@@ -138,19 +139,14 @@ class LiveCommand extends Command {
                     mapStr = `**NOW LIVE**\n${Emojis[match.home.abbreviatedName.toUpperCase()]}**${match.home.name}** ||${homeMapScore} - ${
                         awayMapScore}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${
                         Emojis[mapType.toUpperCase()]} *${mapName}:* *${mapType}*\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
-                    //embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
                 } else if (map.pending) {
-                    //title = `__Maps for Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`;
                     mapStr = `*${pacificTime} / ${utcTime}*\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** vs **${
                         match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${Emojis[mapType.toUpperCase()]} *${map.name}*: *${map.type}*\n`;
-                    //embed.addFields(`${Emojis[mapType.toUpperCase()]} ${mapName}`, `${mapType}`, true);
-                    //embed.setThumbnail("");
                 } else {
                     homeMapScore = live.games[i].points[0];
                     awayMapScore = live.games[i].points[1];
                     mapStr = `**Finished Game**\n${Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** ||${homeMapScore} - ${
                         awayMapScore}|| **${match.away.name}** ${Emojis[match.away.abbreviatedName.toUpperCase()]}\n${Emojis[mapType.toUpperCase()]} *${mapName}*: *${mapType}*`;
-                    //embed.setThumbnail("");
                 }
                 pages.push(mapStr);
                 icons.push(map.icon);

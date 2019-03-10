@@ -20,7 +20,7 @@ class NextCommand extends Command {
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
             loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "There's no next match coming up. Check back Later!");
+            MessageUtil.sendError(message.channel, "There's no next match not available yet. Check back Later!");
             return;
         }
 
@@ -44,7 +44,6 @@ class NextCommand extends Command {
             banner.setAwayPrimaryColor('#000000');
             banner.setAwaySecondaryColor(away.primaryColor);
         }
-       // banner.buildBanner('next.png');
         
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
