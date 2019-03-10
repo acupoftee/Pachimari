@@ -90,9 +90,7 @@ class LiveCommand extends Command {
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {
             loading.then(message => message.delete());
-            console.log(live.games.length);
             for (let i = 0; i < live.games.length; i++) {
-                console.log(live.games[i].state);
                 if (live.games[i].state === 'IN_PROGRESS') {
                     const mapGuid = live.games[i].attributes.mapGuid;
                     const mapName = await MapManager.getMap(mapGuid);

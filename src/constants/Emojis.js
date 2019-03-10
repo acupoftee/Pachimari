@@ -39,7 +39,7 @@ module.exports = {
     REDDIT: '<:reddit:548532719487811599>',
     OTHER: '<:other:548570290674991124>',
 
-    LOADING: '<a:loading:551877104380411904>',
+    LOADING: '<a:loading:393852367751086090>',
     LIVE:'<:live:550922871153623050>',
 
     ESCORT: '<:escort:553834925900562446>',
