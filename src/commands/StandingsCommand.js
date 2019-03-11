@@ -19,16 +19,16 @@ class StandingsCommand extends Command {
         super();
         this.name = 'standings';
         this.description = 'Displays the current standings for this season';
-        this.usage = 'standings';
+        this.usage = 'standings [playoffs]';
         this.aliases = [];
     }
     
     async execute(client, message, args) {
         let msg = message.channel.send(Emojis["LOADING"]);
-        msg.then(async message => message.edit(await(this.buildMessage(client))));
+        msg.then(async message => message.edit(await(this.buildMessage(client, args))));
     }
 
-    async buildMessage(client) {
+    async buildMessage(client, args) {
         let info = [];
         const embed = new PachimariEmbed(client);
         embed.setTitle("__Overwatch League Standings__");
@@ -53,7 +53,13 @@ class StandingsCommand extends Command {
             Logger.error(err.stack);
         });
 
-        info.splice(8, 0, `--------------------------\n\u0020*Stage Playoffs Cutoff*\n--------------------------`)
+        if (args[0] !== undefined && args[0].toLowerCase() === 'playoffs') {
+            info.splice(0, 0, '***Division Leaders***');
+            info.splice(3, 0, '\n***Other Teams***');
+            info.splice(8, 0, '\n***Postsason Playoffs Cutoff***');
+        } else {
+            info.splice(8, 0, `--------------------------\n\*Stage Playoffs Cutoff*\n--------------------------`);
+        }
         embed.setDescription(info);
         embed.buildEmbed();
         return {embed : embed.getEmbed}

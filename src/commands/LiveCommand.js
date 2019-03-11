@@ -20,6 +20,7 @@ class LiveCommand extends Command {
         //msg.then(async message => message.edit(await(this.buildMessage(client, message))));
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.liveMatch === undefined || Object.keys(body.data.liveMatch).length === 0) {
+            loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "There's no live match coming up. Check back Later!");
             return;
         }

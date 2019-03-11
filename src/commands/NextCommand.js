@@ -20,7 +20,7 @@ class NextCommand extends Command {
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
             loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "There's no next match not available yet. Check back Later!");
+            MessageUtil.sendError(message.channel, "There's no next match available yet. Check back Later!");
             return;
         }
 
