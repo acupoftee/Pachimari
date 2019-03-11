@@ -54,9 +54,9 @@ class StandingsCommand extends Command {
         });
 
         if (args[0] !== undefined && args[0].toLowerCase() === 'playoffs') {
-            info.splice(0, 0, '***Division Leaders***');
-            info.splice(3, 0, '\n***Other Teams***');
-            info.splice(8, 0, '\n***Postsason Playoffs Cutoff***');
+            info.splice(0, 0, '__**Division Leaders**__');
+            info.splice(3, 0, '\n__**Other Teams**__');
+            info.splice(8, 0, '\n___**Postsason Playoffs Cutoff**__');
         } else {
             info.splice(8, 0, `--------------------------\n\*Stage Playoffs Cutoff*\n--------------------------`);
         }

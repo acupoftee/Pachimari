@@ -1,8 +1,9 @@
 'use strict';
 
-const { Attachment } = require('discord.js');
 const { Command } = require('../models');
 const { Logger } = require('../utils');
+const { PingGifs } = require('../constants');
+const fs = require('fs');
 
 /**
  * A basic command in which Pachimari will 
@@ -21,11 +22,9 @@ class PingCommand extends Command {
     execute(client, message, args) {
         message.channel.send(':ping_pong: Pinging...').then(m => {
             m.edit(`:ping_pong: \`\`${client.ping} ms\`\``).then(msg => {
-                msg.channel.send({files: [{
-                    attachment: 'assets/pong_12.gif',
-                    name: 'pong_12.gif'
-                  }]});
-            })
+                let rand = Math.floor(Math.random() * PingGifs.LINKS.length-1) + 1;
+                message.channel.send(PingGifs.LINKS[rand]);
+            });
         }).catch(Logger.error);
     }
 }
