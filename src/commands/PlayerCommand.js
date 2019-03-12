@@ -61,7 +61,7 @@ class PlayerCommand extends Command {
             embed.addFields('Deaths', player.deaths.toFixed(2), true);
             embed.addFields('Hero Damage', player.heroDamage.toFixed(2), true);
             embed.addFields('Healing', player.healing.toFixed(2), true);
-            embed.addFields('Ultimates', player.ultimates.toFixed(2), true);
+            embed.addFields('Ultimates Earned', player.ultimates.toFixed(2), true);
             embed.addFields('Final Blows', player.finalBlows.toFixed(2), true);
             if (player.accounts.size > 0) {
                 embed.addFields(`${player.accounts.size} Accounts`, `\`\`!player ${args[0]} accounts\`\``);
