@@ -153,6 +153,7 @@ class TeamCommand extends Command {
                     daysMatch.push(`***No upcoming ${stage} matches.***`)
                 }
                 pages.push(daysMatch);
+                previousMatches.reverse();
                 pages.push(previousMatches);
                 embed.setDescription(pages[page - 1]);
                 embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
