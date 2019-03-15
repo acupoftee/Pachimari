@@ -150,7 +150,7 @@ class TeamCommand extends Command {
                     }
                 });
                 if (daysMatch.length == 0) {
-                    daysMatch.push(`***No upcoming ${stage} matches.***`)
+                    daysMatch.push(`:x: No upcoming ${stage} matches. Check back for the next stage!`)
                 }
                 pages.push(daysMatch);
                 previousMatches.reverse();
