@@ -61,6 +61,7 @@ class LiveCommand extends Command {
         let pacificTime = moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('h:mm A z');
         let utcTime = moment_timezone(match.startDateTS).utc().format('h:mm A z');
         if (args[0] === undefined || !terms.includes(args[0].toLowerCase())) {
+            // sets the following message with a match link if we're live
             if (match.state === 'IN_PROGRESS') {
                 embed.setTitle(`__NOW LIVE: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                 let description = `*${pacificTime} / ${utcTime}*\n**${match.home.name}** ||${match.scoreHome} - ${
@@ -68,6 +69,8 @@ class LiveCommand extends Command {
                     currentMap}*\n[Watch full match here!](https://overwatchleague.com/en-us/)`;
                 embed.setDescription(description);
                 embed.setThumbnail("https://cdn.discordapp.com/emojis/551245013938470922.png?v=1");
+
+            // sets the following message if a match hasn't happened yet
             } else if (match.pending) {
                 embed.setTitle(`__Live Soon: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                 let currentTime = new Date().getTime();

@@ -26,6 +26,7 @@
     "moment-timezone": "^0.5.23",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.19",
+    "mysql2": "^1.6.5",
     "owl-colors": "0.0.4",
     "request": "^2.88.0"
   }
