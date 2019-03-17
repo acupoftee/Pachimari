@@ -127,6 +127,58 @@ class CompetitorManager {
     }
 
     /**
+     * Updates the competitor's placement
+     * @param {Competitor} competitor 
+     * @returns {number} the competitor's current placement
+     */
+    static async updateRanking(competitor) {
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', competitor.id));
+        const data = body.data;
+        const ranking = data.placement;
+        Logger.info(`Updated placement for ${competitor.name} to ${ranking}`);
+        return ranking;
+    }
+
+    /**
+     * Updates the competitor's win
+     * @param {Competitor} competitor 
+     * @returns {number} the competitor's current wins
+     */
+    static async updateWin(competitor) {
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', competitor.id));
+        const data = body.data;
+        const win = data.records.matchWin;
+        Logger.info(`Updated wins for ${competitor.name} to ${win}`);
+        return win;
+    }
+
+    /**
+     * Updates the competitor's losses
+     * @param {Competitor} competitor 
+     * @returns {number} the competitor's current losses
+     */
+    static async updateLoss(competitor) {
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', competitor.id));
+        const data = body.data;
+        const loss = data.records.matchLoss;
+        Logger.info(`Updated losses for ${competitor.name} to ${loss}`);
+        return loss;
+    }
+
+      /**
+     * Updates the competitor's ties
+     * @param {Competitor} competitor 
+     * @returns {number} the competitor's current draws
+     */
+    static async updateDraws(competitor) {
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', competitor.id));
+        const data = body.data;
+        const draws = data.records.matchDraw;
+        Logger.info(`Updated draws for ${competitor.name} to ${draws}`);
+        return draws;
+    }
+
+    /**
      * Finds a Competitor account by name
      * @param {string} val the competitor's account type
      * @returns {string} the Competitor's account url

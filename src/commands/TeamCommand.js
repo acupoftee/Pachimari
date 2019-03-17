@@ -48,11 +48,24 @@ class TeamCommand extends Command {
         const teamEmoji = Emojis[competitor.abbreviatedName];
         let loading = message.channel.send(Emojis["LOADING"]);
 
+        const placement = await CompetitorManager.updateRanking(competitor);
+        competitor.setPlacement(placement);
+
+        const wins = await CompetitorManager.updateWin(competitor);
+        competitor.setMatchWin(wins);
+
+        const losses = await CompetitorManager.updateLoss(competitor);
+        competitor.setMatchLoss(losses);
+
+        const draws = await CompetitorManager.updateDraws(competitor);
+        competitor.setMatchDraw(draws);
+        
+
         if (args[1] === undefined) {
             embed.setTitle(`${teamEmoji} __${competitor.name}__ (${competitor.abbreviatedName})`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
-            teamInfo.push(NumberUtil.ordinal(competitor.placement) + ' in the Overwatch League');
+            teamInfo.push(NumberUtil.ordinal(placement) + ' in the Overwatch League');
 
             if (competitor.matchDraw > 0) {
                 teamInfo.push('Record: ' + `${competitor.matchWin}W - ${competitor.matchLoss}L - ${competitor.matchDraw}T\n`);

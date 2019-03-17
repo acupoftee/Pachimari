@@ -154,6 +154,10 @@ class Competitor {
             return this._placement;
         }
 
+        /**
+         * Sets the competitor's placement
+         * @param {number} placement the competitor's current standing
+         */
         setPlacement(placement) {
             this._placement = placement;
         }
@@ -165,6 +169,10 @@ class Competitor {
             return this._matchWin;
         }
 
+        /**
+         * Sets the competitor's win
+         * @param {number} win the competitor's total wins
+         */
         setMatchWin(win) {
             this._matchWin = win;
         }
@@ -177,6 +185,10 @@ class Competitor {
             return this._matchLoss;
         }
 
+        /**
+         * Sets the competitor's loss
+         * @param {number} loss the competitor's total losses
+         */
         setMatchLoss(loss) {
             this._matchLoss = loss;
         }
@@ -189,6 +201,10 @@ class Competitor {
             return this._matchDraw;
         }
 
+        /**
+         * Sets the competitor's ties
+         * @param {number} draw the competitor's total tiess
+         */
         setMatchDraw(draw) {
             this._matchDraw = draw;
         }
