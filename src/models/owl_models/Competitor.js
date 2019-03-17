@@ -153,12 +153,20 @@ class Competitor {
         get placement() {
             return this._placement;
         }
+
+        setPlacement(placement) {
+            this._placement = placement;
+        }
         /**
          * Returns a Competitor's match win record
          * @returns {number} match win record
          */
         get matchWin() {
             return this._matchWin;
+        }
+
+        setMatchWin(win) {
+            this._matchWin = win;
         }
 
         /**
@@ -169,12 +177,20 @@ class Competitor {
             return this._matchLoss;
         }
 
+        setMatchLoss(loss) {
+            this._matchLoss = loss;
+        }
+
         /**
          * Returns a Competitor's match draw record
          * @returns {number} match draw record
          */
         get matchDraw() {
             return this._matchDraw;
+        }
+
+        setMatchDraw(draw) {
+            this._matchDraw = draw;
         }
 
         /**

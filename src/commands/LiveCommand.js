@@ -72,7 +72,7 @@ class LiveCommand extends Command {
 
             // sets the following message if a match hasn't happened yet
             } else if (match.pending) {
-                embed.setTitle(`__Live Soon: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
+                embed.setTitle(`__${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                 let currentTime = new Date().getTime();
                 let description = currentTime < match.startDateTS ? `*${pacificTime} / ${utcTime}*\n ${
                     Emojis[match.home.abbreviatedName.toUpperCase()]} **${match.home.name}** vs **${
