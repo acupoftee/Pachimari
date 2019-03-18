@@ -1,8 +1,8 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Banner,  PlayerManager} = require('../models/owl_models');
-const { JsonUtil, MessageUtil, NumberUtil } = require('../utils');
+const { CompetitorManager, PlayerManager} = require('../models/owl_models');
+const { MessageUtil, AlertUtil, NumberUtil } = require('../utils');
 const { Emojis } = require('../constants');
 
 class CompareCommand extends Command {
@@ -16,11 +16,13 @@ class CompareCommand extends Command {
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
+        loading.then(async message => message.edit(await(this.buildMessage(client, args))));
+    }
 
+    async buildMessage(client, args) {
         if (args.length <= 1 || args.length >= 3) {
             loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Please specify 2 Overwatch League Player to compare stats");
-            return;
+            return AlertUtil("Please specify 2 Overwatch League Player to compare stats");
         }
         const firstId = PlayerManager.locatePlayer(args[0]), 
               secondId = PlayerManager.locatePlayer(args[1]);
@@ -29,8 +31,7 @@ class CompareCommand extends Command {
 
         if (firstPlayer === undefined || secondPlayer === undefined) {
             loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Sorry, couldn't find any info :C");
-            return;
+            return AlertUtil.ERROR("Sorry, couldn't find any info :C");
         }
 
         const embed = new PachimariEmbed(client);
@@ -91,13 +92,8 @@ class CompareCommand extends Command {
         embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Info__`, secondInfo, true);
 
         embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-        // let banner = new Banner(firstCompetitor.primaryColor, secondCompetitor.primaryColor, firstCompetitor.secondaryColor, secondCompetitor.secondaryColor,
-        //     firstPlayer.headshot, secondPlayer.headshot);
-        // let filename = await banner.buildBanner('compare.png', firstPlayer.name ,secondPlayer.name);
-        // embed.setImageFileName(filename, 'compare.png');
         embed.buildEmbed();
-        loading.then(message => message.delete());
-        embed.post(message.channel);
+        return { embed: embed.getEmbed };
     }
 }
 module.exports = CompareCommand;

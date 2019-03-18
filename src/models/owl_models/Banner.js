@@ -160,12 +160,12 @@ class Banner {
         }
     }
     /**
- * Determines the contrast of a color. See https://www.w3.org/TR/AERT/#color-contrast
- * @param {number} r red value
- * @param {number} g green value 
- * @param {number} b blue value
- * @returns {boolean} true if the luminance is below 0.5 (lighter)
- */
+     * Determines the contrast of a color. See https://www.w3.org/TR/AERT/#color-contrast
+     * @param {number} r red value
+     * @param {number} g green value 
+     * @param {number} b blue value
+     * @returns {boolean} true if the luminance is below 0.5 (lighter)
+     */
     colorIsLight(r, g, b) {
         // Counting the perceptive luminance
         // human eye favors green color... 
