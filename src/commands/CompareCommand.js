@@ -91,6 +91,10 @@ class CompareCommand extends Command {
         embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Info__`, secondInfo, true);
 
         embed.setFooter('Stats are per 10 minutes, except for Time Played.');
+        // let banner = new Banner(firstCompetitor.primaryColor, secondCompetitor.primaryColor, firstCompetitor.secondaryColor, secondCompetitor.secondaryColor,
+        //     firstPlayer.headshot, secondPlayer.headshot);
+        // let filename = await banner.buildBanner('compare.png', firstPlayer.name ,secondPlayer.name);
+        // embed.setImageFileName(filename, 'compare.png');
         embed.buildEmbed();
         loading.then(message => message.delete());
         embed.post(message.channel);
