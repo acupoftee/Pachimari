@@ -61,7 +61,7 @@ class CompareCommand extends Command {
         let firstInfo = [], secondInfo = [];
 
         firstInfo.push(`${MessageUtil.getFlag(firstPlayer.nationality)} ${firstPlayer.homeLocation}`);
-        firstInfo.push(`${MessageUtil.getFlag(secondPlayer.nationality)} ${secondPlayer.homeLocation}`);
+        secondInfo.push(`${MessageUtil.getFlag(secondPlayer.nationality)} ${secondPlayer.homeLocation}`);
 
         firstInfo.push(`Role: ${Emojis[firstPlayer.role.toUpperCase()]} **${MessageUtil.capitalize(firstPlayer.role)}**`);
         secondInfo.push(`Role: ${Emojis[secondPlayer.role.toUpperCase()]} **${MessageUtil.capitalize(secondPlayer.role)}**`);
@@ -87,8 +87,8 @@ class CompareCommand extends Command {
         firstInfo.push(`Final Blows: **${firstPlayer.timePlayed.toFixed(2)}**`);
         secondInfo.push(`Final Blows: **${secondPlayer.timePlayed.toFixed(2)}**`);
 
-        embed.addFields(`__${firstPlayer.name}'s Info__`, firstInfo, true);
-        embed.addFields(`__${MessageUtil.getFlag(secondPlayer.nationality)} ${secondPlayer.name}'s Info__`, secondInfo, true);
+        embed.addFields(`__${MessageUtil.capitalize(firstPlayer.name)}'s Info__`, firstInfo, true);
+        embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Info__`, secondInfo, true);
 
         embed.setFooter('Stats are per 10 minutes, except for Time Played.');
         embed.buildEmbed();
