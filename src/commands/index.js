@@ -12,6 +12,7 @@ const PageCommand = require('./PageCommand');
 const RefreshCommand = require('./RefreshCommand');
 const LiveCommand = require('./LiveCommand');
 const NextCommand = require('./NextCommand');
+const CompareCommand = require('./CompareCommand');
 
 module.exports = {
     PingCommand,
@@ -25,5 +26,6 @@ module.exports = {
     PageCommand,
     RefreshCommand,
     LiveCommand,
-    NextCommand
+    NextCommand,
+    CompareCommand
 };
