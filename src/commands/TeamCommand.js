@@ -44,20 +44,15 @@ class TeamCommand extends Command {
 
         const embed = new PachimariEmbed(client);
         embed.setColor(competitor.primaryColor);
-        embed.setThumbnail(competitor.logo);
+        let logo = competitor.abbreviatedName == "CDH" ? competitor.altDark : competitor.logo;
+        embed.setThumbnail(logo);
         const teamEmoji = Emojis[competitor.abbreviatedName];
         let loading = message.channel.send(Emojis["LOADING"]);
         const teamStats = await CompetitorManager.updateTeamStats(competitor);
-        // const placement = await CompetitorManager.updateRanking(competitor);
+
         competitor.setPlacement(teamStats[0]);
-
-        // const wins = await CompetitorManager.updateWin(competitor);
         competitor.setMatchWin(teamStats[1]);
-
-        // const losses = await CompetitorManager.updateLoss(competitor);
         competitor.setMatchLoss(teamStats[2]);
-
-        // const draws = await CompetitorManager.updateDraws(competitor);
         competitor.setMatchDraw(teamStats[3]);
         
 

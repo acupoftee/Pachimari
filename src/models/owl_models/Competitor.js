@@ -16,6 +16,7 @@ class Competitor {
      * @param {string} abbreviatedName abbreviated competitor name
      * @param {string} logo competitor logo
      * @param {string} logoName competitor logo name
+     * @param {string} altDark competitor dark logo
      * @param {string} location competitor location 
      * @param {string} primaryColor primary team color
      * @param {string} secondaryColor secondary team color
@@ -26,7 +27,7 @@ class Competitor {
      * @param {number} matchLoss number of losses
      * @param {number} matchDraw number of draws
      */
-    constructor(id, divisionId, name, abbreviatedName, logo, logoName, location, 
+    constructor(id, divisionId, name, abbreviatedName, logo, logoName, altDark, location, 
         primaryColor, secondaryColor, tertiaryColor, website,
         placement, matchWin, matchLoss, matchDraw) {
             this._id = id;
@@ -35,6 +36,7 @@ class Competitor {
             this._abbreviatedName = abbreviatedName;
             this._logo = logo;
             this._logoName = logoName;
+            this._altDark = altDark;
             this._location = location;
             this._primaryColor = primaryColor;
             this._secondaryColor = secondaryColor;
@@ -92,7 +94,7 @@ class Competitor {
         }
 
         /**
-         * Returns a Team's ;ogo URL
+         * Returns a Team's logo URL
          * @returns {string} logo url
          */
         get logo() {
@@ -105,6 +107,14 @@ class Competitor {
          */
         get logoName() {
             return this._logoName;
+        }
+
+        /**
+         * Returns a Team's dark logo URL
+         * @returns {string} dark logo url
+         */
+        get altDark() {
+            return this._altDark;
         }
 
         /**

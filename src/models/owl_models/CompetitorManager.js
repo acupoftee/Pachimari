@@ -65,6 +65,8 @@ class CompetitorManager {
             const id = this._competitors[i];
             const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', id));
             const data = body.data;
+            let dark =  data.abbreviatedName == "LDN" ? data.logo.main.png : data.logo.altDark.png;
+            
 
             let competitor = new Competitor(
                 data.id, 
@@ -73,6 +75,7 @@ class CompetitorManager {
                 data.abbreviatedName, 
                 data.logo.main.png,
                 data.logo.mainName.svg,
+                dark,
                 data.location,
                 getPrimaryColor(data.abbreviatedName).hex,
                 getSecondaryColor(data.abbreviatedName).hex,
