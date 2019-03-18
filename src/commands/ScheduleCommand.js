@@ -42,7 +42,7 @@ class ScheduleCommand extends Command {
             for (const _stage of body.data.stages) {
                 if (_stage.slug === slug) {
                     for (const week of _stage.weeks) {
-                        if ((currentTime < week.endDate)) {
+                        if ((currentTime < week.endDate) || (currentTime > week.startDate && currentTime < week.endDate)) {
                             stage_week = `${_stage.name}/${week.name}`
                             week.matches.forEach(_match => {
                                 let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
