@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { JsonUtil, Logger } = require('../utils');
+const { JsonUtil, Logger, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const stageData = require('../data/stages.json');
 const moment_timezone = require('moment-timezone');
@@ -33,15 +33,16 @@ class ScheduleCommand extends Command {
             let slug = null;
             for (let i = 0; i < stageData.length; i++) {
                 const stage = stageData[i];
-                if (currentTime > stage.startDate && currentTime < stage.endDate) {
+                if (currentTime < stage.endDate) {
                     slug = stage.slug;
+                    break;
                 }
             }
             // organize data by stage and week
-            body.data.stages.forEach(_stage => {
+            for (const _stage of body.data.stages) {
                 if (_stage.slug === slug) {
-                    _stage.weeks.forEach(week => {
-                        if (currentTime > week.startDate && currentTime < week.endDate) {
+                    for (const week of _stage.weeks) {
+                        if ((currentTime < week.endDate)) {
                             stage_week = `${_stage.name}/${week.name}`
                             week.matches.forEach(_match => {
                                 let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
@@ -50,12 +51,14 @@ class ScheduleCommand extends Command {
                                     _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value);
                                 matches.push(match);
                             });
+                            break;
                         }
-                    });
+                    }
                 }
-            });
+            }
             resolve(1);
         });
+
 
         promise.then(function (result) {
             // add dummy match as a stop value 
@@ -85,6 +88,7 @@ class ScheduleCommand extends Command {
                     pages.push(daysMatch);
                     daysMatch = [];
                 }
+
             }
 
             embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
@@ -130,5 +134,6 @@ class ScheduleCommand extends Command {
             Logger.error(err.stack);
         });
     }
+
 }
 module.exports = ScheduleCommand;

@@ -126,6 +126,22 @@ class CompetitorManager {
         }
     }
 
+     /**
+     * Returns all updated competitor stats.
+     * 0: placement, 1: win, 2: loss, 3: draws, 
+     * @param {Competitor} competitor 
+     * @returns {Promise<number[]>} an array of stats 
+     */
+    static async updateTeamStats(competitor) {
+        let stats = [];
+        const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', competitor.id));
+        stats.push(body.data.placement);
+        stats.push(body.data.records.matchWin);
+        stats.push(body.data.records.matchLoss);
+        stats.push(body.data.records.matchDraw);
+        return stats;
+    }
+
     /**
      * Updates the competitor's placement
      * @param {Competitor} competitor 
