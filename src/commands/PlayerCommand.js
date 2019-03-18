@@ -45,6 +45,14 @@ class PlayerCommand extends Command {
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(player.headshot);
         const teamEmoji = Emojis[competitor.abbreviatedName];
+        const playerStats = await PlayerManager.updateStats(player);
+        player.setEliminations(playerStats[0]);
+        player.setDeaths(playerStats[1]);
+        player.setHeroDamage(playerStats[2]);
+        player.setHealing(playerStats[3]);
+        player.setUltimates(playerStats[4]);
+        player.setFinalBlows(playerStats[5]);
+        player.setTimePlayed(playerStats[6]);
 
         // retrieve player data
         if (args[1] === undefined) {
