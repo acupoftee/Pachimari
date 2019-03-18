@@ -178,11 +178,26 @@ class Player {
     }
 
     /**
+     * Sets average eliminations per 10 minute
+     * @param {number} eliminations elims per 10 minutes 
+     */
+    setEliminations(eliminations) {
+        this._eliminations = eliminations;
+    }
+    /**
      * Returns average deaths per 10 minute
      * @returns {number} average deaths
      */
     get deaths() {
         return this._deaths;
+    }
+
+    /**
+     * Sets average deaths per 10 minute
+     * @param {number} deaths deaths per 10 minutes 
+     */
+    setDeaths(deaths) {
+        this._deaths = deaths;
     }
 
     /**
@@ -194,6 +209,13 @@ class Player {
     }
 
     /**
+     * Sets average hero damage per 10 minute
+     * @param {number} damage hero damage per 10 minutes 
+     */
+    setHeroDamage(damage) {
+        this._heroDamage = damage;
+    }
+    /**
      * Returns average healing per 10 minute
      * @returns {number} average healing
      */
@@ -201,6 +223,13 @@ class Player {
         return this._healing;
     }
 
+    /**
+     * Sets average healing per 10 minute
+     * @param {number} healing healing per 10 minutes 
+     */
+    setHealing(healing) {
+        this._healing = healing;
+    }
     /**
      * Returns average ultimates per 10 minute
      * @returns {number} average ultimates
@@ -210,6 +239,13 @@ class Player {
     }
 
     /**
+     * Sets average ultimates per 10 minute
+     * @param {number} ultimates ultimates per 10 minutes 
+     */
+    setUltimates(ultimates) {
+        this._ultimates = ultimates;
+    }
+    /**
      * Returns average final blows per 10 minute
      * @returns {number} average final blows
      */
@@ -218,11 +254,27 @@ class Player {
     }
 
     /**
+     * Sets average final blows per 10 minute
+     * @param {number} finalBlows final blows per 10 minutes 
+     */
+    setFinalBlows(finalBlows) {
+        this._finalBlows = finalBlows;
+    }
+
+    /**
      * Returns time played
      * @returns {number} time played
      */
     get timePlayed() {
         return this._timePlayed;
+    }
+
+    /**
+     * Sets time played
+     * @param {number} timePlayed total time played
+     */
+    setTimePlayed(timePlayed) {
+        this._timePlayed = timePlayed;
     }
 }
 module.exports = Player;
