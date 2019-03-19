@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../models');
 const { CompetitorManager, PlayerManager } = require('../models/owl_models');
 const { Emojis } = require('../constants');
+const { MessageUtil } = require('../utils');
 
 class PlayersCommand extends Command {
     constructor() {
@@ -21,14 +22,16 @@ class PlayersCommand extends Command {
         PlayerManager.players.forEach(player => {
             let competitor = CompetitorManager.competitors.get(player.competitorId);
             let teamoji = Emojis[competitor.abbreviatedName];
-            players.push(`${teamoji} ${Emojis[player.role.toUpperCase()]} ${
-                player.givenName} '**${player.name}**' ${player.familyName}`);
+            players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
+                    Emojis[player.role.toUpperCase()]} ${
+                    player.givenName} '**${player.name}**' ${player.familyName}`);
             if (playerCount % 20 == 0) {
                 pages.push(players);
                 players = [];
             }
             playerCount++;
         });
+        pages.push(players);
         const embed = new PachimariEmbed(client);
         embed.setTitle('__Overwatch League Players__');
         embed.setDescription(pages[page-1]);
@@ -42,8 +45,8 @@ class PlayersCommand extends Command {
                 const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                 const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
 
-                const backwards = msg.createReactionCollector(backwardsFilter);
-                const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
+                const backwards = msg.createReactionCollector(backwardsFilter, { time: 200000 });
+                const forwards = msg.createReactionCollector(forwardFilter, { time: 200000 }); // { time: 100000 }
 
                 backwards.on('collect', r => {
                     if (page === 1) return;
