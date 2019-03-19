@@ -19,12 +19,12 @@ class PlayersCommand extends Command {
         let pages = [];
         let page = 1, playerCount = 1;
         let players = [];
-        PlayerManager.players.forEach(player => {
+        PlayerManager.players.sort(this.compare).forEach(player => {
             let competitor = CompetitorManager.competitors.get(player.competitorId);
             let teamoji = Emojis[competitor.abbreviatedName];
             players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
-                    Emojis[player.role.toUpperCase()]} ${
-                    player.givenName} '**${player.name}**' ${player.familyName}`);
+                Emojis[player.role.toUpperCase()]} ${
+                player.givenName} '**${player.name}**' ${player.familyName}`);
             if (playerCount % 20 == 0) {
                 pages.push(players);
                 players = [];
@@ -34,7 +34,7 @@ class PlayersCommand extends Command {
         pages.push(players);
         const embed = new PachimariEmbed(client);
         embed.setTitle('__Overwatch League Players__');
-        embed.setDescription(pages[page-1]);
+        embed.setDescription(pages[page - 1]);
         embed.setFooter(`Page ${page} of ${pages.length}`);
         let mess = embed.buildEmbed().getEmbed;
         loading.then(message => message.delete());
@@ -51,7 +51,7 @@ class PlayersCommand extends Command {
                 backwards.on('collect', r => {
                     if (page === 1) return;
                     page--;
-                    embed.setDescription(pages[page-1]);
+                    embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });
@@ -59,12 +59,20 @@ class PlayersCommand extends Command {
                 forwards.on('collect', r => {
                     if (page === pages.length) return;
                     page++;
-                    embed.setDescription(pages[page-1]);
+                    embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });
             });
         });
+    }
+
+    compare(a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     }
 }
 module.exports = PlayersCommand;
