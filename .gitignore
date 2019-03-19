@@ -67,3 +67,5 @@ src/res
 jsonexamples/
 test.js
 copy.js
+
+*.sql 
