@@ -21,7 +21,6 @@ class CompareCommand extends Command {
 
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length >= 3) {
-            loading.then(message => message.delete());
             return AlertUtil("Please specify 2 Overwatch League Player to compare stats");
         }
         const firstId = PlayerManager.locatePlayer(args[0]), 
@@ -30,7 +29,6 @@ class CompareCommand extends Command {
               secondPlayer = PlayerManager.players.get(secondId);
 
         if (firstPlayer === undefined || secondPlayer === undefined) {
-            loading.then(message => message.delete());
             return AlertUtil.ERROR("Sorry, couldn't find any info :C");
         }
 
