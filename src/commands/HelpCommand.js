@@ -16,11 +16,12 @@ class HelpCommand extends Command {
         if (args.length <= 0) {
             embed.setTitle('Commands');
             embed.setDescription(`Use The Command Format \`\`!help <command>\`\` for more information.`);
+            let cmds = [];
 
             client.commands.forEach(command => {
-                embed.addFields(`!${command.name}`, command.description);
+                cmds.push(`**!${command.name}**:\t${command.description}`);
             });
-
+            embed.addFields('Descriptions', cmds);
             embed.buildEmbed().post(message.channel);
         } else {
             const command = args[0].toLowerCase();

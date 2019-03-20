@@ -57,11 +57,13 @@ class PachimariClient extends Client {
 
     /**
      * Starts an Event execution
-     * @param {Event} event a Discord Event
+     * @param {Event[]} events Discord Events
      */
-    runEvent(event) {
-        event.execute(this);
-        Logger.success(`Loaded event ${event.constructor.name}`);
+    runEvents(...events) {
+        events.forEach(event => {
+            event.execute(this);
+            Logger.success(`Loaded event ${event.constructor.name}`);
+        });
     }
 }
 module.exports = PachimariClient;

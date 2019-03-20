@@ -1,12 +1,24 @@
 'use strict'
 
 const { PachimariClient } = require('./models');
+const Database = require('./db/Database');
 const { CompetitorManager, PlayerManager } = require('./models/owl_models');
 const { Logger } = require('./utils');
-const { PingCommand, TeamsCommand, TeamCommand, PlayerCommand,
-    TeamcordsCommand, StandingsCommand, NewsCommand, ScheduleCommand, 
-    LiveCommand, NextCommand, CompareCommand, HelpCommand, PlayersCommand } = require('./commands');
-const { CommandHandler } = require('./events');
+const { 
+    PingCommand, 
+    TeamsCommand, 
+    TeamCommand, 
+    PlayerCommand,
+    TeamcordsCommand, 
+    StandingsCommand, 
+    NewsCommand, 
+    ScheduleCommand, 
+    LiveCommand, 
+    NextCommand, 
+    CompareCommand, 
+    HelpCommand, 
+    PlayersCommand } = require('./commands');
+const { CommandHandler, GuildEvent } = require('./events');
 const { performance } = require('perf_hooks');
 
 const client = new PachimariClient({
@@ -22,8 +34,15 @@ new Promise(function (resolve, reject) {
     boot = performance.now();
     Logger.info('Logging on');
     setTimeout(() => resolve(1), 1);
+}).then(function() {
+    return new Database()
+        .init()
+        .then(db => db.connect())
+        .catch(function(err) {
+            Logger.error(err.stack);
+        });
 }).then(function (result) {
-    client.runEvent(new CommandHandler());
+    client.runEvents(new CommandHandler(), new GuildEvent());
 }).then(function (result) {
     client.addCommands(
         new TeamsCommand(),
