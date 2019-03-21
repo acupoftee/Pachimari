@@ -124,20 +124,20 @@ class Banner {
             canvas.height / 2 - awayHeight / 2, awayWidth, awayHeight);
         awayLogo.onerror = err => { throw err };
 
-        if (first != "" && second != "") {
-            ctx.font = '40px "Apex Regular"';
-            let color = this.hex2RGB(this._homePrimaryColor);
-            ctx.fillStyle = this.colorIsLight(color) ? "#000" : "#FFF";
-            let firstWidth = ctx.measureText(first).width;
-            ctx.fillText(first, ((canvas.width / 2) - firstWidth) / 2), (canvas.height / 2 - 20);
+        // if (first != "" && second != "") {
+        //     ctx.font = '40px "Apex Regular"';
+        //     let color = this.hex2RGB(this._homePrimaryColor);
+        //     ctx.fillStyle = this.colorIsLight(color) ? "#000" : "#FFF";
+        //     let firstWidth = ctx.measureText(first).width;
+        //     ctx.fillText(first, ((canvas.width / 2) - firstWidth) / 2), (canvas.height / 2 - 20);
 
-            color = this.hex2RGB(this._awatPrimaryColor);
-            ctx.fillStyle = this.colorIsLight(color) ? "#000" : "#FFF";
-            let secondWidth = ctx.measureText(second).width;
-            ctx.fillText(second, (((canvas.width / 2) * 3) - secondWidth) / 2), (canvas.height / 2 - 20);
-        }
+        //     color = this.hex2RGB(this._awatPrimaryColor);
+        //     ctx.fillStyle = this.colorIsLight(color) ? "#000" : "#FFF";
+        //     let secondWidth = ctx.measureText(second).width;
+        //     ctx.fillText(second, (((canvas.width / 2) * 3) - secondWidth) / 2), (canvas.height / 2 - 20);
+        // }
         const fileName = `src/res/${filename}`;
-        fs.writeFile(fileName, canvas.toBuffer(), (err) => {
+        await fs.writeFile(fileName, await canvas.toBuffer(), (err) => {
             if (err) throw err;
             console.log(`${filename} was created`);
         });
