@@ -22,35 +22,7 @@
 
 
 ## To do
-* ✅ Test Command 
-* Create OWL Objects
-  * ✅ Player 
-  * ✅ News
-  * ✅ Account (Used for Team and Player) 
-  * ✅ Competitor (Denotes an OWL Team)
-    * ✅ Competitor Manager
-    * ✅loading in all competitors from API
-      * ✅store competitor values in array
-      * ✅instantiate competitors for each Competitor
-        * O(n) time complexity
-        * O(n) space complexity
-  * ✅ Match 
-  * ✅ Prediction
-* ✅Data retrieval
 * Commands
-  * ✅Teams
-  * ✅Team 
-    * ✅Look up team info
-  * ✅Player
-    * ✅Load hero information
-    * ✅Load account information
-  * ✅Discords
-  * ✅News
   * Match poll
-  * ✅Schedule
-    * ✅ Pagitation
-  * ✅Live Match
-    * Paginate maps
-  *  ✅Schedule
   *  Social Media Updates
   *  MEMESSSSS

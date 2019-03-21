@@ -15,6 +15,7 @@ const NextCommand = require('./NextCommand');
 const CompareCommand = require('./CompareCommand');
 const HelpCommand = require('./HelpCommand');
 const PlayersCommand = require('./PlayersCommand');
+const PredictCommand = require('./PredictCommand');
 
 module.exports = {
     PingCommand,
@@ -31,5 +32,6 @@ module.exports = {
     NextCommand,
     CompareCommand,
     HelpCommand,
-    PlayersCommand
+    PlayersCommand,
+    PredictCommand
 };

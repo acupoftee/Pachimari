@@ -7,10 +7,16 @@ const { Logger } = require('../utils');
 let connection = null;
 
 class Database {
+    /**
+     * Returns a database connection
+     */
     static get connection() {
         return connection;
     }
 
+    /**
+     * @returns {PromiseConnection}
+     */
     async init() {
         connection = await createConnection({
             host: process.env.DB_HOST,
@@ -21,6 +27,9 @@ class Database {
         return this;
     }
 
+    /**
+     * @returns {PromiseConnection}
+     */
     async connect() {
         connection.connect(function(err) {
             if (err) throw Error(err);
