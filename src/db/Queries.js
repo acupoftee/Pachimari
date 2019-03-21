@@ -70,30 +70,16 @@ class Queries {
     static addPredictions(guild_id, user, first_team, first_score, second_team, second_score) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
-                `INSERT INTO predictions VALUES (${
-                    guild_id},
-                    ${user},
-                    ${first_team},
-                    ${first_score},
-                    ${second_team},
-                    ${second_score} )`,
+                `INSERT INTO predictions (server_id, user_id, first_team, first_score, second_team, second_score) VALUES (${
+                    guild_id}, ${user}, "${first_team}", ${first_score}, "${second_team}", ${second_score})`,
                 function(err, rows) {
                     if (err) {
                         return Logger.error(`[SQL] Could not INSERT into PREDICTIONS ${
-                            guild_id},
-                            ${user},
-                            ${first_team},
-                            ${first_score},
-                            ${second_team},
-                            ${second_score}`);
+                            guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score}\n${
+                                err.stack}`);
                     }
                     Logger.success(`[SQL] INSERT into PREDICTIONS ${
-                        guild_id},
-                        ${user},
-                        ${first_team},
-                        ${first_score},
-                        ${second_team},
-                        ${second_score} successful`);
+                        guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score} successful`);
                 }
             );
         });

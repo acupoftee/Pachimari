@@ -40,6 +40,12 @@ class PredictCommand extends Command {
             MessageUtil.sendSuccess(message.channel, `Prediction for ${stageWeek}:\n\n ${
             firstEmoji} ${prediction.homeTeam} - ${prediction.homeScore}\n ${
                 secondEmoji} ${prediction.awayTeam} - ${prediction.awayScore}`);
+            await Queries.addPredictions(message.guild.id, 
+                    message.author.id, 
+                    prediction.homeTeam,
+                    prediction.homeScore,
+                    prediction.awayTeam,
+                    prediction.awayScore);
         } else {
             MessageUtil.sendError(message.channel, `Prediction match isn't in the schedule for ${stageWeek} :C`);
         }
