@@ -40,6 +40,10 @@ class Queries {
         });
     }
 
+    /**
+     * Returns a guild's information
+     * @param {number} id 
+     */
     static getGuild(id) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
@@ -49,6 +53,47 @@ class Queries {
                         reject(err);
                     }
                     resolve(rows[0]);
+                }
+            );
+        });
+    }
+    
+    /**
+     * Adds a user's prediction in the database
+     * @param {string} guild_id 
+     * @param {string} user 
+     * @param {string} first_team 
+     * @param {number} first_score 
+     * @param {string} second_team 
+     * @param {number} second_score 
+     */
+    static addPredictions(guild_id, user, first_team, first_score, second_team, second_score) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `INSERT INTO predictions VALUES (${
+                    guild_id},
+                    ${user},
+                    ${first_team},
+                    ${first_score},
+                    ${second_team},
+                    ${second_score} )`,
+                function(err, rows) {
+                    if (err) {
+                        return Logger.error(`[SQL] Could not INSERT into PREDICTIONS ${
+                            guild_id},
+                            ${user},
+                            ${first_team},
+                            ${first_score},
+                            ${second_team},
+                            ${second_score}`);
+                    }
+                    Logger.success(`[SQL] INSERT into PREDICTIONS ${
+                        guild_id},
+                        ${user},
+                        ${first_team},
+                        ${first_score},
+                        ${second_team},
+                        ${second_score} successful`);
                 }
             );
         });

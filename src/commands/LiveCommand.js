@@ -153,6 +153,11 @@ class LiveCommand extends Command {
                 pages.push(mapStr);
                 icons.push(map.icon);
             }
+            if (pages.length === 0) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, "Sorry I couldn't find maps for today BUT check back later!");
+                return;
+            }
             embed.setDescription(pages[page - 1]);
             embed.setTitle(`__Maps for Live Match: ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
             embed.setThumbnail("");
