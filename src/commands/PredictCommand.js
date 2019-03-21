@@ -2,6 +2,7 @@ const { Command, Prediction } = require('../models');
 const { JsonUtil, MessageUtil, Logger } = require('../utils');
 const { CompetitorManager, Endpoints } = require('../models/owl_models');
 const { Emojis } = require('../constants');
+const Queries = require('../db/Queries');
 const stageData = require('../data/stages.json');
 
 let stageWeek = "";
@@ -16,7 +17,7 @@ class PredictCommand extends Command {
     }
 
     async execute(client, message, args) {
-        if (args.length <= 3) {
+        if (args.length <= 3 || args.length > 4) {
             MessageUtil.sendError(message.channel, "Please enter two teams and scores into your predictions!");
             return;
         }
@@ -27,9 +28,18 @@ class PredictCommand extends Command {
             MessageUtil.sendError(message.channel, "Please enter two teams and scores into your predictions!");
             return;
         }
+
+        if ((!Number.isInteger(parseInt(args[1])) || !Number.isInteger(parseInt(args[3]))) || (Number.isInteger(parseInt(args[0])) || Number.isInteger(parseInt(args[2])))) {
+            MessageUtil.sendError(message.channel, "Please enter your prediction in this format: \`\`<first_team> <first_score> <second_team> <second_score>\`\` uwu");
+            return;
+        }
         let scheduleCheck = await this.isInSchedule(args[0], args[2]);
         if (scheduleCheck) {
-            MessageUtil.sendSuccess(message.channel, `Prediction is in schedule for ${stageWeek}!!`);
+            let prediction = new Prediction(first.name, args[1], second.name, args[3]);
+            let firstEmoji = Emojis[first.abbreviatedName], secondEmoji = Emojis[second.abbreviatedName];
+            MessageUtil.sendSuccess(message.channel, `Prediction for ${stageWeek}:\n\n ${
+            firstEmoji} ${prediction.homeTeam} - ${prediction.homeScore}\n ${
+                secondEmoji} ${prediction.awayTeam} - ${prediction.awayScore}`);
         } else {
             MessageUtil.sendError(message.channel, `Prediction match isn't in the schedule for ${stageWeek} :C`);
         }
