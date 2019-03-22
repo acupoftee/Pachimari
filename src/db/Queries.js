@@ -84,6 +84,24 @@ class Queries {
             );
         });
     }
+
+    /**
+     * Returns all user's predictions for the current week
+     * @param {number} id user id
+     */
+    static getPredictions(id) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `SELECT * FROM predictions WHERE user_id = ${id}`,
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+        })
+    }
 }
 module.exports = Queries;
 

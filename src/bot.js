@@ -18,7 +18,8 @@ const {
     CompareCommand, 
     HelpCommand, 
     PlayersCommand,
-    PredictCommand
+    PredictCommand,
+    PredictionsCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const { performance } = require('perf_hooks');
@@ -60,7 +61,8 @@ new Promise(function (resolve, reject) {
         new CompareCommand(),
         new HelpCommand(),
         new PlayersCommand(),
-        new PredictCommand()
+        new PredictCommand(),
+        new PredictionsCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {

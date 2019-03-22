@@ -1,6 +1,18 @@
 'use strict';
 
+/**
+ * @class Prediction
+ * @description Responsible for storing user predictions
+ */
 class Prediction {
+    /**
+     * Responsible for storing user predictions
+     * @constructor
+     * @param {string} homeTeam 
+     * @param {number} homeScore 
+     * @param {string} awayTeam 
+     * @param {number} awayScore 
+     */
     constructor(homeTeam, homeScore, awayTeam, awayScore) {
         this._homeTeam = homeTeam;
         this._homeScore = homeScore;
