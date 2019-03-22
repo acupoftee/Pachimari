@@ -5,7 +5,8 @@ const { Emojis } = require('../constants');
 const Queries = require('../db/Queries');
 const stageData = require('../data/stages.json');
 
-let stageWeek = "";
+let stageWeek = "", matchStatus = "";
+let matchId = 0;
 
 class PredictCommand extends Command {
     constructor() {
@@ -35,9 +36,9 @@ class PredictCommand extends Command {
         }
         let scheduleCheck = await this.isInSchedule(args[0], args[2]);
         if (scheduleCheck) {
-            let prediction = new Prediction(first.name, args[1], second.name, args[3]);
+            let prediction = new Prediction(first.name, args[1], second.name, args[3], matchId, matchStatus);
             let firstEmoji = Emojis[first.abbreviatedName], secondEmoji = Emojis[second.abbreviatedName];
-            MessageUtil.sendSuccess(message.channel, `Prediction for ${stageWeek}:\n\n ${
+            MessageUtil.sendSuccess(message.channel, `Added prediction for ${stageWeek}:\n\n ${
             firstEmoji} ${prediction.homeTeam} - ${prediction.homeScore}\n ${
                 secondEmoji} ${prediction.awayTeam} - ${prediction.awayScore}`);
             await Queries.addPredictions(message.guild.id, 
@@ -45,16 +46,18 @@ class PredictCommand extends Command {
                     prediction.homeTeam,
                     prediction.homeScore,
                     prediction.awayTeam,
-                    prediction.awayScore);
+                    prediction.awayScore,
+                    prediction.matchId,
+                    prediction.matchStatus);
         } else {
             MessageUtil.sendError(message.channel, `Prediction match isn't in the schedule for ${stageWeek} :C`);
         }
     }
 
     /**
-     * 
-     * @param {*} firstTeam 
-     * @param {*} secondTeam 
+     * Checks if a competitor is competing during the current week
+     * @param {Competitor} firstTeam 
+     * @param {Competitor} secondTeam 
      * @returns {boolean}
      */
     async isInSchedule(firstTeam, secondTeam) {
@@ -83,7 +86,10 @@ class PredictCommand extends Command {
                                 second.abbreviatedName === _match.competitors[0].abbreviatedName) ||
                                 (first.abbreviatedName === _match.competitors[0].abbreviatedName &&
                                  second.abbreviatedName === _match.competitors[1].abbreviatedName)) {
+                                matchId = 
                                 inSchedule = true;
+                                matchId = _match.id;
+                                matchStatus = _match.status;
                                 break;
                             } 
                         }

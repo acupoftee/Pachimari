@@ -34,6 +34,12 @@ class PredictionsCommand extends Command {
         });
         embed.setDescription(info);
         embed.buildEmbed().post(message.channel);
+        let ids = await Queries.getDistinctMatches();
+        let matches = [];
+        ids.forEach(matchId => {
+            matches.push(matchId.match_id);
+        })
+        console.log(matches);
     }
 }
 module.exports = PredictionsCommand;

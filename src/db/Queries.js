@@ -66,20 +66,22 @@ class Queries {
      * @param {number} first_score 
      * @param {string} second_team 
      * @param {number} second_score 
+     * @param {number} match_id
+     * @param {string} match_status
      */
-    static addPredictions(guild_id, user, first_team, first_score, second_team, second_score) {
+    static addPredictions(guild_id, user, first_team, first_score, second_team, second_score, match_id, match_status) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
-                `INSERT INTO predictions (server_id, user_id, first_team, first_score, second_team, second_score) VALUES (${
-                    guild_id}, ${user}, "${first_team}", ${first_score}, "${second_team}", ${second_score})`,
+                `INSERT INTO predictions (server_id, user_id, first_team, first_score, second_team, second_score, match_id, match_status) VALUES (${
+                    guild_id}, ${user}, "${first_team}", ${first_score}, "${second_team}", ${second_score}, ${match_id}, '${match_status}')`,
                 function(err, rows) {
                     if (err) {
                         return Logger.error(`[SQL] Could not INSERT into PREDICTIONS ${
-                            guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score}\n${
+                            guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status}\n${
                                 err.stack}`);
                     }
                     Logger.success(`[SQL] INSERT into PREDICTIONS ${
-                        guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score} successful`);
+                        guild_id}, ${user}, ${first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status} successful`);
                 }
             );
         });
@@ -92,7 +94,7 @@ class Queries {
     static getPredictions(id) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
-                `SELECT * FROM predictions WHERE user_id = ${id}`,
+                `SELECT * FROM predictions WHERE user_id = ${id} AND match_status = "PENDING"`,
                 function(err, rows) {
                     if (err) {
                         reject(err);
@@ -101,6 +103,41 @@ class Queries {
                 }
             );
         })
+    }
+
+    /**
+     * Returns an array of distinct matches;
+     */
+    static getDistinctMatches() {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `SELECT DISTINCT match_id FROM predictions`,
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+        })
+    }   
+
+    /**
+     * Deletes predictions with concluded matches from the database
+     * @param id match id to delete
+     */
+    static deletePredictions(id) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `DELETE FROM predictions WHERE match_id=${id}`,
+                function(err, rows) {
+                    if (err) {
+                        return Logger.error(`[SQL] Could not DELETE from PREDICTIONS match_id ${id}`);
+                    }
+                    Logger.success(`[SQL] DELETE from PREDICTIONS match_id ${id} successful`);
+                }
+            );
+        });
     }
 }
 module.exports = Queries;

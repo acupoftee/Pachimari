@@ -2,7 +2,7 @@
 
 const { PachimariClient } = require('./models');
 const Database = require('./db/Database');
-const { CompetitorManager, PlayerManager } = require('./models/owl_models');
+const { CompetitorManager, PlayerManager, PredictionManager} = require('./models/owl_models');
 const { Logger } = require('./utils');
 const { 
     PingCommand, 
@@ -72,6 +72,8 @@ new Promise(function (resolve, reject) {
     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
         Logger.error(err.stack)
     });
+}).then(function(result) {
+    return new PredictionManager().watch();
 }).then(function (result) {
     client.login().then(() => {
         Logger.info(`${client.user.tag} is logged in and active. Serving 

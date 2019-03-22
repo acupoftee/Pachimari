@@ -12,6 +12,7 @@ const StandingsManager = require('./StandingsManager');
 const Banner = require('./Banner');
 const MapManager = require('./MapManager');
 const Map = require('./Map');
+const PredictionManager = require('./PredictionManager')
 
 module.exports = {
     Account,
@@ -25,5 +26,6 @@ module.exports = {
     StandingsManager,
     Banner,
     MapManager,
-    Map
+    Map,
+    PredictionManager
 };

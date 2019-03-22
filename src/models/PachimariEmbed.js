@@ -1,7 +1,6 @@
 'use strict';
 
 const { RichEmbed, TextChannel, GuildMember, Message, Attachment } = require('discord.js');
-const PachimariClient = require('./PachimariClient');
 const { LeagueLogo } = require('../constants');
 
 /**
@@ -121,7 +120,7 @@ class PachimariEmbed {
      * Builds a PachimariEmbed
      * @returns {PachimariEmbed}
      */
-    buildEmbed() {
+     buildEmbed() {
         if (this._title != null) {
             this._embed.setTitle(this._title);
         }
