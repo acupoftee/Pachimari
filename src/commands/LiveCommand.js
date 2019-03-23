@@ -11,7 +11,7 @@ class LiveCommand extends Command {
         super();
         this.name = 'live';
         this.description = 'Displays information about a live match';
-        this.usage = 'live [maps]';
+        this.usage = 'live [map|maps]';
         this.aliases = ['livematch'];
     }
 
