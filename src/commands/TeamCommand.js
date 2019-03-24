@@ -88,7 +88,8 @@ class TeamCommand extends Command {
             embed.addFields(`${competitor.players.size} Players - ${tanks} tanks, ${offense} offense, ${supports} supports`, members);
             embed.setDescription(teamInfo);
             if (competitor.accounts.size > 0) {
-                embed.addFields(`${competitor.accounts.size} Accounts`, `\`\`!team ${args[0]} accounts\`\``, true);
+                let word = competitor.accounts.size > 1 ? 'Accounts' : 'Account';
+                embed.addFields(`${competitor.accounts.size} ${word}`, `\`\`!team ${args[0]} accounts\`\``, true);
             }
             embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
             loading.then(message => message.delete());
@@ -96,7 +97,8 @@ class TeamCommand extends Command {
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
-                    return AlertUtil.ERROR("This team does not have any accounts.");
+                    MessageUtil.sendError(message.channel, "This team does not have any accounts.");
+                    return;
                 }
                 let accs = []
                 embed.setTitle(`${Emojis[competitor.abbreviatedName]} __${competitor.name}'s Accounts__`);
@@ -187,6 +189,8 @@ class TeamCommand extends Command {
                 });
             }
             else {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, ":C Sorry I couldn't understand that. Maybe a typo?");
                 return;
             }
         }

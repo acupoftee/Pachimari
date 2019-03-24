@@ -34,10 +34,12 @@ class PredictCommand extends Command {
             MessageUtil.sendError(message.channel, "Please enter your prediction in this format: \`\`<first_team> <first_score> <second_team> <second_score>\`\` uwu");
             return;
         }
+        message.channel.startTyping();
         let scheduleCheck = await this.isInSchedule(args[0], args[2]);
         if (scheduleCheck) {
             let prediction = new Prediction(first.name, args[1], second.name, args[3], matchId, matchStatus);
             let firstEmoji = Emojis[first.abbreviatedName], secondEmoji = Emojis[second.abbreviatedName];
+            message.channel.stopTyping();
             MessageUtil.sendSuccess(message.channel, `Added prediction for ${stageWeek}:\n\n ${
             firstEmoji} ${prediction.homeTeam} - ${prediction.homeScore}\n ${
                 secondEmoji} ${prediction.awayTeam} - ${prediction.awayScore}`);

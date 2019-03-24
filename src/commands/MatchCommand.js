@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match, Map, MapManager } = require('../models/owl_models');
+const { CompetitorManager, Endpoints, MapManager } = require('../models/owl_models');
 const { JsonUtil, MessageUtil } = require('../utils');
 const { Emojis } = require('../constants');
 const moment_timezone = require('moment-timezone');
@@ -16,9 +16,7 @@ class MatchCommand extends Command {
     }
     async execute(client, message, args) {
         let stage_week = "";
-        //let loading = message.channel.send(Emojis["LOADING"]);
-    
-
+        let loading = message.channel.send(Emojis["LOADING"]);
         let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
@@ -29,8 +27,12 @@ class MatchCommand extends Command {
             MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add two!");
             return;
         } else if (args.length == 1) {
-            message.channel.startTyping();
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
+            if (firstTeam === undefined) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, "Could not locate team.");
+                return;
+            }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
@@ -89,11 +91,19 @@ class MatchCommand extends Command {
                 }
                 concluded = false;
             }
-        } else {
-            message.channel.startTyping();
+        } else if (CompetitorManager.locateTeam(args[0]) === CompetitorManager.locateTeam(args[1])) {
+            loading.then(message => message.delete());
+            MessageUtil.sendError(message.channel, ":C Make sure to use two different teams!");
+            return;
+         } else {
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[1]));
 
+            if (firstTeam === undefined || secondTeam === undefined) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, "Could not locate team.");
+                return;
+            }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
@@ -146,10 +156,10 @@ class MatchCommand extends Command {
         }
 
         if (!found) {
-            message.channel.stopTyping();
+            loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "Sorry, I couldn't find that match :C");
         }
-        message.channel.stopTyping();
+        loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
 

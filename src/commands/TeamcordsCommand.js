@@ -25,6 +25,7 @@ class TeamcordsCommand extends Command {
     // O(n*d) time. Optimize?
     async execute(client, message, args) {
         if (args.length <= 0) {
+            message.channel.startTyping();
             let discords = [];
             CompetitorManager.competitors.forEach(competitor => {
                 const teamEmoji = Emojis[competitor.abbreviatedName];
@@ -45,6 +46,7 @@ class TeamcordsCommand extends Command {
             embed.setThumbnail('https://cdn.discordapp.com/emojis/549030645226143757.png?v=1');
             embed.setColor('#7289DA');
             embed.setDescription(msg);
+            message.channel.stopTyping();
             embed.buildEmbed().post(message.channel);
         }
     }

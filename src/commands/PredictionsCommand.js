@@ -14,6 +14,7 @@ class PredictionsCommand extends Command {
     }
 
     async execute(client, message, args) {
+        message.channel.startTyping();
         let predictions = await Queries.getPredictions(message.author.id);
         if (predictions.length === 0) {
             MessageUtil.sendError(message.channel, "Rippu I don't see any predictions for upcoming matches :C");
@@ -33,6 +34,7 @@ class PredictionsCommand extends Command {
                 prediction.second_score} ${secondTeam.abbreviatedName}\`\` ${secondEmoji}`);
         });
         embed.setDescription(info);
+        message.channel.stopTyping();
         embed.buildEmbed().post(message.channel);
     }
 }

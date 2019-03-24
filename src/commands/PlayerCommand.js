@@ -72,7 +72,8 @@ class PlayerCommand extends Command {
             embed.addFields('Ultimates Earned', player.ultimates.toFixed(2), true);
             embed.addFields('Final Blows', player.finalBlows.toFixed(2), true);
             if (player.accounts.size > 0) {
-                embed.addFields(`${player.accounts.size} Accounts`, `\`\`!player ${args[0]} accounts\`\``);
+                let word = player.accounts.size > 1 ? 'Accounts' : 'Account';
+                embed.addFields(`${player.accounts.size} ${word}`, `\`\`!player ${args[0]} accounts\`\``);
             }            
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
         } else if (args[1].toLowerCase() === 'accounts') { 
