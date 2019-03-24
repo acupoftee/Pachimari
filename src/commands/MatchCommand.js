@@ -9,25 +9,27 @@ const moment_timezone = require('moment-timezone');
 class MatchCommand extends Command {
     constructor() {
         super();
-        this.name = 'match';
-        this.description = 'Displays information about a past match';
-        this.usage = 'match <first_team> <second_team>';
+        this.name = 'matches';
+        this.description = 'Displays information about team matches';
+        this.usage = 'matches <first_team> [second_team]';
         this.aliases = [];
     }
     async execute(client, message, args) {
         let stage_week = "";
         //let loading = message.channel.send(Emojis["LOADING"]);
-        message.channel.startTyping();
-        let pages = [], matches = [], titles = [];
+    
+
+        let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
-        let found = false;
+        let found = false, concluded = true;
         let embed = new PachimariEmbed(client);
 
-        if (args.length < 1) {
-            message.channel.stopTyping();
-            MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches with ony one team name :C Make sure to add two!");
+        if (args.length < 1 || args.length > 2) {
+            MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add two!");
+            return;
         } else if (args.length == 1) {
+            message.channel.startTyping();
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
@@ -60,14 +62,15 @@ class MatchCommand extends Command {
                                         Match Score:\n${Emojis[home.abbreviatedName.toUpperCase()]} ${homeMatchScore} - ${
                                             awayMatchScore} ${Emojis[away.abbreviatedName.toUpperCase()]}\n\n__**Maps**__\n`;
                                         mapStr = header + mapStr;
+                                        concluded = false;
                                     }
                                     matches.push(mapStr);
+                                    concluded = true;
                                 }
                             } else {
-                                let title = `${Emojis[home.abbreviatedName.toUpperCase()]} __${home.name} vs. ${away.name}__ ${Emojis[away.abbreviatedName.toUpperCase()]}`;
-                                titles.push(title);
-                                header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}`;
-                                matches.push(header);
+                                header = `${Emojis[home.abbreviatedName.toUpperCase()]} **${home.name} vs. ${away.name}** ${Emojis[away.abbreviatedName.toUpperCase()]}
+                                Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}\n`;
+                                futureMatches.push(header);
                             }
                         }
                         if (matches.length > 0) {
@@ -76,8 +79,18 @@ class MatchCommand extends Command {
                         }
                     }
                 }
+                if (!concluded) {
+                    let title = `__Upcoming ${firstTeam.name} ${_stage.name} Matches__`;
+                    titles.push(title);
+                }
+                if (futureMatches.length > 0) {
+                    pages.push(futureMatches);
+                    futureMatches = [];
+                }
+                concluded = false;
             }
         } else {
+            message.channel.startTyping();
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[1]));
 
@@ -85,6 +98,7 @@ class MatchCommand extends Command {
             embed.setColor(firstTeam.primaryColor);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
+
                 for (const week of _stage.weeks) {
                     stage_week = `${_stage.name} - ${week.name}`;
                     for (const _match of week.matches) {
