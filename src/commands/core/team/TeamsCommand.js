@@ -1,10 +1,10 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager } = require('../models/owl_models');
-const { Emojis } = require('../constants');
-const { AlertUtil } = require('../utils');
-const divisions = require('../data/divisions.json');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager } = require('../../../models/owl_models');
+const { Emojis } = require('../../../constants');
+const { AlertUtil } = require('../../../utils');
+const divisions = require('../../../data/divisions.json');
 
 /**
  * @class TeamsCommand

@@ -1,10 +1,10 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match } = require('../models/owl_models');
-const { JsonUtil, Logger, MessageUtil } = require('../utils');
-const { Emojis } = require('../constants');
-const stageData = require('../data/stages.json');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager, Endpoints, Match } = require('../../../models/owl_models');
+const { JsonUtil, Logger, MessageUtil } = require('../../../utils');
+const { Emojis } = require('../../../constants');
+const stageData = require('../../../data/stages.json');
 const moment_timezone = require('moment-timezone');
 
 class ScheduleCommand extends Command {

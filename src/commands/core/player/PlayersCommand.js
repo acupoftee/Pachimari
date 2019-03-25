@@ -1,9 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, PlayerManager } = require('../models/owl_models');
-const { Emojis } = require('../constants');
-const { MessageUtil } = require('../utils');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
+const { Emojis } = require('../../../constants');
+const { MessageUtil } = require('../../../utils');
 
 class PlayersCommand extends Command {
     constructor() {

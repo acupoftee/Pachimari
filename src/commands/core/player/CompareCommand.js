@@ -1,9 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, PlayerManager} = require('../models/owl_models');
-const { MessageUtil, AlertUtil, NumberUtil } = require('../utils');
-const { Emojis } = require('../constants');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager, PlayerManager} = require('../../../models/owl_models');
+const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
+const { Emojis } = require('../../../constants');
 
 class CompareCommand extends Command {
     constructor() {

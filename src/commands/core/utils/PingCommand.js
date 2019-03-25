@@ -1,8 +1,8 @@
 'use strict';
 
-const { Command } = require('../models');
-const { Logger } = require('../utils');
-const { PingGifs } = require('../constants');
+const { Command } = require('../../../models');
+const { Logger } = require('../../../utils');
+const { PingGifs } = require('../../../constants');
 const fs = require('fs');
 
 /**

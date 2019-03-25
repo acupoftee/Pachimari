@@ -1,9 +1,9 @@
-const { Command, Prediction } = require('../models');
-const { JsonUtil, MessageUtil, Logger } = require('../utils');
-const { CompetitorManager, Endpoints } = require('../models/owl_models');
-const { Emojis } = require('../constants');
-const Queries = require('../db/Queries');
-const stageData = require('../data/stages.json');
+const { Command, Prediction } = require('../../../models');
+const { JsonUtil, MessageUtil, Logger } = require('../../../utils');
+const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
+const { Emojis } = require('../../../constants');
+const Queries = require('../../../db/Queries');
+const stageData = require('../../../data/stages.json');
 
 let stageWeek = "", matchStatus = "";
 let matchId = 0;

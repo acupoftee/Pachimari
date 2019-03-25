@@ -1,5 +1,5 @@
-const { Command, PachimariEmbed } = require('../models');
-const { MessageUtil } = require('../utils');
+const { Command, PachimariEmbed } = require('../../../models');
+const { MessageUtil } = require('../../../utils');
 
 class HelpCommand extends Command {
     constructor() {

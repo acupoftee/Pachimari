@@ -1,9 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints, Match, Banner, Map, MapManager } = require('../models/owl_models');
-const { JsonUtil, MessageUtil } = require('../utils');
-const { Emojis } = require('../constants');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager, Endpoints, Match, Banner, Map, MapManager } = require('../../../models/owl_models');
+const { JsonUtil, MessageUtil } = require('../../../utils');
+const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
 class LiveCommand extends Command {

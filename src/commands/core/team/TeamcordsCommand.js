@@ -1,9 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager } = require('../models/owl_models');
-const { Emojis } = require('../constants');
-const discordServers = require('../data/discords.json');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager } = require('../../../models/owl_models');
+const { Emojis } = require('../../../constants');
+const discordServers = require('../../../data/discords.json');
 /**
  * @class TeamcordsCommand
  * @description represents a command retrieving all 

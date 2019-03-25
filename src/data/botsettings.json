@@ -1,0 +1,30 @@
+
+[
+    {
+      "key": "command_prefix",
+      "commandKey": "prefix",
+      "title": "Prefix",
+      "emote": ":grey_exclamation:",
+      "description": "Set the prefix used for commands.",
+      "usage": "set <prefix>",
+      "example": "set ?"
+    },
+    {
+      "key": "announce_owl",
+      "commandKey": "owlannounce",
+      "title": "OWL Announcement",
+      "emote": "<:logo:559754943981027329>",
+      "description": "Set if the bot should announce when the OWL is live. True/false.",
+      "usage": "set <true:false>",
+      "example": "set true"
+    },
+    {
+      "key": "announce_owl_channel",
+      "commandKey": "owlchannel",
+      "title": "OWL Channel",
+      "emote": ":tv:",
+      "description": "Set the channel for the bot to announce the OWL.",
+      "usage": "set <#channel>",
+      "example": "set #owl"
+    }
+  ]

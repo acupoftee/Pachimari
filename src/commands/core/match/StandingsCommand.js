@@ -1,9 +1,9 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../models');
-const { CompetitorManager, Endpoints } = require('../models/owl_models');
-const { JsonUtil } = require('../utils');
-const { Emojis } = require('../constants');
+const { Command, PachimariEmbed } = require('../../../models');
+const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
+const { JsonUtil } = require('../../../utils');
+const { Emojis } = require('../../../constants');
 
 /**
  * @class StandingsCommand

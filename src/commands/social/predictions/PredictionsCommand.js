@@ -1,8 +1,8 @@
-const { Command, Prediction, PachimariEmbed } = require('../models');
-const { MessageUtil } = require('../utils');
-const { CompetitorManager } = require('../models/owl_models');
-const { Emojis } = require('../constants');
-const Queries = require('../db/Queries');
+const { Command, Prediction, PachimariEmbed } = require('../../../models');
+const { MessageUtil } = require('../../../utils');
+const { CompetitorManager } = require('../../../models/owl_models');
+const { Emojis } = require('../../../constants');
+const Queries = require('../../../db/Queries');
 
 class PredictionsCommand extends Command {
     constructor() {
