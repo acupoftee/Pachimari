@@ -70,13 +70,13 @@ class SettingsCommand extends Command {
                             Queries.updatePrefix(message.guild.id, value);
                             break;
                         case 'announce_owl':
-                            Queries.updatePrefix(message.guild.id, value);
+                            Queries.updateOwlAnnouncement(message.guild.id, value);
                             break;
                         case 'announce_owl_channel':
-                            Queries.updatePrefix(message.guild.id, value);
+                            Queries.updateOwlAnnouncementChannel(message.guild.id, value);
                             break;
                     }
-                    MessageUtil.sendSuccess(message.channel, `Updated value to: ${value}`);
+                    MessageUtil.sendSuccess(message.channel, `Updated ${key} to: ${value}`);
                 }
             }
         }
