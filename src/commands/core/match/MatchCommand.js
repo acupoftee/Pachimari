@@ -24,6 +24,7 @@ class MatchCommand extends Command {
         let embed = new PachimariEmbed(client);
 
         if (args.length < 1 || args.length > 2) {
+            loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add two!");
             return;
         } else if (args.length == 1) {
