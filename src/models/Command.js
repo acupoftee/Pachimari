@@ -39,6 +39,13 @@ class Command {
          * @public
          */
         this._aliases = null;
+
+         /**
+         * Sets the Command permissions
+         * @type {Stringp[]}
+         * @public
+         */
+        this._permissions = null;
     }
 
     /**
@@ -107,6 +114,22 @@ class Command {
         this._aliases = val;
     }
 
+    /**
+     * Returns the Command permissions.
+     * @type {String[]}
+     */
+    get permissions() {
+        return this._permissions;
+    }
+
+    /**
+     * Returns the Command permissions.
+     * @type {String[]}
+     */
+    set permissions(val) {
+        this._permissions = val;
+    }
+    
     /**
      * Executes a Command.
      * @param {Client} client a Discord bot client.

@@ -24,6 +24,12 @@ class PachimariClient extends Client {
          * @type {Collection<String, Command>} a Collection with a command name and Command
          */
         this.commands = new Collection();
+
+        /**
+         * Prefix for commands.
+         * @type {String}
+         */
+        this.prefix = "!";
     }
 
     /**
@@ -44,10 +50,10 @@ class PachimariClient extends Client {
         Logger.success(`Loaded command ${command.name.toUpperCase()}`);
     }
 
-   /**
-     * Adds a list of commands to the Pachimari Client
-     * @param {Command[]} command an array of Discord Command Objects
-     */
+    /**
+      * Adds a list of commands to the Pachimari Client
+      * @param {Command[]} command an array of Discord Command Objects
+      */
     addCommands(...commands) {
         commands.forEach(command => {
             this.commands.set(command.name, command);

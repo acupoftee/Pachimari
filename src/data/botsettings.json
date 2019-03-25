@@ -1,7 +1,7 @@
 
 [
     {
-      "key": "command_prefix",
+      "key": "prefix",
       "commandKey": "prefix",
       "title": "Prefix",
       "emote": ":grey_exclamation:",
