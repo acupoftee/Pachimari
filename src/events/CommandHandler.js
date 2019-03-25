@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const { Event } = require('../models');
 const { Logger } = require('../utils');
+const Queries = require('../db/Queries');
 
 /**
  * Responsible for handling various Pachimari Commands
@@ -24,8 +25,13 @@ class CommandHandler extends Event {
      * @param {Client} client a Discord bot Client
      */
     async execute(client) {
-        client.on('message', (message) => {
-            const prefix = process.env.PREFIX;
+        client.on('message', async message => {
+            if ((await Queries.getGuild(message.guild.id)) === undefined) {
+                await Queries.addGuild(message.guild.id);
+            }
+            
+            const row = await Queries.getGuild(message.guild.id);
+            const prefix = row.prefix;
             if (!message.content.startsWith(prefix) || message.author.bot) {
                 return;
             }

@@ -35,6 +35,7 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
+            embed.setThumbnail(firstTeam.logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
                 for (const week of _stage.weeks) {
@@ -106,6 +107,7 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
+            embed.setThumbnail(firstTeam.logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
 
