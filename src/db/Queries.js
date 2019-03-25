@@ -115,8 +115,7 @@ class Queries {
                  WHERE server_id=${id}`,
                 function(err, rows) {
                     if (err) {
-                        return Logger.error(err.stack);
-                        //return Logger.error(`[SQL] Could not UPDATE ${channel} into GUILD ${id}`);
+                        return Logger.error(`[SQL] Could not UPDATE ${channel} into GUILD ${id}`);
                     }
                     Logger.success(`[SQL] UPDATE ${channel} into GUILD ${id} successful`);
                 }
