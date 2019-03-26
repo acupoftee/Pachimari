@@ -69,6 +69,15 @@ class MessageUtil {
         destination.send(`:x: ${message}`);
     }
 
+    /**
+     * Sends a message to the specified announcement channel
+     * @param {TextChannel|GuildMember} destination channel to send the message
+     * @param {string} message error message
+     */
+    static sendLive(destination, message) {
+        destination.send(message);
+    }
+
      /**
      * Returns a country's flag as an emoji
      * @param {string} countryCode ISO 3166-1 country code.

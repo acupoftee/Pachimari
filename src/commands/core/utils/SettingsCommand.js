@@ -20,6 +20,7 @@ class SettingsCommand extends Command {
         //let guildSettigns = Queries.getGuild(message.guild.id);
 
         if (args.length <= 0) {
+            console.log(message.channel.id)
             let embed = new PachimariEmbed(client);
             embed.setTitle("Settings");
             embed.setDescription(`Use the format \`\`${client.prefix}settings <setting>\`\` for more information.`);

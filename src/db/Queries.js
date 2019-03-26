@@ -2,6 +2,9 @@
 
 const Database = require('./Database');
 const { Logger } = require('../utils');
+const { TextChannel } = require(
+    'discord.js'
+)
 
 class Queries {
     /**
@@ -58,6 +61,19 @@ class Queries {
         });
     }
 
+    static getOwlAnnounceChannels() {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `SELECT * FROM guilds WHERE announce_owl = 'true'`,
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+        });
+    }
     /**
      * Updates the command prefix for a specific server
      * @param {number} id 
@@ -79,7 +95,7 @@ class Queries {
         });
     }
 
-     /**
+    /**
      * Updates the overwatch announcement boolean 
      * for a specific server
      * @param {number} id 
@@ -101,23 +117,24 @@ class Queries {
         });
     }
 
-     /**
+    /**
      * Updates the overwatch announcement channel
      * for a specific server
      * @param {number} id 
-     * @param {string} channel 
+     * @param {TextChannel} channel 
      */
     static updateOwlAnnouncementChannel(id, channel) {
+        let channelId = channel.replace(/\D/g,'');
         return new Promise(function(resolve, reject) {
             Database.connection.query(
                 `UPDATE guilds
-                 SET announce_owl_channel='${channel}'
+                 SET announce_owl_channel='${channelId}'
                  WHERE server_id=${id}`,
                 function(err, rows) {
                     if (err) {
-                        return Logger.error(`[SQL] Could not UPDATE ${channel} into GUILD ${id}`);
+                        return Logger.error(`[SQL] Could not UPDATE ${channelId} into GUILD ${id}`);
                     }
-                    Logger.success(`[SQL] UPDATE ${channel} into GUILD ${id} successful`);
+                    Logger.success(`[SQL] UPDATE ${channelId} into GUILD ${id} successful`);
                 }
             );
         });

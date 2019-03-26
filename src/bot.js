@@ -24,6 +24,7 @@ const {
     SettingsCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
+const Twitch = require('./social/Twitch');
 const { performance } = require('perf_hooks');
 
 const client = new PachimariClient({
@@ -68,16 +69,18 @@ new Promise(function (resolve, reject) {
         new MatchCommand(),
         new SettingsCommand()
     );
-}).then(function (result) {
-    return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-        Logger.error(err.stack)
-    });
-}).then(function (result) {
-    return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
-        Logger.error(err.stack)
-    });
+// }).then(function (result) {
+//     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+//         Logger.error(err.stack)
+//     });
+// }).then(function (result) {
+//     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+//         Logger.error(err.stack)
+//     });
 }).then(function(result) {
     return new PredictionManager().watch();
+}).then(function(result) {
+    return new Twitch(client).watch();
 }).then(function (result) {
     client.login().then(() => {
         Logger.info(`${client.user.tag} is logged in and active. Serving 
