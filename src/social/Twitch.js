@@ -15,10 +15,8 @@ class Twitch {
         this.client = client;
     }
     async watch() {
-        // const interval = 5000;
-        
         setInterval(async () => {
-            let channelName = "valkia";
+            let channelName = "overwatchleague";
             let announceOwl = await Queries.getOwlAnnounceChannels();
             const body = await JsonUtil.parse(`https://api.twitch.tv/kraken/streams/${channelName}`,
                 {

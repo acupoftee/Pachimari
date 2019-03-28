@@ -17,10 +17,7 @@ class SettingsCommand extends Command {
     }
 
     async execute(client, message, args) {
-        //let guildSettigns = Queries.getGuild(message.guild.id);
-
         if (args.length <= 0) {
-            console.log(message.channel.id)
             let embed = new PachimariEmbed(client);
             embed.setTitle("Settings");
             embed.setDescription(`Use the format \`\`${client.prefix}settings <setting>\`\` for more information.`);
@@ -75,6 +72,9 @@ class SettingsCommand extends Command {
                             break;
                         case 'announce_owl_channel':
                             Queries.updateOwlAnnouncementChannel(message.guild.id, value);
+                            break;
+                        case 'owl_twitter':
+                            Queries.updateOwlTwitter(message.guild.id, value);
                             break;
                     }
                     MessageUtil.sendSuccess(message.channel, `Updated ${key} to: ${value}`);

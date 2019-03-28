@@ -26,5 +26,14 @@
       "description": "Set the channel for the bot to announce the OWL.",
       "usage": "set <#channel>",
       "example": "set #owl"
+    },
+    {
+      "key": "owl_twitter",
+      "commandKey": "owltwitter",
+      "title": "OWL Twitter",
+      "emote": "<:twitter:548532720142254081>",
+      "description": "Set if the bot should announce Twitter updates from OWL. True/false.",
+      "usage": "set <true:false>",
+      "example": "set true"
     }
   ]

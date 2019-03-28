@@ -141,6 +141,28 @@ class Queries {
     }
     
     /**
+     * Updates the overwatch twitter boolean 
+     * for a specific server
+     * @param {number} id 
+     * @param {string} announce 
+     */
+    static updateOwlTwitter(id, announce) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `UPDATE guilds
+                 SET owl_twitter='${announce}'
+                 WHERE server_id=${id}`,
+                function(err, rows) {
+                    if (err) {
+                        return Logger.error(`[SQL] Could not UPDATE ${announce} into GUILD ${id}`);
+                    }
+                    Logger.success(`[SQL] UPDATE ${announce} into GUILD ${id} successful`);
+                }
+            );
+        });
+    }
+
+    /**
      * Adds a user's prediction in the database
      * @param {string} guild_id 
      * @param {string} user 

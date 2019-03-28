@@ -25,6 +25,7 @@ const {
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
+const Tweets = require('./social/Tweets');
 const { performance } = require('perf_hooks');
 
 const client = new PachimariClient({
@@ -81,6 +82,8 @@ new Promise(function (resolve, reject) {
     return new PredictionManager().watch();
 }).then(function(result) {
     return new Twitch(client).watch();
+}).then(function(result) {
+    return new Tweets(client).watch();
 }).then(function (result) {
     client.login().then(() => {
         Logger.info(`${client.user.tag} is logged in and active. Serving 
