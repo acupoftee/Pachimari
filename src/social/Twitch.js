@@ -28,16 +28,16 @@ class Twitch {
                     onlineChannels.delete(channelName);
                     return;
                 }
-            }
-
-            if (!onlineChannels.has(channelName)) {
-                onlineChannels.add(channelName);
-                Logger.success(`${channelName} is live!`);
-                if (announceOwl.length > 0)
-                for (let i = 0; i < announceOwl.length; i++) {
-                    MessageUtil.sendLive(this.client.channels.get(announceOwl[i].announce_owl_channel), `${channelName} is live!`);
+            } else {
+                if (!onlineChannels.has(channelName)) {
+                    onlineChannels.add(channelName);
+                    Logger.success(`${channelName} is live!`);
+                    if (announceOwl.length > 0)
+                    for (let i = 0; i < announceOwl.length; i++) {
+                        MessageUtil.sendLive(this.client.channels.get(announceOwl[i].announce_owl_channel), `${channelName} is live!`);
+                    }
+                    return;
                 }
-                return;
             }
         }, 5000);
     }

@@ -1,5 +1,5 @@
 const { Command, Prediction } = require('../../../models');
-const { JsonUtil, MessageUtil, Logger } = require('../../../utils');
+const { JsonUtil, MessageUtil } = require('../../../utils');
 const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const Queries = require('../../../db/Queries');
@@ -52,7 +52,9 @@ class PredictCommand extends Command {
                     prediction.matchId,
                     prediction.matchStatus);
         } else {
+            message.channel.stopTyping();
             MessageUtil.sendError(message.channel, `Prediction match isn't in the schedule for ${stageWeek} :C`);
+            return;
         }
     }
 
