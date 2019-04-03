@@ -17,7 +17,11 @@ class PredictionManager {
         for (const _matchId of matchIds) {
             const body = await JsonUtil.parse(Endpoints.get("MATCH", _matchId));
             if (body.status === "CONCLUDED") {
+                let prediction = await Queries.getPredicitionBasedOnMatch(_matchId);
+                await Queries.addPredictionResults(prediction.first_team, prediction.first_score, 
+                    prediction.second_team, prediction.section_score, _matchId, body.status);
                 await Queries.deletePredictions(_matchId);
+               
             }
         }
     }

@@ -192,6 +192,33 @@ class Queries {
     }
 
     /**
+     * Adds a match result in the database
+     * @param {string} first_team 
+     * @param {number} first_score 
+     * @param {string} second_team 
+     * @param {number} second_score 
+     * @param {number} match_id
+     * @param {string} match_status
+     */
+    static addPredictionResults(first_team, first_score, second_team, second_score, match_id, match_status) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `INSERT INTO prediction_results (first_team, first_score, second_team, second_score, match_id, match_status, ) VALUES ("${
+                    first_team}", ${first_score}, "${second_team}", ${second_score}, ${match_id}, '${match_status}')`,
+                function(err, rows) {
+                    if (err) {
+                        return Logger.error(`[SQL] Could not INSERT into PREDICTIONS ${
+                            first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status}\n${
+                                err.stack}`);
+                    }
+                    Logger.success(`[SQL] INSERT into PREDICTIONS ${
+                        first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status} successful`);
+                }
+            );
+        });
+    }
+
+    /**
      * Returns all user's predictions for the current week
      * @param {number} id user id
      */
@@ -199,6 +226,24 @@ class Queries {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
                 `SELECT * FROM predictions WHERE user_id = ${id} AND match_status = "PENDING"`,
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+        })
+    }
+
+    /**
+     * Returns a user's specific match prediction for the current week
+     * @param {number} id match id
+     */
+    static getPredicitionBasedOnMatch(id) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `SELECT * FROM predictions WHERE match_id = ${id}`,
                 function(err, rows) {
                     if (err) {
                         reject(err);
