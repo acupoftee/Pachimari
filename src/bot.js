@@ -78,8 +78,8 @@ new Promise(function (resolve, reject) {
     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
         Logger.error(err.stack)
     });
-}).then(function(result) {
-    return new PredictionManager().watch();
+// }).then(function(result) {
+//     return new PredictionManager().watch();
 }).then(function(result) {
     return new Twitch(client).watch();
 // }).then(function(result) {
