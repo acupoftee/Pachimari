@@ -203,15 +203,15 @@ class Queries {
     static addPredictionResults(first_team, first_score, second_team, second_score, match_id, match_status) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
-                `INSERT INTO prediction_results (first_team, first_score, second_team, second_score, match_id, match_status, ) VALUES ("${
-                    first_team}", ${first_score}, "${second_team}", ${second_score}, ${match_id}, '${match_status}')`,
+                `INSERT INTO prediction_results (first_team, first_score, second_team, second_score, match_id, match_status) VALUES ('${
+                    first_team}', ${first_score}, '${second_team}', ${second_score}, ${match_id}, '${match_status}')`,
                 function(err, rows) {
                     if (err) {
-                        return Logger.error(`[SQL] Could not INSERT into PREDICTIONS ${
+                        return Logger.error(`[SQL] Could not INSERT into PREDICTION RESULTS ${
                             first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status}\n${
                                 err.stack}`);
                     }
-                    Logger.success(`[SQL] INSERT into PREDICTIONS ${
+                    Logger.success(`[SQL] INSERT into PREDICTION RESULTS ${
                         first_team}, ${first_score}, ${second_team}, ${second_score}, ${match_id}, ${match_status} successful`);
                 }
             );
@@ -244,6 +244,26 @@ class Queries {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
                 `SELECT * FROM predictions WHERE match_id = ${id}`,
+                function(err, rows) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(rows);
+                }
+            );
+        })
+    }
+
+
+    /**
+     * gets predictions based on matches
+     * @param {string} firstTeam 
+     * @param {string} secondTeam 
+     */
+    static getPredicitionBasedOnTeams(firstTeam, secondTeam, userId) {
+        return new Promise(function(resolve, reject) {
+            Database.connection.query(
+                `SELECT * FROM predictions WHERE user_id = ${userId} and ((first_team = '${firstTeam}' and second_team = '${secondTeam}') or (first_team = '${secondTeam}' and second_team = '${firstTeam}'))`,
                 function(err, rows) {
                     if (err) {
                         reject(err);

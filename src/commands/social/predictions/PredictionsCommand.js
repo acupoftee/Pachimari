@@ -1,6 +1,6 @@
 const { Command, Prediction, PachimariEmbed } = require('../../../models');
 const { MessageUtil } = require('../../../utils');
-const { CompetitorManager } = require('../../../models/owl_models');
+const { CompetitorManager, MatchManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const Queries = require('../../../db/Queries');
 
@@ -23,16 +23,40 @@ class PredictionsCommand extends Command {
 
         let embed = new PachimariEmbed(client);
         let info = [];
-        embed.setTitle(`:crystal_ball: ${message.author.username}'s Predictions :sparkles:`);
-        embed.setThumbnail(message.author.avatarURL);
-        predictions.forEach(prediction => {
-            let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(prediction.first_team.replace(/ /g,'')));
-            let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(prediction.second_team.replace(/ /g,'')));
+
+        if (args.length == 2) {
+            let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
+            let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
+            if (firstTeam == undefined || secondTeam == undefined) {
+                message.channel.stopTyping();
+                MessageUtil.sendError(message.channel, "Rippu I don't see any predictions for that match :C");
+                return;
+            }
+
+            const scores = await MatchManager.getMatchBetweenTeams(firstTeam.id, secondTeam.id);
+            const prediction = await Queries.getPredicitionBasedOnTeams(firstTeam.name, secondTeam.name, message.author.id);
+            embed.setTitle(`:crystal_ball: ${message.author.username}'s Prediction Results :sparkles:`);
+
             let firstEmoji = Emojis[firstTeam.abbreviatedName];
             let secondEmoji = Emojis[secondTeam.abbreviatedName];
-            info.push(`${firstEmoji} \`\`${firstTeam.abbreviatedName} ${prediction.first_score} - ${
-                prediction.second_score} ${secondTeam.abbreviatedName}\`\` ${secondEmoji}`);
-        });
+            info.push(`Prediction\n${firstEmoji} \`\`${firstTeam.abbreviatedName} ${prediction.first_score} - ${
+                prediction.second_score} ${secondTeam.abbreviatedName}\`\` ${secondEmoji}\n\nResult\n${
+                    firstEmoji} \`\`${firstTeam.abbreviatedName} ${scores[0]} - ${
+                        scores[1]} ${secondTeam.abbreviatedName}\`\` ${secondEmoji}`);
+                    
+            
+        } else {
+            embed.setTitle(`:crystal_ball: ${message.author.username}'s Predictions :sparkles:`);
+            embed.setThumbnail(message.author.avatarURL);
+            predictions.forEach(prediction => {
+                let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(prediction.first_team.replace(/ /g,'')));
+                let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(prediction.second_team.replace(/ /g,'')));
+                let firstEmoji = Emojis[firstTeam.abbreviatedName];
+                let secondEmoji = Emojis[secondTeam.abbreviatedName];
+                info.push(`${firstEmoji} \`\`${firstTeam.abbreviatedName} ${prediction.first_score} - ${
+                    prediction.second_score} ${secondTeam.abbreviatedName}\`\` ${secondEmoji}`);
+            });
+        } 
         embed.setDescription(info);
         message.channel.stopTyping();
         embed.buildEmbed().post(message.channel);
