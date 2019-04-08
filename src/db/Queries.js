@@ -225,7 +225,7 @@ class Queries {
     static getPredictions(id) {
         return new Promise(function(resolve, reject) {
             Database.connection.query(
-                `SELECT * FROM predictions WHERE user_id = ${id} AND match_status = "PENDING"`,
+                `SELECT * FROM predictions WHERE user_id = ${id}`,
                 function(err, rows) {
                     if (err) {
                         reject(err);
