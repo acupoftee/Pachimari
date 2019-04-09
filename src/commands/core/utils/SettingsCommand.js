@@ -2,8 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { MessageUtil } = require('../../../utils');
-const Queries = require('../../../db/Queries');
-const SettingQueries = require('../../../db/Queries');
+const Queries = require('../../../db/SettingQueries');
 const botsettings = require('../../../data/botsettings.json');
 
 class SettingsCommand extends Command {

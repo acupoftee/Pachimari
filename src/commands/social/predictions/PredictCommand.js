@@ -2,7 +2,7 @@ const { Command, Prediction } = require('../../../models');
 const { JsonUtil, MessageUtil } = require('../../../utils');
 const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const Queries = require('../../../db/Queries');
+const Queries = require('../../../db/PredictionQueries');
 const stageData = require('../../../data/stages.json');
 
 let stageWeek = "", matchStatus = "";
