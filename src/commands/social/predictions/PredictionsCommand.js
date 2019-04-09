@@ -1,4 +1,4 @@
-const { Command, Prediction, PachimariEmbed } = require('../../../models');
+const { Command, PachimariEmbed } = require('../../../models');
 const { MessageUtil } = require('../../../utils');
 const { CompetitorManager, MatchManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
@@ -34,14 +34,13 @@ class PredictionsCommand extends Command {
             }
 
             let prediction = await Queries.getPredicitionBasedOnTeams(firstTeam.name, secondTeam.name, message.author.id);
-            console.log(prediction);
-            if (prediction[0].first_team === undefined || prediction[0].second_team === undefined) {
+            if (Object.keys(prediction).length === 0) {
                 message.channel.stopTyping();
                 MessageUtil.sendError(message.channel, "Rippu I don't see any predictions for that match :C");
                 return;
             }
             const scores = await MatchManager.getMatchBetweenTeams(firstTeam.id, secondTeam.id);
-            embed.setTitle(`:crystal_ball: ${message.author.username}'s Prediction Results :sparkles:`);
+            embed.setTitle(`:crystal_ball: __${message.author.username}'s Prediction Results__ :sparkles:`);
 
             let firstEmoji = Emojis[firstTeam.abbreviatedName];
             let secondEmoji = Emojis[secondTeam.abbreviatedName];

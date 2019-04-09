@@ -21,8 +21,7 @@ class PredictionManager {
                 console.log(row[0].first_team);
                 await Queries.addPredictionResults(row[0].first_team, row[0].first_score, 
                     row[0].second_team, row[0].second_score, _matchId, body.status);
-                // await Queries.deletePredictions(_matchId);
-               
+                await Queries.deletePredictions(_matchId);
             }
         }
     }
