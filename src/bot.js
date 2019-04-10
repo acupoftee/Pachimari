@@ -50,7 +50,7 @@ new Promise(function (resolve, reject) {
             Logger.error(err.stack);
         });
 }).then(function (result) {
-    client.runEvents(new CommandHandler(), new GuildEvent());
+    client.runEvents(new CommandHandler());
 }).then(function (result) {
     client.addCommands(
         new TeamsCommand(),
@@ -66,11 +66,11 @@ new Promise(function (resolve, reject) {
         new CompareCommand(),
         new HelpCommand(),
         new PlayersCommand(),
-        new PredictCommand(),
-        new PredictionsCommand(),
+        //new PredictCommand(),
+        //new PredictionsCommand(),
         new MatchCommand(),
-        new SettingsCommand(),
-        new ProfileCommand()
+        //new SettingsCommand(),
+        //new ProfileCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
