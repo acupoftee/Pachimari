@@ -24,6 +24,7 @@
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "erlpack": "github:discordapp/erlpack",
+    "express": "^4.16.4",
     "gif-encoder": "^0.7.2",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",

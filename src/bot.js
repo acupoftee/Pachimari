@@ -28,6 +28,9 @@ const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
 const Tweets = require('./social/Tweets');
 const { performance } = require('perf_hooks');
+const app = require('express');
+const PORT = process.env.PORT || 3000;
+
 
 const client = new PachimariClient({
     messageCacheMaxSize: 200,
@@ -95,6 +98,7 @@ new Promise(function (resolve, reject) {
                 name: `Overwatch League Spy owo v1.0.0`
             }
         })
+        app.listen(PORT, () => console.log(`Listening on ${PORT}`));
     }).catch(function (err) {
         Logger.error(err.stack)
     });
