@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { Event } = require('../models');
 const { Logger } = require('../utils');
-const Queries = require('../db/Queries');
+// const Queries = require('../db/Queries');
 
 /**
  * Responsible for handling various Pachimari Commands
