@@ -28,7 +28,8 @@ const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
 const Tweets = require('./social/Tweets');
 const { performance } = require('perf_hooks');
-const app = require('express');
+const express = require('express');
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 
