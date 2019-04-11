@@ -30,8 +30,6 @@ const Tweets = require('./social/Tweets');
 const { performance } = require('perf_hooks');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 
 const client = new PachimariClient({
     messageCacheMaxSize: 200,
@@ -99,7 +97,7 @@ new Promise(function (resolve, reject) {
                 name: `Overwatch League Spy owo v1.0.0`
             }
         })
-        app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+        app.listen(process.env.PORT || 3000);
     }).catch(function (err) {
         Logger.error(err.stack)
     });
