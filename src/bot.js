@@ -82,8 +82,8 @@ new Promise(function (resolve, reject) {
     });
 // // }).then(function(result) {
 //     return new PredictionManager().watch();
-}).then(function(result) {
-    return new Twitch(client).watch();
+// }).then(function(result) {
+//     return new Twitch(client).watch();
 // }).then(function(result) {
 //     return new Tweets(client).watch();
 }).then(function (result) {
@@ -92,7 +92,7 @@ new Promise(function (resolve, reject) {
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
-                name: `Overwatch League News`
+                name: `Overwatch League Spy owo v1.0.0`
             }
         })
     }).catch(function (err) {
