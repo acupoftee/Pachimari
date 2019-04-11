@@ -42,13 +42,13 @@ new Promise(function (resolve, reject) {
     boot = performance.now();
     Logger.info('Logging on');
     setTimeout(() => resolve(1), 1);
-}).then(function() {
-    return new Database()
-        .init()
-        .then(db => db.connect())
-        .catch(function(err) {
-            Logger.error(err.stack);
-        });
+// }).then(function() {
+//     return new Database()
+//         .init()
+//         .then(db => db.connect())
+//         .catch(function(err) {
+//             Logger.error(err.stack);
+//         });
 }).then(function (result) {
     client.runEvents(new CommandHandler());
 }).then(function (result) {
