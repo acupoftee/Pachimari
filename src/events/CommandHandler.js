@@ -26,12 +26,12 @@ class CommandHandler extends Event {
      */
     async execute(client) {
         client.on('message', async message => {
-            if ((await Queries.getGuild(message.guild.id)) === undefined) {
-                await Queries.addGuild(message.guild.id);
-            }
+            // if ((await Queries.getGuild(message.guild.id)) === undefined) {
+            //     await Queries.addGuild(message.guild.id);
+            // }
             
-            const row = await Queries.getGuild(message.guild.id);
-            client.prefix = row.prefix;
+            // const row = await Queries.getGuild(message.guild.id);
+            client.prefix = "!";
             if (!message.content.startsWith(client.prefix) || message.author.bot) {
                 return;
             }
