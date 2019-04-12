@@ -175,8 +175,11 @@ class LiveCommand extends Command {
 
                     const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
                     const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
-                    backwards.on('collect', r => {
-                        if (page === 1) return;
+                    backwards.on('collect', async(r) => {
+                        if (page === 1) {
+                            r.remove(message.author.id);
+                            return;
+                        }
                         page--;
                         icon--;
                         embed.setDescription(pages[page - 1]);
@@ -186,8 +189,11 @@ class LiveCommand extends Command {
                         r.remove(message.author.id);
                     })
 
-                    forwards.on('collect', r => {
-                        if (page === pages.length) return;
+                    forwards.on('collect', async(r) => {
+                        if (page === pages.length) {
+                            r.remove(message.author.id);
+                            return;
+                        }
                         page++;
                         icon++;
                         embed.setDescription(pages[page - 1]);

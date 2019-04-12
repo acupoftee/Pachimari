@@ -108,8 +108,11 @@ class ScheduleCommand extends Command {
                     const backwards = msg.createReactionCollector(backwardsFilter);
                     const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
     
-                    backwards.on('collect', r => {
-                        if (page === 1) return;
+                    backwards.on('collect', async(r) => {
+                        if (page === 1) {
+                            r.remove(message.author.id);
+                            return;
+                        }
                         page--;
                         days--;
                         embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
@@ -119,8 +122,11 @@ class ScheduleCommand extends Command {
                         r.remove(message.author.id);
                     })
     
-                    forwards.on('collect', r => {
-                        if (page === pages.length) return;
+                    forwards.on('collect', async(r) => {
+                        if (page === pages.length) {
+                            r.remove(message.author.id);
+                            return;
+                        }
                         page++;
                         days++;
                         embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);

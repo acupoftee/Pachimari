@@ -49,8 +49,11 @@ class PlayersCommand extends Command {
                 const backwards = msg.createReactionCollector(backwardsFilter, { time: 200000 });
                 const forwards = msg.createReactionCollector(forwardFilter, { time: 200000 }); // { time: 100000 }
 
-                backwards.on('collect', r => {
-                    if (page === 1) return;
+                backwards.on('collect', async(r) => {
+                    if (page === 1) {
+                        r.remove(message.author.id);
+                        return;
+                    }
                     page--;
                     embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
@@ -58,8 +61,11 @@ class PlayersCommand extends Command {
                     r.remove(message.author.id);
                 });
 
-                forwards.on('collect', r => {
-                    if (page === pages.length) return;
+                forwards.on('collect', async(r)=> {
+                    if (page === pages.length) {
+                        r.remove(message.author.id);
+                        return;
+                    }
                     page++;
                     embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
