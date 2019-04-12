@@ -175,7 +175,7 @@ class LiveCommand extends Command {
 
                     const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
                     const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
-                    backwards.on('collect', async(r) => {
+                    backwards.on('collect', async r => {
                         if (page === 1) {
                             await r.remove(message.author.id);
                             return;
@@ -189,7 +189,7 @@ class LiveCommand extends Command {
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
 
-                    forwards.on('collect', async(r) => {
+                    forwards.on('collect', async r => {
                         if (page === pages.length) {
                             await r.remove(message.author.id);
                             return;

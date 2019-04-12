@@ -179,7 +179,7 @@ class MatchCommand extends Command {
                     const backwards = msg.createReactionCollector(backwardsFilter);
                     const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
 
-                    backwards.on('collect', async(r) => {
+                    backwards.on('collect', async r => {
                         if (page === 1) {
                             await r.remove(message.author.id);
                             return;
@@ -195,7 +195,7 @@ class MatchCommand extends Command {
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
 
-                    forwards.on('collect', async(r) => {
+                    forwards.on('collect', async r => {
                         if (page === pages.length) {
                             await r.remove(message.author.id);
                             return;

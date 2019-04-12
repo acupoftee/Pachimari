@@ -108,7 +108,7 @@ class ScheduleCommand extends Command {
                     const backwards = msg.createReactionCollector(backwardsFilter);
                     const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
     
-                    backwards.on('collect', async(r) => {
+                    backwards.on('collect', async r => {
                         if (page === 1) {
                             await r.remove(message.author.id);
                             return;
@@ -122,7 +122,7 @@ class ScheduleCommand extends Command {
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
     
-                    forwards.on('collect', r => {
+                    forwards.on('collect', async r => {
                         if (page === pages.length) {
                             r.remove(message.author.id);
                             return;
