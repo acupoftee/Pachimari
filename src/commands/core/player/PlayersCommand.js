@@ -58,7 +58,7 @@ class PlayersCommand extends Command {
                     r.remove(message.author.id);
                 });
 
-                forwards.on('collect', async(r) => {
+                forwards.on('collect', r => {
                     if (page === pages.length) return;
                     page++;
                     embed.setDescription(pages[page - 1]);
