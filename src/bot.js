@@ -94,7 +94,7 @@ new Promise(function (resolve, reject) {
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
-                name: `v1.0.2 - !help <3`
+                name: `v1.0.3 - !help <3`
             }
         })
         app.listen(process.env.PORT || 3000);
