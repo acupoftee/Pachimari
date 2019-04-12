@@ -49,7 +49,7 @@ class PlayersCommand extends Command {
                 const backwards = msg.createReactionCollector(backwardsFilter, { time: 200000 });
                 const forwards = msg.createReactionCollector(forwardFilter, { time: 200000 }); // { time: 100000 }
 
-                backwards.on('collect', async(r) => {
+                backwards.on('collect', r => {
                     if (page === 1) {
                         r.remove(message.author.id);
                         return;
@@ -61,7 +61,7 @@ class PlayersCommand extends Command {
                     r.remove(message.author.id);
                 });
 
-                forwards.on('collect', async(r)=> {
+                forwards.on('collect', r => {
                     if (page === pages.length) {
                         r.remove(message.author.id);
                         return;
