@@ -175,9 +175,9 @@ class LiveCommand extends Command {
 
                     const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
                     const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
-                    backwards.on('collect', r => {
+                    backwards.on('collect', async(r) => {
                         if (page === 1) {
-                            r.remove(message.author.id);
+                            await r.remove(message.author.id);
                             return;
                         }
                         page--;
@@ -185,13 +185,13 @@ class LiveCommand extends Command {
                         embed.setDescription(pages[page - 1]);
                         embed.setImage(icons[icon - 1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
+                        await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
-                        r.remove(message.author.id);
                     })
 
-                    forwards.on('collect', r => {
+                    forwards.on('collect', async(r) => {
                         if (page === pages.length) {
-                            r.remove(message.author.id);
+                            await r.remove(message.author.id);
                             return;
                         }
                         page++;
@@ -199,8 +199,8 @@ class LiveCommand extends Command {
                         embed.setDescription(pages[page - 1]);
                         embed.setImage(icons[icon - 1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
+                        await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
-                        r.remove(message.author.id);
                     });
                 })
             });
