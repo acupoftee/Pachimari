@@ -4,6 +4,7 @@ const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const { MessageUtil } = require('../../../utils');
+const { MessageReaction } = require('discord.js');
 
 class PlayersCommand extends Command {
     constructor() {
@@ -54,14 +55,16 @@ class PlayersCommand extends Command {
                     embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
                     msg.edit(embed.buildEmbed().getEmbed);
+                    r.remove(message.author.id);
                 });
 
-                forwards.on('collect', r => {
+                forwards.on('collect', async(r) => {
                     if (page === pages.length) return;
                     page++;
                     embed.setDescription(pages[page - 1]);
                     embed.setFooter(`Page ${page} of ${pages.length}`);
                     msg.edit(embed.buildEmbed().getEmbed);
+                    r.remove(message.author.id);
                 });
             });
         });

@@ -184,6 +184,7 @@ class TeamCommand extends Command {
                             embed.setDescription(pages[page - 1]);
                             embed.setFooter(`Page ${page} of ${pages.length}`);
                             msg.edit(embed.buildEmbed().getEmbed);
+                            r.remove(message.author.id);
                         })
                     })
                 });

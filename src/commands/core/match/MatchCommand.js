@@ -189,6 +189,7 @@ class MatchCommand extends Command {
                         embed.setDescription(pages[page - 1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
+                        r.remove(message.author.id);
                     })
 
                     forwards.on('collect', r => {
@@ -201,6 +202,7 @@ class MatchCommand extends Command {
                         embed.setDescription(pages[page - 1]);
                         embed.setFooter(`Page ${page} of ${pages.length}`);
                         msg.edit(embed.buildEmbed().getEmbed);
+                        r.remove(message.author.id);
                     });
                 })
             });

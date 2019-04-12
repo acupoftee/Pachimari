@@ -94,7 +94,7 @@ new Promise(function (resolve, reject) {
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
-                name: `Overwatch League Spy owo v1.0.0`
+                name: `v1.0.1 - !help <3`
             }
         })
         app.listen(process.env.PORT || 3000);
