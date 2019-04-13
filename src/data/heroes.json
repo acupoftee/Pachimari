@@ -1,117 +1,146 @@
 [{
     "key": "ana",
-    "title": "Ana"
+    "title": "Ana",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png"
 },
 {
     "key": "ashe",
-    "title": "Ashe"
+    "title": "Ashe",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ashe/hero-select-portrait.png"
 },
 {
     "key": "bastion",
-    "title": "Bastion"
+    "title": "Bastion",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/bastion/hero-select-portrait.png"
 },
 {
     "key": "brigitte",
-    "title": "Brigitte"
+    "title": "Brigitte",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/brigitte/hero-select-portrait.png"
 },
 {
     "key": "dva",
-    "title": "D.Va"
+    "title": "D.Va",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/dva/hero-select-portrait.png"
 },
 {
     "key": "doomfist",
-    "title": "Doomfist"
+    "title": "Doomfist",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/doomfist/hero-select-portrait.png"
 },
 {
     "key": "genji",
-    "title": "Genji"
+    "title": "Genji",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png"
 },
 {
     "key": "hanzo",
-    "title": "Hanzo"
+    "title": "Hanzo",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/hanzo/hero-select-portrait.png"
 },
 {
     "key": "junkrat",
-    "title": "Junkrat"
+    "title": "Junkrat",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png"
 },
 {
     "key": "lucio",
-    "title": "Lúcio"
+    "title": "Lúcio",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png"
 },
 {
     "key": "mccree",
-    "title": "McCree"
+    "title": "McCree",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png"
 },
 {
     "key": "mei",
-    "title": "Mei"
+    "title": "Mei",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png"
 },
 {
     "key": "mercy",
-    "title": "Mercy"
+    "title": "Mercy",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png"
 },
 {
     "key": "moira",
-    "title": "Moira"
+    "title": "Moira",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png"
 },
 {
     "key": "orisa",
-    "title": "Orisa"
+    "title": "Orisa",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png"
 },
 {
     "key": "pharah",
-    "title": "Pharah"
+    "title": "Pharah",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png"
 },
 {
     "key": "reaper",
-    "title": "Reaper"
+    "title": "Reaper",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png"
 },
 {
     "key": "reinhardt",
-    "title": "Reinhardt"
+    "title": "Reinhardt",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png"
 },
 {
     "key": "roadhog",
-    "title": "Roadhog"
+    "title": "Roadhog",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png"
 },
 {
-    "key": "soldier-76",
-    "title": "Soldier: 76"
+    "key": "soldier76",
+    "title": "Soldier: 76",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
 },
 {
     "key": "sombra",
-    "title": "Sombra"
+    "title": "Sombra",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png"
 },
 {
     "key": "symmetra",
-    "title": "Symmetra"
+    "title": "Symmetra",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png"
 },
 {
     "key": "torbjorn",
-    "title": "Torbjörn"
+    "title": "Torbjörn",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png"
 },
 {
     "key": "tracer",
-    "title": "Tracer"
+    "title": "Tracer",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png"
 },
 {
     "key": "widowmaker",
-    "title": "Widowmaker"
+    "title": "Widowmaker",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png"
 },
 {
     "key": "winston",
-    "title": "Winston"
+    "title": "Winston",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png"
 },
 {
-    "key": "wrecking-ball",
-    "title": "Wrecking Ball"
+    "key": "wreckingball",
+    "title": "Wrecking Ball",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
 },
 {
     "key": "zarya",
-    "title": "Zarya"
+    "title": "Zarya",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png"
 },
 {
     "key": "zenyatta",
-    "title": "Zenyatta"
+    "title": "Zenyatta",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png"
 }
 ]

@@ -119,6 +119,12 @@ class PlayerManager {
         return id;
     }
 
+    static async getHeroes(player) {
+        const body = await JsonUtil.parse(Endpoints.get('HERO-STATS', player.id));
+        const heroes = body.data.stats.heroes;
+        return heroes;
+    }
+
     /**
      * Returns all updated player stats.
      * 0: eliminations, 1: deaths, 2: hero damage, 3: healing, 
@@ -140,46 +146,5 @@ class PlayerManager {
         return stats;
 
     }
-    // static async updateElims(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const elims = body.data.stats.all.eliminations_avg_per_10m;
-    //     return elims;
-    // }
-
-    // static async updateDeaths(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const deaths = body.data.stats.all.deaths_avg_per_10m;
-    //     return deaths;
-    // }
-
-    // static async updateHeroDamage(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const damage = body.data.stats.all.hero_damage_avg_per_10m;
-    //     return damage;
-    // }
-
-    // static async updateHealing(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const healing = body.data.stats.all.healing_avg_per_10m;
-    //     return healing;
-    // }
-
-    // static async updateUltimates(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const ultimates = body.data.stats.all.ultimates_earned_avg_per_10m;
-    //     return ultimates;
-    // }
-
-    // static async updateFinalBlows(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const blows = body.data.stats.all.final_blows_avg_per_10m;
-    //     return blows;
-    // }
-
-    // static async updateTimePlayed(player) {
-    //     const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
-    //     const timePlayed = body.data.stats.all.time_played_total;
-    //     return timePlayed;
-    // }
 }
 module.exports = PlayerManager;
