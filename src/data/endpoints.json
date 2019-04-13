@@ -58,5 +58,9 @@
     {
       "key": "NEWS",
       "extension": "/news?locale=en_US&page=1"
+    },
+    {
+      "key": "HERO-STATS",
+      "extension": "/players/{id}?locale=en_US&expand=stats,stat.ranks"
     }
   ]
