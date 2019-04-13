@@ -107,7 +107,7 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
-            let logo = firstTeam.abbreviatedName == "CDH" ? firstTeam.altDark : firstTeam.logo;
+            let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
             embed.setThumbnail(logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
