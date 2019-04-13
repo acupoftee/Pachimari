@@ -20,7 +20,7 @@ class MatchCommand extends Command {
         let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
-        let found = false, concluded = true;
+        let found = false, pending = true;
         let embed = new PachimariEmbed(client);
 
         if (args.length < 1 || args.length > 2) {
@@ -66,15 +66,15 @@ class MatchCommand extends Command {
                                         Match Score:\n${Emojis[home.abbreviatedName.toUpperCase()]} ${homeMatchScore} - ${
                                             awayMatchScore} ${Emojis[away.abbreviatedName.toUpperCase()]}\n\n__**Maps**__\n`;
                                         mapStr = header + mapStr;
-                                        concluded = false;
                                     }
                                     matches.push(mapStr);
-                                    concluded = true;
+                                    pending = false;
                                 }
                             } else {
                                 header = `${Emojis[home.abbreviatedName.toUpperCase()]} **${home.name} vs. ${away.name}** ${Emojis[away.abbreviatedName.toUpperCase()]}
                                 Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}\n`;
                                 futureMatches.push(header);
+                                pending = true;
                             }
                         }
                         if (matches.length > 0) {
@@ -83,7 +83,7 @@ class MatchCommand extends Command {
                         }
                     }
                 }
-                if (!concluded) {
+                if (pending) {
                     let title = `__Upcoming ${firstTeam.name} ${_stage.name} Matches__`;
                     titles.push(title);
                 }
@@ -91,7 +91,6 @@ class MatchCommand extends Command {
                     pages.push(futureMatches);
                     futureMatches = [];
                 }
-                concluded = false;
             }
         } else if (CompetitorManager.locateTeam(args[0]) === CompetitorManager.locateTeam(args[1])) {
             loading.then(message => message.delete());
