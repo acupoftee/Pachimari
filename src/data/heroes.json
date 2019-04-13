@@ -1,146 +1,211 @@
 [{
     "key": "ana",
     "title": "Ana",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png",
+    "color": "#9c978a",
+    "ultimate": "Nano Boost"
 },
 {
     "key": "ashe",
     "title": "Ashe",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ashe/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ashe/hero-select-portrait.png",
+    "color": "#b3a05f",
+    "ultimate": "B.O.B."
+},
+{
+    "key": "baptiste",
+    "title": "Baptiste",
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/baptiste/hero-select-portrait.png",
+    "color": "#2892a8",
+    "ultimate": "Amp. Matricie"
 },
 {
     "key": "bastion",
     "title": "Bastion",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/bastion/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/bastion/hero-select-portrait.png",
+    "color": "#24f9f8",
+    "ultimate": "Config. Tank"
 },
 {
     "key": "brigitte",
     "title": "Brigitte",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/brigitte/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/brigitte/hero-select-portrait.png",
+    "color": "#efb016",
+    "ultimate": "Rally"
 },
 {
     "key": "dva",
     "title": "D.Va",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/dva/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/dva/hero-select-portrait.png",
+    "color": "#ee4bb5",
+    "ultimate": "Self-Destruct"
 },
 {
     "key": "doomfist",
     "title": "Doomfist",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/doomfist/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/doomfist/hero-select-portrait.png",
+    "color": "#762c21",
+    "ultimate": "Meteor Strike"
 },
 {
     "key": "genji",
     "title": "Genji",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png",
+    "color": "#abe50b",
+    "ultimate": "Dragonblade"
 },
 {
     "key": "hanzo",
     "title": "Hanzo",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/hanzo/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/hanzo/hero-select-portrait.png",
+    "color": "#837c46",
+    "ultimate": "Dragonstrike"
 },
 {
     "key": "junkrat",
     "title": "Junkrat",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png",
+    "color": "#fbd73a",
+    "ultimate": "Rip-Tire"
 },
 {
     "key": "lucio",
     "title": "Lúcio",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png",
+    "color": "#aaf531",
+    "ultimate": "Soundbarrier"
 },
 {
     "key": "mccree",
     "title": "McCree",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png",
+    "color": "#c23f46",
+    "ultimate": "Deadeye"
 },
 {
     "key": "mei",
     "title": "Mei",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png",
+    "color": "#87d7f6",
+    "ultimate": "Blizzard"
 },
 {
     "key": "mercy",
     "title": "Mercy",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png",
+    "color": "#fcd849",
+    "ultimate": "Valkyrie"
 },
 {
     "key": "moira",
     "title": "Moira",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png",
+    "color": "#7112f4",
+    "ultimate": "Coalescence"
 },
 {
     "key": "orisa",
     "title": "Orisa",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png",
+    "color": "#ccb370",
+    "ultimate": "Supercharger"
 },
 {
     "key": "pharah",
     "title": "Pharah",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png",
+    "color": "#3461a4",
+    "ultimate": "Barrage"
 },
 {
     "key": "reaper",
     "title": "Reaper",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png",
+    "color": "#333",
+    "ultimate": "Death Blossom"
 },
 {
     "key": "reinhardt",
     "title": "Reinhardt",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png",
+    "color": "#b9b5ad",
+    "ultimate": "Earthshatter"
 },
 {
     "key": "roadhog",
     "title": "Roadhog",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png",
+    "color": "#54515a",
+    "ultimate": "Whole Hog"
 },
 {
     "key": "soldier76",
     "title": "Soldier: 76",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png",
+    "color": "#525d9b",
+    "ultimate": "Tactical Visor"
 },
 {
     "key": "sombra",
     "title": "Sombra",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png",
+    "color": "#9762ec",
+    "ultimate": "EMP"
 },
 {
     "key": "symmetra",
     "title": "Symmetra",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png",
+    "color": "#3e90b5",
+    "ultimate": "Photon Barrier"
 },
 {
     "key": "torbjorn",
     "title": "Torbjörn",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png",
+    "color": "#b04a33",
+    "ultimate": "Molten Core"
 },
 {
     "key": "tracer",
     "title": "Tracer",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png",
+    "color": "#ffcf35",
+    "ultimate": "Pulse Bomb"
 },
 {
     "key": "widowmaker",
     "title": "Widowmaker",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png",
+    "color": "#af5e9e",
+    "ultimate": "Infra-Sight"
 },
 {
     "key": "winston",
     "title": "Winston",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png",
+    "color": "#595959",
+    "ultimate": "Primal Rage"
 },
 {
     "key": "wreckingball",
     "title": "Wrecking Ball",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png",
+    "color": "#4a575f",
+    "ultimate": "Minefield"
 },
 {
     "key": "zarya",
     "title": "Zarya",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png",
+    "color": "#ff73c1",
+    "ultimate": "Graviton Surge"
 },
 {
     "key": "zenyatta",
     "title": "Zenyatta",
-    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png"
+    "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png",
+    "color": "#e1c931",
+    "ultimate": "Transcendence"
 }
 ]

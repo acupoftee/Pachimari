@@ -5,7 +5,7 @@ const { CompetitorManager, PlayerManager} = require('../../../models/owl_models'
 const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroes = require('../../../data/heroes.json');
-let heroURL, heroTitle;
+let heroURL, heroTitle, heroColor, heroUlt;
 
 class CompareCommand extends Command {
     constructor() {
@@ -24,11 +24,11 @@ class CompareCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
-        }
-
-        if (args.length == 3 && !this.hasHeroName(args[2])) {
+        } else if (args[2] !== undefined && this.getHeroName(args[2]) === undefined) {
+            console.log(this.getHeroName(args[2]));
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
         }
+
         const firstId = PlayerManager.locatePlayer(args[0]), 
               secondId = PlayerManager.locatePlayer(args[1]);
         const firstPlayer = PlayerManager.players.get(firstId), 
@@ -73,7 +73,7 @@ class CompareCommand extends Command {
                 firstInfo.push(`Deaths: **0**`);
                 firstInfo.push(`Hero Damage: **0**`);
                 firstInfo.push(`Healing: **0**`);
-                firstInfo.push(`Ultimates Earned: **0**`);
+                firstInfo.push(`${heroUlt}s Earned: **0**`);
                 firstInfo.push(`Final Blows: **0**`);
             } else {
                 firstInfo.push(`Time Played: **${NumberUtil.toTimeString(firstPlayerHeroes[firstIndex].stats.time_played_total)}**`);    
@@ -81,7 +81,7 @@ class CompareCommand extends Command {
                 firstInfo.push(`Deaths: **${firstPlayerHeroes[firstIndex].stats.deaths_avg_per_10m.toFixed(2)}**`);    
                 firstInfo.push(`Hero Damage: **${firstPlayerHeroes[firstIndex].stats.hero_damage_avg_per_10m.toFixed(2)}**`);    
                 firstInfo.push(`Healing: **${firstPlayerHeroes[firstIndex].stats.healing_avg_per_10m.toFixed(2)}**`);    
-                firstInfo.push(`Ultimates Earned: **${firstPlayerHeroes[firstIndex].stats.ultimates_earned_avg_per_10m.toFixed(2)}**`);                
+                firstInfo.push(`${heroUlt}s Earned: **${firstPlayerHeroes[firstIndex].stats.ultimates_earned_avg_per_10m.toFixed(2)}**`);                
                 firstInfo.push(`Final Blows: **${firstPlayerHeroes[firstIndex].stats.final_blows_avg_per_10m.toFixed(2)}**`);
             }
             if (secondIndex == -1) {
@@ -90,7 +90,7 @@ class CompareCommand extends Command {
                 secondInfo.push(`Deaths: **0**`);
                 secondInfo.push(`Hero Damage: **0**`);
                 secondInfo.push(`Healing: **0**`);
-                secondInfo.push(`Ultimates Earned: **0**`);
+                secondInfo.push(`${heroUlt}s Earned: **0**`);
                 secondInfo.push(`Final Blows: **0**`);
             } else {
                 secondInfo.push(`Time Played: **${NumberUtil.toTimeString(secondPlayerHeroes[secondIndex].stats.time_played_total)}**`);
@@ -98,15 +98,16 @@ class CompareCommand extends Command {
                 secondInfo.push(`Deaths: **${secondPlayerHeroes[secondIndex].stats.deaths_avg_per_10m.toFixed(2)}**`);
                 secondInfo.push(`Hero Damage: **${secondPlayerHeroes[secondIndex].stats.hero_damage_avg_per_10m.toFixed(2)}**`);
                 secondInfo.push(`Healing: **${secondPlayerHeroes[secondIndex].stats.healing_avg_per_10m.toFixed(2)}**`);
-                secondInfo.push(`Ultimates Earned: **${secondPlayerHeroes[secondIndex].stats.ultimates_earned_avg_per_10m.toFixed(2)}**`);
+                secondInfo.push(`${heroUlt}s Earned: **${secondPlayerHeroes[secondIndex].stats.ultimates_earned_avg_per_10m.toFixed(2)}**`);
                 secondInfo.push(`Final Blows: **${secondPlayerHeroes[secondIndex].stats.final_blows_avg_per_10m.toFixed(2)}**`);
             }
 
-            embed.addFields(`__${MessageUtil.capitalize(firstPlayer.name)}'s Hero Info__`, firstInfo, true);
-            embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Hero Info__`, secondInfo, true);
+            embed.addFields(`__${MessageUtil.capitalize(firstPlayer.name)}'s Info__`, firstInfo, true);
+            embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Info__`, secondInfo, true);
 
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
             embed.setThumbnail(heroURL);
+            embed.setColor(heroColor);
             embed.buildEmbed();
             return { embed: embed.getEmbed };
 
@@ -168,16 +169,22 @@ class CompareCommand extends Command {
         }
     }
 
-    async hasHeroName(val) {
+    /**
+     * Returns a hero name
+     * @param {string} val 
+     * @returns hero name
+     */
+     getHeroName(val) {
         const key = val.toLowerCase();
-        heroes.forEach(hero => {
-            if (hero.key === key) {
-                heroURL = hero.portrait;
-                heroTitle = hero.title;
-                return true;
-            }
-        });
-        return false;
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                heroURL = heroes[i].portrait;
+                heroTitle = heroes[i].title;
+                heroColor = heroes[i].color;
+                heroUlt = heroes[i].ultimate;
+                return heroes[i].key;
+            } 
+        }
     }
 }
 module.exports = CompareCommand;
