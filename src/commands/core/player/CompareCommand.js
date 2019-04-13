@@ -83,8 +83,8 @@ class CompareCommand extends Command {
         firstInfo.push(`Ultimates Earned: **${firstPlayer.ultimates.toFixed(2)}**`);
         secondInfo.push(`Ultimates Earned: **${secondPlayer.ultimates.toFixed(2)}**`);
         
-        firstInfo.push(`Final Blows: **${firstPlayer.timePlayed.toFixed(2)}**`);
-        secondInfo.push(`Final Blows: **${secondPlayer.timePlayed.toFixed(2)}**`);
+        firstInfo.push(`Final Blows: **${firstPlayer.finalBlows.toFixed(2)}**`);
+        secondInfo.push(`Final Blows: **${secondPlayer.finalBlows.toFixed(2)}**`);
 
         embed.addFields(`__${MessageUtil.capitalize(firstPlayer.name)}'s Info__`, firstInfo, true);
         embed.addFields(`__${MessageUtil.capitalize(secondPlayer.name)}'s Info__`, secondInfo, true);
