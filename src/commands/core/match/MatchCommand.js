@@ -168,7 +168,7 @@ class MatchCommand extends Command {
         embed.setTitle(titles[title - 1]);
 
         if (pages.length > 1) {
-            embed.setFooter(`Page ${page} of ${pages.length}`);
+            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
             let mess = embed.buildEmbed().getEmbed;
             message.channel.send(mess).then(msg => {
                 msg.react("⬅").then(r => {
@@ -177,8 +177,8 @@ class MatchCommand extends Command {
                     const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                     const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
 
-                    const backwards = msg.createReactionCollector(backwardsFilter);
-                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
+                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
+                    const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
 
                     backwards.on('collect', async r => {
                         if (page === 1) {
@@ -191,7 +191,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -207,7 +207,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });

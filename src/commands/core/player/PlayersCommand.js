@@ -36,7 +36,7 @@ class PlayersCommand extends Command {
         const embed = new PachimariEmbed(client);
         embed.setTitle('__Overwatch League Players__');
         embed.setDescription(pages[page - 1]);
-        embed.setFooter(`Page ${page} of ${pages.length}`);
+        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
         let mess = embed.buildEmbed().getEmbed;
         loading.then(message => message.delete());
         message.channel.send(mess).then(msg => {
@@ -56,7 +56,7 @@ class PlayersCommand extends Command {
                     }
                     page--;
                     embed.setDescription(pages[page - 1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
+                    embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     await r.remove(message.author.id);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });
@@ -68,7 +68,7 @@ class PlayersCommand extends Command {
                     }
                     page++;
                     embed.setDescription(pages[page - 1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
+                    embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     await r.remove(message.author.id);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });

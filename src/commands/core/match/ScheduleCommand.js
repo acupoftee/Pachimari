@@ -93,7 +93,7 @@ class ScheduleCommand extends Command {
 
             embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
             embed.setDescription(pages[page-1]);
-            embed.setFooter(`Page ${page} of ${pages.length}`);
+            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
         });
         promise.then(function(result) {
             let mess = embed.buildEmbed().getEmbed;
@@ -117,7 +117,7 @@ class ScheduleCommand extends Command {
                         days--;
                         embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
                         embed.setDescription(pages[page-1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -131,7 +131,7 @@ class ScheduleCommand extends Command {
                         days++;
                         embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
                         embed.setDescription(pages[page-1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
