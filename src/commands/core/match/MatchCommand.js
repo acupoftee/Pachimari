@@ -36,7 +36,8 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
-            embed.setThumbnail(firstTeam.logo);
+            let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
+            embed.setThumbnail(logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
                 for (const week of _stage.weeks) {
