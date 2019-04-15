@@ -113,12 +113,15 @@ class PlayerCommand extends Command {
             }
             if (args[2] === undefined) {
                 embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
-                let info = [];
+                let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${PlayerManager.getHeroTitle(hero)}`);
+                    percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
-                let msg = info.join('\n');
-                embed.setDescription(msg);
+                // let msg = info.join('\n');
+                // embed.setDescription(msg);
+                embed.addFields("Heroes", info, true);
+                embed.addFields("% Played", percentage, true);
                 embed.setFooter("Heroes listed are heroes played this season in OWL.");
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);

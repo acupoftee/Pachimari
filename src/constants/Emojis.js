@@ -42,6 +42,7 @@ module.exports = {
     // utility
     LOADING: '<a:loading2:554410131601883147>',
     LIVE:'<:live:550922871153623050>',
+    TRANSPARENT: '<:transparent:567228924841689088>',
 
     // map types
     ESCORT: '<:escort:553834925900562446>',
