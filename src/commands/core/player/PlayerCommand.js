@@ -126,19 +126,19 @@ class PlayerCommand extends Command {
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             } else if (args[2].toLowerCase() === 'expand') {
-                let pages = [], titles = [];
+                let pages = [], titles = [], headers = [];
                 let page = 1, title = 1; 
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
                     let titleString = `${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Hero Stats\n${heroMoji} ${PlayerManager.getHeroTitle(hero)}`;
-                    info.push(`Time Played: **${NumberUtil.toTimeString(hero.stats.time_played_total)}**`);
-                    info.push(`Eliminations: **${hero.stats.eliminations_avg_per_10m.toFixed(2)}**`);
-                    info.push(`Deaths: **${hero.stats.deaths_avg_per_10m.toFixed(2)}**`);
-                    info.push(`Hero Damage: **${hero.stats.hero_damage_avg_per_10m.toFixed(2)}**`);
-                    info.push(`Healing: **${hero.stats.healing_avg_per_10m.toFixed(2)}**`);
-                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned: **${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}**`);
-                    info.push(`Final Blows: **${hero.stats.final_blows_avg_per_10m.toFixed(2)}**`);
+                    info.push(`Time Played: ${NumberUtil.toTimeString(hero.stats.time_played_total)}`);
+                    info.push(`Eliminations: ${hero.stats.eliminations_avg_per_10m.toFixed(2)}`);
+                    info.push(`Deaths: ${hero.stats.deaths_avg_per_10m.toFixed(2)}`);
+                    info.push(`Hero Damage: ${hero.stats.hero_damage_avg_per_10m.toFixed(2)}`);
+                    info.push(`Healing: ${hero.stats.healing_avg_per_10m.toFixed(2)}`);
+                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned: ${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}`);
+                    info.push(`Final Blows: ${hero.stats.final_blows_avg_per_10m.toFixed(2)}`);
                     pages.push(info);
                     //colors.push(PlayerManager.getHeroColor(hero));
                     titles.push(titleString);
