@@ -3,8 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const { MessageUtil } = require('../../../utils');
-const { MessageReaction } = require('discord.js');
+const { MessageUtil, NumberUtil } = require('../../../utils');
 const heroes = require('../../../data/heroes.json');
 let heroColor, heroURL, heroTitle;
 
@@ -22,29 +21,39 @@ class PlayersCommand extends Command {
         let pages = [];
         let page = 1, playerCount = 1;
         let players = [];
-        const embed = new PachimariEmbed(client);
+        let embed = new PachimariEmbed(client);
 
         if (args.length === 1) {
-            const hero = this.getHeroName(args[0]);
-            if (hero !== undefined) {
-                for (const player of PlayerManager.players.sort(this.compare)) {
+            let hero, revisedHero;
+            if (args[0].toLowerCase() == "soldier76") {
+                revisedHero = this.getHeroName("soldier-76");
+             } else if (args[0].toLowerCase() == "wreckingball") {
+                revisedHero = this.getHeroName("wrecking-ball");
+             } else {
+                hero = this.getHeroName(args[0]);
+             } 
+            let list = PlayerManager.players.array().sort(this.compare);
+            if (hero !== undefined || revisedHero !== undefined) {
+                for (const player of list) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
-                    if (competitorHeroes.includes(hero)) {
-                        let teamoji = Emojis[competitor.abbreviatedName];
-                        players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
-                            Emojis[player.role.toUpperCase()]} ${
-                            player.givenName} '**${player.name}**' ${player.familyName}`);
-                        if (playerCount % 20 == 0) {
-                            pages.push(players);
-                            players = [];
+                    let query = revisedHero !== undefined ? revisedHero : hero;
+                    for (let i = 0; i < competitorHeroes.length; i++) {
+                        if (competitorHeroes[i].name == query) {
+                            let teamoji = Emojis[competitor.abbreviatedName];
+                            players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
+                                Emojis[player.role.toUpperCase()]} ${
+                                player.givenName} '**${player.name}**' ${player.familyName}`);
+                            if (playerCount % 20 == 0) {
+                                pages.push(players);
+                                players = [];
+                            }
+                            playerCount++;
                         }
-                        playerCount++;
                     }
                 }
+                pages.push(players);
                 embed.setTitle(`__Overwatch League Players with Time on ${heroTitle}__`);
-                embed.setDescription(pages[page - 1]);
-                embed.setFooter(`Page ${page} of ${pages.length}`);
                 embed.setColor(heroColor);
                 embed.setThumbnail(heroURL);
             } else {
@@ -66,49 +75,54 @@ class PlayersCommand extends Command {
                 playerCount++;
             });
             pages.push(players);
-
             embed.setTitle('__Overwatch League Players__');
-            embed.setDescription(pages[page - 1]);
-            embed.setFooter(`Page ${page} of ${pages.length}`);
         }
-        
-        let mess = embed.buildEmbed().getEmbed;
+
         loading.then(message => message.delete());
-        message.channel.send(mess).then(msg => {
-            msg.react("⬅").then(r => {
-                msg.react("➡");
+        embed.setDescription(pages[page - 1]);
 
-                const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
-                const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
-
-                const backwards = msg.createReactionCollector(backwardsFilter, { time: 200000 });
-                const forwards = msg.createReactionCollector(forwardFilter, { time: 200000 }); // { time: 100000 }
-
-                backwards.on('collect', async r => {
-                    if (page === 1) {
+        if (pages.length > 1) {
+            embed.setFooter(`Page ${page} of ${pages.length}`);
+            let mess = embed.buildEmbed().getEmbed;
+            message.channel.send(mess).then(msg => {
+                msg.react("⬅").then(r => {
+                    msg.react("➡");
+    
+                    const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
+                    const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
+    
+                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 200000 });
+                    const forwards = msg.createReactionCollector(forwardFilter, { time: 200000 }); // { time: 100000 }
+    
+                    backwards.on('collect', async r => {
+                        if (page === 1) {
+                            await r.remove(message.author.id);
+                            return;
+                        }
+                        page--;
+                        embed.setDescription(pages[page - 1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
                         await r.remove(message.author.id);
-                        return;
-                    }
-                    page--;
-                    embed.setDescription(pages[page - 1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
-                    await r.remove(message.author.id);
-                    msg.edit(embed.buildEmbed().getEmbed);
-                });
-
-                forwards.on('collect', async r => {
-                    if (page === pages.length) {
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    });
+    
+                    forwards.on('collect', async r => {
+                        if (page === pages.length) {
+                            await r.remove(message.author.id);
+                            return;
+                        }
+                        page++;
+                        embed.setDescription(pages[page - 1]);
+                        embed.setFooter(`Page ${page} of ${pages.length}`);
                         await r.remove(message.author.id);
-                        return;
-                    }
-                    page++;
-                    embed.setDescription(pages[page - 1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
-                    await r.remove(message.author.id);
-                    msg.edit(embed.buildEmbed().getEmbed);
+                        msg.edit(embed.buildEmbed().getEmbed);
+                    });
                 });
             });
-        });
+        } else {
+            embed.buildEmbed().post(message.channel);
+        }
+       
     }
 
     compare(a, b) {
@@ -131,8 +145,11 @@ class PlayersCommand extends Command {
                 heroURL = heroes[i].portrait;
                 heroColor = heroes[i].color;
                 heroTitle = heroes[i].title;
+                if (key === 'wrecking-ball') {
+                    return 'wreckingball';
+                }
                 return heroes[i].key;
-            } 
+            }
         }
     }
 }

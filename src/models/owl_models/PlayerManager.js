@@ -62,7 +62,8 @@ class PlayerManager {
                     if (data.attributes.heroes.includes(hero.key)) {
                         heroArray.push(hero.title);
                     }
-                })   
+                })  
+                console.log(heroArray); 
             }
             let player = new Player(
                 data.id,
@@ -125,6 +126,47 @@ class PlayerManager {
         return heroes;
     }
 
+    static getHeroTitle(hero) {
+        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+            return 'Wrecking Ball';
+        }
+        if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
+            return 'Soldier: 76';
+        }
+        for (let i = 0; i < heroData.length; i++) {
+            if (heroData[i].key == hero.name) {
+                return heroData[i].title;
+            }
+        }
+    }
+
+    static getHeroColor(hero) {
+        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+            return '#4a575f';
+        }
+        if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
+            return '#525d9b';
+        }
+        for (let i = 0; i < heroData.length; i++) {
+            if (heroData[i].key == hero.name) {
+                return heroData[i].color;
+            }
+        }
+    }
+
+    static getHeroUltimate(hero) {
+        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+            return 'Minefield';
+        }
+        if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
+            return 'Tactical Visor';
+        }
+        for (let i = 0; i < heroData.length; i++) {
+            if (heroData[i].key == hero.name) {
+                return heroData[i].ultimate;
+            }
+        }
+    }
     /**
      * Returns all updated player stats.
      * 0: eliminations, 1: deaths, 2: hero damage, 3: healing, 
