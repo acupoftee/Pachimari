@@ -118,34 +118,31 @@ class PlayerCommand extends Command {
                     info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${PlayerManager.getHeroTitle(hero)}`);
                     percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
-                // let msg = info.join('\n');
-                // embed.setDescription(msg);
+
                 embed.addFields("Heroes", info, true);
                 embed.addFields("% Played", percentage, true);
                 embed.setFooter("Heroes listed are heroes played this season in OWL.");
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             } else if (args[2].toLowerCase() === 'expand') {
-                let pages = [], titles = [], headers = [];
+                let pages = [], titles = [];
                 let page = 1, title = 1; 
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
                     let titleString = `${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Hero Stats\n${heroMoji} ${PlayerManager.getHeroTitle(hero)}`;
-                    info.push(`Time Played: ${NumberUtil.toTimeString(hero.stats.time_played_total)}`);
-                    info.push(`Eliminations: ${hero.stats.eliminations_avg_per_10m.toFixed(2)}`);
-                    info.push(`Deaths: ${hero.stats.deaths_avg_per_10m.toFixed(2)}`);
-                    info.push(`Hero Damage: ${hero.stats.hero_damage_avg_per_10m.toFixed(2)}`);
-                    info.push(`Healing: ${hero.stats.healing_avg_per_10m.toFixed(2)}`);
-                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned: ${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}`);
-                    info.push(`Final Blows: ${hero.stats.final_blows_avg_per_10m.toFixed(2)}`);
+                    info.push(`Time Played: \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
+                    info.push(`Eliminations: \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Deaths: \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Hero Damage: \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Healing: \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
+                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned: \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Final Blows: \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
                     pages.push(info);
-                    //colors.push(PlayerManager.getHeroColor(hero));
                     titles.push(titleString);
                 })
                 embed.setTitle(titles[title - 1]);
                 embed.setDescription(pages[page - 1]);
-                //embed.setColor(colors[color - 1]);
 
                 if (pages.length > 1) {
                     embed.setFooter(`Page ${page} of ${pages.length}`);
@@ -194,7 +191,11 @@ class PlayerCommand extends Command {
                     loading.then(message => message.delete());
                     embed.buildEmbed().post(message.channel);
                 }
-            } 
+            } else {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` for some cool results!");
+                return;
+            }
         }
     }
 }
