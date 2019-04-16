@@ -18,9 +18,9 @@ class InfoCommand extends Command {
     embed.setDescription("Thank you for using me as your friendly neighborhood Overwatch League pal!");
     embed.setThumbnail(client.user.avatarURL);
 
-    embed.addFields("Version", pckg.version);
+    embed.addFields("Version", pckg.version, true);
     // embed.addFields("Creator", "dustybutton#7350");
-    embed.addFields("Users", client.users.size);
+    embed.addFields("Users", client.users.size, true);
     embed.addFields(
         ":sos: Support Server",
         " https://discord.gg/KUg6rKz"
