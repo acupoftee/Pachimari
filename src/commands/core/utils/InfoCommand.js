@@ -14,7 +14,7 @@ class InfoCommand extends Command {
   }
 
   async execute(client, message, args) {
-    let embed = new PachimariEmbed(client).setTitle("✨Pachimari Bot Information");
+    let embed = new PachimariEmbed(client).setTitle("✨ Pachimari Bot Information");
     embed.setDescription("Thank you for using me as your friendly neighborhood Overwatch League pal!");
     embed.setThumbnail(client.user.avatarURL);
 
