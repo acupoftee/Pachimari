@@ -63,7 +63,6 @@ class PlayerManager {
                         heroArray.push(hero.title);
                     }
                 })  
-                console.log(heroArray); 
             }
             let player = new Player(
                 data.id,

@@ -19,7 +19,7 @@ class InfoCommand extends Command {
     embed.setThumbnail(client.user.avatarURL);
 
     embed.addFields("Version", pckg.version);
-    embed.addFields("Creator", "dustybutton#7350");
+    // embed.addFields("Creator", "dustybutton#7350");
     embed.addFields("Users", client.users.size);
     embed.addFields(
         ":sos: Support Server",
