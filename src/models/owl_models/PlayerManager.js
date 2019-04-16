@@ -140,6 +140,20 @@ class PlayerManager {
         }
     }
 
+    static getHeroPortrait(hero) {
+        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+            return "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png";
+        }
+        if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
+            return "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png";
+        }
+        for (let i = 0; i < heroData.length; i++) {
+            if (heroData[i].key == hero.name) {
+                return heroData[i].portrait;
+            }
+        }
+    }
+
     static getHeroColor(hero) {
         if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
             return '#4a575f';

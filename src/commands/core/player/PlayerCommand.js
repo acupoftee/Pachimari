@@ -4,6 +4,8 @@ const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
 const { NumberUtil, MessageUtil, AlertUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
+const heroData = require('../../../data/heroes.json');
+let heroUlt;
 
 /**
  * @class PlayerCommand
@@ -126,20 +128,22 @@ class PlayerCommand extends Command {
                 embed.buildEmbed().post(message.channel);
             } else if (args[2].toLowerCase() === 'expand') {
                 let pages = [], titles = [];
-                let page = 1, title = 1; 
+                let page = 1, title = 1;
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
-                    let titleString = `${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Hero Stats\n${heroMoji} ${PlayerManager.getHeroTitle(hero)}`;
-                    info.push(`Time Played: \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
-                    info.push(`Eliminations: \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
-                    info.push(`Deaths: \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
-                    info.push(`Hero Damage: \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
-                    info.push(`Healing: \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
-                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned: \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
-                    info.push(`Final Blows: \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
-                    pages.push(info);
+                    let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(hero)}** Stats`;
+                    //let descriptionString = `${heroMoji} __**${PlayerManager.getHeroTitle(hero)}**__\n`;
+                    info.push(`**Time Played**:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
+                    info.push(`**Eliminations**:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
+                    info.push(`**Deaths**:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
+                    info.push(`**Hero Damage**:  \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
+                    info.push(`**Healing**:  \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
+                    info.push(`**${PlayerManager.getHeroUltimate(hero)}s Earned**:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
+                    info.push(`**Final Blows**:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
+                    //info.splice(0, 0, descriptionString);
                     titles.push(titleString);
+                    pages.push(info);
                 })
                 embed.setTitle(titles[title - 1]);
                 embed.setDescription(pages[page - 1]);
@@ -187,14 +191,70 @@ class PlayerCommand extends Command {
                             });
                         })
                     })
-                } else {
-                    loading.then(message => message.delete());
-                    embed.buildEmbed().post(message.channel);
-                }
+                } 
             } else {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` for some cool results!");
                 return;
+            }
+        } else if (args[1].toLowerCase() === 'hero') {
+            if (args[2] === undefined) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
+                return;
+            } else if (this.getHeroName(args[2]) === undefined) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
+                return;
+            } else {
+                let index = -1;
+                let hero = this.getHeroName(args[2]);
+                let heroMoji = Emojis[hero.replace('-', '').toUpperCase()];
+                for (let i = 0; i < heroes.length; i++) {
+                    if (heroes[i].name == hero) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index == -1) {
+                    loading.then(message => message.delete());
+                    MessageUtil.sendSuccess(message.channel, `${player.name} hasn\'t played that hero yet! Hopefully soon :)`);
+                    return;
+                } else {
+                    embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[index].stats.time_played_total)}`, true);    
+                    embed.addFields(`Eliminations`, `${heroes[index].stats.eliminations_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Hero Damage`, `${heroes[index].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Healing`, `${heroes[index].stats.healing_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`${heroUlt}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);                
+                    embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
+                }
+                embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Hero Stats`);
+                embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
+                loading.then(message => message.delete());
+                embed.buildEmbed().post(message.channel);
+            }
+        } else if (args[1] !== undefined) {
+            loading.then(message => message.delete());
+            MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
+            return;
+        }
+    }
+
+     /**
+     * Returns a hero name
+     * @param {string} val 
+     * @returns hero name
+     */
+    getHeroName(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroData.length; i++) {
+            if (heroData[i].key === key) {
+                heroUlt = heroData[i].ultimate;
+                if (key === 'wrecking-ball') {
+                    return 'wreckingball';
+                }
+                return heroData[i].key;
             }
         }
     }
