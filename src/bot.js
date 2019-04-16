@@ -22,7 +22,8 @@ const {
     PredictionsCommand,
     MatchCommand,
     SettingsCommand,
-    ProfileCommand
+    ProfileCommand,
+    InfoCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -73,6 +74,7 @@ new Promise(function (resolve, reject) {
         new MatchCommand(),
         //new SettingsCommand(),
         //new ProfileCommand()
+        new InfoCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
@@ -94,7 +96,7 @@ new Promise(function (resolve, reject) {
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
-                name: `v1.1.0 - !help <3`
+                name: `v1.2.0 - !help <3`
             }
         })
         app.listen(process.env.PORT || 3000);
