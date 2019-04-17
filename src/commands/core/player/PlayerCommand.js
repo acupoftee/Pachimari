@@ -21,7 +21,7 @@ class PlayerCommand extends Command {
         super();
         this.name = 'player';
         this.description = 'Displays information about a specific OWL player';
-        this.usage = 'player <player> [accounts|heroes]';
+        this.usage = 'player <player> [accounts|heroes] [expand|heroname]';
         this.aliases = [];
     }
 
@@ -123,7 +123,7 @@ class PlayerCommand extends Command {
 
                 embed.addFields("Heroes", info, true);
                 embed.addFields("% Played", percentage, true);
-                embed.setFooter("Heroes listed are heroes played this season in OWL. Use \`!player <name> heroes expand\` to see more hero stats!");
+                embed.setFooter("Use \`!player <name> heroes expand\` to see more hero stats!");
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             } else if (args[2].toLowerCase() === 'expand') {
