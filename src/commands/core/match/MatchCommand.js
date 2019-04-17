@@ -191,7 +191,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -207,7 +207,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
