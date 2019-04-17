@@ -167,7 +167,7 @@ class TeamCommand extends Command {
                 pages.push(previousMatches);
                 embed.setDescription(pages[page - 1]);
                 embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
-                embed.setFooter(`Page ${page} of ${pages.length}`);
+                embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                 loading.then(message => message.delete());
                 message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
                     msg.react("🔄").then(r => {
@@ -182,7 +182,7 @@ class TeamCommand extends Command {
                                 embed.setTitle(`__Previous ${stage} Matches for ${competitor.name}__`);
                             }
                             embed.setDescription(pages[page - 1]);
-                            embed.setFooter(`Page ${page} of ${pages.length}`);
+                            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                             msg.edit(embed.buildEmbed().getEmbed);
                             r.remove(message.author.id);
                         })

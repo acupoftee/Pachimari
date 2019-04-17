@@ -19,7 +19,7 @@ class PageCommand extends Command {
         let embed = new PachimariEmbed(client);
         embed.setTitle("Page Test");
         embed.setDescription(pages[page-1]);
-        embed.setFooter(`Page ${page} of ${pages.length}`);
+        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
         let mess = embed.buildEmbed().getEmbed;
         let loading = message.channel.send(Emojis["LOADING"]);
 
@@ -38,7 +38,7 @@ class PageCommand extends Command {
                     if (page === 1) return;
                     page--;
                     embed.setDescription(pages[page-1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
+                    embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     msg.edit(embed.buildEmbed().getEmbed);
                 })
 
@@ -46,7 +46,7 @@ class PageCommand extends Command {
                     if (page === pages.length) return;
                     page++;
                     embed.setDescription(pages[page-1]);
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
+                    embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });
             })

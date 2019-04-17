@@ -20,7 +20,8 @@ class MatchCommand extends Command {
         let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
-        let found = false, concluded = false, pending = true;
+
+        let found = false, pending = true;
         let embed = new PachimariEmbed(client);
 
         if (args.length < 1 || args.length > 2) {
@@ -36,7 +37,8 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
-            embed.setThumbnail(firstTeam.logo);
+            let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
+            embed.setThumbnail(logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
                 for (const week of _stage.weeks) {
@@ -107,7 +109,8 @@ class MatchCommand extends Command {
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
-            embed.setThumbnail(firstTeam.logo);
+            let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
+            embed.setThumbnail(logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
 
@@ -167,7 +170,7 @@ class MatchCommand extends Command {
         console.log(titles);
 
         if (pages.length > 1) {
-            embed.setFooter(`Page ${page} of ${pages.length}`);
+            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
             let mess = embed.buildEmbed().getEmbed;
             message.channel.send(mess).then(msg => {
                 msg.react("⬅").then(r => {
@@ -176,8 +179,8 @@ class MatchCommand extends Command {
                     const backwardsFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id === message.author.id;
                     const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id === message.author.id;
 
-                    const backwards = msg.createReactionCollector(backwardsFilter);
-                    const forwards = msg.createReactionCollector(forwardFilter); // { time: 100000 }
+                    const backwards = msg.createReactionCollector(backwardsFilter, { time: 100000 });
+                    const forwards = msg.createReactionCollector(forwardFilter, { time: 100000 }); // { time: 100000 }
 
                     backwards.on('collect', async r => {
                         if (page === 1) {
@@ -190,7 +193,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -206,7 +209,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });

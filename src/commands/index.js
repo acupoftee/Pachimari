@@ -19,7 +19,8 @@ const PredictCommand = require('./social/predictions/PredictCommand');
 const PredictionsCommand = require('./social/predictions/PredictionsCommand');
 const MatchCommand = require('./core/match/MatchCommand');
 const SettingsCommand = require('./core/utils/SettingsCommand');
-const ProfileCommand = require('./social/profile/ProfileCommand')
+const ProfileCommand = require('./social/profile/ProfileCommand');
+const InfoCommand = require('./core/utils/InfoCommand');
 
 module.exports = {
     PingCommand,
@@ -41,5 +42,6 @@ module.exports = {
     PredictionsCommand,
     MatchCommand,
     SettingsCommand,
-    ProfileCommand
+    ProfileCommand,
+    InfoCommand
 };

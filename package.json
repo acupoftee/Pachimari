@@ -1,6 +1,6 @@
 {
   "name": "pachimari",
-  "version": "1.0.0",
+  "version": "1.2.2",
   "description": "A discord bot retreiving the latest in OWL League news and memes!",
   "main": "src/bot.js",
   "scripts": {

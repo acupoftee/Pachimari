@@ -12,7 +12,6 @@ class HelpCommand extends Command {
 
     async execute(client, message, args) {
         let embed = new PachimariEmbed(client);
-        message.channel.startTyping();
 
         if (args.length <= 0) {
             embed.setTitle('Commands');
@@ -23,20 +22,16 @@ class HelpCommand extends Command {
                 cmds.push(`**!${command.name}**:\t${command.description}`);
             });
             embed.addFields('Descriptions', cmds);
-            message.channel.stopTyping();
             embed.buildEmbed().post(message.channel);
         } else {
             const command = args[0].toLowerCase();
             if (!client.commands.has(command))
                 return;
-            
-                const cmd = client.commands.get(command);
-
-                embed.setTitle(MessageUtil.capitalize(cmd.name) + ' Command');
-                embed.setDescription(cmd.description);
-                embed.addFields('Usage', `!${cmd.usage}`);
-                message.channel.stopTyping();
-                embed.buildEmbed().post(message.channel);
+            const cmd = client.commands.get(command);
+            embed.setTitle(MessageUtil.capitalize(cmd.name) + ' Command');
+            embed.setDescription(cmd.description);
+            embed.addFields('Usage', `!${cmd.usage}`);
+            embed.buildEmbed().post(message.channel);
         }
     }
 }

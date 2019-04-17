@@ -163,7 +163,7 @@ class LiveCommand extends Command {
             embed.setThumbnail("");
             embed.setImage(icons[icon - 1]);
             embed.setColor(home.primaryColor);
-            embed.setFooter(`Page ${page} of ${pages.length}`);
+            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
             let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.delete());
             message.channel.send(mess).then(msg => {
@@ -184,7 +184,7 @@ class LiveCommand extends Command {
                         icon--;
                         embed.setDescription(pages[page - 1]);
                         embed.setImage(icons[icon - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -198,7 +198,7 @@ class LiveCommand extends Command {
                         icon++;
                         embed.setDescription(pages[page - 1]);
                         embed.setImage(icons[icon - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });

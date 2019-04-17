@@ -21,7 +21,8 @@ class PlayerCommand extends Command {
         super();
         this.name = 'player';
         this.description = 'Displays information about a specific OWL player';
-        this.usage = 'player <player> [accounts|heroes]';
+
+        this.usage = 'player <player> [accounts|heroes] [expand|heroname]';
         this.aliases = [];
     }
 
@@ -123,7 +124,8 @@ class PlayerCommand extends Command {
 
                 embed.addFields("Heroes", info, true);
                 embed.addFields("% Played", percentage, true);
-                embed.setFooter("Heroes listed are heroes played this season in OWL.");
+
+                embed.setFooter("Use \`!player <name> heroes expand\` to see more hero stats!");
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             } else if (args[2].toLowerCase() === 'expand') {
@@ -134,13 +136,15 @@ class PlayerCommand extends Command {
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
                     let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(hero)}** Stats`;
                     //let descriptionString = `${heroMoji} __**${PlayerManager.getHeroTitle(hero)}**__\n`;
-                    info.push(`**Time Played**:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
-                    info.push(`**Eliminations**:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
-                    info.push(`**Deaths**:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
-                    info.push(`**Hero Damage**:  \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
-                    info.push(`**Healing**:  \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
-                    info.push(`**${PlayerManager.getHeroUltimate(hero)}s Earned**:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
-                    info.push(`**Final Blows**:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
+
+                    info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
+                    info.push(`Eliminations:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Deaths:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Hero Damage:  \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Healing:  \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
+                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
+                    info.push(`Final Blows:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
+
                     //info.splice(0, 0, descriptionString);
                     titles.push(titleString);
                     pages.push(info);
@@ -149,7 +153,8 @@ class PlayerCommand extends Command {
                 embed.setDescription(pages[page - 1]);
 
                 if (pages.length > 1) {
-                    embed.setFooter(`Page ${page} of ${pages.length}`);
+                    embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
+
                     let mess = embed.buildEmbed().getEmbed;
                     loading.then(message => message.delete());
                     message.channel.send(mess).then(msg => {
@@ -171,7 +176,9 @@ class PlayerCommand extends Command {
                                 title--;
                                 embed.setTitle(titles[title - 1]);
                                 embed.setDescription(pages[page - 1]);
-                                embed.setFooter(`Page ${page} of ${pages.length}`);
+
+                                embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
+
                                 await r.remove(message.author.id);
                                 msg.edit(embed.buildEmbed().getEmbed);
                             })
@@ -185,7 +192,8 @@ class PlayerCommand extends Command {
                                 title++;
                                 embed.setTitle(titles[title - 1]);
                                 embed.setDescription(pages[page - 1]);
-                                embed.setFooter(`Page ${page} of ${pages.length}`);
+                                embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
+
                                 await r.remove(message.author.id);
                                 msg.edit(embed.buildEmbed().getEmbed);
                             });
@@ -229,8 +237,9 @@ class PlayerCommand extends Command {
                     embed.addFields(`${heroUlt}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);                
                     embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
                 }
-                embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Hero Stats`);
-                embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
+
+                embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
+                //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
                 loading.then(message => message.delete());
                 embed.buildEmbed().post(message.channel);
             }
