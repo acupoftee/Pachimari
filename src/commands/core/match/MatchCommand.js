@@ -20,6 +20,7 @@ class MatchCommand extends Command {
         let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
+
         let found = false, pending = true;
         let embed = new PachimariEmbed(client);
 
@@ -166,6 +167,7 @@ class MatchCommand extends Command {
         loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
+        console.log(titles);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);

@@ -31,7 +31,7 @@ class CommandHandler extends Event {
             // }
             
             // const row = await Queries.getGuild(message.guild.id);
-            client.prefix = "!";
+            client.prefix = "?";
             if (!message.content.startsWith(client.prefix) || message.author.bot) {
                 return;
             }
