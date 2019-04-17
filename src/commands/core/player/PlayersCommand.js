@@ -5,7 +5,7 @@ const { CompetitorManager, PlayerManager } = require('../../../models/owl_models
 const { Emojis } = require('../../../constants');
 const { MessageUtil, NumberUtil } = require('../../../utils');
 const heroes = require('../../../data/heroes.json');
-let heroColor, heroURL, heroTitle;
+
 
 class PlayersCommand extends Command {
     constructor() {
@@ -22,15 +22,26 @@ class PlayersCommand extends Command {
         let page = 1, playerCount = 1;
         let players = [];
         let embed = new PachimariEmbed(client);
+        
 
         if (args.length === 1) {
             let hero, revisedHero;
+            let heroColor, heroURL, heroTitle;
             if (args[0].toLowerCase() == "soldier76") {
                 revisedHero = this.getHeroName("soldier-76");
+                heroColor = this.getHeroColor("soldier-76");
+                heroURL = this.getHeroURL("soldier-76");
+                heroTitle = this.getHeroTitle("soldier-76");
              } else if (args[0].toLowerCase() == "wreckingball") {
                 revisedHero = this.getHeroName("wrecking-ball");
+                heroColor = this.getHeroColor("wrecking-ball");
+                heroURL = this.getHeroURL("wrecking-ball");
+                heroTitle = this.getHeroTitle("wrecking-ball");
              } else {
                 hero = this.getHeroName(args[0]);
+                heroColor = this.getHeroColor(args[0]);
+                heroURL = this.getHeroURL(args[0]);
+                heroTitle = this.getHeroTitle(args[0]);
              } 
             let list = PlayerManager.players.array().sort(this.compare);
             if (hero !== undefined || revisedHero !== undefined) {
@@ -38,6 +49,7 @@ class PlayersCommand extends Command {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
                     let query = revisedHero !== undefined ? revisedHero : hero;
+        
                     for (let i = 0; i < competitorHeroes.length; i++) {
                         if (competitorHeroes[i].name == query) {
                             let teamoji = Emojis[competitor.abbreviatedName];
@@ -142,13 +154,37 @@ class PlayersCommand extends Command {
         const key = val.toLowerCase();
         for (let i = 0; i < heroes.length; i++) {
             if (heroes[i].key === key) {
-                heroURL = heroes[i].portrait;
-                heroColor = heroes[i].color;
-                heroTitle = heroes[i].title;
                 if (key === 'wrecking-ball') {
                     return 'wreckingball';
                 }
                 return heroes[i].key;
+            }
+        }
+    }
+
+    getHeroTitle(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].title;
+            }
+        }
+    }
+
+    getHeroColor(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].color;
+            }
+        }
+    }
+
+    getHeroURL(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].portrait;
             }
         }
     }
