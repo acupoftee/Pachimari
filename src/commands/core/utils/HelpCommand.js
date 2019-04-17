@@ -12,6 +12,7 @@ class HelpCommand extends Command {
 
     async execute(client, message, args) {
         let embed = new PachimariEmbed(client);
+        embed.setThumbnail(client.user.avatarURL);
 
         if (args.length <= 0) {
             embed.setTitle('Commands');
