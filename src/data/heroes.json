@@ -139,7 +139,7 @@
     "ultimate": "Whole Hog"
 },
 {
-    "key": "soldier76",
+    "key": "soldier-76",
     "title": "Soldier: 76",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png",
     "color": "#525d9b",
@@ -188,7 +188,7 @@
     "ultimate": "Primal Rage"
 },
 {
-    "key": "wreckingball",
+    "key": "wrecking-ball",
     "title": "Wrecking Ball",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png",
     "color": "#4a575f",

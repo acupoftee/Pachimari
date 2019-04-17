@@ -12,7 +12,6 @@ class HelpCommand extends Command {
 
     async execute(client, message, args) {
         let embed = new PachimariEmbed(client);
-        message.channel.startTyping();
 
         if (args.length <= 0) {
             embed.setTitle('Commands');
@@ -24,7 +23,6 @@ class HelpCommand extends Command {
             });
             embed.addFields('Descriptions', cmds);
             embed.buildEmbed().post(message.channel);
-            message.channel.stopTyping();
         } else {
             const command = args[0].toLowerCase();
             if (!client.commands.has(command))
@@ -34,7 +32,6 @@ class HelpCommand extends Command {
             embed.setDescription(cmd.description);
             embed.addFields('Usage', `!${cmd.usage}`);
             embed.buildEmbed().post(message.channel);
-            message.channel.stopTyping();
         }
     }
 }
