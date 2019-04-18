@@ -44,11 +44,12 @@ class PlayersCommand extends Command {
                 heroTitle = this.getHeroTitle(args[0]);
              } 
             let list = PlayerManager.players.array().sort(this.compare);
-            if (hero !== undefined || revisedHero !== undefined) {
+            if (hero != undefined || revisedHero != undefined) {
+                loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[args[0].toUpperCase()]}`))
                 for (const player of list) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
-                    let query = revisedHero !== undefined ? revisedHero : hero;
+                    let query = revisedHero != undefined ? revisedHero : hero;
         
                     for (let i = 0; i < competitorHeroes.length; i++) {
                         if (competitorHeroes[i].name == query) {
