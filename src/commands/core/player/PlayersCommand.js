@@ -23,8 +23,12 @@ class PlayersCommand extends Command {
         let players = [];
         let embed = new PachimariEmbed(client);
         
-
-        if (args.length === 1) {
+        if (args.length > 1) {
+            loading.then(message => message.delete());
+            MessageUtil.sendError(message.channel, "Make sure you use the format \`!players [hero]\`");
+            return;
+        }
+        else if (args.length === 1) {
             let hero, revisedHero;
             let heroColor, heroURL, heroTitle;
             if (args[0].toLowerCase() == "soldier76") {
@@ -44,11 +48,12 @@ class PlayersCommand extends Command {
                 heroTitle = this.getHeroTitle(args[0]);
              } 
             let list = PlayerManager.players.array().sort(this.compare);
-            if (hero !== undefined || revisedHero !== undefined) {
+            if (hero != undefined || revisedHero != undefined) {
+                loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[args[0].toUpperCase()]}`))
                 for (const player of list) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
-                    let query = revisedHero !== undefined ? revisedHero : hero;
+                    let query = revisedHero != undefined ? revisedHero : hero;
         
                     for (let i = 0; i < competitorHeroes.length; i++) {
                         if (competitorHeroes[i].name == query) {
@@ -134,7 +139,6 @@ class PlayersCommand extends Command {
         } else {
             embed.buildEmbed().post(message.channel);
         }
-       
     }
 
     compare(a, b) {
