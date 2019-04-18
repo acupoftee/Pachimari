@@ -199,7 +199,20 @@ class PlayerCommand extends Command {
                             });
                         })
                     })
-                } 
+                } else {
+                    embed.setTitle(titles[title-1]);
+                    embed.setDescription('');
+                    embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);    
+                    embed.addFields(`Eliminations`, `${heroes[0].stats.eliminations_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Hero Damage`, `${heroes[0].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`Healing`, `${heroes[0].stats.healing_avg_per_10m.toFixed(2)}`, true);    
+                    embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);                
+                    embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
+
+                    loading.then(message => message.delete());
+                    embed.buildEmbed().post(message.channel);
+                }
             } else {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` for some cool results!");

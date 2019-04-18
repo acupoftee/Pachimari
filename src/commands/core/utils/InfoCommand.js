@@ -36,7 +36,7 @@ class InfoCommand extends Command {
       );
 
     embed.addFields(
-      ":up: Upvote me on Discordbots.org! (╹◡╹๑)",
+      ":up: Upvote me on Discordbots.org (╹◡╹๑)",
       "https://tinyurl.com/y3mhfr8l"
     );
     embed.buildEmbed().post(message.channel);

@@ -25,7 +25,7 @@ class PlayersCommand extends Command {
         
         if (args.length > 1) {
             loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Make sure you use the format \`!player [hero]\`");
+            MessageUtil.sendError(message.channel, "Make sure you use the format \`!players [hero]\`");
             return;
         }
         else if (args.length === 1) {
