@@ -23,8 +23,12 @@ class PlayersCommand extends Command {
         let players = [];
         let embed = new PachimariEmbed(client);
         
-
-        if (args.length === 1) {
+        if (args.length > 1) {
+            loading.then(message => message.delete());
+            MessageUtil.sendError(message.channel, "Make sure you use the format \`!player [hero]\`");
+            return;
+        }
+        else if (args.length === 1) {
             let hero, revisedHero;
             let heroColor, heroURL, heroTitle;
             if (args[0].toLowerCase() == "soldier76") {
@@ -135,7 +139,6 @@ class PlayersCommand extends Command {
         } else {
             embed.buildEmbed().post(message.channel);
         }
-       
     }
 
     compare(a, b) {
