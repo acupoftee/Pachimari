@@ -14,11 +14,11 @@ class InfoCommand extends Command {
   }
 
   async execute(client, message, args) {
-    let embed = new PachimariEmbed(client).setTitle("✨ Pachimari Bot Information");
+    let embed = new PachimariEmbed(client).setTitle(`✨ Pachimari Bot Information (v${pckg.version})`);
     embed.setDescription("Thank you for using me as your friendly neighborhood Overwatch League pal!");
     embed.setThumbnail(client.user.avatarURL);
 
-    embed.addFields("Version", pckg.version, true);
+    embed.addFields("Servers", client.guilds.size, true);
     // embed.addFields("Creator", "dustybutton#7350");
     embed.addFields("Users", client.users.size, true);
     embed.addFields(
