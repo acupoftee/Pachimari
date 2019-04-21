@@ -66,146 +66,167 @@
     "title": "Junkrat",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png",
     "color": "#fbd73a",
-    "ultimate": "Rip-Tire"
+    "ultimate": "Rip-Tire",
+    "pat":"https://cdn.discordapp.com/emojis/507717387974606858.png?v=1"
 },
 {
     "key": "lucio",
     "title": "Lúcio",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png",
     "color": "#aaf531",
-    "ultimate": "Soundbarrier"
+    "ultimate": "Soundbarrier",
+    "pat": "https://cdn.discordapp.com/emojis/373047267671670784.png?v=1"
 },
 {
     "key": "mccree",
     "title": "McCree",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png",
     "color": "#c23f46",
-    "ultimate": "Deadeye"
+    "ultimate": "Deadeye",
+    "pat": "https://cdn.discordapp.com/emojis/507717389492813845.png?v=1"
 },
 {
     "key": "mei",
     "title": "Mei",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png",
     "color": "#87d7f6",
-    "ultimate": "Blizzard"
+    "ultimate": "Blizzard",
+    "pat": "https://cdn.discordapp.com/emojis/507717391459811331.png?v=1"
 },
 {
     "key": "mercy",
     "title": "Mercy",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png",
     "color": "#fcd849",
-    "ultimate": "Valkyrie"
+    "ultimate": "Valkyrie",
+    "pat": "https://cdn.discordapp.com/emojis/507717389677363209.png?v=1"
 },
 {
     "key": "moira",
     "title": "Moira",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png",
     "color": "#7112f4",
-    "ultimate": "Coalescence"
+    "ultimate": "Coalescence",
+    "pat": "https://cdn.discordapp.com/emojis/507717391971516436.png?v=1"
 },
 {
     "key": "orisa",
     "title": "Orisa",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png",
     "color": "#ccb370",
-    "ultimate": "Supercharger"
+    "ultimate": "Supercharger",
+    "pat": "https://cdn.discordapp.com/emojis/368248085849309184.png?v=1"
 },
 {
     "key": "pharah",
     "title": "Pharah",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png",
     "color": "#3461a4",
-    "ultimate": "Barrage"
+    "ultimate": "Barrage",
+    "pat": "https://cdn.discordapp.com/emojis/507717389958381578.png?v=1"
 },
 {
     "key": "reaper",
     "title": "Reaper",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png",
     "color": "#333",
-    "ultimate": "Death Blossom"
+    "ultimate": "Death Blossom",
+    "pat": "https://cdn.discordapp.com/emojis/507717391585902594.png?v=1"
 },
 {
     "key": "reinhardt",
     "title": "Reinhardt",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png",
     "color": "#b9b5ad",
-    "ultimate": "Earthshatter"
+    "ultimate": "Earthshatter",
+    "pat": "https://cdn.discordapp.com/emojis/507717391074066454.png?v=1"
 },
 {
     "key": "roadhog",
     "title": "Roadhog",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png",
     "color": "#54515a",
-    "ultimate": "Whole Hog"
+    "ultimate": "Whole Hog",
+    "pat": "https://cdn.discordapp.com/emojis/469610855043039242.png?v=1"
 },
 {
     "key": "soldier-76",
     "title": "Soldier: 76",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png",
     "color": "#525d9b",
-    "ultimate": "Tactical Visor"
+    "ultimate": "Tactical Visor",
+    "pat": "https://cdn.discordapp.com/emojis/507717391711469583.png?v=1"
 },
 {
     "key": "sombra",
     "title": "Sombra",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png",
     "color": "#9762ec",
-    "ultimate": "EMP"
+    "ultimate": "EMP",
+    "pat": "https://cdn.discordapp.com/emojis/563142274591096847.png?v=1"
 },
 {
     "key": "symmetra",
     "title": "Symmetra",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png",
     "color": "#3e90b5",
-    "ultimate": "Photon Barrier"
+    "ultimate": "Photon Barrier",
+    "pat": "https://cdn.discordapp.com/emojis/507717391795617812.png?v=1"
 },
 {
     "key": "torbjorn",
     "title": "Torbjörn",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png",
     "color": "#b04a33",
-    "ultimate": "Molten Core"
+    "ultimate": "Molten Core",
+    "pat": "https://cdn.discordapp.com/emojis/507717392026304531.png?v=1"
 },
 {
     "key": "tracer",
     "title": "Tracer",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png",
     "color": "#ffcf35",
-    "ultimate": "Pulse Bomb"
+    "ultimate": "Pulse Bomb",
+    "pat": "https://cdn.discordapp.com/emojis/507717391782903818.png?v=1"
 },
 {
     "key": "widowmaker",
     "title": "Widowmaker",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png",
     "color": "#af5e9e",
-    "ultimate": "Infra-Sight"
+    "ultimate": "Infra-Sight",
+    "pat": "https://cdn.discordapp.com/emojis/396468487960395776.png?v=1"
 },
 {
     "key": "winston",
     "title": "Winston",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png",
     "color": "#595959",
-    "ultimate": "Primal Rage"
+    "ultimate": "Primal Rage",
+    "pat": "https://cdn.discordapp.com/emojis/507717390277279754.png?v=1"
 },
 {
     "key": "wrecking-ball",
     "title": "Wrecking Ball",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png",
     "color": "#4a575f",
-    "ultimate": "Minefield"
+    "ultimate": "Minefield",
+    "pat":"https://cdn.discordapp.com/emojis/507718228999667753.png?v=1"
 },
 {
     "key": "zarya",
     "title": "Zarya",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png",
     "color": "#ff73c1",
-    "ultimate": "Graviton Surge"
+    "ultimate": "Graviton Surge",
+    "pat":"https://cdn.discordapp.com/emojis/372684463055831040.png?v=1"
 },
 {
     "key": "zenyatta",
     "title": "Zenyatta",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png",
     "color": "#e1c931",
-    "ultimate": "Transcendence"
+    "ultimate": "Transcendence",
+    "pat":"https://cdn.discordapp.com/emojis/507717390168227870.png?v=1"
 }
 ]
