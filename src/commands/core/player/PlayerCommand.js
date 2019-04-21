@@ -21,7 +21,6 @@ class PlayerCommand extends Command {
         super();
         this.name = 'player';
         this.description = 'Displays information about a specific OWL player';
-
         this.usage = 'player <player> [accounts|heroes] [expand|heroname]';
         this.aliases = [];
     }
@@ -200,14 +199,14 @@ class PlayerCommand extends Command {
                         })
                     })
                 } else {
-                    embed.setTitle(titles[title-1]);
+                    embed.setTitle(titles[title - 1]);
                     embed.setDescription('');
-                    embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);    
-                    embed.addFields(`Eliminations`, `${heroes[0].stats.eliminations_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Hero Damage`, `${heroes[0].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Healing`, `${heroes[0].stats.healing_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);                
+                    embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);
+                    embed.addFields(`Eliminations`, `${heroes[0].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`Hero Damage`, `${heroes[0].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`Healing`, `${heroes[0].stats.healing_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
 
                     loading.then(message => message.delete());
@@ -219,43 +218,54 @@ class PlayerCommand extends Command {
                 return;
             }
         } else if (args[1].toLowerCase() === 'hero') {
+            let hero;
             if (args[2] === undefined) {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
                 return;
-            } else if (this.getHeroName(args[2]) === undefined) {
+            } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
+                console.log("this hero works");
+                if (args[2].toLowerCase() == "soldier76") {
+                    hero = this.getHeroName("soldier-76");
+                } else {
+                    hero = this.getHeroName("wrecking-ball");
+                }
+            }
+            else if (this.getHeroName(args[2]) === undefined) {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
                 return;
             } else {
-                let index = -1;
-                let hero = this.getHeroName(args[2]);
-                let heroMoji = Emojis[hero.replace('-', '').toUpperCase()];
-                for (let i = 0; i < heroes.length; i++) {
-                    if (heroes[i].name == hero) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index == -1) {
-                    loading.then(message => message.delete());
-                    MessageUtil.sendSuccess(message.channel, `${player.name} hasn\'t played that hero yet! Hopefully soon :)`);
-                    return;
-                } else {
-                    embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[index].stats.time_played_total)}`, true);    
-                    embed.addFields(`Eliminations`, `${heroes[index].stats.eliminations_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Hero Damage`, `${heroes[index].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`Healing`, `${heroes[index].stats.healing_avg_per_10m.toFixed(2)}`, true);    
-                    embed.addFields(`${heroUlt}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);                
-                    embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
-                }
-
-                embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
-                //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
-                loading.then(message => message.delete());
-                embed.buildEmbed().post(message.channel);
+                hero = this.getHeroName(args[2]);
             }
+
+            let index = -1;
+            let heroMoji = Emojis[hero.replace('-', '').toUpperCase()];
+            for (let i = 0; i < heroes.length; i++) {
+                if (heroes[i].name == hero) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index == -1) {
+                loading.then(message => message.delete());
+                MessageUtil.sendSuccess(message.channel, `${player.name} hasn\'t played that hero yet! Hopefully soon :)`);
+                return;
+            } else {
+                embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[index].stats.time_played_total)}`, true);
+                embed.addFields(`Eliminations`, `${heroes[index].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`Hero Damage`, `${heroes[index].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`Healing`, `${heroes[index].stats.healing_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`${heroUlt}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
+            }
+
+            embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
+            //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
+            loading.then(message => message.delete());
+            embed.buildEmbed().post(message.channel);
+
         } else if (args[1] !== undefined) {
             loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
@@ -263,11 +273,11 @@ class PlayerCommand extends Command {
         }
     }
 
-     /**
-     * Returns a hero name
-     * @param {string} val 
-     * @returns hero name
-     */
+    /**
+    * Returns a hero name
+    * @param {string} val 
+    * @returns hero name
+    */
     getHeroName(val) {
         const key = val.toLowerCase();
         for (let i = 0; i < heroData.length; i++) {
