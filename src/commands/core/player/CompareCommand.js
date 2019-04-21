@@ -5,7 +5,7 @@ const { CompetitorManager, PlayerManager} = require('../../../models/owl_models'
 const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroes = require('../../../data/heroes.json');
-let heroURL, heroTitle, heroColor, heroUlt;
+
 
 class CompareCommand extends Command {
     constructor() {
@@ -24,7 +24,9 @@ class CompareCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
-        } else if (args[2] !== undefined && this.getHeroName(args[2]) === undefined) {
+        } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
+            console.log("this hero works");
+        } else if ((args[2] !== undefined && this.getHeroName(args[2]) === undefined)) {
             console.log(this.getHeroName(args[2]));
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
         }
@@ -45,21 +47,63 @@ class CompareCommand extends Command {
         const firstEmoji = Emojis[firstCompetitor.abbreviatedName], 
               secondEmoji = Emojis[secondCompetitor.abbreviatedName];
 
-        if (args.length == 3) {
+        if (args.length === 3) {
+            let heroURL, heroTitle, heroColor, heroUlt;
             let firstPlayerHeroes = await PlayerManager.getHeroes(firstPlayer),
                 secondPlayerHeroes = await PlayerManager.getHeroes(secondPlayer);
             let firstIndex = -1, secondIndex = -1;
  
+
             for (let i = 0; i < firstPlayerHeroes.length; i++) {
-                if (firstPlayerHeroes[i].name == args[2].toLowerCase()) {
+                if (args[2].toLowerCase() == "soldier76" && firstPlayerHeroes[i].name == "soldier-76") {
                     firstIndex = i;
+                    heroColor = this.getHeroColor("soldier-76");
+                    heroURL = this.getHeroURL("soldier-76");
+                    heroTitle = this.getHeroTitle("soldier-76");
+                    heroUlt = this.getHeroUltimate("soldier-76");
+                    break;
+                } else if (args[2].toLowerCase() == "wreckingball" && firstPlayerHeroes[i].name == "wreckingball") {
+                    firstIndex = i;
+                    heroColor = this.getHeroColor("wrecking-ball");
+                    heroURL = this.getHeroURL("wrecking-ball");
+                    heroTitle = this.getHeroTitle("wrecking-ball");
+                    heroUlt = this.getHeroUltimate("wrecking-ball");
+                    break;
+                }
+                else if (firstPlayerHeroes[i].name == args[2].toLowerCase()) {
+                    firstIndex = i;
+                    let h = args[2].toLowerCase();
+                    heroColor = this.getHeroColor(h);
+                    heroURL = this.getHeroURL(h);
+                    heroTitle = this.getHeroTitle(h);
+                    heroUlt = this.getHeroUltimate(h);
                     break;
                 }
             }
 
             for (let i = 0; i < secondPlayerHeroes.length; i++) {
-                if (secondPlayerHeroes[i].name == args[2].toLowerCase()) {
+                if (args[2].toLowerCase() == "soldier76" && secondPlayerHeroes[i].name == "soldier-76") {
                     secondIndex = i;
+                    heroColor = this.getHeroColor("soldier-76");
+                    heroURL = this.getHeroURL("soldier-76");
+                    heroTitle = this.getHeroTitle("soldier-76");
+                    heroUlt = this.getHeroUltimate("soldier-76");
+                    break;
+                } else if (args[2].toLowerCase() == "wreckingball" && secondPlayerHeroes[i].name == "wreckingball") {
+                    secondIndex = i;
+                    heroColor = this.getHeroColor("wrecking-ball");
+                    heroURL = this.getHeroURL("wrecking-ball");
+                    heroTitle = this.getHeroTitle("wrecking-ball");
+                    heroUlt = this.getHeroUltimate("wrecking-ball");
+                    break;
+                }
+                else if (secondPlayerHeroes[i].name == args[2].toLowerCase()) {
+                    secondIndex = i;
+                    let h = args[2].toLowerCase();
+                    heroColor = this.getHeroColor(h);
+                    heroURL = this.getHeroURL(h);
+                    heroTitle = this.getHeroTitle(h);
+                    heroUlt = this.getHeroUltimate(h);
                     break;
                 }
             }
@@ -68,13 +112,13 @@ class CompareCommand extends Command {
             let firstInfo = [], secondInfo = [];
 
             if (firstIndex == -1) {
-                firstInfo.push(`Time Played: **0**`);
-                firstInfo.push(`Eliminations: **0**`);
-                firstInfo.push(`Deaths: **0**`);
-                firstInfo.push(`Hero Damage: **0**`);
-                firstInfo.push(`Healing: **0**`);
-                firstInfo.push(`${heroUlt}s Earned: **0**`);
-                firstInfo.push(`Final Blows: **0**`);
+                firstInfo.push(`Time Played: **0.00**`);
+                firstInfo.push(`Eliminations: **0.00**`);
+                firstInfo.push(`Deaths: **0.00**`);
+                firstInfo.push(`Hero Damage: **0.00**`);
+                firstInfo.push(`Healing: **0.00**`);
+                firstInfo.push(`${heroUlt}s Earned: **0.00**`);
+                firstInfo.push(`Final Blows: **0.00**`);
             } else {
                 firstInfo.push(`Time Played: **${NumberUtil.toTimeString(firstPlayerHeroes[firstIndex].stats.time_played_total)}**`);    
                 firstInfo.push(`Eliminations: **${firstPlayerHeroes[firstIndex].stats.eliminations_avg_per_10m.toFixed(2)}**`);    
@@ -85,13 +129,13 @@ class CompareCommand extends Command {
                 firstInfo.push(`Final Blows: **${firstPlayerHeroes[firstIndex].stats.final_blows_avg_per_10m.toFixed(2)}**`);
             }
             if (secondIndex == -1) {
-                secondInfo.push(`Time Played: **0**`);
-                secondInfo.push(`Eliminations: **0**`);
-                secondInfo.push(`Deaths: **0**`);
-                secondInfo.push(`Hero Damage: **0**`);
-                secondInfo.push(`Healing: **0**`);
-                secondInfo.push(`${heroUlt}s Earned: **0**`);
-                secondInfo.push(`Final Blows: **0**`);
+                secondInfo.push(`Time Played: **0.00**`);
+                secondInfo.push(`Eliminations: **0.00**`);
+                secondInfo.push(`Deaths: **0.00**`);
+                secondInfo.push(`Hero Damage: **0.00**`);
+                secondInfo.push(`Healing: **0.00**`);
+                secondInfo.push(`${heroUlt}s Earned: **0.00**`);
+                secondInfo.push(`Final Blows: **0.00**`);
             } else {
                 secondInfo.push(`Time Played: **${NumberUtil.toTimeString(secondPlayerHeroes[secondIndex].stats.time_played_total)}**`);
                 secondInfo.push(`Eliminations: **${secondPlayerHeroes[secondIndex].stats.eliminations_avg_per_10m.toFixed(2)}**`);
@@ -174,16 +218,51 @@ class CompareCommand extends Command {
      * @param {string} val 
      * @returns hero name
      */
-     getHeroName(val) {
+    getHeroName(val) {
         const key = val.toLowerCase();
         for (let i = 0; i < heroes.length; i++) {
             if (heroes[i].key === key) {
-                heroURL = heroes[i].portrait;
-                heroTitle = heroes[i].title;
-                heroColor = heroes[i].color;
-                heroUlt = heroes[i].ultimate;
+                if (key === 'wrecking-ball') {
+                    return 'wreckingball';
+                }
                 return heroes[i].key;
-            } 
+            }
+        }
+    }
+
+    getHeroTitle(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].title;
+            }
+        }
+    }
+
+    getHeroColor(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].color;
+            }
+        }
+    }
+
+    getHeroURL(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].portrait;
+            }
+        }
+    }
+
+    getHeroUltimate(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].ultimate;
+            }
         }
     }
 }
