@@ -24,7 +24,7 @@ class CompareCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
-        } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
+        } else if (args[2] !== undefined && (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball")) {
             console.log("this hero works");
         } else if ((args[2] !== undefined && this.getHeroName(args[2]) === undefined)) {
             console.log(this.getHeroName(args[2]));
