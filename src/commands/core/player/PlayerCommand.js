@@ -263,6 +263,7 @@ class PlayerCommand extends Command {
 
             embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
             //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
+            embed.setFooter('Stats are per 10 minutes, except for Time Played.');
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
 
