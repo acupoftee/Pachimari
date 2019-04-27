@@ -16,9 +16,9 @@ class VodCommand extends Command {
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
         let videos = [];
-        let pages = [], titles = [], thumbnails = [], descriptions = [];
-        let page = 1, title = 1, thumbnail = 1;
-        let counter = 1;
+        let pages = [], descriptions = [];  //titles = [], thumbnails = [],
+        let page = 1; //title = 1, thumbnail = 1;
+        //let counter = 1;
         const embed = new PachimariEmbed(client);
 
         const body = await JsonUtil.parse(Endpoints.get("VODS"));
@@ -40,7 +40,7 @@ class VodCommand extends Command {
                 pages.push(descriptions);
                 descriptions = [];
             }
-            counter++;
+            //counter++;
         }
         pages.push(descriptions);
         embed.setTitle(":tv: __Recent Overwatch League VODs__");
