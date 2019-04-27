@@ -21,6 +21,7 @@ const MatchCommand = require('./core/match/MatchCommand');
 const SettingsCommand = require('./core/utils/SettingsCommand');
 const ProfileCommand = require('./social/profile/ProfileCommand');
 const InfoCommand = require('./core/utils/InfoCommand');
+const VodCommand = require('./core/vod/VodCommand');
 
 module.exports = {
     PingCommand,
@@ -43,5 +44,6 @@ module.exports = {
     MatchCommand,
     SettingsCommand,
     ProfileCommand,
-    InfoCommand
+    InfoCommand,
+    VodCommand
 };

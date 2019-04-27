@@ -49,7 +49,7 @@
     },
     {
       "key": "VODS",
-      "extension": "/vods?locale=en_US"
+      "extension": "/vods?locale=en_US&page=1"
     },
     {
       "key": "MAPS",

@@ -31,7 +31,7 @@ class NewsCommand extends Command {
     async buildMessage(client) {
         let articles = [];
         const embed = new PachimariEmbed(client);
-        embed.setTitle("__Recent Overwatch League News__");
+        embed.setTitle(":newspaper:__Recent Overwatch League News__");
 
         const body = await JsonUtil.parse(Endpoints.get('NEWS'));
         let promise = new Promise(function(resolve, reject) {
