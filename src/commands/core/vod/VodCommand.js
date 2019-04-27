@@ -35,7 +35,7 @@ class VodCommand extends Command {
             //titles.push(video.title);
             let description = `__**${video.title}**__\nPublished on ${date}${video.description}[Watch here!](${video.shareURL})\n`;
             descriptions.push(description);
-            thumbnails.push(video.thumbnail);
+            //thumbnails.push(video.thumbnail);
             if (descriptions.length == 3) {
                 pages.push(descriptions);
                 descriptions = [];
@@ -66,8 +66,8 @@ class VodCommand extends Command {
                         return;
                     }
                     page--;
-                    title--;
-                    thumbnail--;
+                    //title--;
+                    //thumbnail--;
                     //embed.setTitle(titles[title-1]);
                     embed.setDescription(pages[page - 1]);
                     embed.setTitle(":tv: __Recent Overwatch League VODs__");
@@ -83,8 +83,8 @@ class VodCommand extends Command {
                         return;
                     }
                     page++;
-                    title++;
-                    thumbnail++;
+                    //title++;
+                    //thumbnail++;
                     //embed.setTitle(titles[title-1]);
                     embed.setTitle(":tv: __Recent Overwatch League VODs__");
                     embed.setDescription(pages[page - 1]);
