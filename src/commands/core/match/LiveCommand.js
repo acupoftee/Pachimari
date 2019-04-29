@@ -90,10 +90,11 @@ class LiveCommand extends Command {
             const filename = await banner.buildBanner('pic.png');
             embed.setImageFileName(filename, 'pic.png');
             embed.setColor(home.primaryColor);
+            //let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {
-            loading.then(message => message.delete());
+            //loading.then(message => message.delete());
             for (let i = 0; i < live.games.length; i++) {
                 if (live.games[i].state === 'IN_PROGRESS') {
                     const mapGuid = live.games[i].attributes.mapGuid;
@@ -111,7 +112,9 @@ class LiveCommand extends Command {
                     embed.setDescription(mapStr);
                     embed.setColor(home.primaryColor);
                     embed.setTitle(`__NOW LIVE: Current Map for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-                    embed.buildEmbed().post(message.channel);
+                    //embed.buildEmbed().post(message.channel);
+                    let mess = embed.buildEmbed().getEmbed;
+           loading.then(message => message.edit(mess));
                     return;
                 } 
             }
@@ -165,8 +168,8 @@ class LiveCommand extends Command {
             embed.setColor(home.primaryColor);
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
             let mess = embed.buildEmbed().getEmbed;
-            loading.then(message => message.delete());
-            message.channel.send(mess).then(msg => {
+           
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
 

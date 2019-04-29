@@ -95,13 +95,13 @@ class PlayersCommand extends Command {
             embed.setTitle('__Overwatch League Players__');
         }
 
-        loading.then(message => message.delete());
+        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}`);
             let mess = embed.buildEmbed().getEmbed;
-            message.channel.send(mess).then(msg => {
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
     

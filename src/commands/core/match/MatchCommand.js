@@ -164,7 +164,7 @@ class MatchCommand extends Command {
             loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "Sorry, I couldn't find that match :C");
         }
-        loading.then(message => message.delete());
+        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
         console.log(titles);
@@ -172,7 +172,7 @@ class MatchCommand extends Command {
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
             let mess = embed.buildEmbed().getEmbed;
-            message.channel.send(mess).then(msg => {
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
 
@@ -216,7 +216,9 @@ class MatchCommand extends Command {
                 })
             });
         } else {
-            embed.buildEmbed().post(message.channel);
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+           loading.then(message => message.edit(mess));
         }
     }
 }

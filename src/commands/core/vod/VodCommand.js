@@ -25,7 +25,7 @@ class VodCommand extends Command {
         
         const body = await JsonUtil.parse(Endpoints.get("VODS"));
         body.data.forEach(vod => {
-            let voddescription = vod.description === null ? '\n' : `\n\n"*${vod.description}*"\n\n`
+            let voddescription = vod.description === null ? '\n\n' : `\n\n"*${vod.description}*"\n\n`
             let video = new Video(vod.unique_id, vod.available_at, vod.title, voddescription, 
                 `${vod.thumbnail}.jpg`, vod.share_url);
             if (vod.status === 'complete') 
@@ -51,8 +51,8 @@ class VodCommand extends Command {
         //embed.setImage(thumbnails[thumbnail-1]);
 
         let mess = embed.buildEmbed().getEmbed;
-        loading.then(message => message.delete());
-        message.channel.send(mess).then(msg => {
+        //loading.then(message => message.delete());
+        loading.then(message => message.edit(mess)).then(msg => {
             msg.react("⬅").then(r => {
                 msg.react("➡");
 

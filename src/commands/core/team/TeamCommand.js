@@ -92,8 +92,10 @@ class TeamCommand extends Command {
                 embed.addFields(`${competitor.accounts.size} ${word}`, `\`\`!team ${args[0]} accounts\`\``, true);
             }
             embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
-            loading.then(message => message.delete());
-            embed.buildEmbed().post(message.channel);
+            //loading.then(message => message.delete());
+            let mess = embed.buildEmbed().getEmbed;
+            loading.then(message => message.edit(mess));
+            //embed.buildEmbed().post(message.channel);
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
@@ -108,8 +110,10 @@ class TeamCommand extends Command {
                 });
                 let msg = accs.join('\n');
                 embed.setDescription(msg);
-                loading.then(message => message.delete());
-                embed.buildEmbed().post(message.channel);
+                //loading.then(message => message.delete());
+                //embed.buildEmbed().post(message.channel);
+                let mess = embed.buildEmbed().getEmbed;
+                loading.then(message => message.edit(mess));
             } else if (args[1].toLowerCase() === 'schedule') {
                 let matches = [];
                 let stage = "";
@@ -168,8 +172,10 @@ class TeamCommand extends Command {
                 embed.setDescription(pages[page - 1]);
                 embed.setTitle(`__Upcoming ${stage} Matches for ${competitor.name}__`);
                 embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
-                loading.then(message => message.delete());
-                message.channel.send(embed.buildEmbed().getEmbed).then(msg => {
+                //loading.then(message => message.delete());
+                let mess = embed.buildEmbed().getEmbed;
+         
+                loading.then(message => message.edit(mess)).then(msg => {
                     msg.react("🔄").then(r => {
                         const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
                         const refresh = msg.createReactionCollector(switchFilter, { time: 60000 });

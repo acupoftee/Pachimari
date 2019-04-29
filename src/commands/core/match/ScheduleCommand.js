@@ -97,8 +97,8 @@ class ScheduleCommand extends Command {
         });
         promise.then(function(result) {
             let mess = embed.buildEmbed().getEmbed;
-            loading.then(message => message.delete());
-            message.channel.send(mess).then(msg => {
+            //loading.then(message => message.delete());
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
     

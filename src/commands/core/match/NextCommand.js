@@ -65,6 +65,8 @@ class NextCommand extends Command {
 
         loading.then(message => message.delete());
         embed.buildEmbed().post(message.channel);
+        //let mess = embed.buildEmbed().getEmbed;
+       // loading.then(message => message.edit(mess));
     }
 }
 module.exports = NextCommand;
