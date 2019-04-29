@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, Match, Banner, Map, MapManager } = require('../../../models/owl_models');
-const { JsonUtil, MessageUtil } = require('../../../utils');
+const { JsonUtil, MessageUtil, AlertUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -20,8 +20,9 @@ class LiveCommand extends Command {
         //msg.then(async message => message.edit(await(this.buildMessage(client, message))));
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.liveMatch === undefined || Object.keys(body.data.liveMatch).length === 0) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "There's no live match coming up. Check back Later!");
+            //loading.then(message => message.delete());
+            //MessageUtil.sendError(message.channel, "There's no live match coming up. Check back Later!");
+            loading.then(message => message.edit(AlertUtil.ERROR("There's no live match coming up. Use \`!schedule\` to see when the next match is!")))
             return;
         }
 
@@ -83,8 +84,9 @@ class LiveCommand extends Command {
                 embed.setDescription(description);
                 embed.setThumbnail("");
             } else {
-                loading.then(message => message.delete());
-                MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                //loading.then(message => message.delete());
+                //MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                loading.then(message => message.edit(AlertUtil.SUCCESS(`The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`)));
                 return;
             }
             const filename = await banner.buildBanner('pic.png');
@@ -93,7 +95,7 @@ class LiveCommand extends Command {
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {
-            loading.then(message => message.delete());
+            //loading.then(message => message.delete());
             for (let i = 0; i < live.games.length; i++) {
                 if (live.games[i].state === 'IN_PROGRESS') {
                     const mapGuid = live.games[i].attributes.mapGuid;
@@ -111,16 +113,20 @@ class LiveCommand extends Command {
                     embed.setDescription(mapStr);
                     embed.setColor(home.primaryColor);
                     embed.setTitle(`__NOW LIVE: Current Map for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
-                    embed.buildEmbed().post(message.channel);
+                    //embed.buildEmbed().post(message.channel);
+                    let mess = embed.buildEmbed().getEmbed;
+                    loading.then(message => message.edit(mess));
                     return;
                 } 
             }
-            MessageUtil.sendError(message.channel, "There is no live game yet. Check back later!");
+            //MessageUtil.sendError(message.channel, "There is no live game yet. Check back later!");
+            loading.then(message => message.edit(AlertUtil.ERROR("There is no live game yet. Check back later!")));
             return;
         } else if (args[0].toLowerCase() === 'maps') {
             if (match.state === 'CONCLUDED') {
-                loading.then(message => message.delete());
-                MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                //loading.then(message => message.delete());
+                //MessageUtil.sendSuccess(message.channel, `The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`);
+                loading.then(message => message.edit(AlertUtil.SUCCESS(`The match between **${home.name}** vs **${away.name}** just finished. Check back later for the next match!`)));
                 return;
             }
             let pages = [], icons = [];
@@ -154,8 +160,9 @@ class LiveCommand extends Command {
                 icons.push(map.icon);
             }
             if (pages.length === 0) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "Sorry I couldn't find maps for today BUT check back later!");
+                //loading.then(message => message.delete());
+                //MessageUtil.sendError(message.channel, "Sorry I couldn't find maps for today BUT check back later!");
+                loading.then(message => message.edit(AlertUtil.ERROR("Sorry I couldn't find maps for today BUT check back later!")));
                 return;
             }
             embed.setDescription(pages[page - 1]);
@@ -165,8 +172,8 @@ class LiveCommand extends Command {
             embed.setColor(home.primaryColor);
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
             let mess = embed.buildEmbed().getEmbed;
-            loading.then(message => message.delete());
-            message.channel.send(mess).then(msg => {
+           // loading.then(message => message.delete());
+           loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
 

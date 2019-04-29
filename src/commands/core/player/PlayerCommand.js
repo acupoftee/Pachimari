@@ -39,9 +39,10 @@ class PlayerCommand extends Command {
         const player = PlayerManager.players.get(locateId);
 
         if (player === undefined) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Could not find player");
-            return;
+            //loading.then(message => message.delete());
+           // MessageUtil.sendError(message.channel, "Could not find player");
+            loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I could not find that player")));
+           return;
         }
 
         const competitor = CompetitorManager.competitors.get(player.competitorId)
@@ -85,8 +86,10 @@ class PlayerCommand extends Command {
                 embed.addFields(`${heroes.length} Played ${word}`, `\`\`!player ${args[0]} heroes\`\``, true);
             }
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-            loading.then(message => message.delete());
-            embed.buildEmbed().post(message.channel);
+            //loading.then(message => message.delete());
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'accounts') {
 
             // return if there are no accounts to be displayed
@@ -104,8 +107,10 @@ class PlayerCommand extends Command {
             });
             let msg = accs.join('\n');
             embed.setDescription(msg);
-            loading.then(message => message.delete());
-            embed.buildEmbed().post(message.channel);
+            //loading.then(message => message.delete());
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'heroes') {
             // return if there aren't any hero stats
             if (heroes.length === 0) {
@@ -125,8 +130,10 @@ class PlayerCommand extends Command {
                 embed.addFields("% Played", percentage, true);
 
                 embed.setFooter("Use \`!player <name> heroes expand\` to see more hero stats!");
-                loading.then(message => message.delete());
-                embed.buildEmbed().post(message.channel);
+                //loading.then(message => message.delete());
+                //embed.buildEmbed().post(message.channel);
+                let mess = embed.buildEmbed().getEmbed;
+                loading.then(message => message.edit(mess));
             } else if (args[2].toLowerCase() === 'expand') {
                 let pages = [], titles = [];
                 let page = 1, title = 1;
@@ -155,8 +162,8 @@ class PlayerCommand extends Command {
                     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
 
                     let mess = embed.buildEmbed().getEmbed;
-                    loading.then(message => message.delete());
-                    message.channel.send(mess).then(msg => {
+                    //loading.then(message => message.delete());
+                    loading.then(message => message.edit(mess)).then(msg => {
                         msg.react("⬅").then(r => {
                             msg.react("➡");
 
@@ -209,8 +216,10 @@ class PlayerCommand extends Command {
                     embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
 
-                    loading.then(message => message.delete());
-                    embed.buildEmbed().post(message.channel);
+                    //loading.then(message => message.delete());
+                    //embed.buildEmbed().post(message.channel);
+                    let mess = embed.buildEmbed().getEmbed;
+                    loading.then(message => message.edit(mess));
                 }
             } else {
                 loading.then(message => message.delete());
@@ -264,12 +273,15 @@ class PlayerCommand extends Command {
             embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
             //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-            loading.then(message => message.delete());
-            embed.buildEmbed().post(message.channel);
+            //loading.then(message => message.delete());
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+	        loading.then(message => message.edit(mess));
 
         } else if (args[1] !== undefined) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
+            //loading.then(message => message.delete());
+            //MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
+            loading.then(message => message.edit(AlertUtil.ERROR("Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!")));
             return;
         }
     }

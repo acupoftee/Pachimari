@@ -19,8 +19,9 @@ class NextCommand extends Command {
         let loading = message.channel.send(Emojis["LOADING"]);
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "There's no next match available yet. Check back Later!");
+            //loading.then(message => message.delete());
+            //MessageUtil.sendError(message.channel, "There's no next match available yet. Check back Later!");
+            loading.then(message => message.edit("There's no next match available yet. Check back Later!"));
             return;
         }
 
@@ -56,7 +57,8 @@ class NextCommand extends Command {
             embed.setDescription(description);
             embed.setThumbnail("");
         } else {
-            return AlertUtil.SUCCESS("Check back later for the next match!");
+            loading.then(message => message.edit(AlertUtil.SUCCESS("Check back later for the next match!")));
+            return;
         }
         
         const filename = await banner.buildBanner('next.png');

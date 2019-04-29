@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, MapManager } = require('../../../models/owl_models');
-const { JsonUtil, MessageUtil } = require('../../../utils');
+const { JsonUtil, MessageUtil, AlertUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -24,14 +24,16 @@ class MatchCommand extends Command {
         let embed = new PachimariEmbed(client);
 
         if (args.length < 1 || args.length > 2) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add two!");
+            //loading.then(message => message.delete());
+            //MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add at least one team!");
+            loading.then(message => message.edit("Sorry, I could not find matches :C Make sure to add at least one team!"));
             return;
         } else if (args.length == 1) {
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             if (firstTeam === undefined) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "Could not locate team.");
+                //loading.then(message => message.delete());
+                //MessageUtil.sendError(message.channel, ":C I could not find that team.");
+                loading.then(message => message.edit(":C I could not find that team."));
                 return;
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
@@ -94,16 +96,18 @@ class MatchCommand extends Command {
                 }
             }
         } else if (CompetitorManager.locateTeam(args[0]) === CompetitorManager.locateTeam(args[1])) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, ":C Make sure to use two different teams!");
-            return;
+            //loading.then(message => message.delete());
+           // MessageUtil.sendError(message.channel, ":C Make sure to use two different teams!");
+            loading.then(message => message.edit(":C Make sure to use two different teams!"));
+           return;
          } else {
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[1]));
 
             if (firstTeam === undefined || secondTeam === undefined) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "Could not locate team.");
+                //loading.then(message => message.delete());
+                //MessageUtil.sendError(message.channel, ":C I could not locate that team.");
+                loading.then(message => message.edit(":C I could not locate that team."));
                 return;
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
@@ -160,17 +164,19 @@ class MatchCommand extends Command {
         }
 
         if (!found) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Sorry, I couldn't find that match :C");
+            //loading.then(message => message.delete());
+           // MessageUtil.sendError(message.channel, "Sorry, I couldn't find that match :C");
+           loading.then(message => message.edit("Sorry, I couldn't find that match :C"));
+           return;
         }
-        loading.then(message => message.delete());
+        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
             let mess = embed.buildEmbed().getEmbed;
-            message.channel.send(mess).then(msg => {
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
 
@@ -214,7 +220,9 @@ class MatchCommand extends Command {
                 })
             });
         } else {
-            embed.buildEmbed().post(message.channel);
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+            loading.then(message => message.edit(mess));
         }
     }
 }

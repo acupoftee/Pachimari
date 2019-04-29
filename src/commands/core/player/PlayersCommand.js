@@ -3,7 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const { MessageUtil, NumberUtil } = require('../../../utils');
+const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
 const heroes = require('../../../data/heroes.json');
 
 
@@ -24,8 +24,9 @@ class PlayersCommand extends Command {
         let embed = new PachimariEmbed(client);
         
         if (args.length > 1) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Make sure you use the format \`!players [hero]\`");
+            //loading.then(message => message.delete());
+            //MessageUtil.sendError(message.channel, "Make sure you use the format \`!players [hero]\`");
+            loading.then(message => message.edit(AlertUtil.ERROR("Make sure you use the format \`!players [hero]\`")));
             return;
         }
         else if (args.length === 1) {
@@ -74,8 +75,9 @@ class PlayersCommand extends Command {
                 embed.setColor(heroColor);
                 embed.setThumbnail(heroURL);
             } else {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "Sorry, I couldn't find that hero :C maybe a typo?");
+                //loading.then(message => message.delete());
+                //MessageUtil.sendError(message.channel, "Sorry, I couldn't find that hero :C maybe a typo?");
+                loading.then(message => message.edit(AlertUtil.ERROR("Sorry, I couldn't find that hero :C maybe a typo?")));
                 return;
             }
         } else if (args.length === 0) {
@@ -95,13 +97,13 @@ class PlayersCommand extends Command {
             embed.setTitle('__Overwatch League Players__');
         }
 
-        loading.then(message => message.delete());
+        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}`);
             let mess = embed.buildEmbed().getEmbed;
-            message.channel.send(mess).then(msg => {
+            loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
                     msg.react("➡");
     
@@ -137,7 +139,8 @@ class PlayersCommand extends Command {
                 });
             });
         } else {
-            embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+            loading.then(message => message.edit(mess));
         }
     }
 
