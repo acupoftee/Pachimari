@@ -99,7 +99,9 @@ class TeamCommand extends Command {
         } else {
             if (args[1].toLowerCase() === 'accounts') {
                 if (competitor.accounts.size === 0) {
-                    MessageUtil.sendError(message.channel, "This team does not have any accounts.");
+                    //MessageUtil.sendError(message.channel, "This team does not have any accounts.");
+        
+                    loading.then(message => message.edit(AlertUtil.ERROR(":C This team does not have any accounts.")));
                     return;
                 }
                 let accs = []
@@ -118,7 +120,7 @@ class TeamCommand extends Command {
                 let matches = [];
                 let stage = "";
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
-                let promise = new Promise(function (resolve, reject) {
+                //let promise = new Promise(function (resolve, reject) {
                     let currentTime = new Date().getTime();
                     let slug = null;
                     for (let i = 0; i < stageData.length; i++) {
@@ -145,8 +147,8 @@ class TeamCommand extends Command {
                             });
                         }
                     });
-                    resolve(1);
-                });
+                    //resolve(1);
+                //});
 
                 let daysMatch = [], previousMatches = [];
                 matches.forEach(match => {
@@ -196,8 +198,8 @@ class TeamCommand extends Command {
                 });
             }
             else {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, ":C Sorry I couldn't understand that. Maybe a typo?");
+                loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I couldn't understand that. Maybe a typo?")));
+                //MessageUtil.sendError(message.channel, ":C Sorry I couldn't understand that. Maybe a typo?");
                 return;
             }
         }
