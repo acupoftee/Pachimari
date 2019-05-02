@@ -101,7 +101,7 @@ class PlayersCommand extends Command {
         embed.setDescription(pages[page - 1]);
 
         if (pages.length > 1) {
-            embed.setFooter(`Page ${page} of ${pages.length}`);
+            embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
             let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.edit(mess)).then(msg => {
                 msg.react("⬅").then(r => {
@@ -120,7 +120,7 @@ class PlayersCommand extends Command {
                         }
                         page--;
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
@@ -132,7 +132,7 @@ class PlayersCommand extends Command {
                         }
                         page++;
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
