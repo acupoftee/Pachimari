@@ -88,6 +88,9 @@ class StandingsCommand extends Command {
                 pages.push(stageInfo);
                 titles.push(pageTitle);
             }
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].splice(0, 0, '*Command author can navigate stage/league\nstandings using the reactions below.*\n--------------------------');
+            }
             embed.setDescription(pages[page]);
             embed.setTitle(titles[titleNumber]);
             let mess = embed.buildEmbed().getEmbed;
