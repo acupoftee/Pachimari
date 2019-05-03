@@ -152,13 +152,16 @@ class MatchCommand extends Command {
                             } else {
                                 let title = `${Emojis[home.abbreviatedName.toUpperCase()]} __${home.name} vs. ${away.name}__ ${Emojis[away.abbreviatedName.toUpperCase()]}`;
                                 titles.push(title);
-                                let header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}\n\n__**Maps**__\n`;
-                                for (let j = 0; j < _match.games.length; j++) {
-                                    const mapGuid = _match.games[j].attributes.mapGuid;
-                                    const mapName = await MapManager.getMap(mapGuid);
-                                    const mapType = await MapManager.getMapType(mapGuid);
-                                    let mapStr = `${Emojis[mapType.toUpperCase()]} ${mapName}: ${mapType}\n`;
-                                    header = header + mapStr;
+                                let header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}`;
+                                if (_match.games.length > 0) {
+                                    header = header + '\n\n__**Maps**__\n';
+                                    for (let j = 0; j < _match.games.length; j++) {
+                                        const mapGuid = _match.games[j].attributes.mapGuid;
+                                        const mapName = await MapManager.getMap(mapGuid);
+                                        const mapType = await MapManager.getMapType(mapGuid);
+                                        let mapStr = `${Emojis[mapType.toUpperCase()]} ${mapName}: ${mapType}\n`;
+                                        header = header + mapStr;
+                                    }
                                 }
                                 matches.push(header);
                             }
@@ -178,7 +181,7 @@ class MatchCommand extends Command {
         }
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
-        console.log(titles);
+        //console.log(titles);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
