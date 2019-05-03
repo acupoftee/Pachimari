@@ -3,6 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
+const { Logger } = require('../../../utils')
 const discordServers = require('../../../data/discords.json');
 /**
  * @class TeamcordsCommand
@@ -24,6 +25,7 @@ class TeamcordsCommand extends Command {
 
     // O(n*d) time. Optimize?
     async execute(client, message, args) {
+        Logger.custom(`TEAMCORD_COMMAND`, `Loading team Discords`);
         if (args.length <= 0) {
             message.channel.startTyping();
             let discords = [];

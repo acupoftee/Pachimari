@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
-const { NumberUtil, MessageUtil, AlertUtil } = require('../../../utils');
+const { NumberUtil, MessageUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroData = require('../../../data/heroes.json');
 let heroUlt;
@@ -39,10 +39,8 @@ class PlayerCommand extends Command {
         const player = PlayerManager.players.get(locateId);
 
         if (player === undefined) {
-            //loading.then(message => message.delete());
-           // MessageUtil.sendError(message.channel, "Could not find player");
             loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I could not find that player")));
-           return;
+            return;
         }
 
         const competitor = CompetitorManager.competitors.get(player.competitorId)
@@ -62,6 +60,7 @@ class PlayerCommand extends Command {
 
         // retrieve player data
         if (args[1] === undefined) {
+            Logger.custom(`PLAYER_COMMAND`, `Loading player ${player.name}`);
             embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
             let info = [];
             info.push(`${teamEmoji}${Emojis[player.role.toUpperCase()]} **#${player.playerNumber}**`);
@@ -91,7 +90,7 @@ class PlayerCommand extends Command {
             let mess = embed.buildEmbed().getEmbed;
 	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'accounts') {
-
+            Logger.custom(`PLAYER_COMMAND ACCOUNTS`, `Loading ACCOUNTS for player ${player.name}`);
             // return if there are no accounts to be displayed
             if (player.accounts.size === 0) {
                 loading.then(message => message.delete());
@@ -112,6 +111,7 @@ class PlayerCommand extends Command {
             let mess = embed.buildEmbed().getEmbed;
 	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'heroes') {
+            Logger.custom(`PLAYER_COMMAND HEROES`, `Loading HEROES for player ${player.name}`);
             // return if there aren't any hero stats
             if (heroes.length === 0) {
                 loading.then(message => message.delete());
@@ -137,6 +137,7 @@ class PlayerCommand extends Command {
             } else if (args[2].toLowerCase() === 'expand') {
                 let pages = [], titles = [];
                 let page = 1, title = 1;
+                Logger.custom(`PLAYER_COMMAND EXPAND HEROES`, `Expanding heroes for player ${player.name}`);
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
@@ -227,6 +228,7 @@ class PlayerCommand extends Command {
                 return;
             }
         } else if (args[1].toLowerCase() === 'hero') {
+            Logger.custom(`PLAYER_COMMAND HERO`, `Loading HERO for player ${player.name}`);
             let hero;
             if (args[2] === undefined) {
                 loading.then(message => message.delete());

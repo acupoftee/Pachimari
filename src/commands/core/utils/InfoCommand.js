@@ -1,6 +1,7 @@
 "use strict";
 
 const { Command, PachimariEmbed } = require("../../../models");
+const { Logger } = require("../../../utils");
 const pckg = require("../../../../package.json");
 
 class InfoCommand extends Command {
@@ -14,6 +15,7 @@ class InfoCommand extends Command {
   }
 
   async execute(client, message, args) {
+    Logger.custom(`INFO_COMMAND`, `Loading server info`);
     let embed = new PachimariEmbed(client).setTitle(`✨ Pachimari Bot Information (v${pckg.version})`);
     embed.setDescription("Thank you for using me as your friendly neighborhood Overwatch League pal!");
     embed.setThumbnail(client.user.avatarURL);

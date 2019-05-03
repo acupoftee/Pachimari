@@ -3,7 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
+const { MessageUtil, AlertUtil, NumberUtil, Logger } = require('../../../utils');
 const heroes = require('../../../data/heroes.json');
 
 
@@ -30,6 +30,7 @@ class PlayersCommand extends Command {
             return;
         }
         else if (args.length === 1) {
+
             let hero, revisedHero;
             let heroColor, heroURL, heroTitle;
             if (args[0].toLowerCase() == "soldier76") {
@@ -51,6 +52,7 @@ class PlayersCommand extends Command {
             let list = PlayerManager.players.array().sort(this.compare);
             if (hero != undefined || revisedHero != undefined) {
                 loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[args[0].toUpperCase()]}`))
+                Logger.custom(`PLAYERS_COMMAND ${heroTitle}`, `Loading players with time on ${heroTitle}`);
                 for (const player of list) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
@@ -81,6 +83,7 @@ class PlayersCommand extends Command {
                 return;
             }
         } else if (args.length === 0) {
+            Logger.custom(`PLAYERS_COMMAND`, `Loading league players`);
             PlayerManager.players.sort(this.compare).forEach(player => {
                 let competitor = CompetitorManager.competitors.get(player.competitorId);
                 let teamoji = Emojis[competitor.abbreviatedName];

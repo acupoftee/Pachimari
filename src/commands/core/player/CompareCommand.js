@@ -1,8 +1,8 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../../../models');
-const { CompetitorManager, PlayerManager} = require('../../../models/owl_models');
-const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
+const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
+const { MessageUtil, AlertUtil, NumberUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroes = require('../../../data/heroes.json');
 
@@ -48,6 +48,7 @@ class CompareCommand extends Command {
               secondEmoji = Emojis[secondCompetitor.abbreviatedName];
 
         if (args.length === 3) {
+            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name}`);
             let heroURL, heroTitle, heroColor, heroUlt;
             let firstPlayerHeroes = await PlayerManager.getHeroes(firstPlayer),
                 secondPlayerHeroes = await PlayerManager.getHeroes(secondPlayer);
@@ -109,6 +110,7 @@ class CompareCommand extends Command {
             }
             // potential portrait url https://d1u1mce87gyfbn.cloudfront.net/hero/ana/icon-portrait.png
             embed.setTitle(`${firstEmoji} ${firstPlayer.givenName} '**${firstPlayer.name}**' ${firstPlayer.familyName} vs ${secondPlayer.givenName} '**${secondPlayer.name}**' ${secondPlayer.familyName} ${secondEmoji}\n on **${heroTitle}**`);
+            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name} on ${heroTitle}`);
             let firstInfo = [], secondInfo = [];
 
             if (firstIndex == -1) {
@@ -175,6 +177,7 @@ class CompareCommand extends Command {
             secondPlayer.setTimePlayed(secondStats[6]);
 
             embed.setTitle(`${firstEmoji} ${firstPlayer.givenName} '**${firstPlayer.name}**' ${firstPlayer.familyName} vs ${secondPlayer.givenName} '**${secondPlayer.name}**' ${secondPlayer.familyName} ${secondEmoji}`);
+            Logger.custom(`COMPARE_COMMAND`, `Comparing ${firstPlayer.name} and ${secondPlayer.name}`);
             let firstInfo = [], secondInfo = [];
 
             firstInfo.push(`${MessageUtil.getFlag(firstPlayer.nationality)} ${firstPlayer.homeLocation}`);

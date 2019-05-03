@@ -3,7 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const { AlertUtil } = require('../../../utils');
+const { AlertUtil, Logger } = require('../../../utils');
 const divisions = require('../../../data/divisions.json');
 
 /**
@@ -32,6 +32,7 @@ class TeamsCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 0) {
             let teams = [];
+            Logger.custom(`TEAMS_COMMAND`, `Loading teams`);
             CompetitorManager.competitors.forEach(competitor => {
                 teams.push( `${ Emojis[competitor.abbreviatedName]} ${
                     competitor.name}`
@@ -67,7 +68,7 @@ class TeamsCommand extends Command {
                 });
 
                 teams.sort();
-                   
+                Logger.custom(`TEAMS_COMMAND DIVISION`, `Loading teams in the ${div.title}`);
                 embed.setTitle(`__${div.title} Teams__`);
                 embed.setDescription(teams);
                 embed.buildEmbed();

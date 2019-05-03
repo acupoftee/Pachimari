@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
-const { JsonUtil } = require('../../../utils');
+const { JsonUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const stageData = require('../../../data/stages.json');
 
@@ -40,6 +40,7 @@ class StandingsCommand extends Command {
         "\u0033\u20E3",
         "\u0034\u20E3"];
 
+        Logger.custom(`STANDINGS_COMMAND`, `Loading standings data.`);
         const body = await JsonUtil.parse(Endpoints.get('STANDINGS'));
         for (let i = 0; i < CompetitorManager.competitors.size; i++) {
             const standing = body.data[i];

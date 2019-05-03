@@ -1,6 +1,6 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { Video, Endpoints } = require('../../../models/owl_models');
-const { JsonUtil } = require('../../../utils');
+const { JsonUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -22,6 +22,7 @@ class VodCommand extends Command {
         const embed = new PachimariEmbed(client);
 
         const body = await JsonUtil.parse(Endpoints.get("VODS"));
+        Logger.custom(`VODS_COMMAND`, `Loading recent vods`);
         body.data.forEach(vod => {
             let voddescription = vod.description === null ? '\n\n' : `\n\n"*${vod.description}*"\n\n`
             let video = new Video(vod.unique_id, vod.available_at, vod.title, voddescription,

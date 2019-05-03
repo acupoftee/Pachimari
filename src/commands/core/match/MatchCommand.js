@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, MapManager } = require('../../../models/owl_models');
-const { JsonUtil, MessageUtil, AlertUtil } = require('../../../utils');
+const { JsonUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -20,31 +20,33 @@ class MatchCommand extends Command {
         let pages = [], matches = [], titles = [], futureMatches = [];
         let page = 1, title = 1;
         let header;
+
         let found = false, pending = true;
         let embed = new PachimariEmbed(client);
 
         if (args.length < 1 || args.length > 2) {
-            //loading.then(message => message.delete());
-            //MessageUtil.sendError(message.channel, "Sorry, I couldn't find matches :C Make sure to add at least one team!");
-            loading.then(message => message.edit("Sorry, I could not find matches :C Make sure to add at least one team!"));
+            loading.then(message => message.edit(AlertUtil.ERROR("Sorry, I couldn\'t find matches :C Make sure to add two!")));
             return;
         } else if (args.length == 1) {
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             if (firstTeam === undefined) {
-                //loading.then(message => message.delete());
-                //MessageUtil.sendError(message.channel, ":C I could not find that team.");
-                loading.then(message => message.edit(":C I could not find that team."));
+                loading.then(message => message.edit("Sorry, I couldn\'t find that team."));
                 return;
             }
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} Matches`);
             embed.setColor(firstTeam.primaryColor);
             let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
             embed.setThumbnail(logo);
+            loading.then(message => message.edit(`${Emojis["LOADING"]} Loading matches for ${firstTeam.name}`));
+            Logger.custom(`MATCH_COMMAND`, `Loading matches for **${firstTeam.name}**`);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
                 for (const week of _stage.weeks) {
                     stage_week = `${_stage.name} - ${week.name}`;
                     for (const _match of week.matches) {
+                        if (_match.competitors[0] == null || _match.competitors[1] == null) {
+                            continue;
+                        }
                         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
                         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
                         let homeMatchScore = _match.scores[0].value;
@@ -96,30 +98,30 @@ class MatchCommand extends Command {
                 }
             }
         } else if (CompetitorManager.locateTeam(args[0]) === CompetitorManager.locateTeam(args[1])) {
-            //loading.then(message => message.delete());
-           // MessageUtil.sendError(message.channel, ":C Make sure to use two different teams!");
-            loading.then(message => message.edit(":C Make sure to use two different teams!"));
-           return;
+            loading.then(message => message.edit(AlertUtil.ERROR(":C Make sure to use two different teams!")));
+            return;
          } else {
             let firstTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[0]));
             let secondTeam = CompetitorManager.competitors.get(CompetitorManager.locateTeam(args[1]));
 
             if (firstTeam === undefined || secondTeam === undefined) {
-                //loading.then(message => message.delete());
-                //MessageUtil.sendError(message.channel, ":C I could not locate that team.");
-                loading.then(message => message.edit(":C I could not locate that team."));
+                loading.then(message => message.edit("Sorry, I couldn\'t find that team."));
                 return;
             }
+            loading.then(message => message.edit(`${Emojis["LOADING"]} Loading matches for **${firstTeam.name}** vs. **${secondTeam.name}**`));
+            Logger.custom(`MATCH_COMMAND`, `Loading matches for ${firstTeam.name} vs. ${secondTeam.name}`)
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
             let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
             embed.setThumbnail(logo);
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
-
                 for (const week of _stage.weeks) {
                     stage_week = `${_stage.name} - ${week.name}`;
                     for (const _match of week.matches) {
+                        if (_match.competitors[0] == null || _match.competitors[1] == null) {
+                            continue;
+                        }
                         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
                         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
                         let homeMatchScore = _match.scores[0].value;
@@ -139,7 +141,7 @@ class MatchCommand extends Command {
                                     if (i == 0) {
                                         let title = `${Emojis[home.abbreviatedName.toUpperCase()]} __${home.name} vs. ${away.name}__ ${Emojis[away.abbreviatedName.toUpperCase()]}`;
                                         titles.push(title);
-                                        header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}
+                                        let header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}
                                             ${stage_week}\n
                                             Match Score:\n${Emojis[home.abbreviatedName.toUpperCase()]} ${homeMatchScore} - ${
                                             awayMatchScore} ${Emojis[away.abbreviatedName.toUpperCase()]}\n\n__**Maps**__\n`;
@@ -150,7 +152,14 @@ class MatchCommand extends Command {
                             } else {
                                 let title = `${Emojis[home.abbreviatedName.toUpperCase()]} __${home.name} vs. ${away.name}__ ${Emojis[away.abbreviatedName.toUpperCase()]}`;
                                 titles.push(title);
-                                let header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}`;
+                                let header = `Match Date: ${moment_timezone(_match.startDateTS).tz('America/Los_Angeles').format('dddd. MMM Do, YYYY')}\n${stage_week}\n\n__**Maps**__\n`;
+                                for (let j = 0; j < _match.games.length; j++) {
+                                    const mapGuid = _match.games[j].attributes.mapGuid;
+                                    const mapName = await MapManager.getMap(mapGuid);
+                                    const mapType = await MapManager.getMapType(mapGuid);
+                                    let mapStr = `${Emojis[mapType.toUpperCase()]} ${mapName}: ${mapType}\n`;
+                                    header = header + mapStr;
+                                }
                                 matches.push(header);
                             }
                         }
@@ -164,14 +173,12 @@ class MatchCommand extends Command {
         }
 
         if (!found) {
-            //loading.then(message => message.delete());
-           // MessageUtil.sendError(message.channel, "Sorry, I couldn't find that match :C");
-           loading.then(message => message.edit("Sorry, I couldn't find that match :C"));
-           return;
+            loading.then(message => message.edit(AlertUtil.ERROR("Sorry, I couldn\'t find that match :C")));
+            return;
         }
-        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
+        console.log(titles);
 
         if (pages.length > 1) {
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
@@ -197,7 +204,7 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     })
@@ -213,14 +220,13 @@ class MatchCommand extends Command {
                             embed.setTitle(titles[title - 1]);
                         }
                         embed.setDescription(pages[page - 1]);
-                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
+                        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
                     });
                 })
             });
         } else {
-            //embed.buildEmbed().post(message.channel);
             let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.edit(mess));
         }

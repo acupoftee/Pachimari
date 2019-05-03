@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, Match, Banner } = require('../../../models/owl_models');
-const { JsonUtil, AlertUtil, MessageUtil } = require('../../../utils');
+const { JsonUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -19,8 +19,6 @@ class NextCommand extends Command {
         let loading = message.channel.send(Emojis["LOADING"]);
         const body = await JsonUtil.parse(Endpoints.get('LIVE-MATCH'));
         if (body.data.nextMatch === undefined || Object.keys(body.data.nextMatch).length === 0) {
-            //loading.then(message => message.delete());
-            //MessageUtil.sendError(message.channel, "There's no next match available yet. Check back Later!");
             loading.then(message => message.edit("There's no next match available yet. Check back Later!"));
             return;
         }
@@ -31,7 +29,7 @@ class NextCommand extends Command {
         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(live.competitors[1].abbreviatedName));
         let scoreHome = live.scores[0].value;
         let scoreAway = live.scores[1].value;
-
+        Logger.custom(`NEXT_COMMAND`, `Loading next match data.`);
         let match = new Match(live.id, (live.state === 'PENDING') ? true : false, live.state,
             live.startDateTS, home, away, scoreHome, scoreAway);
 

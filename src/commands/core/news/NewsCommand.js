@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { Article, Endpoints } = require('../../../models/owl_models');
-const { JsonUtil } = require('../../../utils');
+const { JsonUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -24,6 +24,7 @@ class NewsCommand extends Command {
     }
 
     async execute(client, message, args) {
+        Logger.custom(`NEWS_COMMAND`, `Loading news`);
         let msg = message.channel.send(Emojis["LOADING"]);
         msg.then(async message => message.edit(await(this.buildMessage(client))));
     }

@@ -1,5 +1,5 @@
 const { Command, PachimariEmbed } = require('../../../models');
-const { MessageUtil } = require('../../../utils');
+const { MessageUtil, Logger } = require('../../../utils');
 
 class HelpCommand extends Command {
     constructor() {
@@ -15,6 +15,7 @@ class HelpCommand extends Command {
         embed.setThumbnail(client.user.avatarURL);
 
         if (args.length <= 0) {
+            Logger.custom(`HELP_COMMAND`, `Loading command list`);
             embed.setTitle('Commands');
             embed.setDescription(`Use The Command Format \`\`!help <command>\`\` for more information.`);
             let cmds = [];
@@ -30,6 +31,7 @@ class HelpCommand extends Command {
                 return;
             const cmd = client.commands.get(command);
             embed.setTitle(MessageUtil.capitalize(cmd.name) + ' Command');
+            Logger.custom(`HELP_COMMAND CMD`, `Loading help for ${cmd.name} Command`);
             embed.setDescription(cmd.description);
             embed.addFields('Usage', `!${cmd.usage}`);
             embed.buildEmbed().post(message.channel);

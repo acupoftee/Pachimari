@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, Match } = require('../../../models/owl_models');
-const { NumberUtil, MessageUtil, JsonUtil, AlertUtil } = require('../../../utils');
+const { NumberUtil, MessageUtil, JsonUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const stageData = require('../../../data/stages.json');
 const moment_timezone = require('moment-timezone');
@@ -57,6 +57,7 @@ class TeamCommand extends Command {
         
 
         if (args[1] === undefined) {
+            Logger.custom(`TEAM_COMMAND`, `Loading team ${competitor.name}`);
             embed.setTitle(`${teamEmoji} __${competitor.name}__ (${competitor.abbreviatedName})`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
@@ -98,6 +99,7 @@ class TeamCommand extends Command {
 	        loading.then(message => message.edit(mess));
         } else {
             if (args[1].toLowerCase() === 'accounts') {
+                Logger.custom(`TEAM_COMMAND ACCOUNTS`, `Loading ACCOUNTS for team ${competitor.name}`);
                 if (competitor.accounts.size === 0) {
                     MessageUtil.sendError(message.channel, "This team does not have any accounts.");
                     return;
@@ -118,6 +120,7 @@ class TeamCommand extends Command {
                 let matches = [];
                 let stage = "";
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
+                Logger.custom(`TEAM_COMMAND SCHEDULE`, `Loading SCHEDULE for team ${competitor.name}`);
                 let promise = new Promise(function (resolve, reject) {
                     let currentTime = new Date().getTime();
                     let slug = null;
@@ -195,8 +198,6 @@ class TeamCommand extends Command {
                 });
             }
             else {
-                //loading.then(message => message.delete());
-                //MessageUtil.sendError(message.channel, ":C Sorry I couldn't understand that. Maybe a typo?");
                 loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I couldn't understand that. Maybe a typo?")));
                 return;
             }
