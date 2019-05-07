@@ -122,7 +122,8 @@ class PlayerCommand extends Command {
                 embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
                 let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
-                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${PlayerManager.getHeroTitle(hero)}`);
+                    let heroName = HeroManager.locateHero(hero.name);
+                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
                     percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
 
@@ -130,8 +131,7 @@ class PlayerCommand extends Command {
                 embed.addFields("% Played", percentage, true);
 
                 embed.setFooter("Use \`!player <name> heroes expand\` to see more hero stats!");
-               // loading.then(message => message.delete());
-                //embed.buildEmbed().post(message.channel);
+
                 let mess = embed.buildEmbed().getEmbed;
                 loading.then(message => message.edit(mess));
             } else if (args[2].toLowerCase() === 'expand') {
@@ -140,7 +140,11 @@ class PlayerCommand extends Command {
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
-                    let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(hero)}** Stats`;
+                    let heroName = HeroManager.locateHero(hero.name);
+                    if (heroName == 'wreckingball') {
+                        heroName = 'wrecking-ball';
+                    }
+                    let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroName)}** Stats`;
                     //let descriptionString = `${heroMoji} __**${PlayerManager.getHeroTitle(hero)}**__\n`;
 
                     info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
@@ -148,7 +152,7 @@ class PlayerCommand extends Command {
                     info.push(`Deaths:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
                     info.push(`Hero Damage:  \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
                     info.push(`Healing:  \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
-                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
+                    info.push(`${HeroManager.getHeroUltimate(heroName)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
                     info.push(`Final Blows:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
 
                     //info.splice(0, 0, descriptionString);
@@ -162,8 +166,6 @@ class PlayerCommand extends Command {
                     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
 
                     let mess = embed.buildEmbed().getEmbed;
-                    //loading.then(message => message.delete());
-                    //let mess = embed.buildEmbed().getEmbed;
             
                     loading.then(message => message.edit(mess)).then(msg => {
                         msg.react("⬅").then(r => {
@@ -208,6 +210,7 @@ class PlayerCommand extends Command {
                         })
                     })
                 } else {
+                    let heroName = HeroManager.locateHero(heroes[0].name);
                     embed.setTitle(titles[title - 1]);
                     embed.setDescription('');
                     embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);
@@ -215,14 +218,11 @@ class PlayerCommand extends Command {
                     embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Hero Damage`, `${heroes[0].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Healing`, `${heroes[0].stats.healing_avg_per_10m.toFixed(2)}`, true);
-                    embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`${HeroManager.getHeroUltimate(heroName)}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
 
                     let mess = embed.buildEmbed().getEmbed;
-                    loading.then(message => message.edit(mess));
-                    //loading.then(message => message.delete());
-                    //embed.buildEmbed().post(message.channel);
-                    
+                    loading.then(message => message.edit(mess));   
                 }
             } else {
                 loading.then(message => message.delete());
@@ -230,18 +230,11 @@ class PlayerCommand extends Command {
                 return;
             }
         } else if (args[1].toLowerCase() === 'hero') {
-            let hero;
+            let hero, heroName;
             if (args[2] === undefined) {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
                 return;
-            // } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
-            //     console.log("this hero works");
-            //     if (args[2].toLowerCase() == "soldier76") {
-            //         hero = this.getHeroName("soldier-76");
-            //     } else {
-            //         hero = this.getHeroName("wrecking-ball");
-            //     }
             }
             else if (HeroManager.locateHero(args[2]) === undefined) {
                 loading.then(message => message.delete());
@@ -249,15 +242,16 @@ class PlayerCommand extends Command {
                 return;
             } else {
                 hero = HeroManager.locateHero(args[2]);
-                if (hero == 'wrecking-ball') {
-                    hero = 'wreckingball'
+                heroName = hero
+                if (heroName == 'wrecking-ball') {
+                    heroName = 'wreckingball'
                 }
             }
 
             let index = -1;
             let heroMoji = Emojis[hero.replace('-', '').toUpperCase()];
             for (let i = 0; i < heroes.length; i++) {
-                if (heroes[i].name == hero) {
+                if (heroes[i].name == heroName) {
                     index = i;
                     break;
                 }
@@ -272,7 +266,7 @@ class PlayerCommand extends Command {
                 embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Hero Damage`, `${heroes[index].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Healing`, `${heroes[index].stats.healing_avg_per_10m.toFixed(2)}`, true);
-                embed.addFields(`${heroUlt}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`${HeroManager.getHeroUltimate(hero)}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
             }
 
@@ -287,24 +281,6 @@ class PlayerCommand extends Command {
             loading.then(message => message.delete());
             MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
             return;
-        }
-    }
-
-    /**
-    * Returns a hero name
-    * @param {string} val 
-    * @returns hero name
-    */
-    getHeroName(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroData.length; i++) {
-            if (heroData[i].key === key) {
-                heroUlt = heroData[i].ultimate;
-                if (key === 'wrecking-ball') {
-                    return 'wreckingball';
-                }
-                return heroData[i].key;
-            }
         }
     }
 }
