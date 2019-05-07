@@ -57,10 +57,10 @@ class CompareCommand extends Command {
             if (heroAlias == 'wrecking-ball') {
                 heroName = 'wreckingball';
             }
-            heroColor = this.getHeroColor(heroAlias);
-            heroURL = this.getHeroURL(heroAlias);
-            heroTitle = this.getHeroTitle(heroAlias);
-            heroUlt = this.getHeroUltimate(heroAlias);
+            heroColor = HeroManager.getHeroColor(heroAlias);
+            heroURL = HeroManager.getHeroURL(heroAlias);
+            heroTitle = HeroManager.getHeroTitle(heroAlias);
+            heroUlt = HeroManager.getHeroUltimate(heroAlias);
 
 
 
@@ -183,40 +183,40 @@ class CompareCommand extends Command {
         }
     }
 
-    getHeroTitle(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].title;
-            }
-        }
-    }
+    // getHeroTitle(val) {
+    //     const key = val.toLowerCase();
+    //     for (let i = 0; i < heroes.length; i++) {
+    //         if (heroes[i].key === key) {
+    //             return heroes[i].title;
+    //         }
+    //     }
+    // }
 
-    getHeroColor(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].color;
-            }
-        }
-    }
+    // getHeroColor(val) {
+    //     const key = val.toLowerCase();
+    //     for (let i = 0; i < heroes.length; i++) {
+    //         if (heroes[i].key === key) {
+    //             return heroes[i].color;
+    //         }
+    //     }
+    // }
 
-    getHeroURL(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].portrait;
-            }
-        }
-    }
+    // getHeroURL(val) {
+    //     const key = val.toLowerCase();
+    //     for (let i = 0; i < heroes.length; i++) {
+    //         if (heroes[i].key === key) {
+    //             return heroes[i].portrait;
+    //         }
+    //     }
+    // }
 
-    getHeroUltimate(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].ultimate;
-            }
-        }
-    }
+    // getHeroUltimate(val) {
+    //     const key = val.toLowerCase();
+    //     for (let i = 0; i < heroes.length; i++) {
+    //         if (heroes[i].key === key) {
+    //             return heroes[i].ultimate;
+    //         }
+    //     }
+    // }
 }
 module.exports = CompareCommand;

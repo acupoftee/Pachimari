@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../../../models');
-const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
+const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const { MessageUtil, NumberUtil } = require('../../../utils');
 const heroes = require('../../../data/heroes.json');
@@ -29,27 +29,25 @@ class PlayersCommand extends Command {
             return;
         }
         else if (args.length === 1) {
-            let hero, revisedHero;
-            let heroColor, heroURL, heroTitle;
-            if (args[0].toLowerCase() == "soldier76") {
-                revisedHero = this.getHeroName("soldier-76");
-                heroColor = this.getHeroColor("soldier-76");
-                heroURL = this.getHeroURL("soldier-76");
-                heroTitle = this.getHeroTitle("soldier-76");
-             } else if (args[0].toLowerCase() == "wreckingball") {
-                revisedHero = this.getHeroName("wrecking-ball");
-                heroColor = this.getHeroColor("wrecking-ball");
-                heroURL = this.getHeroURL("wrecking-ball");
-                heroTitle = this.getHeroTitle("wrecking-ball");
-             } else {
-                hero = this.getHeroName(args[0]);
-                heroColor = this.getHeroColor(args[0]);
-                heroURL = this.getHeroURL(args[0]);
-                heroTitle = this.getHeroTitle(args[0]);
-             } 
+
+            let heroColor, heroURL, heroTitle, revisedHero;
+
+            let hero = HeroManager.locateHero(args[0]);
+            if (hero == 'wrecking-ball') {
+                revisedHero = 'wreckingball';
+            }
+            if (hero == undefined) {
+                loading.then(message => message.delete());
+                MessageUtil.sendError(message.channel, "Sorry, I couldn't find that hero. Maybe a typo?");
+                return;
+            }
+            heroColor = HeroManager.getHeroColor(hero);
+            heroURL = HeroManager.getHeroURL(hero);
+            heroTitle = HeroManager.getHeroTitle(hero);
+
             let list = PlayerManager.players.array().sort(this.compare);
             if (hero != undefined || revisedHero != undefined) {
-                loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[args[0].toUpperCase()]}`))
+                loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[hero.replace('-', '').toUpperCase()]}`))
                 for (const player of list) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let competitorHeroes = await PlayerManager.getHeroes(player);
@@ -95,7 +93,6 @@ class PlayersCommand extends Command {
             embed.setTitle('__Overwatch League Players__');
         }
 
-        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
 
         if (pages.length > 1) {
@@ -147,50 +144,6 @@ class PlayersCommand extends Command {
         if (a.name.toLowerCase() > b.name.toLowerCase())
             return 1;
         return 0;
-    }
-
-    /**
-     * Returns a hero name
-     * @param {string} val 
-     * @returns hero name
-     */
-    getHeroName(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                if (key === 'wrecking-ball') {
-                    return 'wreckingball';
-                }
-                return heroes[i].key;
-            }
-        }
-    }
-
-    getHeroTitle(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].title;
-            }
-        }
-    }
-
-    getHeroColor(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].color;
-            }
-        }
-    }
-
-    getHeroURL(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].portrait;
-            }
-        }
     }
 }
 module.exports = PlayersCommand;

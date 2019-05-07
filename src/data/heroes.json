@@ -131,7 +131,7 @@
     "color": "#ccb370",
     "ultimate": "Supercharger",
     "pat": "https://cdn.discordapp.com/emojis/368248085849309184.png?v=1",
-    "aliases": ["horse", "robo-horse", "robo_horse"]
+    "aliases": ["horse"]
 },
 {
     "key": "pharah",
@@ -167,7 +167,7 @@
     "color": "#54515a",
     "ultimate": "Whole Hog",
     "pat": "https://cdn.discordapp.com/emojis/469610855043039242.png?v=1",
-    "aliases": ["hog"]
+    "aliases": ["hog", "rh", "road"]
 },
 {
     "key": "soldier-76",
@@ -185,7 +185,7 @@
     "color": "#9762ec",
     "ultimate": "EMP",
     "pat": "https://cdn.discordapp.com/emojis/563142274591096847.png?v=1",
-    "aliases": ["bra", "sombae"]
+    "aliases": ["bra", "sombae", "hacker", "spy"]
 },
 {
     "key": "symmetra",
