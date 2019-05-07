@@ -34,8 +34,7 @@ class PlayersCommand extends Command {
                 revisedHero = 'wreckingball';
             }
             if (hero == undefined) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "Sorry, I couldn't find that hero. Maybe a typo?");
+                loading.then(message => message.edit(AlertUtil.ERROR("Sorry, I couldn't find that hero. Maybe a typo?")));
                 return;
             }
             heroColor = HeroManager.getHeroColor(hero);

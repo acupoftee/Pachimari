@@ -116,7 +116,8 @@ class PlayerCommand extends Command {
                 embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
                 let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
-                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${PlayerManager.getHeroTitle(hero)}`);
+                    let heroName = HeroManager.locateHero(hero.name);
+                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
                     percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
 
@@ -133,14 +134,18 @@ class PlayerCommand extends Command {
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
-                    let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(hero)}** Stats`;
+                    let heroName = HeroManager.locateHero(hero.name);
+                    if (heroName == 'wreckingball') {
+                        heroName = 'wrecking-ball';
+                    }
+                    let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroName)}** Stats`;
 
                     info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
                     info.push(`Eliminations:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
                     info.push(`Deaths:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
                     info.push(`Hero Damage:  \`${hero.stats.hero_damage_avg_per_10m.toFixed(2)}\``);
                     info.push(`Healing:  \`${hero.stats.healing_avg_per_10m.toFixed(2)}\``);
-                    info.push(`${PlayerManager.getHeroUltimate(hero)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
+                    info.push(`${HeroManager.getHeroUltimate(heroName)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
                     info.push(`Final Blows:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
 
                     titles.push(titleString);
@@ -196,6 +201,7 @@ class PlayerCommand extends Command {
                         })
                     })
                 } else {
+                    let heroName = HeroManager.locateHero(heroes[0].name);
                     embed.setTitle(titles[title - 1]);
                     embed.setDescription('');
                     embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);
@@ -203,7 +209,7 @@ class PlayerCommand extends Command {
                     embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Hero Damage`, `${heroes[0].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Healing`, `${heroes[0].stats.healing_avg_per_10m.toFixed(2)}`, true);
-                    embed.addFields(`${PlayerManager.getHeroUltimate(heroes[0])}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
+                    embed.addFields(`${HeroManager.getHeroUltimate(heroName)}s Earned`, `${heroes[0].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
 
                     let mess = embed.buildEmbed().getEmbed;
@@ -216,7 +222,7 @@ class PlayerCommand extends Command {
             }
         } else if (args[1].toLowerCase() === 'hero') {
             Logger.custom(`PLAYER_COMMAND HERO`, `Loading HERO for player ${player.name}`);
-            let hero;
+            let hero, heroName;
             if (args[2] === undefined) {
                 loading.then(message => message.edit(AlertUtil.ERROR(":C Make sure to add a proper hero name! (no spaces)")));
                 return;
@@ -225,15 +231,16 @@ class PlayerCommand extends Command {
                 return;
             } else {
                 hero = HeroManager.locateHero(args[2]);
-	                if (hero == 'wrecking-ball') {
-	                    hero = 'wreckingball'
-	                }
+                heroName = hero;
+                if (heroName == 'wrecking-ball') {
+                    heroName = 'wreckingball'
+                }
             }
 
             let index = -1;
             let heroMoji = Emojis[hero.replace('-', '').toUpperCase()];
             for (let i = 0; i < heroes.length; i++) {
-                if (heroes[i].name == hero) {
+                if (heroes[i].name == heroName) {
                     index = i;
                     break;
                 }
@@ -248,7 +255,7 @@ class PlayerCommand extends Command {
                 embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Hero Damage`, `${heroes[index].stats.hero_damage_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Healing`, `${heroes[index].stats.healing_avg_per_10m.toFixed(2)}`, true);
-                embed.addFields(`${PlayerManager.getHeroUltimate(hero)}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
+                embed.addFields(`${HeroManager.getHeroUltimate(hero)}s Earned`, `${heroes[index].stats.ultimates_earned_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
             }
 
