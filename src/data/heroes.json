@@ -3,63 +3,72 @@
     "title": "Ana",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png",
     "color": "#9c978a",
-    "ultimate": "Nano Boost"
+    "ultimate": "Nano Boost",
+    "aliases": []
 },
 {
     "key": "ashe",
     "title": "Ashe",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ashe/hero-select-portrait.png",
     "color": "#b3a05f",
-    "ultimate": "B.O.B."
+    "ultimate": "B.O.B.",
+    "aliases": []
 },
 {
     "key": "baptiste",
     "title": "Baptiste",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/baptiste/hero-select-portrait.png",
     "color": "#2892a8",
-    "ultimate": "Amp. Matricie"
+    "ultimate": "Amp. Matricie",
+    "aliases": ["bap"]
 },
 {
     "key": "bastion",
     "title": "Bastion",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/bastion/hero-select-portrait.png",
     "color": "#24f9f8",
-    "ultimate": "Config. Tank"
+    "ultimate": "Config. Tank",
+    "aliases": []
 },
 {
     "key": "brigitte",
     "title": "Brigitte",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/brigitte/hero-select-portrait.png",
     "color": "#efb016",
-    "ultimate": "Rally"
+    "ultimate": "Rally",
+    "aliases": ["brig", "baguette"]
 },
 {
     "key": "dva",
     "title": "D.Va",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/dva/hero-select-portrait.png",
     "color": "#ee4bb5",
-    "ultimate": "Self-Destruct"
+    "ultimate": "Self-Destruct",
+    "aliases": ["d.va"]
 },
 {
     "key": "doomfist",
     "title": "Doomfist",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/doomfist/hero-select-portrait.png",
     "color": "#762c21",
-    "ultimate": "Meteor Strike"
+    "ultimate": "Meteor Strike",
+    "aliases": ["doom"]
 },
 {
     "key": "genji",
     "title": "Genji",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png",
     "color": "#abe50b",
-    "ultimate": "Dragonblade"
+    "ultimate": "Dragonblade",
+    "aliases": ["genju"]
 },
 {
     "key": "hanzo",
     "title": "Hanzo",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/hanzo/hero-select-portrait.png",
     "color": "#837c46",
-    "ultimate": "Dragonstrike"
+    "ultimate": "Dragonstrike",
+    "aliases": []
 },
 {
     "key": "junkrat",
@@ -67,7 +76,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png",
     "color": "#fbd73a",
     "ultimate": "Rip-Tire",
-    "pat":"https://cdn.discordapp.com/emojis/507717387974606858.png?v=1"
+    "pat":"https://cdn.discordapp.com/emojis/507717387974606858.png?v=1",
+    "aliases": ["junk", "rat"]
 },
 {
     "key": "lucio",
@@ -75,7 +85,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png",
     "color": "#aaf531",
     "ultimate": "Soundbarrier",
-    "pat": "https://cdn.discordapp.com/emojis/373047267671670784.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/373047267671670784.png?v=1",
+    "aliases": []
 },
 {
     "key": "mccree",
@@ -83,7 +94,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png",
     "color": "#c23f46",
     "ultimate": "Deadeye",
-    "pat": "https://cdn.discordapp.com/emojis/507717389492813845.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717389492813845.png?v=1",
+    "aliases": ["cree"]
 },
 {
     "key": "mei",
@@ -91,7 +103,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png",
     "color": "#87d7f6",
     "ultimate": "Blizzard",
-    "pat": "https://cdn.discordapp.com/emojis/507717391459811331.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391459811331.png?v=1",
+    "aliases": []
 },
 {
     "key": "mercy",
@@ -99,7 +112,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png",
     "color": "#fcd849",
     "ultimate": "Valkyrie",
-    "pat": "https://cdn.discordapp.com/emojis/507717389677363209.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717389677363209.png?v=1",
+    "aliases": ["merpy"]
 },
 {
     "key": "moira",
@@ -107,7 +121,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png",
     "color": "#7112f4",
     "ultimate": "Coalescence",
-    "pat": "https://cdn.discordapp.com/emojis/507717391971516436.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391971516436.png?v=1",
+    "aliases": []
 },
 {
     "key": "orisa",
@@ -115,7 +130,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png",
     "color": "#ccb370",
     "ultimate": "Supercharger",
-    "pat": "https://cdn.discordapp.com/emojis/368248085849309184.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/368248085849309184.png?v=1",
+    "aliases": ["horse"]
 },
 {
     "key": "pharah",
@@ -123,7 +139,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png",
     "color": "#3461a4",
     "ultimate": "Barrage",
-    "pat": "https://cdn.discordapp.com/emojis/507717389958381578.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717389958381578.png?v=1",
+    "aliases": []
 },
 {
     "key": "reaper",
@@ -131,7 +148,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png",
     "color": "#333",
     "ultimate": "Death Blossom",
-    "pat": "https://cdn.discordapp.com/emojis/507717391585902594.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391585902594.png?v=1",
+    "aliases": ["edgelord"]
 },
 {
     "key": "reinhardt",
@@ -139,7 +157,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png",
     "color": "#b9b5ad",
     "ultimate": "Earthshatter",
-    "pat": "https://cdn.discordapp.com/emojis/507717391074066454.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391074066454.png?v=1",
+    "aliases": ["rein"]
 },
 {
     "key": "roadhog",
@@ -147,7 +166,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png",
     "color": "#54515a",
     "ultimate": "Whole Hog",
-    "pat": "https://cdn.discordapp.com/emojis/469610855043039242.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/469610855043039242.png?v=1",
+    "aliases": ["hog", "rh", "road"]
 },
 {
     "key": "soldier-76",
@@ -155,7 +175,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png",
     "color": "#525d9b",
     "ultimate": "Tactical Visor",
-    "pat": "https://cdn.discordapp.com/emojis/507717391711469583.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391711469583.png?v=1",
+    "aliases": ["soldier", "76", "soldier76", "soldier-76", "s76"]
 },
 {
     "key": "sombra",
@@ -163,7 +184,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png",
     "color": "#9762ec",
     "ultimate": "EMP",
-    "pat": "https://cdn.discordapp.com/emojis/563142274591096847.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/563142274591096847.png?v=1",
+    "aliases": ["bra", "sombae", "hacker", "spy"]
 },
 {
     "key": "symmetra",
@@ -171,7 +193,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png",
     "color": "#3e90b5",
     "ultimate": "Photon Barrier",
-    "pat": "https://cdn.discordapp.com/emojis/507717391795617812.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391795617812.png?v=1",
+    "aliases": ["sym"]
 },
 {
     "key": "torbjorn",
@@ -179,7 +202,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png",
     "color": "#b04a33",
     "ultimate": "Molten Core",
-    "pat": "https://cdn.discordapp.com/emojis/507717392026304531.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717392026304531.png?v=1",
+    "aliases": ["torb"]
 },
 {
     "key": "tracer",
@@ -187,7 +211,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png",
     "color": "#ffcf35",
     "ultimate": "Pulse Bomb",
-    "pat": "https://cdn.discordapp.com/emojis/507717391782903818.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717391782903818.png?v=1",
+    "aliases": ["traysuh", "blinky"]
 },
 {
     "key": "widowmaker",
@@ -195,7 +220,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png",
     "color": "#af5e9e",
     "ultimate": "Infra-Sight",
-    "pat": "https://cdn.discordapp.com/emojis/396468487960395776.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/396468487960395776.png?v=1",
+    "aliases": ["widow", "wm"]
 },
 {
     "key": "winston",
@@ -203,7 +229,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png",
     "color": "#595959",
     "ultimate": "Primal Rage",
-    "pat": "https://cdn.discordapp.com/emojis/507717390277279754.png?v=1"
+    "pat": "https://cdn.discordapp.com/emojis/507717390277279754.png?v=1",
+    "aliases": ["monkey"]
 },
 {
     "key": "wrecking-ball",
@@ -211,7 +238,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png",
     "color": "#4a575f",
     "ultimate": "Minefield",
-    "pat":"https://cdn.discordapp.com/emojis/507718228999667753.png?v=1"
+    "pat":"https://cdn.discordapp.com/emojis/507718228999667753.png?v=1",
+    "aliases": ["hammond", "ball", "wb", "wreckingball", "wrecking-ball", "sanic"]
 },
 {
     "key": "zarya",
@@ -219,7 +247,8 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png",
     "color": "#ff73c1",
     "ultimate": "Graviton Surge",
-    "pat":"https://cdn.discordapp.com/emojis/372684463055831040.png?v=1"
+    "pat":"https://cdn.discordapp.com/emojis/372684463055831040.png?v=1",
+    "aliases": []
 },
 {
     "key": "zenyatta",
@@ -227,6 +256,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png",
     "color": "#e1c931",
     "ultimate": "Transcendence",
-    "pat":"https://cdn.discordapp.com/emojis/507717390168227870.png?v=1"
+    "pat":"https://cdn.discordapp.com/emojis/507717390168227870.png?v=1",
+    "aliases": ["zen"]
 }
 ]

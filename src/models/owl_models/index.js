@@ -15,6 +15,7 @@ const Map = require('./Map');
 const PredictionManager = require('./PredictionManager');
 const MatchManager = require('./MatchManager');
 const Video = require('./Video');
+const HeroManager = require('./HeroManager');
 
 module.exports = {
     Account,
@@ -31,5 +32,6 @@ module.exports = {
     Map,
     PredictionManager,
     MatchManager,
-    Video
+    Video,
+    HeroManager
 };

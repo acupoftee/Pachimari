@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../../../models');
-const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
+const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { MessageUtil, AlertUtil, NumberUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroes = require('../../../data/heroes.json');
@@ -24,10 +24,7 @@ class CompareCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
-        } else if (args[2] !== undefined && (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball")) {
-            console.log("this hero works");
-        } else if ((args[2] !== undefined && this.getHeroName(args[2]) === undefined)) {
-            console.log(this.getHeroName(args[2]));
+        } else if (args[2] !== undefined && HeroManager.locateHero(args[2]) === undefined) {
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
         }
 
@@ -38,7 +35,7 @@ class CompareCommand extends Command {
 
 
         if (firstPlayer === undefined || secondPlayer === undefined) {
-            return AlertUtil.ERROR("Sorry, couldn't find any info :C");
+            return AlertUtil.ERROR("Sorry, couldn't find any info for those players :C");
         }
 
         const embed = new PachimariEmbed(client);
@@ -48,63 +45,32 @@ class CompareCommand extends Command {
               secondEmoji = Emojis[secondCompetitor.abbreviatedName];
 
         if (args.length === 3) {
-            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name}`);
+            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name} on ${args[2]}`);
             let heroURL, heroTitle, heroColor, heroUlt;
             let firstPlayerHeroes = await PlayerManager.getHeroes(firstPlayer),
                 secondPlayerHeroes = await PlayerManager.getHeroes(secondPlayer);
             let firstIndex = -1, secondIndex = -1;
  
+            let heroAlias = HeroManager.locateHero(args[2]);
+            let heroName = heroAlias;
+            if (heroAlias == 'wrecking-ball') {
+                heroName = 'wreckingball';
+            }
+            heroColor = HeroManager.getHeroColor(heroAlias);
+            heroURL = HeroManager.getHeroURL(heroAlias);
+            heroTitle = HeroManager.getHeroTitle(heroAlias);
+            heroUlt = HeroManager.getHeroUltimate(heroAlias);
 
             for (let i = 0; i < firstPlayerHeroes.length; i++) {
-                if (args[2].toLowerCase() == "soldier76" && firstPlayerHeroes[i].name == "soldier-76") {
+                if (firstPlayerHeroes[i].name == heroName) {
                     firstIndex = i;
-                    heroColor = this.getHeroColor("soldier-76");
-                    heroURL = this.getHeroURL("soldier-76");
-                    heroTitle = this.getHeroTitle("soldier-76");
-                    heroUlt = this.getHeroUltimate("soldier-76");
-                    break;
-                } else if (args[2].toLowerCase() == "wreckingball" && firstPlayerHeroes[i].name == "wreckingball") {
-                    firstIndex = i;
-                    heroColor = this.getHeroColor("wrecking-ball");
-                    heroURL = this.getHeroURL("wrecking-ball");
-                    heroTitle = this.getHeroTitle("wrecking-ball");
-                    heroUlt = this.getHeroUltimate("wrecking-ball");
-                    break;
-                }
-                else if (firstPlayerHeroes[i].name == args[2].toLowerCase()) {
-                    firstIndex = i;
-                    let h = args[2].toLowerCase();
-                    heroColor = this.getHeroColor(h);
-                    heroURL = this.getHeroURL(h);
-                    heroTitle = this.getHeroTitle(h);
-                    heroUlt = this.getHeroUltimate(h);
                     break;
                 }
             }
 
             for (let i = 0; i < secondPlayerHeroes.length; i++) {
-                if (args[2].toLowerCase() == "soldier76" && secondPlayerHeroes[i].name == "soldier-76") {
+                if (secondPlayerHeroes[i].name == heroName) {
                     secondIndex = i;
-                    heroColor = this.getHeroColor("soldier-76");
-                    heroURL = this.getHeroURL("soldier-76");
-                    heroTitle = this.getHeroTitle("soldier-76");
-                    heroUlt = this.getHeroUltimate("soldier-76");
-                    break;
-                } else if (args[2].toLowerCase() == "wreckingball" && secondPlayerHeroes[i].name == "wreckingball") {
-                    secondIndex = i;
-                    heroColor = this.getHeroColor("wrecking-ball");
-                    heroURL = this.getHeroURL("wrecking-ball");
-                    heroTitle = this.getHeroTitle("wrecking-ball");
-                    heroUlt = this.getHeroUltimate("wrecking-ball");
-                    break;
-                }
-                else if (secondPlayerHeroes[i].name == args[2].toLowerCase()) {
-                    secondIndex = i;
-                    let h = args[2].toLowerCase();
-                    heroColor = this.getHeroColor(h);
-                    heroURL = this.getHeroURL(h);
-                    heroTitle = this.getHeroTitle(h);
-                    heroUlt = this.getHeroUltimate(h);
                     break;
                 }
             }
@@ -213,59 +179,6 @@ class CompareCommand extends Command {
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
             embed.buildEmbed();
             return { embed: embed.getEmbed };
-        }
-    }
-
-    /**
-     * Returns a hero name
-     * @param {string} val 
-     * @returns hero name
-     */
-    getHeroName(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                if (key === 'wrecking-ball') {
-                    return 'wreckingball';
-                }
-                return heroes[i].key;
-            }
-        }
-    }
-
-    getHeroTitle(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].title;
-            }
-        }
-    }
-
-    getHeroColor(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].color;
-            }
-        }
-    }
-
-    getHeroURL(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].portrait;
-            }
-        }
-    }
-
-    getHeroUltimate(val) {
-        const key = val.toLowerCase();
-        for (let i = 0; i < heroes.length; i++) {
-            if (heroes[i].key === key) {
-                return heroes[i].ultimate;
-            }
         }
     }
 }

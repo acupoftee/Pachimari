@@ -22,7 +22,7 @@ class TeamCommand extends Command {
         super();
         this.name = 'team';
         this.description = 'Displays information about a specific OWL team';
-        this.usage = 'team <team> [players|accounts|schedule]';
+        this.usage = 'team <team> [accounts|schedule]';
         this.aliases = [];
     }
 
