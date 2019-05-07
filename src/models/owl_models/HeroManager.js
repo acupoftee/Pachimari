@@ -23,7 +23,6 @@ class HeroManager {
                 } 
             }
         }
-        console.log(hero);
         return hero;
     }
 }

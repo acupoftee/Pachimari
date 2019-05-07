@@ -24,8 +24,6 @@ class CompareCommand extends Command {
     async buildMessage(client, args) {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
-        // } else if (args[2] !== undefined && (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball")) {
-        //     console.log("this hero works");
         } else if (args[2] !== undefined && HeroManager.locateHero(args[2]) === undefined) {
             console.log(HeroManager.locateHero(args[2]));
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
@@ -67,72 +65,17 @@ class CompareCommand extends Command {
 
 
             for (let i = 0; i < firstPlayerHeroes.length; i++) {
-                //let heroAlias = HeroManager.locateHero(firstPlayerHeroes[i].name);
                 if (firstPlayerHeroes[i].name == heroName) {
                     firstIndex = i;
-                    
                     break;
                 }
-                // if (heroAlias = "soldier-76") {
-                //     firstIndex = i;
-                //     heroColor = this.getHeroColor("soldier-76");
-                //     heroURL = this.getHeroURL("soldier-76");
-                //     heroTitle = this.getHeroTitle("soldier-76");
-                //     heroUlt = this.getHeroUltimate("soldier-76");
-                //     break;
-                // } else if (args[2].toLowerCase() == "wreckingball" && firstPlayerHeroes[i].name == "wreckingball") {
-                //     firstIndex = i;
-                //     heroColor = this.getHeroColor("wrecking-ball");
-                //     heroURL = this.getHeroURL("wrecking-ball");
-                //     heroTitle = this.getHeroTitle("wrecking-ball");
-                //     heroUlt = this.getHeroUltimate("wrecking-ball");
-                //     break;
-                // }
-                // else if (firstPlayerHeroes[i].name == args[2].toLowerCase()) {
-                //     firstIndex = i;
-                //     let h = args[2].toLowerCase();
-                //     heroColor = this.getHeroColor(h);
-                //     heroURL = this.getHeroURL(h);
-                //     heroTitle = this.getHeroTitle(h);
-                //     heroUlt = this.getHeroUltimate(h);
-                //     break;
-                // }
             }
 
             for (let i = 0; i < secondPlayerHeroes.length; i++) {
-                //let heroAlias = HeroManager.locateHero(secondPlayerHeroes[i].name);
                 if (secondPlayerHeroes[i].name == heroName) {
                     secondIndex = i;
-                // heroColor = this.getHeroColor(heroAlias);
-                // heroURL = this.getHeroURL(heroAlias);
-                // heroTitle = this.getHeroTitle(heroAlias);
-                // heroUlt = this.getHeroUltimate(heroAlias);
-                break;
+                    break;
                 }
-                // if (HeroManager.locateHero(secondPlayerHeroes[i].name) == "soldier-76") {
-                //     secondIndex = i;
-                //     heroColor = this.getHeroColor("soldier-76");
-                //     heroURL = this.getHeroURL("soldier-76");
-                //     heroTitle = this.getHeroTitle("soldier-76");
-                //     heroUlt = this.getHeroUltimate("soldier-76");
-                //     break;
-                // } else if (HeroManager.locateHero(args[2]) == "wrecking-ball") {
-                //     secondIndex = i;
-                //     heroColor = this.getHeroColor("wrecking-ball");
-                //     heroURL = this.getHeroURL("wrecking-ball");
-                //     heroTitle = this.getHeroTitle("wrecking-ball");
-                //     heroUlt = this.getHeroUltimate("wrecking-ball");
-                //     break;
-                // }
-                // else if (secondPlayerHeroes[i].name == args[2].toLowerCase() || HeroManager.) {
-                //     secondIndex = i;
-                //     let h = args[2].toLowerCase();
-                //     heroColor = this.getHeroColor(h);
-                //     heroURL = this.getHeroURL(h);
-                //     heroTitle = this.getHeroTitle(h);
-                //     heroUlt = this.getHeroUltimate(h);
-                //     break;
-                // }
             }
             // potential portrait url https://d1u1mce87gyfbn.cloudfront.net/hero/ana/icon-portrait.png
             embed.setTitle(`${firstEmoji} ${firstPlayer.givenName} '**${firstPlayer.name}**' ${firstPlayer.familyName} vs ${secondPlayer.givenName} '**${secondPlayer.name}**' ${secondPlayer.familyName} ${secondEmoji}\n on **${heroTitle}**`);
@@ -239,23 +182,6 @@ class CompareCommand extends Command {
             return { embed: embed.getEmbed };
         }
     }
-
-    // /**
-    //  * Returns a hero name
-    //  * @param {string} val 
-    //  * @returns hero name
-    //  */
-    // getHeroName(val) {
-    //     const key = val.toLowerCase();
-    //     for (let i = 0; i < heroes.length; i++) {
-    //         if (heroes[i].key === key) {
-    //             if (key === 'wrecking-ball') {
-    //                 return 'wreckingball';
-    //             }
-    //             return heroes[i].key;
-    //         }
-    //     }
-    // }
 
     getHeroTitle(val) {
         const key = val.toLowerCase();

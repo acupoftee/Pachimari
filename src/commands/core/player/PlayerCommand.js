@@ -1,7 +1,7 @@
 'use strict';
 
 const { Command, PachimariEmbed } = require('../../../models');
-const { CompetitorManager, PlayerManager } = require('../../../models/owl_models');
+const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { NumberUtil, MessageUtil, AlertUtil } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroData = require('../../../data/heroes.json');
@@ -235,20 +235,23 @@ class PlayerCommand extends Command {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
                 return;
-            } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
-                console.log("this hero works");
-                if (args[2].toLowerCase() == "soldier76") {
-                    hero = this.getHeroName("soldier-76");
-                } else {
-                    hero = this.getHeroName("wrecking-ball");
-                }
+            // } else if (args[2].toLowerCase() == "soldier76" || args[2].toLowerCase() == "wreckingball") {
+            //     console.log("this hero works");
+            //     if (args[2].toLowerCase() == "soldier76") {
+            //         hero = this.getHeroName("soldier-76");
+            //     } else {
+            //         hero = this.getHeroName("wrecking-ball");
+            //     }
             }
-            else if (this.getHeroName(args[2]) === undefined) {
+            else if (HeroManager.locateHero(args[2]) === undefined) {
                 loading.then(message => message.delete());
                 MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
                 return;
             } else {
-                hero = this.getHeroName(args[2]);
+                hero = HeroManager.locateHero(args[2]);
+                if (hero == 'wrecking-ball') {
+                    hero = 'wreckingball'
+                }
             }
 
             let index = -1;
@@ -276,8 +279,7 @@ class PlayerCommand extends Command {
             embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
             //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-            //loading.then(message => message.delete());
-           // embed.buildEmbed().post(message.channel);
+
            let mess = embed.buildEmbed().getEmbed;
            loading.then(message => message.edit(mess));
 
