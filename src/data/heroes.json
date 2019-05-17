@@ -4,7 +4,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png",
     "color": "#9c978a",
     "ultimate": "Nano Boost",
-    "aliases": []
+    "aliases": ["grandma", "captain", "amari"]
 },
 {
     "key": "ashe",
@@ -60,7 +60,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png",
     "color": "#abe50b",
     "ultimate": "Dragonblade",
-    "aliases": ["genju"]
+    "aliases": ["genju", "weeb"]
 },
 {
     "key": "hanzo",
@@ -95,7 +95,7 @@
     "color": "#c23f46",
     "ultimate": "Deadeye",
     "pat": "https://cdn.discordapp.com/emojis/507717389492813845.png?v=1",
-    "aliases": ["cree"]
+    "aliases": ["cree", "cowboy"]
 },
 {
     "key": "mei",
@@ -239,7 +239,7 @@
     "color": "#4a575f",
     "ultimate": "Minefield",
     "pat":"https://cdn.discordapp.com/emojis/507718228999667753.png?v=1",
-    "aliases": ["hammond", "ball", "wb", "wreckingball", "wrecking-ball", "sanic"]
+    "aliases": ["hammond", "ball", "wb", "wreckingball", "wrecking-ball", "sanic", "hamster"]
 },
 {
     "key": "zarya",
