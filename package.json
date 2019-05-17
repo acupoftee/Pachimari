@@ -26,7 +26,7 @@
     "dotenv": "^6.2.0",
     "erlpack": "github:discordapp/erlpack",
     "express": "^4.16.4",
-    "gif-encoder": "^0.7.2",
+    "gifencoder": "^2.0.1",
     "leftpad": "0.0.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
@@ -34,6 +34,7 @@
     "mongoose": "^5.4.19",
     "mysql2": "^1.6.5",
     "owl-colors": "0.0.4",
+    "pixel-util": "0.0.2",
     "request": "^2.88.0",
     "twitter": "^1.7.1",
     "zlib-sync": "^0.1.4"

@@ -22,6 +22,7 @@ const SettingsCommand = require('./core/utils/SettingsCommand');
 const ProfileCommand = require('./social/profile/ProfileCommand');
 const InfoCommand = require('./core/utils/InfoCommand');
 const VodCommand = require('./core/vod/VodCommand');
+const HypeCommad = require('./social/misc/HypeCommand');
 
 module.exports = {
     PingCommand,
@@ -45,5 +46,6 @@ module.exports = {
     SettingsCommand,
     ProfileCommand,
     InfoCommand,
-    VodCommand
+    VodCommand,
+    HypeCommad
 };
