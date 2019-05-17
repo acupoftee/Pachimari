@@ -16,6 +16,7 @@ const PredictionManager = require('./PredictionManager');
 const MatchManager = require('./MatchManager');
 const Video = require('./Video');
 const HeroManager = require('./HeroManager');
+const HypeGif = require('./HypeGif');
 
 module.exports = {
     Account,
@@ -33,5 +34,6 @@ module.exports = {
     PredictionManager,
     MatchManager,
     Video,
-    HeroManager
+    HeroManager,
+    HypeGif
 };

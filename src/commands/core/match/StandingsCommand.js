@@ -52,7 +52,7 @@ class StandingsCommand extends Command {
             }
             const teamEmoji = Emojis[standing.abbreviatedName];
             const numberData = `${matchWin}W - ${matchLoss}L  ${mapDiff}`
-            info.push(`\`${('0' + standing.league.placement).slice(-2)}.\`  ${teamEmoji} \`${numberData}\``);
+            info.push(`\`${String(standing.league.placement).padStart(2, "0")}.\`  ${teamEmoji} \`${numberData}\``);
         }
         pages.push(info);
 
@@ -73,7 +73,7 @@ class StandingsCommand extends Command {
                     }
                     const placement = stageStanding.placement;
                     const teamEmoji = Emojis[body.data[j].abbreviatedName];
-                    const stagePlacement = `\`${('0' + (placement)).slice(-2)}.\``;
+                    const stagePlacement = `\`${String(placement).padStart(2, "0")}.\``;
                     const numberData = `${matchWin}W - ${matchLoss}L  ${points}`;
                     stageInfo.push(`${stagePlacement} ${teamEmoji} \`${numberData}\``);
                 }

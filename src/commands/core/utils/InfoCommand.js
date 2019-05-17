@@ -2,6 +2,7 @@
 
 const { Command, PachimariEmbed } = require("../../../models");
 const { Logger } = require("../../../utils");
+const { Emojis } = require("../../../constants")
 const pckg = require("../../../../package.json");
 
 class InfoCommand extends Command {
@@ -40,6 +41,10 @@ class InfoCommand extends Command {
     embed.addFields(
       ":up: Upvote me on Discordbots.org (╹◡╹๑)",
       "https://tinyurl.com/y3mhfr8l"
+    );
+    embed.addFields(
+      `${Emojis["TWITTER"]} Follow me on Twitter (^_^)`,
+      "https://twitter.com/PachimariApp"
     );
     embed.buildEmbed().post(message.channel);
   }

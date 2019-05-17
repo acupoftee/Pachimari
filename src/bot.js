@@ -1,5 +1,6 @@
 'use strict'
 
+const pckg = require("../package.json");
 const { PachimariClient } = require('./models');
 const Database = require('./db/Database');
 const { CompetitorManager, PlayerManager, PredictionManager} = require('./models/owl_models');
@@ -18,13 +19,14 @@ const {
     CompareCommand, 
     HelpCommand, 
     PlayersCommand,
-    PredictCommand,
-    PredictionsCommand,
+    // PredictCommand,
+    // PredictionsCommand,
     MatchCommand,
-    SettingsCommand,
-    ProfileCommand,
+    // SettingsCommand,
+    // ProfileCommand,
     InfoCommand,
-    VodCommand
+    VodCommand,
+    HypeCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -76,7 +78,8 @@ new Promise(function (resolve, reject) {
         //new SettingsCommand(),
         //new ProfileCommand()
         new InfoCommand(),
-        new VodCommand()
+        new VodCommand(),
+        new HypeCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
@@ -98,7 +101,7 @@ new Promise(function (resolve, reject) {
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`);
         client.user.setPresence({
             game: {
-                name: `v1.3.4 - !help <3`
+                name: `v${pckg.version} - !help <3`
             }
         })
         app.listen(process.env.PORT || 3000);
