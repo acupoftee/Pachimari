@@ -24,6 +24,8 @@ class HypeCommand extends Command {
                 msg.edit("<a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222>").then(m => {
                     message.channel.send({
                         files: [gif]
+                    }).then(m => {
+                        m.react(Emojis["TWITTER"]);
                     })
                 })
             });

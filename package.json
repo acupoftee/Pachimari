@@ -22,7 +22,7 @@
     "bufferutil": "^4.0.1",
     "canvas": "^2.3.1",
     "didyoumean": "^1.2.1",
-    "discord.js": "^11.4.2",
+    "discord.js": "^11.5.0",
     "dotenv": "^6.2.0",
     "erlpack": "github:discordapp/erlpack",
     "express": "^4.16.4",
