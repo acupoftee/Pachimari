@@ -51,14 +51,14 @@ class MatchCommand extends Command {
                     
                         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
                         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
+                        if (home === undefined || away === undefined) {
+                            continue;
+                        }
                         let homeMatchScore = _match.scores[0].value;
                         let awayMatchScore = _match.scores[1].value;
                         // console.log(away);
                         // console.log(home);
 
-                        if (home === undefined || away === undefined) {
-                            continue;
-                        }
                         if ((home.id === firstTeam.id) || ((away.id === firstTeam.id))) {
                             found = true;
                             if (_match.status === "CONCLUDED") {
@@ -127,11 +127,15 @@ class MatchCommand extends Command {
                 for (const week of _stage.weeks) {
                     stage_week = `${_stage.name} - ${week.name}`;
                     for (const _match of week.matches) {
-                        if (_match.competitors[0] == null || _match.competitors[1] == null) {
+                        if (_match.competitors[0] == null || _match.competitors[1] == null  || 
+                            _match.competitors[0].abbreviatedName === undefined || _match.competitors[1].abbreviatedName === undefined) {
                             continue;
                         }
                         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
                         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
+                        if (home === undefined || away === undefined) {
+                            continue;
+                        }
                         let homeMatchScore = _match.scores[0].value;
                         let awayMatchScore = _match.scores[1].value;
                         if (((home.id === firstTeam.id) && (away.id === secondTeam.id)) || ((away.id === firstTeam.id) && (home.id === secondTeam.id))) {
