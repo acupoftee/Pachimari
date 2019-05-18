@@ -80,14 +80,14 @@ new Promise(function (resolve, reject) {
         new VodCommand(),
         new HypeCommad()
     );
-}).then(function (result) {
-    return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-        Logger.error(err.stack)
-    });
-}).then(function (result) {
-    return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
-        Logger.error(err.stack)
-    });
+// }).then(function (result) {
+//     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+//         Logger.error(err.stack)
+//     });
+// }).then(function (result) {
+//     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+//         Logger.error(err.stack)
+//     });
 // // }).then(function(result) {
 //     return new PredictionManager().watch();
 // }).then(function(result) {
