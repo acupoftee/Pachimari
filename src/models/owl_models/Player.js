@@ -71,7 +71,7 @@ class Player {
      * @returns player's team id
      */
     get id() {
-        return this._id;
+        return this._id; 
     }
 
     /**

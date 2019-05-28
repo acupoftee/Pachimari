@@ -23,6 +23,8 @@ const ProfileCommand = require('./social/profile/ProfileCommand');
 const InfoCommand = require('./core/utils/InfoCommand');
 const VodCommand = require('./core/vod/VodCommand');
 const HypeCommad = require('./social/misc/HypeCommand');
+const TopTenCommand = require('./core/player/TopTenCommand');
+const WambulanceCommad = require('./social/misc/WambulanceCommand');
 
 module.exports = {
     PingCommand,
@@ -47,5 +49,7 @@ module.exports = {
     ProfileCommand,
     InfoCommand,
     VodCommand,
-    HypeCommad
+    HypeCommad,
+    TopTenCommand,
+    WambulanceCommad
 };

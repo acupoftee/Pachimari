@@ -1,6 +1,6 @@
 'use strict';
 
-const { Command, PachimariEmbed } = require('../../../models');
+const { Command } = require('../../../models');
 const { HypeGif } = require('../../../models/owl_models')
 const { Emojis } = require('../../../constants');
 const fs = require('fs');
@@ -21,7 +21,7 @@ class HypeCommand extends Command {
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
         let hype = new HypeGif();
-        let tweet = new Tweets();
+        //let tweet = new Tweets();
         await hype.buildHypeGif(message.author.avatarURL.replace(/(gif|webp)/g, 'png'));
         loading.then(msg => {
             fs.readdir("src/res/", function(err, files) {
@@ -52,12 +52,6 @@ class HypeCommand extends Command {
                 })
             });
         });
-        // message.channel.send({
-        //     files: [{
-        //       attachment: 'src/res/hype.gif',
-        //       name: 'hype.gif'
-        //     }]
-        // });
     }
 }
 module.exports = HypeCommand;

@@ -17,7 +17,7 @@ const MatchManager = require('./MatchManager');
 const Video = require('./Video');
 const HeroManager = require('./HeroManager');
 const HypeGif = require('./HypeGif');
-
+const WambulanceGif = require('./WambulanceGif');
 module.exports = {
     Account,
     Player, 
@@ -35,5 +35,6 @@ module.exports = {
     MatchManager,
     Video,
     HeroManager,
-    HypeGif
+    HypeGif,
+    WambulanceGif
 };

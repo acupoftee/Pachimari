@@ -3,8 +3,7 @@
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
-const { MessageUtil, NumberUtil } = require('../../../utils');
-const heroes = require('../../../data/heroes.json');
+const { MessageUtil } = require('../../../utils');
 
 
 class PlayersCommand extends Command {
@@ -45,7 +44,7 @@ class PlayersCommand extends Command {
             heroURL = HeroManager.getHeroURL(hero);
             heroTitle = HeroManager.getHeroTitle(hero);
 
-            let list = PlayerManager.players.array().sort(this.compare);
+            let list = PlayerManager.players.array().sort((a, b) => b.timePlayed - a.timePlayed);
             if (hero != undefined || revisedHero != undefined) {
                 loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[hero.replace('-', '').toUpperCase()]}`))
                 for (const player of list) {
@@ -77,7 +76,7 @@ class PlayersCommand extends Command {
                 return;
             }
         } else if (args.length === 0) {
-            PlayerManager.players.sort(this.compare).forEach(player => {
+            PlayerManager.players.sort((a, b) => b.timePlayed - a.timePlayed).forEach(player => {
                 let competitor = CompetitorManager.competitors.get(player.competitorId);
                 let teamoji = Emojis[competitor.abbreviatedName];
                 players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
@@ -138,12 +137,12 @@ class PlayersCommand extends Command {
         }
     }
 
-    compare(a, b) {
-        if (a.name.toLowerCase() < b.name.toLowerCase())
-            return -1;
-        if (a.name.toLowerCase() > b.name.toLowerCase())
-            return 1;
-        return 0;
-    }
+    // compare(a, b) {
+    //     if (a.timePlayed < b.name.toLowerCase())
+    //         return -1;
+    //     if (a.name.toLowerCase() > b.name.toLowerCase())
+    //         return 1;
+    //     return 0;
+    // }
 }
 module.exports = PlayersCommand;
