@@ -54,21 +54,19 @@ class PlayersCommand extends Command {
                 playersWithSaidHero.sort((a, b) => b.playedHeroes.get(query).timePlayed - a.playedHeroes.get(query).timePlayed);
                 let playerCount = 0;
                 for (const player of playersWithSaidHero) {
+                    playerCount++;
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
                     let teamoji = Emojis[competitor.abbreviatedName];
                             players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
                                 Emojis[player.role.toUpperCase()]} ${
                                 player.givenName} '**${player.name}**' ${player.familyName}`);
                     if (playerCount % 20 === 0) {
-                        players.splice(0, 0, '*Sorted by time played.*');
                         pages.push(players);
                         players = [];
                     }
-                    playerCount++;
                 }
-                players.splice(0, 0, '*Sorted by time played.*');
                 pages.push(players);
-                embed.setTitle(`__Overwatch League Players with Time on ${heroTitle}__`);
+                embed.setTitle(`__Overwatch League Players with Time on ${heroTitle} (by Time Played)__`);
                 embed.setColor(heroColor);
                 embed.setThumbnail(heroURL);
             } else {
