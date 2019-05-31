@@ -22,12 +22,7 @@ const SettingsCommand = require('./core/utils/SettingsCommand');
 const ProfileCommand = require('./social/profile/ProfileCommand');
 const InfoCommand = require('./core/utils/InfoCommand');
 const VodCommand = require('./core/vod/VodCommand');
-<<<<<<< HEAD
-const HypeCommad = require('./social/misc/HypeCommand');
-const TopTenCommand = require('./core/player/TopTenCommand');
-=======
 const HypeCommand = require('./social/misc/HypeCommand');
->>>>>>> master
 const WambulanceCommad = require('./social/misc/WambulanceCommand');
 
 module.exports = {
@@ -53,11 +48,6 @@ module.exports = {
     ProfileCommand,
     InfoCommand,
     VodCommand,
-<<<<<<< HEAD
-    HypeCommad,
-    TopTenCommand,
-=======
     HypeCommand,
->>>>>>> master
     WambulanceCommad
 };

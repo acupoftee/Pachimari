@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-'use strict';
-
-const { Command, PachimariEmbed } = require('../../../models');
-const { Video, Endpoints } = require('../../../models/owl_models');
-const { JsonUtil } = require('../../../utils');
-=======
 const { Command, PachimariEmbed } = require('../../../models');
 const { Video, Endpoints } = require('../../../models/owl_models');
 const { JsonUtil, Logger } = require('../../../utils');
->>>>>>> master
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -24,19 +16,6 @@ class VodCommand extends Command {
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
         let videos = [];
-<<<<<<< HEAD
-        let pages = [], titles = [], thumbnails = [], descriptions = [];
-        let page = 1, title = 1, thumbnail = 1;
-        let counter = 1;
-        const embed = new PachimariEmbed(client);
-        
-        const body = await JsonUtil.parse(Endpoints.get("VODS"));
-        body.data.forEach(vod => {
-            let voddescription = vod.description === null ? '\n\n' : `\n\n"*${vod.description}*"\n\n`
-            let video = new Video(vod.unique_id, vod.available_at, vod.title, voddescription, 
-                `${vod.thumbnail}.jpg`, vod.share_url);
-            if (vod.status === 'complete') 
-=======
         let pages = [], descriptions = [];  //titles = [], thumbnails = [],
         let page = 1; //title = 1, thumbnail = 1;
         //let counter = 1;
@@ -49,7 +28,6 @@ class VodCommand extends Command {
             let video = new Video(vod.unique_id, vod.available_at, vod.title, voddescription,
                 `${vod.thumbnail}.jpg`, vod.share_url);
             if (vod.status === 'complete')
->>>>>>> master
                 videos.push(video);
         })
 
@@ -58,28 +36,16 @@ class VodCommand extends Command {
             //titles.push(video.title);
             let description = `__**${video.title}**__\nPublished on ${date}${video.description}[Watch here!](${video.shareURL})\n`;
             descriptions.push(description);
-<<<<<<< HEAD
-            thumbnails.push(video.thumbnail);
-=======
             //thumbnails.push(video.thumbnail);
->>>>>>> master
             if (descriptions.length == 3) {
                 pages.push(descriptions);
                 descriptions = [];
             }
-<<<<<<< HEAD
-            counter++;
-        }
-        pages.push(descriptions);
-        embed.setTitle("Recent Overwatch League VODs");
-        embed.setDescription(pages[page-1]);
-=======
             //counter++;
         }
         pages.push(descriptions);
         embed.setTitle(":tv: __Recent Overwatch League VODs__");
         embed.setDescription(pages[page - 1]);
->>>>>>> master
         embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
         //embed.setImage(thumbnails[thumbnail-1]);
 
@@ -101,19 +67,11 @@ class VodCommand extends Command {
                         return;
                     }
                     page--;
-<<<<<<< HEAD
-                    title--;
-                    thumbnail--;
-                    //embed.setTitle(titles[title-1]);
-                    embed.setDescription(pages[page-1]);
-                    embed.setTitle("Recent Overwatch League VODs");
-=======
                     //title--;
                     //thumbnail--;
                     //embed.setTitle(titles[title-1]);
                     embed.setDescription(pages[page - 1]);
                     embed.setTitle(":tv: __Recent Overwatch League VODs__");
->>>>>>> master
                     //embed.setImage(thumbnails[thumbnail-1]);
                     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     await r.remove(message.author.id);
@@ -126,28 +84,16 @@ class VodCommand extends Command {
                         return;
                     }
                     page++;
-<<<<<<< HEAD
-                    title++;
-                    thumbnail++;
-                    //embed.setTitle(titles[title-1]);
-                    embed.setTitle("Recent Overwatch League VODs");
-                    embed.setDescription(pages[page-1]);
-=======
                     //title++;
                     //thumbnail++;
                     //embed.setTitle(titles[title-1]);
                     embed.setTitle(":tv: __Recent Overwatch League VODs__");
                     embed.setDescription(pages[page - 1]);
->>>>>>> master
                     //embed.setImage(thumbnails[thumbnail-1]);
                     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                     await r.remove(message.author.id);
                     msg.edit(embed.buildEmbed().getEmbed);
                 });
-<<<<<<< HEAD
-                
-=======
->>>>>>> master
             })
         })
     }

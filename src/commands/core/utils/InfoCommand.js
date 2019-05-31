@@ -42,13 +42,10 @@ class InfoCommand extends Command {
       ":up: Upvote me on Discordbots.org (╹◡╹๑)",
       "https://tinyurl.com/y3mhfr8l"
     );
-<<<<<<< HEAD
-=======
     embed.addFields(
       `${Emojis["TWITTER"]} Follow me on Twitter (^_^)`,
       "https://twitter.com/PachimariApp"
     );
->>>>>>> master
     embed.buildEmbed().post(message.channel);
   }
 }

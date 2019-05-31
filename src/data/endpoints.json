@@ -17,11 +17,7 @@
     },
     {
       "key": "STANDINGS",
-<<<<<<< HEAD
-      "extension": "v2/standings?locale=en_US&season=2019"
-=======
       "extension": "/v2/standings?locale=en_US&season=2019"
->>>>>>> master
     },
     {
       "key": "PLAYERS",

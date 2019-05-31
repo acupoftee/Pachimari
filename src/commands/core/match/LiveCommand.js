@@ -95,10 +95,7 @@ class LiveCommand extends Command {
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {
             //loading.then(message => message.delete());
-<<<<<<< HEAD
-=======
             Logger.custom(`LIVE_COMMAND`, `Loading current live map data.`);
->>>>>>> master
             for (let i = 0; i < live.games.length; i++) {
                 if (live.games[i].state === 'IN_PROGRESS') {
                     const mapGuid = live.games[i].attributes.mapGuid;
@@ -118,11 +115,7 @@ class LiveCommand extends Command {
                     embed.setTitle(`__NOW LIVE: Current Map for ${moment_timezone(match.startDateTS).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')}__`);
                     //embed.buildEmbed().post(message.channel);
                     let mess = embed.buildEmbed().getEmbed;
-<<<<<<< HEAD
-           loading.then(message => message.edit(mess));
-=======
                     loading.then(message => message.edit(mess));
->>>>>>> master
                     return;
                 } 
             }
@@ -180,13 +173,8 @@ class LiveCommand extends Command {
             embed.setColor(home.primaryColor);
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
             let mess = embed.buildEmbed().getEmbed;
-<<<<<<< HEAD
-           
-            loading.then(message => message.edit(mess)).then(msg => {
-=======
            // loading.then(message => message.delete());
            loading.then(message => message.edit(mess)).then(msg => {
->>>>>>> master
                 msg.react("⬅").then(r => {
                     msg.react("➡");
 

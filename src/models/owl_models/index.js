@@ -17,14 +17,9 @@ const MatchManager = require('./MatchManager');
 const Video = require('./Video');
 const HeroManager = require('./HeroManager');
 const HypeGif = require('./HypeGif');
-<<<<<<< HEAD
-const WambulanceGif = require('./WambulanceGif');
-const Hero = require('./Hero')
-=======
 const Hero = require('./Hero')
 const WambulanceGif = require('./WambulanceGif');
 
->>>>>>> master
 module.exports = {
     Account,
     Player, 
@@ -43,11 +38,6 @@ module.exports = {
     Video,
     HeroManager,
     HypeGif,
-<<<<<<< HEAD
-    WambulanceGif,
-    Hero
-=======
     Hero,
     WambulanceGif
->>>>>>> master
 };
