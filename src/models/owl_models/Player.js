@@ -37,7 +37,7 @@ class Player {
     constructor(id, competitorId, playerNumber, name, homeLocation, 
         familyName, givenName, nationality, headshot, role, heroes,
         eliminations, deaths, heroDamage, healing, ultimates,
-        finalBlows, timePlayed) {
+        finalBlows, timePlayed) { //playedHeroes) {
             this._id = id;
             this._competitorId = competitorId;
             this._playerNumber = playerNumber;
@@ -56,13 +56,21 @@ class Player {
             this._ultimates = ultimates;
             this._finalBlows = finalBlows;
             this._timePlayed = timePlayed;
+            // this._playedHeroes = playedHeroes;
 
             /**
              * A Collection of Accounts
-             * @type {Collection<string, Object}
+             * @type {Collection<string, Account>}
              * @private
              */
             this._accounts = new Collection();
+
+            /**
+             * A Collection of Played Heroes
+             * @type {Collection<string, Hero>}
+             * @private
+             */
+            this._playedHeroes = new Collection();
     }
 
     /**
@@ -267,6 +275,14 @@ class Player {
      */
     get timePlayed() {
         return this._timePlayed;
+    }
+
+    /**
+     * Returns all played heroes
+     * @returns {Hero[]} played heroes
+     */
+    get playedHeroes() {
+        return this._playedHeroes;
     }
 
     /**

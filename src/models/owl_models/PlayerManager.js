@@ -8,10 +8,11 @@ const Account = require('./Account');
 const accountTypes = require('../../data/accounts.json');
 const Endpoints = require('./Endpoints');
 const heroData = require('../../data/heroes.json');
+const Hero = require('./Hero');
 
 /**
  * A collection of Players
- * @type {Collection<number, Player}
+ * @type {Collection<number, Player>}
  */
 const players = new Collection();
 
@@ -46,6 +47,16 @@ class PlayerManager {
         return this;
     }
 
+    // /**
+    //  * Obtains all heroes used by a player
+    //  */
+    // async getPlayedHeroes(playerId) {
+    //     let heroArray = [];
+    //     const body = await JsonUtil.parse(Endpoints.get('HERO-STATS', playerId));
+       
+    //     return heroArray;
+    // }
+
     /**
      * Loads all Players and stores them in a Collection
      * @async
@@ -54,8 +65,11 @@ class PlayerManager {
         for (let i = 0; i < this._players.length; i++) {
             const id = this._players[i];
             const body = await JsonUtil.parse(Endpoints.get('PLAYER', id));
+            const statsbody = await JsonUtil.parse(Endpoints.get('HERO-STATS', id));
             const data = body.data.player;
-            const heroArray = [];
+            let heroArray = [];
+
+            //let playedHeroes = await this.getPlayedHeroes(id);
 
             if (data.attributes.heroes !== undefined) {
                 heroData.forEach(hero => {
@@ -64,7 +78,7 @@ class PlayerManager {
                     }
                 })  
             }
-            
+
             let player = new Player(
                 data.id,
                 data.teams[0].team.id,
@@ -83,9 +97,9 @@ class PlayerManager {
                 body.data.stats.all.healing_avg_per_10m,
                 body.data.stats.all.ultimates_earned_avg_per_10m,
                 body.data.stats.all.final_blows_avg_per_10m,
-                body.data.stats.all.time_played_total
+                body.data.stats.all.time_played_total,
+                //playedHeroes
             );
-
             data.accounts.forEach(acc => {
                 let type = acc.accountType;
                 for (let i = 0; i < accountTypes.length; i++) {
@@ -97,9 +111,27 @@ class PlayerManager {
                 let account = new Account(acc.id, type, acc.value);
                 player.accounts.set(acc.id, account);
             })
+
+            const playerHeroes = statsbody.data.stats.heroes;
+            playerHeroes.forEach(hero => {
+                //console.log(hero);
+                let playedHero = new Hero(
+                    hero.hero_id, 
+                    hero.name, 
+                    hero.stats.eliminations_avg_per_10m,
+                    hero.stats.deaths_avg_per_10m,
+                    hero.stats.hero_damage_avg_per_10m,
+                    hero.stats.healing_avg_per_10m,
+                    hero.stats.ultimates_earned_avg_per_10m,
+                    hero.stats.final_blows_avg_per_10m,
+                    hero.stats.time_played_total);
+                player.playedHeroes.set(hero.name, playedHero);
+            });
+
             const competitor = CompetitorManager.competitors.get(data.teams[0].team.id);
             competitor.players.set(data.id, player);
             players.set(data.id, player);
+            console.log(player.playedHeroes);
             Logger.custom(`PLAYER`, `Loaded player ${data.id} ${data.name}`);
         }
     }
@@ -126,61 +158,61 @@ class PlayerManager {
         return heroes;
     }
 
-    static getHeroTitle(hero) {
-        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-            return 'Wrecking Ball';
-        }
-        if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
-            return 'Soldier: 76';
-        }
-        for (let i = 0; i < heroData.length; i++) {
-            if (heroData[i].key == hero.name) {
-                return heroData[i].title;
-            }
-        }
-    }
+    // static getHeroTitle(hero) {
+    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+    //         return 'Wrecking Ball';
+    //     }
+    //     if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
+    //         return 'Soldier: 76';
+    //     }
+    //     for (let i = 0; i < heroData.length; i++) {
+    //         if (heroData[i].key == hero.name) {
+    //             return heroData[i].title;
+    //         }
+    //     }
+    // }
 
-    static getHeroPortrait(hero) {
-        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-            return "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png";
-        }
-        if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
-            return "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png";
-        }
-        for (let i = 0; i < heroData.length; i++) {
-            if (heroData[i].key == hero.name) {
-                return heroData[i].portrait;
-            }
-        }
-    }
+    // static getHeroPortrait(hero) {
+    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+    //         return "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png";
+    //     }
+    //     if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
+    //         return "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png";
+    //     }
+    //     for (let i = 0; i < heroData.length; i++) {
+    //         if (heroData[i].key == hero.name) {
+    //             return heroData[i].portrait;
+    //         }
+    //     }
+    // }
 
-    static getHeroColor(hero) {
-        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-            return '#4a575f';
-        }
-        if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
-            return '#525d9b';
-        }
-        for (let i = 0; i < heroData.length; i++) {
-            if (heroData[i].key == hero.name) {
-                return heroData[i].color;
-            }
-        }
-    }
+    // static getHeroColor(hero) {
+    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+    //         return '#4a575f';
+    //     }
+    //     if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
+    //         return '#525d9b';
+    //     }
+    //     for (let i = 0; i < heroData.length; i++) {
+    //         if (heroData[i].key == hero.name) {
+    //             return heroData[i].color;
+    //         }
+    //     }
+    // }
 
-    static getHeroUltimate(hero) {
-        if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-            return 'Minefield';
-        }
-        if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
-            return 'Tactical Visor';
-        }
-        for (let i = 0; i < heroData.length; i++) {
-            if (heroData[i].key == hero.name) {
-                return heroData[i].ultimate;
-            }
-        }
-    }
+    // static getHeroUltimate(hero) {
+    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
+    //         return 'Minefield';
+    //     }
+    //     if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
+    //         return 'Tactical Visor';
+    //     }
+    //     for (let i = 0; i < heroData.length; i++) {
+    //         if (heroData[i].key == hero.name) {
+    //             return heroData[i].ultimate;
+    //         }
+    //     }
+    // }
     /**
      * Returns all updated player stats.
      * 0: eliminations, 1: deaths, 2: hero damage, 3: healing, 

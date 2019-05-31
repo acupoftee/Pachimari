@@ -18,6 +18,7 @@ const Video = require('./Video');
 const HeroManager = require('./HeroManager');
 const HypeGif = require('./HypeGif');
 const WambulanceGif = require('./WambulanceGif');
+const Hero = require('./Hero')
 module.exports = {
     Account,
     Player, 
@@ -36,5 +37,6 @@ module.exports = {
     Video,
     HeroManager,
     HypeGif,
-    WambulanceGif
+    WambulanceGif,
+    Hero
 };

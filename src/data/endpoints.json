@@ -65,6 +65,6 @@
     },
     {
       "key": "MAP-STATS",
-      "extension": "https://api.overwatchleague.com/stats/matches/{id}/maps/{num}"
+      "extension": "/stats/matches/{id}/maps/{num}"
     }
   ]

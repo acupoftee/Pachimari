@@ -10,15 +10,6 @@ const cover = require('canvas-image-cover');
  * avatar with the appropriate hype hashtag and banner color
  */
 class WambulanceGif {
-    /**
-     * Creates a random number
-     * @param {number} min 
-     * @param {number} max 
-     */
-    // randomize(min, max) {
-    //     return Math.floor(Math.random() * (max - min + 1));
-    // }
-
     async buildWambulanceGif() {
         let imageNumber = Math.floor(Math.random() * (4 - 1) + 1);//this.randomize(0, 3);
         let mercyImage = `assets/mercy_faces/${imageNumber}.jpeg`;
@@ -84,7 +75,7 @@ class WambulanceGif {
         encoder.finish();
     }
 
-      /**
+  /**
    * Zoom in at the current location.
    *
    * @param {number} factor how much to zoom in by (>=1).
@@ -98,6 +89,5 @@ class WambulanceGif {
     this.sh /= factor;
     return this;
   }
-
 }
 module.exports = WambulanceGif;
