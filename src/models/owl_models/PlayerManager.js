@@ -157,62 +157,6 @@ class PlayerManager {
         const heroes = body.data.stats.heroes;
         return heroes;
     }
-
-    // static getHeroTitle(hero) {
-    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-    //         return 'Wrecking Ball';
-    //     }
-    //     if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
-    //         return 'Soldier: 76';
-    //     }
-    //     for (let i = 0; i < heroData.length; i++) {
-    //         if (heroData[i].key == hero.name) {
-    //             return heroData[i].title;
-    //         }
-    //     }
-    // }
-
-    // static getHeroPortrait(hero) {
-    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-    //         return "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png";
-    //     }
-    //     if (hero.name == 'soldier76' || hero.name == 'soldier-76') {
-    //         return "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png";
-    //     }
-    //     for (let i = 0; i < heroData.length; i++) {
-    //         if (heroData[i].key == hero.name) {
-    //             return heroData[i].portrait;
-    //         }
-    //     }
-    // }
-
-    // static getHeroColor(hero) {
-    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-    //         return '#4a575f';
-    //     }
-    //     if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
-    //         return '#525d9b';
-    //     }
-    //     for (let i = 0; i < heroData.length; i++) {
-    //         if (heroData[i].key == hero.name) {
-    //             return heroData[i].color;
-    //         }
-    //     }
-    // }
-
-    // static getHeroUltimate(hero) {
-    //     if (hero.name == 'wreckingball' || hero.name == 'wrecking-ball') {
-    //         return 'Minefield';
-    //     }
-    //     if (hero.name == 'soldier-76' || hero.name == 'soldier-76') {
-    //         return 'Tactical Visor';
-    //     }
-    //     for (let i = 0; i < heroData.length; i++) {
-    //         if (heroData[i].key == hero.name) {
-    //             return heroData[i].ultimate;
-    //         }
-    //     }
-    // }
     /**
      * Returns all updated player stats.
      * 0: eliminations, 1: deaths, 2: hero damage, 3: healing, 

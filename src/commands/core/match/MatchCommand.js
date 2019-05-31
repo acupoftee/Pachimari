@@ -2,7 +2,11 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, MapManager } = require('../../../models/owl_models');
+<<<<<<< HEAD
 const { JsonUtil, MessageUtil, AlertUtil } = require('../../../utils');
+=======
+const { JsonUtil, AlertUtil, Logger } = require('../../../utils');
+>>>>>>> master
 const { Emojis } = require('../../../constants');
 const moment_timezone = require('moment-timezone');
 
@@ -37,18 +41,29 @@ class MatchCommand extends Command {
             embed.setColor(firstTeam.primaryColor);
             let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
             embed.setThumbnail(logo);
+<<<<<<< HEAD
             loading.then(message => message.edit(`${Emojis["LOADING"]} Loading matches for **${firstTeam.name}**`));
+=======
+            loading.then(message => message.edit(`${Emojis["LOADING"]} Loading matches for ${firstTeam.name}`));
+            Logger.custom(`MATCH_COMMAND`, `Loading matches for **${firstTeam.name}**`);
+>>>>>>> master
             const body = await JsonUtil.parse(Endpoints.get("SCHEDULE"));
             for (const _stage of body.data.stages) {
                 for (const week of _stage.weeks) {
                     stage_week = `${_stage.name} - ${week.name}`;
                     for (const _match of week.matches) {
+<<<<<<< HEAD
                         //console.log(_match);
+=======
+>>>>>>> master
                         if (_match.competitors[0] == null || _match.competitors[1] == null  || 
                             _match.competitors[0].abbreviatedName === undefined || _match.competitors[1].abbreviatedName === undefined) {
                             continue;
                         }
+<<<<<<< HEAD
                     
+=======
+>>>>>>> master
                         let home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName));
                         let away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName));
                         if (home === undefined || away === undefined) {
@@ -117,7 +132,11 @@ class MatchCommand extends Command {
                 return;
             }
             loading.then(message => message.edit(`${Emojis["LOADING"]} Loading matches for **${firstTeam.name}** vs. **${secondTeam.name}**`));
+<<<<<<< HEAD
 
+=======
+            Logger.custom(`MATCH_COMMAND`, `Loading matches for ${firstTeam.name} vs. ${secondTeam.name}`)
+>>>>>>> master
             embed.setTitle(`${Emojis[firstTeam.abbreviatedName.toUpperCase()]} ${firstTeam.name} vs ${secondTeam.name} ${Emojis[secondTeam.abbreviatedName.toUpperCase()]}`);
             embed.setColor(firstTeam.primaryColor);
             let logo = firstTeam.abbreviatedName.toUpperCase() == "CDH" ? firstTeam.altDark : firstTeam.logo;
@@ -191,7 +210,10 @@ class MatchCommand extends Command {
             loading.then(message => message.edit(AlertUtil.ERROR("Sorry, I couldn\'t find that match :C")));
             return;
         }
+<<<<<<< HEAD
         //loading.then(message => message.delete());
+=======
+>>>>>>> master
         embed.setDescription(pages[page - 1]);
         embed.setTitle(titles[title - 1]);
         //console.log(titles);

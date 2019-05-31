@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints, Match } = require('../../../models/owl_models');
-const { NumberUtil, MessageUtil, JsonUtil, AlertUtil } = require('../../../utils');
+const { NumberUtil, MessageUtil, JsonUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const stageData = require('../../../data/stages.json');
 const moment_timezone = require('moment-timezone');
@@ -57,6 +57,7 @@ class TeamCommand extends Command {
         
 
         if (args[1] === undefined) {
+            Logger.custom(`TEAM_COMMAND`, `Loading team ${competitor.name}`);
             embed.setTitle(`${teamEmoji} __${competitor.name}__ (${competitor.abbreviatedName})`);
             let teamInfo = []
             teamInfo.push(competitor.location + ' - ' + CompetitorManager.getDivision(competitor.divisionId).toString() + ' Division');
@@ -93,11 +94,18 @@ class TeamCommand extends Command {
             }
             embed.addFields("Schedule", `\`\`!team ${args[0]} schedule\`\``, true);
             //loading.then(message => message.delete());
+<<<<<<< HEAD
             let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.edit(mess));
             //embed.buildEmbed().post(message.channel);
+=======
+            //embed.buildEmbed().post(message.channel);
+            let mess = embed.buildEmbed().getEmbed;
+	        loading.then(message => message.edit(mess));
+>>>>>>> master
         } else {
             if (args[1].toLowerCase() === 'accounts') {
+                Logger.custom(`TEAM_COMMAND ACCOUNTS`, `Loading ACCOUNTS for team ${competitor.name}`);
                 if (competitor.accounts.size === 0) {
                     //MessageUtil.sendError(message.channel, "This team does not have any accounts.");
         
@@ -115,12 +123,21 @@ class TeamCommand extends Command {
                 //loading.then(message => message.delete());
                 //embed.buildEmbed().post(message.channel);
                 let mess = embed.buildEmbed().getEmbed;
+<<<<<<< HEAD
                 loading.then(message => message.edit(mess));
+=======
+	            loading.then(message => message.edit(mess));
+>>>>>>> master
             } else if (args[1].toLowerCase() === 'schedule') {
                 let matches = [];
                 let stage = "";
                 const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'));
+<<<<<<< HEAD
                 //let promise = new Promise(function (resolve, reject) {
+=======
+                Logger.custom(`TEAM_COMMAND SCHEDULE`, `Loading SCHEDULE for team ${competitor.name}`);
+                let promise = new Promise(function (resolve, reject) {
+>>>>>>> master
                     let currentTime = new Date().getTime();
                     let slug = null;
                     for (let i = 0; i < stageData.length; i++) {
@@ -176,7 +193,10 @@ class TeamCommand extends Command {
                 embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
                 //loading.then(message => message.delete());
                 let mess = embed.buildEmbed().getEmbed;
+<<<<<<< HEAD
          
+=======
+>>>>>>> master
                 loading.then(message => message.edit(mess)).then(msg => {
                     msg.react("🔄").then(r => {
                         const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;
@@ -199,7 +219,10 @@ class TeamCommand extends Command {
             }
             else {
                 loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I couldn't understand that. Maybe a typo?")));
+<<<<<<< HEAD
                 //MessageUtil.sendError(message.channel, ":C Sorry I couldn't understand that. Maybe a typo?");
+=======
+>>>>>>> master
                 return;
             }
         }

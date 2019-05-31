@@ -17,7 +17,11 @@ class Video {
     get date() {
         return this._date;
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     get title() {
         return this._title;
     }

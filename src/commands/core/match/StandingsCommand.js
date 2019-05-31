@@ -3,7 +3,7 @@
 const { Collection } = require('discord.js');
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
-const { JsonUtil } = require('../../../utils');
+const { JsonUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const stageData = require('../../../data/stages.json');
 
@@ -27,10 +27,14 @@ class StandingsCommand extends Command {
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
+<<<<<<< HEAD
         //msg.then(async message => message.edit(await (this.buildMessage(client, args))));
     //}
 
     //async buildMessage(client, args) {
+=======
+
+>>>>>>> master
         let info = [], pages = [], titles = [];
         let page = 0, titleNumber = 0;
         const embed = new PachimariEmbed(client);
@@ -44,6 +48,10 @@ class StandingsCommand extends Command {
         "\u0033\u20E3",
         "\u0034\u20E3"];
 
+<<<<<<< HEAD
+=======
+        Logger.custom(`STANDINGS_COMMAND`, `Loading standings data.`);
+>>>>>>> master
         const body = await JsonUtil.parse(Endpoints.get('STANDINGS'));
         for (let i = 0; i < CompetitorManager.competitors.size; i++) {
             const standing = body.data[i];
@@ -57,11 +65,16 @@ class StandingsCommand extends Command {
             const numberData = `${matchWin}W - ${matchLoss}L  ${mapDiff}`
             info.push(`\`${String(standing.league.placement).padStart(2, "0")}.\`  ${teamEmoji} \`${numberData}\``);
         }
+<<<<<<< HEAD
 
         //info.splice(8, 0, `--------------------------\n\*Stage Playoffs Cutoff*\n--------------------------`);
         pages.push(info);
 
     
+=======
+        pages.push(info);
+
+>>>>>>> master
         if (stageIds.length > 0) {
             for (let i = 0; i < stageIds.length; i++) {
                 let stageInfo = [];
@@ -87,17 +100,30 @@ class StandingsCommand extends Command {
                 stageInfo.splice(8, 0, `--------------------------\n\*Stage ${i + 1} Playoffs Cutoff*\n--------------------------`);
                 pages.push(stageInfo);
                 titles.push(pageTitle);
+<<<<<<< HEAD
             }
             for (let i = 0; i < pages.length; i++) {
                 pages[i].splice(0, 0, '*Command author can navigate stage/league\nstandings using the reactions below.*\n--------------------------');
             }
+=======
+            }
+
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].splice(0, 0, '*Command author can navigate stage/league\nstandings using the reactions below.*\n--------------------------');
+            }
+            
+>>>>>>> master
             embed.setDescription(pages[page]);
             embed.setTitle(titles[titleNumber]);
             let mess = embed.buildEmbed().getEmbed;
 
+<<<<<<< HEAD
 
             // https://github.com/MrSalta/discord-bot/blob/1d57bcfdd37cd74ff824ff1308cc5b9d6f6bfc5d/commands/destiny.js
             //let previousTitle = titles[titleNumber];
+=======
+            // https://github.com/MrSalta/discord-bot/blob/1d57bcfdd37cd74ff824ff1308cc5b9d6f6bfc5d/commands/destiny.js
+>>>>>>> master
             loading.then(message => message.edit(mess)).then(msg => {
                 msg.react('🏆').then(async r => {
                     for (let i = 0; i < stageIds.length; i++) {
@@ -157,15 +183,22 @@ class StandingsCommand extends Command {
                                 titleNumber = 4;
                                 break;
                         }
+<<<<<<< HEAD
                         // if (previousPage === page) {
                         //     await r.remove(message.author.id);
                         //     return;
                         // }
+=======
+
+>>>>>>> master
                         embed.setTitle(titles[titleNumber]);
                         embed.setDescription(pages[page]);
                         await r.remove(message.author.id);
                         msg.edit(embed.buildEmbed().getEmbed);
+<<<<<<< HEAD
                         //previousPage = page;
+=======
+>>>>>>> master
                     })
                 })
             })

@@ -94,6 +94,7 @@ class ScheduleCommand extends Command {
             embed.setTitle(`__${dates[days-1]} - ${stage_week}__`);
             embed.setDescription(pages[page-1]);
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
+            Logger.custom(`SCHEDULE_COMMAND`, `Loading schedule for ${stage_week}`);
         });
         promise.then(function(result) {
             let mess = embed.buildEmbed().getEmbed;

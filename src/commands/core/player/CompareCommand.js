@@ -2,7 +2,7 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
-const { MessageUtil, AlertUtil, NumberUtil } = require('../../../utils');
+const { MessageUtil, AlertUtil, NumberUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
 const heroes = require('../../../data/heroes.json');
 
@@ -25,7 +25,6 @@ class CompareCommand extends Command {
         if (args.length <= 1 || args.length > 3) {
             return AlertUtil.ERROR("Please specify 2 Overwatch League Player to compare stats and a hero name if you want hero stats!");
         } else if (args[2] !== undefined && HeroManager.locateHero(args[2]) === undefined) {
-            console.log(HeroManager.locateHero(args[2]));
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
         }
 
@@ -38,7 +37,7 @@ class CompareCommand extends Command {
 
 
         if (firstPlayer === undefined || secondPlayer === undefined) {
-            return AlertUtil.ERROR("Sorry, couldn't find any info for :C");
+            return AlertUtil.ERROR("Sorry, couldn't find any info for those players :C");
         }
 
         const embed = new PachimariEmbed(client);
@@ -48,10 +47,12 @@ class CompareCommand extends Command {
               secondEmoji = Emojis[secondCompetitor.abbreviatedName];
 
         if (args.length === 3) {
+            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name} on ${args[2]}`);
             let heroURL, heroTitle, heroColor, heroUlt;
             let firstPlayerHeroes = await PlayerManager.getHeroes(firstPlayer),
                 secondPlayerHeroes = await PlayerManager.getHeroes(secondPlayer);
             let firstIndex = -1, secondIndex = -1;
+ 
             let heroAlias = HeroManager.locateHero(args[2]);
             let heroName = heroAlias;
             if (heroAlias == 'wrecking-ball') {
@@ -61,8 +62,6 @@ class CompareCommand extends Command {
             heroURL = HeroManager.getHeroURL(heroAlias);
             heroTitle = HeroManager.getHeroTitle(heroAlias);
             heroUlt = HeroManager.getHeroUltimate(heroAlias);
-
-
 
             for (let i = 0; i < firstPlayerHeroes.length; i++) {
                 if (firstPlayerHeroes[i].name == heroName) {
@@ -79,6 +78,7 @@ class CompareCommand extends Command {
             }
             // potential portrait url https://d1u1mce87gyfbn.cloudfront.net/hero/ana/icon-portrait.png
             embed.setTitle(`${firstEmoji} ${firstPlayer.givenName} '**${firstPlayer.name}**' ${firstPlayer.familyName} vs ${secondPlayer.givenName} '**${secondPlayer.name}**' ${secondPlayer.familyName} ${secondEmoji}\n on **${heroTitle}**`);
+            Logger.custom(`COMPARE_COMMAND HERO`, `Comparing ${firstPlayer.name} and ${secondPlayer.name} on ${heroTitle}`);
             let firstInfo = [], secondInfo = [];
 
             if (firstIndex == -1) {
@@ -145,6 +145,7 @@ class CompareCommand extends Command {
             secondPlayer.setTimePlayed(secondStats[6]);
 
             embed.setTitle(`${firstEmoji} ${firstPlayer.givenName} '**${firstPlayer.name}**' ${firstPlayer.familyName} vs ${secondPlayer.givenName} '**${secondPlayer.name}**' ${secondPlayer.familyName} ${secondEmoji}`);
+            Logger.custom(`COMPARE_COMMAND`, `Comparing ${firstPlayer.name} and ${secondPlayer.name}`);
             let firstInfo = [], secondInfo = [];
 
             firstInfo.push(`${MessageUtil.getFlag(firstPlayer.nationality)} ${firstPlayer.homeLocation}`);
@@ -182,41 +183,5 @@ class CompareCommand extends Command {
             return { embed: embed.getEmbed };
         }
     }
-
-    // getHeroTitle(val) {
-    //     const key = val.toLowerCase();
-    //     for (let i = 0; i < heroes.length; i++) {
-    //         if (heroes[i].key === key) {
-    //             return heroes[i].title;
-    //         }
-    //     }
-    // }
-
-    // getHeroColor(val) {
-    //     const key = val.toLowerCase();
-    //     for (let i = 0; i < heroes.length; i++) {
-    //         if (heroes[i].key === key) {
-    //             return heroes[i].color;
-    //         }
-    //     }
-    // }
-
-    // getHeroURL(val) {
-    //     const key = val.toLowerCase();
-    //     for (let i = 0; i < heroes.length; i++) {
-    //         if (heroes[i].key === key) {
-    //             return heroes[i].portrait;
-    //         }
-    //     }
-    // }
-
-    // getHeroUltimate(val) {
-    //     const key = val.toLowerCase();
-    //     for (let i = 0; i < heroes.length; i++) {
-    //         if (heroes[i].key === key) {
-    //             return heroes[i].ultimate;
-    //         }
-    //     }
-    // }
 }
 module.exports = CompareCommand;

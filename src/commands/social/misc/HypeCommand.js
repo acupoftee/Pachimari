@@ -3,25 +3,39 @@
 const { Command } = require('../../../models');
 const { HypeGif } = require('../../../models/owl_models')
 const { Emojis } = require('../../../constants');
+<<<<<<< HEAD
 const fs = require('fs');
 
 //const { Tweets } = require('../../../social')
 //const { Emoji } = require('discord.js');
 //const open = require('open');
 
+=======
+const { Logger } = require('../../../utils')
+const fs = require('fs');
+
+>>>>>>> master
 class HypeCommand extends Command {
     constructor() {
         super();
         this.name = "hype";
         this.description = "Show some hype for your fav team";
+<<<<<<< HEAD
         this.usage = "hype <teamname>";
+=======
+        this.usage = "hype";
+>>>>>>> master
         this.aliases = [];
     }
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
         let hype = new HypeGif();
+<<<<<<< HEAD
         //let tweet = new Tweets();
+=======
+        Logger.custom('HYPE', 'USING HYPE COMMAND');
+>>>>>>> master
         await hype.buildHypeGif(message.author.avatarURL.replace(/(gif|webp)/g, 'png'));
         loading.then(msg => {
             fs.readdir("src/res/", function(err, files) {
@@ -29,6 +43,7 @@ class HypeCommand extends Command {
                 msg.edit("<a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222><a:hype:550886762004873222>").then(m => {
                     message.channel.send({
                         files: [gif]
+<<<<<<< HEAD
                     });
                     // }).then(m => {
                     //     m.react('548532720142254081');
@@ -49,6 +64,9 @@ class HypeCommand extends Command {
                     //         return;
                     //     })
                     // })
+=======
+                    })
+>>>>>>> master
                 })
             });
         });

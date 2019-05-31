@@ -5,14 +5,13 @@ const fs = require('fs');
 const cover = require('canvas-image-cover');
 
 /**
- * @class HypeGid
- * @description defines a HypeGif object showing a Discord User's profile
- * avatar with the appropriate hype hashtag and banner color
+ * @class WambulanceGif
+ * @description defines a Wambulance object showing a Mercy meme
  */
 class WambulanceGif {
     async buildWambulanceGif() {
-        let imageNumber = Math.floor(Math.random() * (4 - 1) + 1);//this.randomize(0, 3);
-        let mercyImage = `assets/mercy_faces/${imageNumber}.jpeg`;
+        let imageNumber = Math.floor(Math.random() * (4 - 1) + 1);
+        let mercyImage = `assets/mercy_faces/${imageNumber}.jpg`;
         const encoder = new GIFEncoder(400, 400);
         encoder.createReadStream().pipe(fs.createWriteStream('src/res/waa.gif'));
 
@@ -74,20 +73,5 @@ class WambulanceGif {
             }
         encoder.finish();
     }
-
-  /**
-   * Zoom in at the current location.
-   *
-   * @param {number} factor how much to zoom in by (>=1).
-   * @returns {Cover}
-   */
-  zoom (factor) {
-    if (factor < 1) throw new Error('zoom not >= 1');
-    this.sx += (this.sw - (this.sw / factor)) / 2;
-    this.sy += (this.sh - (this.sh / factor)) / 2;
-    this.sw /= factor;
-    this.sh /= factor;
-    return this;
-  }
 }
 module.exports = WambulanceGif;

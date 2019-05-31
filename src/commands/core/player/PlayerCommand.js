@@ -2,9 +2,8 @@
 
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
-const { NumberUtil, MessageUtil, AlertUtil } = require('../../../utils');
+const { NumberUtil, MessageUtil, AlertUtil, Logger } = require('../../../utils');
 const { Emojis } = require('../../../constants');
-const heroData = require('../../../data/heroes.json');
 let heroUlt;
 
 /**
@@ -27,7 +26,6 @@ class PlayerCommand extends Command {
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
-        // loading.then(async message => message.edit(await(this.buildMessage(client, args))));
 
         if (args.length <= 0) {
             loading.then(message => message.delete());
@@ -39,8 +37,7 @@ class PlayerCommand extends Command {
         const player = PlayerManager.players.get(locateId);
 
         if (player === undefined) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Could not find player");
+            loading.then(message => message.edit(AlertUtil.ERROR(":C Sorry I could not find that player")));
             return;
         }
 
@@ -61,6 +58,7 @@ class PlayerCommand extends Command {
 
         // retrieve player data
         if (args[1] === undefined) {
+            Logger.custom(`PLAYER_COMMAND`, `Loading player ${player.name}`);
             embed.setTitle(`${player.givenName} '**${player.name}**' ${player.familyName}`);
             let info = [];
             info.push(`${teamEmoji}${Emojis[player.role.toUpperCase()]} **#${player.playerNumber}**`);
@@ -85,17 +83,15 @@ class PlayerCommand extends Command {
                 embed.addFields(`${heroes.length} Played ${word}`, `\`\`!player ${args[0]} heroes\`\``, true);
             }
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-            //loading.then(message => message.delete());
-            //embed.buildEmbed().post(message.channel);
+
             let mess = embed.buildEmbed().getEmbed;
-            loading.then(message => message.edit(mess));
-            
+	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'accounts') {
+            Logger.custom(`PLAYER_COMMAND ACCOUNTS`, `Loading ACCOUNTS for player ${player.name}`);
 
             // return if there are no accounts to be displayed
             if (player.accounts.size === 0) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "This player does not have any accounts.");
+                loading.then(message => message.edit(AlertUtil.ERROR("This player does not have any accounts.")));
                 return;
             }
             embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
@@ -107,15 +103,13 @@ class PlayerCommand extends Command {
             });
             let msg = accs.join('\n');
             embed.setDescription(msg);
-            //loading.then(message => message.delete());
-            //embed.buildEmbed().post(message.channel);
             let mess = embed.buildEmbed().getEmbed;
-            loading.then(message => message.edit(mess));
+	        loading.then(message => message.edit(mess));
         } else if (args[1].toLowerCase() === 'heroes') {
+            Logger.custom(`PLAYER_COMMAND HEROES`, `Loading HEROES for player ${player.name}`);
             // return if there aren't any hero stats
             if (heroes.length === 0) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, "This player doesn't have a list of heroes.");
+                loading.then(message => message.edit(AlertUtil.ERROR("This player doesn't have a list of heroes.")));
                 return;
             }
             if (args[2] === undefined) {
@@ -131,12 +125,12 @@ class PlayerCommand extends Command {
                 embed.addFields("% Played", percentage, true);
 
                 embed.setFooter("Use \`!player <name> heroes expand\` to see more hero stats!");
-
                 let mess = embed.buildEmbed().getEmbed;
                 loading.then(message => message.edit(mess));
             } else if (args[2].toLowerCase() === 'expand') {
                 let pages = [], titles = [];
                 let page = 1, title = 1;
+                Logger.custom(`PLAYER_COMMAND EXPAND HEROES`, `Expanding heroes for player ${player.name}`);
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let info = [];
                     let heroMoji = Emojis[hero.name.replace('-', '').toUpperCase()];
@@ -145,7 +139,6 @@ class PlayerCommand extends Command {
                         heroName = 'wrecking-ball';
                     }
                     let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroName)}** Stats`;
-                    //let descriptionString = `${heroMoji} __**${PlayerManager.getHeroTitle(hero)}**__\n`;
 
                     info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
                     info.push(`Eliminations:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
@@ -155,7 +148,6 @@ class PlayerCommand extends Command {
                     info.push(`${HeroManager.getHeroUltimate(heroName)}s Earned:  \`${hero.stats.ultimates_earned_avg_per_10m.toFixed(2)}\``);
                     info.push(`Final Blows:  \`${hero.stats.final_blows_avg_per_10m.toFixed(2)}\``);
 
-                    //info.splice(0, 0, descriptionString);
                     titles.push(titleString);
                     pages.push(info);
                 })
@@ -166,7 +158,6 @@ class PlayerCommand extends Command {
                     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages.`);
 
                     let mess = embed.buildEmbed().getEmbed;
-            
                     loading.then(message => message.edit(mess)).then(msg => {
                         msg.react("⬅").then(r => {
                             msg.react("➡");
@@ -222,7 +213,7 @@ class PlayerCommand extends Command {
                     embed.addFields(`Final Blows`, `${heroes[0].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
 
                     let mess = embed.buildEmbed().getEmbed;
-                    loading.then(message => message.edit(mess));   
+                    loading.then(message => message.edit(mess));
                 }
             } else {
                 loading.then(message => message.delete());
@@ -230,19 +221,17 @@ class PlayerCommand extends Command {
                 return;
             }
         } else if (args[1].toLowerCase() === 'hero') {
+            Logger.custom(`PLAYER_COMMAND HERO`, `Loading HERO for player ${player.name}`);
             let hero, heroName;
             if (args[2] === undefined) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
+                loading.then(message => message.edit(AlertUtil.ERROR(":C Make sure to add a proper hero name! (no spaces)")));
                 return;
-            }
-            else if (HeroManager.locateHero(args[2]) === undefined) {
-                loading.then(message => message.delete());
-                MessageUtil.sendError(message.channel, ":C Make sure to add a proper hero name! (no spaces)");
+            } else if (HeroManager.locateHero(args[2]) === undefined) {
+                loading.then(message => message.edit(AlertUtil.ERROR(":C Make sure to add a proper hero name! (no spaces)")));
                 return;
             } else {
                 hero = HeroManager.locateHero(args[2]);
-                heroName = hero
+                heroName = hero;
                 if (heroName == 'wrecking-ball') {
                     heroName = 'wreckingball'
                 }
@@ -270,16 +259,13 @@ class PlayerCommand extends Command {
                 embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
             }
 
-            embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
-            //embed.setDescription(`${heroMoji} __**${PlayerManager.getHeroTitle(heroes[index])}**__`);
+            embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroes[index])}** Stats`);
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
-
-           let mess = embed.buildEmbed().getEmbed;
-           loading.then(message => message.edit(mess));
+            let mess = embed.buildEmbed().getEmbed;
+	        loading.then(message => message.edit(mess));
 
         } else if (args[1] !== undefined) {
-            loading.then(message => message.delete());
-            MessageUtil.sendError(message.channel, "Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!");
+            loading.then(message => message.edit(AlertUtil.ERROR("Make sure to use the command format \`!player <name> [heroes] [expand]\` or \`!player <name> [hero] <heroname>\` for some cool results!")));
             return;
         }
     }

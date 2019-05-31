@@ -37,7 +37,7 @@ class Player {
     constructor(id, competitorId, playerNumber, name, homeLocation, 
         familyName, givenName, nationality, headshot, role, heroes,
         eliminations, deaths, heroDamage, healing, ultimates,
-        finalBlows, timePlayed) { //playedHeroes) {
+        finalBlows, timePlayed) { 
             this._id = id;
             this._competitorId = competitorId;
             this._playerNumber = playerNumber;
