@@ -21,6 +21,7 @@
     "@discordjs/uws": "^11.149.1",
     "bufferutil": "^4.0.1",
     "canvas": "^2.3.1",
+    "canvas-image-cover": "^2.0.0",
     "discord.js": "^11.5.0",
     "dotenv": "^6.2.0",
     "erlpack": "github:discordapp/erlpack",

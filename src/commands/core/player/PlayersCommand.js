@@ -29,6 +29,7 @@ class PlayersCommand extends Command {
         }
         else if (args.length === 1) {
             let heroColor, heroURL, heroTitle, revisedHero;
+            let playersWithSaidHero = [];
             let hero = HeroManager.locateHero(args[0]);
             if (hero == 'wrecking-ball') {
                 revisedHero = 'wreckingball';
@@ -41,28 +42,31 @@ class PlayersCommand extends Command {
             heroURL = HeroManager.getHeroURL(hero);
             heroTitle = HeroManager.getHeroTitle(hero);
 
-            let list = PlayerManager.players.array().sort(this.compare);
-            if (hero != undefined || revisedHero != undefined) {
+            let query = revisedHero != undefined ? revisedHero : hero;
+            let list = PlayerManager.players.array();
+            if (query != undefined) {
                 loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[hero.replace('-', '').toUpperCase()]}`))
                 for (const player of list) {
+                    if (player.playedHeroes.get(query)) {
+                        playersWithSaidHero.push(player);
+                    } 
+                }
+                playersWithSaidHero.sort((a, b) => b.playedHeroes.get(query).timePlayed - a.playedHeroes.get(query).timePlayed);
+                let playerCount = 0;
+                for (const player of playersWithSaidHero) {
                     let competitor = CompetitorManager.competitors.get(player.competitorId);
-                    let competitorHeroes = await PlayerManager.getHeroes(player);
-                    let query = revisedHero != undefined ? revisedHero : hero;
-        
-                    for (let i = 0; i < competitorHeroes.length; i++) {
-                        if (competitorHeroes[i].name == query) {
-                            let teamoji = Emojis[competitor.abbreviatedName];
+                    let teamoji = Emojis[competitor.abbreviatedName];
                             players.push(`${MessageUtil.getFlag(player.nationality)} ${teamoji} ${
                                 Emojis[player.role.toUpperCase()]} ${
                                 player.givenName} '**${player.name}**' ${player.familyName}`);
-                            if (playerCount % 20 == 0) {
-                                pages.push(players);
-                                players = [];
-                            }
-                            playerCount++;
-                        }
+                    if (playerCount % 20 === 0) {
+                        players.splice(0, 0, '*Sorted by time played.*');
+                        pages.push(players);
+                        players = [];
                     }
+                    playerCount++;
                 }
+                players.splice(0, 0, '*Sorted by time played.*');
                 pages.push(players);
                 embed.setTitle(`__Overwatch League Players with Time on ${heroTitle}__`);
                 embed.setColor(heroColor);
@@ -89,7 +93,6 @@ class PlayersCommand extends Command {
             embed.setTitle('__Overwatch League Players__');
         }
 
-        //loading.then(message => message.delete());
         embed.setDescription(pages[page - 1]);
 
         if (pages.length > 1) {
