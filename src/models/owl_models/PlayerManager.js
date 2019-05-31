@@ -47,6 +47,16 @@ class PlayerManager {
         return this;
     }
 
+    // /**
+    //  * Obtains all heroes used by a player
+    //  */
+    // async getPlayedHeroes(playerId) {
+    //     let heroArray = [];
+    //     const body = await JsonUtil.parse(Endpoints.get('HERO-STATS', playerId));
+       
+    //     return heroArray;
+    // }
+
     /**
      * Loads all Players and stores them in a Collection
      * @async

@@ -17,7 +17,6 @@ class Video {
     get date() {
         return this._date;
     }
-
     get title() {
         return this._title;
     }

@@ -56,6 +56,7 @@ class Player {
             this._ultimates = ultimates;
             this._finalBlows = finalBlows;
             this._timePlayed = timePlayed;
+            // this._playedHeroes = playedHeroes;
 
             /**
              * A Collection of Accounts

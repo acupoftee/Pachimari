@@ -55,6 +55,9 @@ class MatchCommand extends Command {
                         }
                         let homeMatchScore = _match.scores[0].value;
                         let awayMatchScore = _match.scores[1].value;
+                        // console.log(away);
+                        // console.log(home);
+
                         if ((home.id === firstTeam.id) || ((away.id === firstTeam.id))) {
                             found = true;
                             if (_match.status === "CONCLUDED") {

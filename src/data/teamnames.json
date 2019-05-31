@@ -6,7 +6,8 @@
         "reign",
         "atlanta",
         "atlreign"
-    ]
+    ],
+    "hashtag": "#LetItReign"
 },
 {
     "id": 4402,
@@ -15,7 +16,8 @@
         "bostonuprising",
         "uprising",
         "boston"
-    ]
+    ],
+    "hashtag": "#BostonUp"
 },
 {
     "id": 7692,
@@ -24,7 +26,8 @@
         "chengduhunters",
         "hunters",
         "chengdu"
-    ]
+    ],
+    "hashtag": "#LetsGoHunt"
 },
 {
     "id": 4523,
@@ -33,7 +36,8 @@
         "dallasfuel",
         "fuel",
         "dallas"
-    ]
+    ],
+    "hashtag": "#BurnBlue"
 },
 {
     "id": 4407,
@@ -43,7 +47,8 @@
         "mayhem",
         "florida",
         "flmayhem"
-    ]
+    ],
+    "hashtag": "#BringTheMayhem"
 },
 {
     "id": 4406,
@@ -52,7 +57,8 @@
         "losangelesgladiators",
         "lagladiators",
         "gladiators"
-    ]
+    ],
+    "hashtag": "#ShieldsUP"
 },
 {
     "id": 7699,
@@ -62,7 +68,8 @@
         "charge",
         "guangzhou",
         "gzcharge"
-    ]
+    ],
+    "hashtag": "#FeelTheCharge"
 },
 {
     "id": 4525,
@@ -71,7 +78,8 @@
         "houstonoutlaws",
         "outlaws",
         "houston"
-    ]
+    ],
+    "hashtag": "#AnteUp"
 },
 {
     "id": 7693,
@@ -81,7 +89,8 @@
         "spark",
         "hangzhou",
         "hzspark"
-    ]
+    ],
+    "hashtag": "#Bang"
 },
 {
     "id": 4410,
@@ -90,7 +99,8 @@
         "londonspitfire",
         "spitfire",
         "london"
-    ]
+    ],
+    "hashtag": "#AcesHigh"
 },
 {
     "id": 4403,
@@ -104,7 +114,8 @@
         "ny",
         "nyxl",
         "nyexcelsior"
-    ]
+    ],
+    "hashtag": "#EverUpward"
 },
 {
     "id": 7694,
@@ -113,7 +124,8 @@
         "pariseternal",
         "eternal",
         "paris"
-    ]
+    ],
+    "hashtag": "#FiatLux"
 },
 {
     "id": 4524,
@@ -124,7 +136,8 @@
         "fusion",
         "philadelphia",
         "phlfusion"
-    ]
+    ],
+    "hashtag": "#IonThePrize"
 },
 {
     "id": 4409,
@@ -133,7 +146,8 @@
         "seouldynasty",
         "dynasty",
         "seoul"
-    ]
+    ],
+    "hashtag": "#RoarOn"
 },
 {
     "id": 4404,
@@ -145,7 +159,8 @@
         "sanfran",
         "sanfranshock",
         "sfshock"
-    ]
+    ],
+    "hashtag": "#ShockTheWorld"
 },
 {
     "id": 4408,
@@ -154,7 +169,8 @@
         "shanghaidragons",
         "dragons",
         "shanghai"
-    ]
+    ],
+    "hashtag": "#Breakthrough"
 },
 {
     "id": 7695,
@@ -163,7 +179,8 @@
         "torontodefiant",
         "defiant",
         "toronto"
-    ]
+    ],
+    "hashtag": "#RiseTogether"
 },
 {
     "id": 4405,
@@ -172,7 +189,8 @@
         "losangelesvaliant",
         "lavaliant",
         "valiant"
-    ]
+    ],
+    "hashtag": "#WingsOut"
 },
 {
     "id": 7696,
@@ -181,7 +199,8 @@
         "vancouvertitans",
         "titans",
         "vancouver"
-    ]
+    ],
+    "hashtag": "#ForceOfNature"
 },
 {
     "id": 7697,
@@ -190,6 +209,7 @@
         "washingtonjustice",
         "justice",
         "washington"
-    ]
+    ],
+    "hashtag": "#JusticeIsServed"
 }
 ]

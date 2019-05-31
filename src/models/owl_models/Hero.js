@@ -1,5 +1,4 @@
 'use strict';
-	
 	/**
 	 * @class Hero
 	 * @description An object for representing hero information such as id, 
