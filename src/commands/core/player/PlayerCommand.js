@@ -259,7 +259,7 @@ class PlayerCommand extends Command {
                 embed.addFields(`Final Blows`, `${heroes[index].stats.final_blows_avg_per_10m.toFixed(2)}`, true);
             }
 
-            embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${PlayerManager.getHeroTitle(heroes[index])}** Stats`);
+            embed.setTitle(`${teamEmoji}${heroMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroes[index])}** Stats`);
             embed.setFooter('Stats are per 10 minutes, except for Time Played.');
             let mess = embed.buildEmbed().getEmbed;
 	        loading.then(message => message.edit(mess));
