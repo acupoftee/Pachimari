@@ -19,7 +19,7 @@ class TeamcordsCommand extends Command {
         super();
         this.name = 'teamcords';
         this.description = 'Displays Discord servers for OWL teams';
-        this.usage = 'teamcords [division|team]';
+        this.usage = 'teamcords';
         this.aliases = ['discords', 'teamdiscords'];
     }
 

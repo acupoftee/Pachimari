@@ -90,6 +90,7 @@ class LiveCommand extends Command {
             const filename = await banner.buildBanner('pic.png');
             embed.setImageFileName(filename, 'pic.png');
             embed.setColor(home.primaryColor);
+            //let mess = embed.buildEmbed().getEmbed;
             loading.then(message => message.delete());
             embed.buildEmbed().post(message.channel);
         } else if (args[0].toLowerCase() === 'map') {

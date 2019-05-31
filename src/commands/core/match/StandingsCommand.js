@@ -1,5 +1,6 @@
 'use strict';
 
+const { Collection } = require('discord.js');
 const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, Endpoints } = require('../../../models/owl_models');
 const { JsonUtil, Logger } = require('../../../utils');
@@ -26,7 +27,6 @@ class StandingsCommand extends Command {
 
     async execute(client, message, args) {
         let loading = message.channel.send(Emojis["LOADING"]);
-
         let info = [], pages = [], titles = [];
         let page = 0, titleNumber = 0;
         const embed = new PachimariEmbed(client);
@@ -151,7 +151,6 @@ class StandingsCommand extends Command {
                                 titleNumber = 4;
                                 break;
                         }
-
                         embed.setTitle(titles[titleNumber]);
                         embed.setDescription(pages[page]);
                         await r.remove(message.author.id);

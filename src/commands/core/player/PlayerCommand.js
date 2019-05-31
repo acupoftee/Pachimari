@@ -20,7 +20,7 @@ class PlayerCommand extends Command {
         super();
         this.name = 'player';
         this.description = 'Displays information about a specific OWL player';
-        this.usage = 'player <player> [accounts|heroes] [expand], !player <player> hero <heroname>'
+        this.usage = 'player <player> [accounts|heroes] [expand], !player <player> hero <heroname>';
         this.aliases = [];
     }
 

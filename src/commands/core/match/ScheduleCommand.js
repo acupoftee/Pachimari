@@ -11,7 +11,7 @@ class ScheduleCommand extends Command {
     constructor() {
         super();
         this.name = 'schedule';
-        this.description = 'Displays matches for the current state and week';
+        this.description = 'Displays matches for the current stage and week';
         this.usage = 'schedule';
         this.aliases = ['matches'];
     }

@@ -62,5 +62,9 @@
     {
       "key": "HERO-STATS",
       "extension": "/players/{id}?locale=en_US&expand=stats,stat.ranks"
+    },
+    {
+      "key": "MAP-STATS",
+      "extension": "/stats/matches/{id}/maps/{num}"
     }
   ]

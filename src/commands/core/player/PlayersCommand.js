@@ -65,6 +65,7 @@ class PlayersCommand extends Command {
                         players = [];
                     }
                 }
+                this.getTimePlayed(playersWithSaidHero[0], playersWithSaidHero[1]);
                 pages.push(players);
                 embed.setTitle(`__Overwatch League Players with Time on ${heroTitle} (by Time Played)__`);
                 embed.setColor(heroColor);

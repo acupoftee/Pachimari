@@ -28,6 +28,8 @@ class CompareCommand extends Command {
             return AlertUtil.ERROR(":C Sorry I couldn't find that hero. Maybe a typo?")
         }
 
+       
+
         const firstId = PlayerManager.locatePlayer(args[0]), 
               secondId = PlayerManager.locatePlayer(args[1]);
         const firstPlayer = PlayerManager.players.get(firstId), 

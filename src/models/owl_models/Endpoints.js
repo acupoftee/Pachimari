@@ -13,7 +13,7 @@ class Endpoints {
 	 * @param {('MAIN'|'COMPETITORS_LIST'|'COMPETITOR'|'PLAYERS_LIST'|'PLAYER'|'SCHEDULE'|'LIVE_MATCH' | 'NEWS')} endpoint 
 	 * @param {number} [id=0] 
 	 */
-    static get(endpoint, id=0) {
+    static get(endpoint, id=0, num=0) {
         let extension = endpoints[0].extension;
         for (let i = 0; i < endpoints.length; i++) {
             const point = endpoints[i];
@@ -23,6 +23,9 @@ class Endpoints {
         }
         if (extension.match(/\{id\}/g)) {
             extension = extension.replace(/\{id\}/g, id.toString());
+        }
+        if (extension.match(/\{num\}/g)) {
+            extension = extension.replace(/\{num\}/g, id.toString());
         }
         return 'https://api.overwatchleague.com/' + extension;
     }
