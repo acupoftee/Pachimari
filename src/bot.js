@@ -26,7 +26,8 @@ const {
     // ProfileCommand,
     InfoCommand,
     VodCommand,
-    HypeCommand
+    HypeCommand,
+    WambulanceCommad
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -79,7 +80,8 @@ new Promise(function (resolve, reject) {
         //new ProfileCommand()
         new InfoCommand(),
         new VodCommand(),
-        new HypeCommand()
+        new HypeCommand(),
+        new WambulanceCommad()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
