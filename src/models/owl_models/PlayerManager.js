@@ -131,7 +131,6 @@ class PlayerManager {
             const competitor = CompetitorManager.competitors.get(data.teams[0].team.id);
             competitor.players.set(data.id, player);
             players.set(data.id, player);
-            console.log(player.playedHeroes);
             Logger.custom(`PLAYER`, `Loaded player ${data.id} ${data.name}`);
         }
     }
