@@ -3,12 +3,12 @@
 const { JsonUtil, Logger } = require('../../utils');
 const { Collection } = require('discord.js');
 const CompetitorManager  = require('./CompetitorManager');
-const Player = require('./Player');
-const Account = require('./Account');
+const Player = require('../owl_models/Player');
+const Account = require('../owl_models/Account');
 const accountTypes = require('../../data/accounts.json');
-const Endpoints = require('./Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 const heroData = require('../../data/heroes.json');
-const Hero = require('./Hero');
+const Hero = require('../owl_models/Hero');
 
 /**
  * A collection of Players
