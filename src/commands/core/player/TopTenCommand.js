@@ -26,7 +26,7 @@
 	        let pages = [], titles = ["__Top Ten Eliminators__", "__Top Ten Healers__"];
 	        let page = 1;
 	        let topTenElims = [], topTenHealing = [];
-	        // let topElimHeroes = [], topHealingHeroes = [];
+	        let topElimHeroes = [], topHealingHeroes = [];
 	        let elimEmbedInfo = [], healerEmbedInfo = [];
 	        let players = PlayerManager.players.array();
 	
@@ -46,42 +46,52 @@
 	        for (let k = 0; k < 10; k++) {
 	            // push player's elim info into the embed description
 	            let elimPlayer = topTenElims[k];
-	            let topElimHeroes = ``;
+	            //let elimHeroes = ``;
 	            let elimTeam = CompetitorManager.competitors.get(elimPlayer.competitorId);
 	            let elimTeamoji = Emojis[elimTeam.abbreviatedName];
 	
-	            let elimDescription = `${k+1}. ${elimTeamoji} **${elimPlayer.name}**:\nElims: ${elimPlayer.eliminations.toFixed(1)}`
-	            // if (elimPlayer.heroes.length > 0) {
-	            //     elimPlayer.heroes.forEach(hero => {
-	            //         let heroMoji = Emojis[hero.replace(/[.:\-]/, '').toUpperCase()];
-	            //         topElimHeroes = topElimHeroes + `${heroMoji}`;
-	            //     });
-	            //     elimDescription = elimDescription + `Heroes: ${topElimHeroes}`;
-	            // }
+				
+				let elimhero = elimPlayer.playedHeroes.sort((a, b) => b.timePlayed - a.timePlayed).array()[0];
+						//console.log(hero.replace(/[.\:\s\-]/, ''));
+						let heroMoji;
+						if (elimhero.name=="Soldier: 76") {
+							heroMoji = Emojis["SOLDIER76"];
+						} else {
+							heroMoji = Emojis[elimhero.name.replace(/[.\-]/, '').toUpperCase()];
+						}
+		
+	                
+				let elimDescription = `\`${String(k+1).padStart(2, "0")}\`. ${elimTeamoji} ${heroMoji} ${Emojis[elimPlayer.role.toUpperCase()]} **${elimPlayer.name}**. Elims: **${elimPlayer.eliminations.toFixed(1)}**`
 	            elimEmbedInfo.push(elimDescription);
 	
 	            // push player's healer info into the embed description
 	            let healPlayer = topTenHealing[k];
-	            let topHealHeroes = ``;
+	            //let healHeroes = ``;
 	            let healTeam = CompetitorManager.competitors.get(healPlayer.competitorId);
 	            let healTeamoji = Emojis[healTeam.abbreviatedName];
 	
-	            let healDescription = `${k+1}. ${healTeamoji} **${healPlayer.name}**:\nHealing: ${healPlayer.healing.toFixed(1)}`
-	            // if (healPlayer.heroes.length > 0) {
-	            //     healPlayer.heroes.forEach(hero => {
-	            //         let heroMoji = Emojis[hero.replace(/[.:-\-]/, '').toUpperCase()];
-	            //         topHealHeroes = topHealHeroes + `${heroMoji}`;
-	            //     });
-	            //     healDescription = healDescription + `Heroes: ${topHealHeroes}`;
-	            // }
-	            healerEmbedInfo.push(healDescription);
-	        }
+				let supportMoji;
+				let healhero = healPlayer.playedHeroes.sort((a, b) => b.timePlayed - a.timePlayed).array()[0];
+						if (healhero.name=="Soldier: 76") {
+							supportMoji = Emojis["SOLDIER76"];
+						} else {
+							supportMoji = Emojis[healhero.name.replace(/[.\-]/, '').toUpperCase()];
+						}
+						topHealingHeroes.push(`${heroMoji}`);
+					let healingDescription = `\`${String(k+1).padStart(2, "0")}\`. ${healTeamoji} ${supportMoji} ${Emojis[healPlayer.role.toUpperCase()]} **${healPlayer.name}**. Healing: **${healPlayer.healing.toFixed(1)}**`
+					healerEmbedInfo.push(healingDescription);
+	            }
+			//if ()
 	        pages.push(elimEmbedInfo);
 	        pages.push(healerEmbedInfo);
 	        embed.setTitle(titles[page-1]);
-	        embed.setDescription(pages[page-1]);
+			embed.setDescription(pages[page-1]);
+			// embed.setTitle("Overwatch League's Top 10")
+			// embed.addFields("Top Ten Eliminators", elimEmbedInfo, true);
+			// embed.addFields("Top Ten Healers", healerEmbedInfo, true);
 	        embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`);
-	        let mess = embed.buildEmbed().getEmbed;
+			let mess = embed.buildEmbed().getEmbed;
+			loading.then(message => message.edit(mess));
 	        loading.then(message => message.edit(mess)).then(msg => {
 	            msg.react("🔄").then(r => {
 	                const switchFilter = (reaction, user) => reaction.emoji.name === "🔄" && user.id === message.author.id;

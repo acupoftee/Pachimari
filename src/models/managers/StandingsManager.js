@@ -1,7 +1,7 @@
 'use strict';
 
 const CompetitorManager = require('./CompetitorManager');
-const Endpoints = require('..owl_models/Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 const { Collection } = require('discord.js');
 const { JsonUtil } = require('../../utils');
 const { Emojis } = require('../../constants');
