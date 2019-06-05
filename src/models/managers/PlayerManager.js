@@ -156,6 +156,31 @@ class PlayerManager {
         const heroes = body.data.stats.heroes;
         return heroes;
     }
+
+    /**
+     * Updates a player's heroes
+     * @param {Player} player 
+     */
+    static async updatePlayedHeroes(player) {
+        const statsbody = await JsonUtil.parse(Endpoints.get('HERO-STATS', player.id));
+        const playerHeroes = statsbody.data.stats.heroes;
+        playerHeroes.forEach(hero => {
+            //console.log(hero);
+            let playedHero = new Hero(
+                hero.hero_id, 
+                hero.name, 
+                hero.stats.eliminations_avg_per_10m,
+                hero.stats.deaths_avg_per_10m,
+                hero.stats.hero_damage_avg_per_10m,
+                hero.stats.healing_avg_per_10m,
+                hero.stats.ultimates_earned_avg_per_10m,
+                hero.stats.final_blows_avg_per_10m,
+                hero.stats.time_played_total);
+            player.playedHeroes.set(hero.name, playedHero);
+        });
+        Logger.info(`Updated played heroes for ${player.name}`);
+    }
+
     /**
      * Returns all updated player stats.
      * 0: eliminations, 1: deaths, 2: hero damage, 3: healing, 
@@ -166,6 +191,7 @@ class PlayerManager {
     static async updateStats(player) {
         let stats = [];
         const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
+        await this.updatePlayedHeroes(player);
         stats.push(body.data.stats.all.eliminations_avg_per_10m);
         stats.push(body.data.stats.all.deaths_avg_per_10m);
         stats.push(body.data.stats.all.hero_damage_avg_per_10m);
@@ -173,6 +199,7 @@ class PlayerManager {
         stats.push(body.data.stats.all.ultimates_earned_avg_per_10m);
         stats.push(body.data.stats.all.final_blows_avg_per_10m);
         stats.push(body.data.stats.all.time_played_total);
+
         Logger.info(`Updated stats for ${player.name}`);
         return stats;
 
