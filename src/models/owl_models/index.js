@@ -3,22 +3,23 @@
 const Account = require('./Account');
 const Player = require('./Player');
 const Competitor = require('./Competitor');
-const CompetitorManager = require('./CompetitorManager');
+const CompetitorManager = require('../managers/CompetitorManager');
 const Endpoints = require('./Endpoints');
-const PlayerManager = require('./PlayerManager');
+const PlayerManager = require('../managers/PlayerManager');
 const Article = require('./Article');
 const Match = require('./Match');
-const StandingsManager = require('./StandingsManager');
+const StandingsManager = require('../managers/StandingsManager');
 const Banner = require('./Banner');
-const MapManager = require('./MapManager');
+const MapManager = require('../managers/MapManager');
 const Map = require('./Map');
-const PredictionManager = require('./PredictionManager');
-const MatchManager = require('./MatchManager');
+const PredictionManager = require('../managers/PredictionManager');
+const MatchManager = require('../managers/MatchManager');
 const Video = require('./Video');
-const HeroManager = require('./HeroManager');
-const HypeGif = require('./HypeGif');
+const HeroManager = require('../managers/HeroManager');
+const HypeGif = require('../gif_models/HypeGif');
 const Hero = require('./Hero')
-const WambulanceGif = require('./WambulanceGif');
+const WambulanceGif = require('../gif_models/WambulanceGif');
+const PrideGif = require('../gif_models/PrideGif');
 
 module.exports = {
     Account,
@@ -39,5 +40,6 @@ module.exports = {
     HeroManager,
     HypeGif,
     Hero,
-    WambulanceGif
+    WambulanceGif,
+    PrideGif
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 const { JsonUtil, MessageUtil } = require('../../utils');
-const Endpoints = require('./Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 
 /**
  * @class MapManager

@@ -1,7 +1,7 @@
 'use strict';
 
 const CompetitorManager = require('./CompetitorManager');
-const Endpoints = require('./Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 const { JsonUtil } = require('../../utils');
 
 class MatchManager {

@@ -3,12 +3,12 @@
 const { JsonUtil, Logger } = require('../../utils');
 const { Collection } = require('discord.js');
 const { getPrimaryColor, getSecondaryColor, getTertiaryColor } = require('owl-colors');
-const Competitor  = require('./Competitor');
-const Account = require('./Account');
+const Competitor  = require('../owl_models/Competitor');
+const Account = require('../owl_models/Account');
 const teamNames = require('../../data/teamnames.json');
 const divisions = require('../../data/divisions.json');
 const accountTypes = require('../../data/accounts.json');
-const Endpoints = require('./Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 
 /**
  * A collection of Competitors

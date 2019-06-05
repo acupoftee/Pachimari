@@ -1,7 +1,7 @@
 'use strict';
 
 const { JsonUtil, Logger } = require('../../utils');
-const Endpoints = require('./Endpoints');
+const Endpoints = require('../owl_models/Endpoints');
 const Queries = require('../../db/Queries');
 
 class PredictionManager {
