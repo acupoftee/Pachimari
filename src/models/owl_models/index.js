@@ -19,6 +19,7 @@ const HeroManager = require('../managers/HeroManager');
 const HypeGif = require('../gif_models/HypeGif');
 const Hero = require('./Hero')
 const WambulanceGif = require('../gif_models/WambulanceGif');
+const PrideGif = require('../gif_models/PrideGif');
 
 module.exports = {
     Account,
@@ -39,5 +40,6 @@ module.exports = {
     HeroManager,
     HypeGif,
     Hero,
-    WambulanceGif
+    WambulanceGif,
+    PrideGif
 };
