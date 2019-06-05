@@ -23,7 +23,7 @@
 	        // 5. push top 10 into array
 	        // send embed
 	        let loading = message.channel.send(Emojis["LOADING"]);
-	        let pages = [], titles = ["__Top Ten Eliminators__", "__Top Ten Healers__"];
+	        let pages = [], titles = ["__:trophy: Overwatch League's Top Ten Eliminators__", "__:trophy: Overwatch League's Top Ten Healers__"];
 	        let page = 1;
 	        let topTenElims = [], topTenHealing = [];
 	        let topElimHeroes = [], topHealingHeroes = [];
@@ -61,7 +61,7 @@
 						}
 		
 	                
-				let elimDescription = `\`${String(k+1).padStart(2, "0")}\`. ${elimTeamoji} ${heroMoji} ${Emojis[elimPlayer.role.toUpperCase()]} **${elimPlayer.name}**. Elims: **${elimPlayer.eliminations.toFixed(1)}**`
+				let elimDescription = `\`${String(k+1).padStart(2, "0")}\`. ${elimTeamoji} ${heroMoji} ${Emojis[elimPlayer.role.toUpperCase()]} **${elimPlayer.name}**. **${elimPlayer.eliminations.toFixed(1)}** Elims`
 	            elimEmbedInfo.push(elimDescription);
 	
 	            // push player's healer info into the embed description
@@ -78,7 +78,7 @@
 							supportMoji = Emojis[healhero.name.replace(/[.\-]/, '').toUpperCase()];
 						}
 						topHealingHeroes.push(`${heroMoji}`);
-					let healingDescription = `\`${String(k+1).padStart(2, "0")}\`. ${healTeamoji} ${supportMoji} ${Emojis[healPlayer.role.toUpperCase()]} **${healPlayer.name}**. Healing: **${healPlayer.healing.toFixed(1)}**`
+					let healingDescription = `\`${String(k+1).padStart(2, "0")}\`. ${healTeamoji} ${supportMoji} ${Emojis[healPlayer.role.toUpperCase()]} **${healPlayer.name}**. **${healPlayer.healing.toFixed(1)}** Healing`
 					healerEmbedInfo.push(healingDescription);
 	            }
 			//if ()
