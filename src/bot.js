@@ -4,6 +4,7 @@ const pckg = require("../package.json");
 const { PachimariClient } = require('./models');
 const Database = require('./db/Database');
 const { CompetitorManager, PlayerManager, PredictionManager} = require('./models/owl_models');
+const { HeroWatcher, PlayerStatsWatcher } = require('./watchers')
 const { Logger } = require('./utils');
 const { 
     PingCommand, 
@@ -95,6 +96,10 @@ new Promise(function (resolve, reject) {
     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
         Logger.error(err.stack)
     });
+}).then(function (result) {
+    return new HeroWatcher().watchForHeroUpdates();
+}).then(function (result) {
+    return new PlayerStatsWatcher().watchForPlayerStatUpdates();
 // // }).then(function(result) {
 //     return new PredictionManager().watch();
 // }).then(function(result) {

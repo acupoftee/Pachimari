@@ -47,7 +47,7 @@ class PlayersCommand extends Command {
             if (query != undefined) {
                 loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[hero.replace('-', '').toUpperCase()]}`))
                 for (const player of list) {
-                    PlayerManager.updatePlayedHeroes(player);
+                    // await PlayerManager.updatePlayedHeroes(player);
                     if (player.playedHeroes.get(query)) {
                         playersWithSaidHero.push(player);
                     } 

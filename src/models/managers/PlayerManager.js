@@ -202,7 +202,19 @@ class PlayerManager {
 
         Logger.info(`Updated stats for ${player.name}`);
         return stats;
-
     }
+
+    // /**
+    //  * Updates players heroes
+    //  */
+    // static async watchForHeroUpdates() {
+    //     setInterval(async() => {
+    //         for (const player of this.players) {
+    //             // update teams
+    //             // update 
+    //             await this.updatePlayedHeroes(player);
+    //         }
+    //     })
+    // }
 }
 module.exports = PlayerManager;

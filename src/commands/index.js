@@ -8,8 +8,6 @@ const TeamcordsCommand = require('./core/team/TeamcordsCommand');
 const StandingsCommand = require('./core/match/StandingsCommand');
 const NewsCommand = require('./core/news/NewsCommand');
 const ScheduleCommand = require('./core/match/ScheduleCommand');
-const PageCommand = require('./PageCommand');
-const RefreshCommand = require('./RefreshCommand');
 const LiveCommand = require('./core/match/LiveCommand');
 const NextCommand = require('./core/match/NextCommand');
 const CompareCommand = require('./core/player/CompareCommand');
@@ -36,8 +34,6 @@ module.exports = {
     StandingsCommand,
     NewsCommand,
     ScheduleCommand,
-    PageCommand,
-    RefreshCommand,
     LiveCommand,
     NextCommand,
     CompareCommand,
