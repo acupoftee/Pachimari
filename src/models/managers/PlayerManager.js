@@ -204,6 +204,22 @@ class PlayerManager {
         return stats;
     }
 
+    /**
+     * Updates necessary stats for a player
+     * @param {Player} player 
+     */
+    static async updatePlayerStats(player) {
+        const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
+        const stats = body.data.stats.all;
+        player.setEliminations(stats.eliminations_avg_per_10m);
+        player.setDeaths(stats.deaths_avg_per_10m);
+        player.setHeroDamage(stats.hero_damage_avg_per_10m);
+        player.setHealing(stats.healing_avg_per_10m);
+        player.setUltimates(stats.ultimates_earned_avg_per_10m);
+        player.setFinalBlows(stats.final_blows_avg_per_10m);
+        player.setTimePlayed(stats.time_played_total);
+    }
+
     // /**
     //  * Updates players heroes
     //  */

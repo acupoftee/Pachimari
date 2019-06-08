@@ -91,6 +91,9 @@ class Player {
         return this._competitorId;
     }
 
+    setCompetitorId(competitorId) {
+        this._competitorId = competitorId;
+    }
     /**
      * Returns a Player's team number
      * @returns {number} player's jersey number

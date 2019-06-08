@@ -10,8 +10,9 @@ class PlayerStatsWatcher {
         setInterval(async() => {
             Logger.custom('PLAYER_STATS', 'Watching for Player stats updates');
             for (const player of PlayerManager.players.array()) {
-                await PlayerManager.updateStats(player);
+                await PlayerManager.updatePlayerStats(player);
             }
+            Logger.custom('PLAYER_STATS', 'Finished watching for Player stats updates');
         }, 2500000)
     }
 }

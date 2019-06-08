@@ -12,7 +12,8 @@ class HeroWatcher {
             for (const player of PlayerManager.players.array()) {
                 await PlayerManager.updatePlayedHeroes(player);
             }
-        }, 100000)
+            Logger.custom('HERO', 'Finished watching for Hero updates')
+        }, 1800000)
     }
 }
 module.exports = HeroWatcher;
