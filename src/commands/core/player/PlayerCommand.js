@@ -46,6 +46,7 @@ class PlayerCommand extends Command {
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(player.headshot);
         const teamEmoji = Emojis[competitor.abbreviatedName];
+        const playerRoleMoji = Emojis[player.role.toUpperCase()]
         const playerStats = await PlayerManager.updateStats(player);
         player.setEliminations(playerStats[0]);
         player.setDeaths(playerStats[1]);
@@ -94,7 +95,7 @@ class PlayerCommand extends Command {
                 loading.then(message => message.edit(AlertUtil.ERROR("This player does not have any accounts.")));
                 return;
             }
-            embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
+            embed.setTitle(`${teamEmoji}${playerRoleMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 
             let accs = [];
             player.accounts.forEach(account => {
@@ -113,11 +114,11 @@ class PlayerCommand extends Command {
                 return;
             }
             if (args[2] === undefined) {
-                embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
+                embed.setTitle(`${teamEmoji}${playerRoleMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
                 let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let heroName = HeroManager.locateHero(hero.name);
-                    info.push(`${Emojis[HeroManager.getHeroRole(heroName).toUpperCase()]}${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
+                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
                     percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
 
