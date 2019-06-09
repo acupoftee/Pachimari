@@ -30,7 +30,8 @@ const {
     HypeCommand,
     WambulanceCommad,
     TopTenCommand,
-    PrideCommand
+    PrideCommand,
+    PlaytimeCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -86,7 +87,8 @@ new Promise(function (resolve, reject) {
         new HypeCommand(),
         new WambulanceCommad(),
         new TopTenCommand(),
-        new PrideCommand()
+        new PrideCommand(),
+        new PlaytimeCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {

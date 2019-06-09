@@ -54,6 +54,20 @@ class HeroManager {
         }
     }
 
+      /**
+     * Finds a color by name
+     * @param {string} val the hero's color
+     * @returns a hero color
+     */
+    static getHeroRole(val) {
+        const key = val.toLowerCase();
+        for (let i = 0; i < heroes.length; i++) {
+            if (heroes[i].key === key) {
+                return heroes[i].role;
+            }
+        }
+    }
+
     /**
      * Finds a url by name
      * @param {string} val the hero's url

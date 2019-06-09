@@ -24,6 +24,7 @@ const HypeCommand = require('./social/misc/HypeCommand');
 const WambulanceCommad = require('./social/misc/WambulanceCommand');
 const TopTenCommand = require('./core/player/TopTenCommand');
 const PrideCommand = require('./social/misc/PrideCommand');
+const PlaytimeCommand = require('./core/hero/PlaytimeCommand');
 
 module.exports = {
     PingCommand,
@@ -49,5 +50,6 @@ module.exports = {
     HypeCommand,
     WambulanceCommad, 
     TopTenCommand,
-    PrideCommand
+    PrideCommand,
+    PlaytimeCommand
 };

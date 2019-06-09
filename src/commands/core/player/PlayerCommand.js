@@ -117,7 +117,7 @@ class PlayerCommand extends Command {
                 let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let heroName = HeroManager.locateHero(hero.name);
-                    info.push(`${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
+                    info.push(`${Emojis[HeroManager.getHeroRole(heroName).toUpperCase()]}${Emojis[hero.name.replace('-', '').toUpperCase()]} ${HeroManager.getHeroTitle(heroName)}`);
                     percentage.push(`\`${((hero.stats.time_played_total / player.timePlayed) * 100).toFixed(1)}%\`${Emojis["TRANSPARENT"]}`);
                 })
 
@@ -140,6 +140,7 @@ class PlayerCommand extends Command {
                     }
                     let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroName)}** Stats`;
 
+                    info.push(`Hero Role: ${Emojis[HeroManager.getHeroRole(heroName).toUpperCase()]}`)
                     info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
                     info.push(`Eliminations:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
                     info.push(`Deaths:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
@@ -204,6 +205,8 @@ class PlayerCommand extends Command {
                     let heroName = HeroManager.locateHero(heroes[0].name);
                     embed.setTitle(titles[title - 1]);
                     embed.setDescription('');
+                    let heroRole = MessageUtil.capitalize(HeroManager.getHeroRole(heroName));
+                    embed.addFields(`Hero Role`, `${Emojis[heroRole.toUpperCase()]} ${heroRole}`, true);
                     embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);
                     embed.addFields(`Eliminations`, `${heroes[0].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);
@@ -250,6 +253,8 @@ class PlayerCommand extends Command {
                 MessageUtil.sendSuccess(message.channel, `${player.name} hasn\'t played that hero yet! Hopefully soon :)`);
                 return;
             } else {
+                let heroRole = MessageUtil.capitalize(HeroManager.getHeroRole(heroName));
+                embed.addFields(`Hero Role`, `${Emojis[heroRole.toUpperCase()]} ${heroRole}`, true);
                 embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[index].stats.time_played_total)}`, true);
                 embed.addFields(`Eliminations`, `${heroes[index].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);

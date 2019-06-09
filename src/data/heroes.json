@@ -4,6 +4,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ana/hero-select-portrait.png",
     "color": "#9c978a",
     "ultimate": "Nano Boost",
+    "role": "support",
     "aliases": ["grandma", "captain", "amari"]
 },
 {
@@ -12,6 +13,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/ashe/hero-select-portrait.png",
     "color": "#b3a05f",
     "ultimate": "B.O.B.",
+    "role": "offense",
     "aliases": []
 },
 {
@@ -19,6 +21,7 @@
     "title": "Baptiste",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/baptiste/hero-select-portrait.png",
     "color": "#2892a8",
+    "role": "support",
     "ultimate": "Amp. Matricie",
     "aliases": ["bap"]
 },
@@ -28,6 +31,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/bastion/hero-select-portrait.png",
     "color": "#24f9f8",
     "ultimate": "Config. Tank",
+    "role": "offense",
     "aliases": []
 },
 {
@@ -36,6 +40,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/brigitte/hero-select-portrait.png",
     "color": "#efb016",
     "ultimate": "Rally",
+    "role": "support",
     "aliases": ["brig", "baguette"]
 },
 {
@@ -44,6 +49,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/dva/hero-select-portrait.png",
     "color": "#ee4bb5",
     "ultimate": "Self-Destruct",
+    "role": "tank",
     "aliases": ["d.va"]
 },
 {
@@ -52,6 +58,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/doomfist/hero-select-portrait.png",
     "color": "#762c21",
     "ultimate": "Meteor Strike",
+    "role": "offense",
     "aliases": ["doom"]
 },
 {
@@ -60,6 +67,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/genji/hero-select-portrait.png",
     "color": "#abe50b",
     "ultimate": "Dragonblade",
+    "role": "offense",
     "aliases": ["genju", "weeb"]
 },
 {
@@ -67,6 +75,7 @@
     "title": "Hanzo",
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/hanzo/hero-select-portrait.png",
     "color": "#837c46",
+    "role": "offense",
     "ultimate": "Dragonstrike",
     "aliases": []
 },
@@ -76,6 +85,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/junkrat/hero-select-portrait.png",
     "color": "#fbd73a",
     "ultimate": "Rip-Tire",
+    "role": "offense",
     "pat":"https://cdn.discordapp.com/emojis/507717387974606858.png?v=1",
     "aliases": ["junk", "rat"]
 },
@@ -85,6 +95,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/lucio/hero-select-portrait.png",
     "color": "#aaf531",
     "ultimate": "Soundbarrier",
+    "role": "support",
     "pat": "https://cdn.discordapp.com/emojis/373047267671670784.png?v=1",
     "aliases": []
 },
@@ -94,6 +105,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mccree/hero-select-portrait.png",
     "color": "#c23f46",
     "ultimate": "Deadeye",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717389492813845.png?v=1",
     "aliases": ["cree", "cowboy"]
 },
@@ -103,6 +115,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mei/hero-select-portrait.png",
     "color": "#87d7f6",
     "ultimate": "Blizzard",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717391459811331.png?v=1",
     "aliases": []
 },
@@ -112,6 +125,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/mercy/hero-select-portrait.png",
     "color": "#fcd849",
     "ultimate": "Valkyrie",
+    "role": "support",
     "pat": "https://cdn.discordapp.com/emojis/507717389677363209.png?v=1",
     "aliases": ["merpy"]
 },
@@ -121,6 +135,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/moira/hero-select-portrait.png",
     "color": "#7112f4",
     "ultimate": "Coalescence",
+    "role": "support",
     "pat": "https://cdn.discordapp.com/emojis/507717391971516436.png?v=1",
     "aliases": []
 },
@@ -130,6 +145,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/orisa/hero-select-portrait.png",
     "color": "#ccb370",
     "ultimate": "Supercharger",
+    "role": "tank",
     "pat": "https://cdn.discordapp.com/emojis/368248085849309184.png?v=1",
     "aliases": ["horse"]
 },
@@ -139,6 +155,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/pharah/hero-select-portrait.png",
     "color": "#3461a4",
     "ultimate": "Barrage",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717389958381578.png?v=1",
     "aliases": []
 },
@@ -148,6 +165,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reaper/hero-select-portrait.png",
     "color": "#333",
     "ultimate": "Death Blossom",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717391585902594.png?v=1",
     "aliases": ["edgelord"]
 },
@@ -157,6 +175,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/reinhardt/hero-select-portrait.png",
     "color": "#b9b5ad",
     "ultimate": "Earthshatter",
+    "role": "tank",
     "pat": "https://cdn.discordapp.com/emojis/507717391074066454.png?v=1",
     "aliases": ["rein"]
 },
@@ -166,6 +185,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/roadhog/hero-select-portrait.png",
     "color": "#54515a",
     "ultimate": "Whole Hog",
+    "role": "tank",
     "pat": "https://cdn.discordapp.com/emojis/469610855043039242.png?v=1",
     "aliases": ["hog", "rh", "road"]
 },
@@ -175,6 +195,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png",
     "color": "#525d9b",
     "ultimate": "Tactical Visor",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717391711469583.png?v=1",
     "aliases": ["soldier", "76", "soldier76", "soldier-76", "s76"]
 },
@@ -184,6 +205,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/sombra/hero-select-portrait.png",
     "color": "#9762ec",
     "ultimate": "EMP",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/563142274591096847.png?v=1",
     "aliases": ["bra", "sombae", "hacker", "spy"]
 },
@@ -193,6 +215,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/symmetra/hero-select-portrait.png",
     "color": "#3e90b5",
     "ultimate": "Photon Barrier",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717391795617812.png?v=1",
     "aliases": ["sym"]
 },
@@ -202,6 +225,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/torbjorn/hero-select-portrait.png",
     "color": "#b04a33",
     "ultimate": "Molten Core",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717392026304531.png?v=1",
     "aliases": ["torb"]
 },
@@ -211,6 +235,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/tracer/hero-select-portrait.png",
     "color": "#ffcf35",
     "ultimate": "Pulse Bomb",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/507717391782903818.png?v=1",
     "aliases": ["traysuh", "blinky"]
 },
@@ -220,6 +245,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/widowmaker/hero-select-portrait.png",
     "color": "#af5e9e",
     "ultimate": "Infra-Sight",
+    "role": "offense",
     "pat": "https://cdn.discordapp.com/emojis/396468487960395776.png?v=1",
     "aliases": ["widow", "wm"]
 },
@@ -229,6 +255,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/winston/hero-select-portrait.png",
     "color": "#595959",
     "ultimate": "Primal Rage",
+    "role": "tank",
     "pat": "https://cdn.discordapp.com/emojis/507717390277279754.png?v=1",
     "aliases": ["monkey"]
 },
@@ -238,6 +265,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png",
     "color": "#4a575f",
     "ultimate": "Minefield",
+    "role": "tank",
     "pat":"https://cdn.discordapp.com/emojis/507718228999667753.png?v=1",
     "aliases": ["hammond", "ball", "wb", "wreckingball", "wrecking-ball", "sanic", "hamster"]
 },
@@ -247,6 +275,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zarya/hero-select-portrait.png",
     "color": "#ff73c1",
     "ultimate": "Graviton Surge",
+    "role": "tank",
     "pat":"https://cdn.discordapp.com/emojis/372684463055831040.png?v=1",
     "aliases": []
 },
@@ -256,6 +285,7 @@
     "portrait": "https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png",
     "color": "#e1c931",
     "ultimate": "Transcendence",
+    "role": "support",
     "pat":"https://cdn.discordapp.com/emojis/507717390168227870.png?v=1",
     "aliases": ["zen"]
 }

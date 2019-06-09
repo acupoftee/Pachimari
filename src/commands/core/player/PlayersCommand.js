@@ -4,8 +4,6 @@ const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const { MessageUtil, AlertUtil, Logger } = require('../../../utils');
-const heroes = require('../../../data/heroes.json');
-
 
 class PlayersCommand extends Command {
     constructor() {

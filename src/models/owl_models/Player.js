@@ -20,18 +20,12 @@ class Player {
      * @param {String} headshot Player's headshot URL
      * @param {String} role Player's Overwatch role.
      * @param {String[]} heroes Player's Overwatch heroes.
-     * @param {number} eliminations Player's elimination average per 
-     * 10 minutes
-     * @param {number} deaths Player's death average per 
-     * 10 minutes
-     * @param {number} heroDamage Player's hero damage average per 
-     * 10 minutes
-     * @param {number} healing Player's healing average per 
-     * 10 minutes
-     * @param {number} ultimates Player's ultimate average per 
-     * 10 minutes
-     * @param {number} finalBlows Player's final blow average per 
-     * 10 minutes
+     * @param {number} eliminations Player's elimination average per 10 minutes
+     * @param {number} deaths Player's death average per 10 minutes
+     * @param {number} heroDamage Player's hero damage average per 10 minutes
+     * @param {number} healing Player's healing average per 10 minutes
+     * @param {number} ultimates Player's ultimate average per 10 minutes
+     * @param {number} finalBlows Player's final blow average per 10 minutes
      * @param {number} timePlayed Player's total time played 
      */
     constructor(id, competitorId, playerNumber, name, homeLocation, 
