@@ -21,7 +21,7 @@ class TeamCommand extends Command {
     constructor() {
         super();
         this.name = 'team';
-        this.description = 'Displays information about a specific OWL team';
+        this.description = 'Shows information about a specific OWL team';
         this.usage = 'team <team> [accounts|schedule]';
         this.aliases = [];
     }

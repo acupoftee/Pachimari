@@ -4,6 +4,7 @@ const pckg = require("../package.json");
 const { PachimariClient } = require('./models');
 const Database = require('./db/Database');
 const { CompetitorManager, PlayerManager, PredictionManager} = require('./models/owl_models');
+const { HeroWatcher, PlayerStatsWatcher, RosterWatcher } = require('./watchers')
 const { Logger } = require('./utils');
 const { 
     PingCommand, 
@@ -29,7 +30,8 @@ const {
     HypeCommand,
     WambulanceCommad,
     TopTenCommand,
-    PrideCommand
+    PrideCommand,
+    PlaytimeCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -85,7 +87,8 @@ new Promise(function (resolve, reject) {
         new HypeCommand(),
         new WambulanceCommad(),
         new TopTenCommand(),
-        new PrideCommand()
+        new PrideCommand(),
+        new PlaytimeCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
@@ -95,6 +98,13 @@ new Promise(function (resolve, reject) {
     return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
         Logger.error(err.stack)
     });
+}).then(function (result) {
+    return new HeroWatcher().watchForHeroUpdates();
+}).then(function (result) {
+    return new PlayerStatsWatcher().watchForPlayerStatUpdates();
+}).then(function (result) {
+    return new RosterWatcher().watchForTeamSwaps();
+
 // // }).then(function(result) {
 //     return new PredictionManager().watch();
 // }).then(function(result) {

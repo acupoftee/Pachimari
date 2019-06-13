@@ -4,8 +4,6 @@ const { Command, PachimariEmbed } = require('../../../models');
 const { CompetitorManager, PlayerManager, HeroManager } = require('../../../models/owl_models');
 const { Emojis } = require('../../../constants');
 const { MessageUtil, AlertUtil, Logger } = require('../../../utils');
-const heroes = require('../../../data/heroes.json');
-
 
 class PlayersCommand extends Command {
     constructor() {
@@ -47,7 +45,7 @@ class PlayersCommand extends Command {
             if (query != undefined) {
                 loading.then(message => message.edit(`${Emojis["LOADING"]} Loading players with time on ${heroTitle} ${Emojis[hero.replace('-', '').toUpperCase()]}`))
                 for (const player of list) {
-                    PlayerManager.updatePlayedHeroes(player);
+                    // await PlayerManager.updatePlayedHeroes(player);
                     if (player.playedHeroes.get(query)) {
                         playersWithSaidHero.push(player);
                     } 

@@ -10,7 +10,7 @@ class NextCommand extends Command {
     constructor() {
         super();
         this.name = 'next';
-        this.description = 'Displays information about the next live match';
+        this.description = 'Shows information about the next live match';
         this.usage = 'next';
         this.aliases = ['nextmatch'];
     }

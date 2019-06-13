@@ -20,7 +20,7 @@ class StandingsCommand extends Command {
     constructor() {
         super();
         this.name = 'standings';
-        this.description = 'Displays the current standings for this season';
+        this.description = 'Shows the current standings for this season';
         this.usage = 'standings [playoffs]';
         this.aliases = [];
     }

@@ -8,7 +8,7 @@ class PredictionsCommand extends Command {
     constructor() {
         super();
         this.name = "predictions";
-        this.description = "Displays a user's predictions";
+        this.description = "Shows a user's predictions";
         this.usage = "predictions";
         this.aliases = [];
     }

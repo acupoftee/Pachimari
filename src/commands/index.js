@@ -8,8 +8,6 @@ const TeamcordsCommand = require('./core/team/TeamcordsCommand');
 const StandingsCommand = require('./core/match/StandingsCommand');
 const NewsCommand = require('./core/news/NewsCommand');
 const ScheduleCommand = require('./core/match/ScheduleCommand');
-const PageCommand = require('./PageCommand');
-const RefreshCommand = require('./RefreshCommand');
 const LiveCommand = require('./core/match/LiveCommand');
 const NextCommand = require('./core/match/NextCommand');
 const CompareCommand = require('./core/player/CompareCommand');
@@ -26,6 +24,7 @@ const HypeCommand = require('./social/misc/HypeCommand');
 const WambulanceCommad = require('./social/misc/WambulanceCommand');
 const TopTenCommand = require('./core/player/TopTenCommand');
 const PrideCommand = require('./social/misc/PrideCommand');
+const PlaytimeCommand = require('./core/hero/PlaytimeCommand');
 
 module.exports = {
     PingCommand,
@@ -36,8 +35,6 @@ module.exports = {
     StandingsCommand,
     NewsCommand,
     ScheduleCommand,
-    PageCommand,
-    RefreshCommand,
     LiveCommand,
     NextCommand,
     CompareCommand,
@@ -53,5 +50,6 @@ module.exports = {
     HypeCommand,
     WambulanceCommad, 
     TopTenCommand,
-    PrideCommand
+    PrideCommand,
+    PlaytimeCommand
 };

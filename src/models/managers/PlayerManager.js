@@ -47,16 +47,6 @@ class PlayerManager {
         return this;
     }
 
-    // /**
-    //  * Obtains all heroes used by a player
-    //  */
-    // async getPlayedHeroes(playerId) {
-    //     let heroArray = [];
-    //     const body = await JsonUtil.parse(Endpoints.get('HERO-STATS', playerId));
-       
-    //     return heroArray;
-    // }
-
     /**
      * Loads all Players and stores them in a Collection
      * @async
@@ -68,8 +58,6 @@ class PlayerManager {
             const statsbody = await JsonUtil.parse(Endpoints.get('HERO-STATS', id));
             const data = body.data.player;
             let heroArray = [];
-
-            //let playedHeroes = await this.getPlayedHeroes(id);
 
             if (data.attributes.heroes !== undefined) {
                 heroData.forEach(hero => {
@@ -128,6 +116,7 @@ class PlayerManager {
                 player.playedHeroes.set(hero.name, playedHero);
             });
 
+            //console.log(player.playedHeroes)
             const competitor = CompetitorManager.competitors.get(data.teams[0].team.id);
             competitor.players.set(data.id, player);
             players.set(data.id, player);
@@ -202,7 +191,22 @@ class PlayerManager {
 
         Logger.info(`Updated stats for ${player.name}`);
         return stats;
+    }
 
+    /**
+     * Updates necessary stats for a player
+     * @param {Player} player 
+     */
+    static async updatePlayerStats(player) {
+        const body = await JsonUtil.parse(Endpoints.get('PLAYER', player.id));
+        const stats = body.data.stats.all;
+        player.setEliminations(stats.eliminations_avg_per_10m);
+        player.setDeaths(stats.deaths_avg_per_10m);
+        player.setHeroDamage(stats.hero_damage_avg_per_10m);
+        player.setHealing(stats.healing_avg_per_10m);
+        player.setUltimates(stats.ultimates_earned_avg_per_10m);
+        player.setFinalBlows(stats.final_blows_avg_per_10m);
+        player.setTimePlayed(stats.time_played_total);
     }
 }
 module.exports = PlayerManager;

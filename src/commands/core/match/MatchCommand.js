@@ -10,7 +10,7 @@ class MatchCommand extends Command {
     constructor() {
         super();
         this.name = 'matches';
-        this.description = 'Displays information about team matches';
+        this.description = 'Shows information about team matches';
         this.usage = 'matches <first_team> [second_team]';
         this.aliases = [];
     }

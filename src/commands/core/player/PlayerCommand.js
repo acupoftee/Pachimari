@@ -19,7 +19,7 @@ class PlayerCommand extends Command {
     constructor() {
         super();
         this.name = 'player';
-        this.description = 'Displays information about a specific OWL player';
+        this.description = 'Shows information about a specific OWL player';
         this.usage = 'player <player> [accounts|heroes] [expand], !player <player> hero <heroname>';
         this.aliases = [];
     }
@@ -46,6 +46,7 @@ class PlayerCommand extends Command {
         embed.setColor(competitor.primaryColor);
         embed.setThumbnail(player.headshot);
         const teamEmoji = Emojis[competitor.abbreviatedName];
+        const playerRoleMoji = Emojis[player.role.toUpperCase()]
         const playerStats = await PlayerManager.updateStats(player);
         player.setEliminations(playerStats[0]);
         player.setDeaths(playerStats[1]);
@@ -94,7 +95,7 @@ class PlayerCommand extends Command {
                 loading.then(message => message.edit(AlertUtil.ERROR("This player does not have any accounts.")));
                 return;
             }
-            embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
+            embed.setTitle(`${teamEmoji}${playerRoleMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Accounts`);
 
             let accs = [];
             player.accounts.forEach(account => {
@@ -113,7 +114,7 @@ class PlayerCommand extends Command {
                 return;
             }
             if (args[2] === undefined) {
-                embed.setTitle(`${teamEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
+                embed.setTitle(`${teamEmoji}${playerRoleMoji} ${player.givenName} '**${player.name}**' ${player.familyName}'s Played Heroes`);
                 let info = [], percentage = [];
                 heroes.sort((a, b) => b.stats.time_played_total - a.stats.time_played_total).forEach(hero => {
                     let heroName = HeroManager.locateHero(hero.name);
@@ -140,6 +141,7 @@ class PlayerCommand extends Command {
                     }
                     let titleString = `${teamEmoji}${heroMoji}  ${player.givenName} '**${player.name}**' ${player.familyName}'s **${HeroManager.getHeroTitle(heroName)}** Stats`;
 
+                    info.push(`Hero Role: ${Emojis[HeroManager.getHeroRole(heroName).toUpperCase()]}`)
                     info.push(`Time Played:  \`${NumberUtil.toTimeString(hero.stats.time_played_total)}\``);
                     info.push(`Eliminations:  \`${hero.stats.eliminations_avg_per_10m.toFixed(2)}\``);
                     info.push(`Deaths:  \`${hero.stats.deaths_avg_per_10m.toFixed(2)}\``);
@@ -204,6 +206,8 @@ class PlayerCommand extends Command {
                     let heroName = HeroManager.locateHero(heroes[0].name);
                     embed.setTitle(titles[title - 1]);
                     embed.setDescription('');
+                    let heroRole = MessageUtil.capitalize(HeroManager.getHeroRole(heroName));
+                    embed.addFields(`Hero Role`, `${Emojis[heroRole.toUpperCase()]} ${heroRole}`, true);
                     embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[0].stats.time_played_total)}`, true);
                     embed.addFields(`Eliminations`, `${heroes[0].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
                     embed.addFields(`Deaths`, `${heroes[0].stats.deaths_avg_per_10m.toFixed(2)}`, true);
@@ -250,6 +254,8 @@ class PlayerCommand extends Command {
                 MessageUtil.sendSuccess(message.channel, `${player.name} hasn\'t played that hero yet! Hopefully soon :)`);
                 return;
             } else {
+                let heroRole = MessageUtil.capitalize(HeroManager.getHeroRole(heroName));
+                embed.addFields(`Hero Role`, `${Emojis[heroRole.toUpperCase()]} ${heroRole}`, true);
                 embed.addFields(`Time Played`, `${NumberUtil.toTimeString(heroes[index].stats.time_played_total)}`, true);
                 embed.addFields(`Eliminations`, `${heroes[index].stats.eliminations_avg_per_10m.toFixed(2)}`, true);
                 embed.addFields(`Deaths`, `${heroes[index].stats.deaths_avg_per_10m.toFixed(2)}`, true);

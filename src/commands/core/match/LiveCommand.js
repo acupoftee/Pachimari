@@ -10,7 +10,7 @@ class LiveCommand extends Command {
     constructor() {
         super();
         this.name = 'live';
-        this.description = 'Displays information about a live match';
+        this.description = 'Shows information about a live match';
         this.usage = 'live [map|maps]';
         this.aliases = ['livematch'];
     }

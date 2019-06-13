@@ -62,6 +62,10 @@
 	
 	    get timePlayed() {
 	        return this._timePlayed;
-	    }
+		}
+		
+		setTimePlayed(timePlayed) {
+			this._timePlayed = timePlayed;
+		}
 	}
 	module.exports = Hero;

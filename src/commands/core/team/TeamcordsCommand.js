@@ -18,7 +18,7 @@ class TeamcordsCommand extends Command {
     constructor() {
         super();
         this.name = 'teamcords';
-        this.description = 'Displays Discord servers for OWL teams';
+        this.description = 'Shows Discord servers for OWL teams';
         this.usage = 'teamcords';
         this.aliases = ['discords', 'teamdiscords'];
     }

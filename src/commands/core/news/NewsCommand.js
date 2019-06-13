@@ -18,7 +18,7 @@ class NewsCommand extends Command {
     constructor() {
         super();
         this.name = 'news';
-        this.description = 'Displays recent Overwatch League news.';
+        this.description = 'Shows recent Overwatch League news.';
         this.usage = 'news';
         this.aliases = ['articles', 'blogs', 'blogposts', 'blog'];
     }
