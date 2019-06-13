@@ -8,7 +8,7 @@ class VodCommand extends Command {
     constructor() {
         super();
         this.name = 'vods';
-        this.description = 'Displays Overwatch League vods';
+        this.description = 'Shows Overwatch League vods';
         this.usage = 'vods';
         this.aliases = ['videos'];
     }

@@ -9,7 +9,7 @@ class PlaytimeCommand extends Command {
     constructor() {
         super();
         this.name = 'heroes';
-        this.description = 'Displays each hero\'s playtime';
+        this.description = 'Shows each hero\'s playtime';
         this.usage = 'heroes';
         this.aliases = ['heroplaytime'];
     }

@@ -10,7 +10,7 @@ class ProfileCommand extends Command {
     constructor() {
         super();
         this.name = "profile";
-        this.description = "displays a member's statistics";
+        this.description = "Shows a member's statistics";
         this.usage = "profile";
         this.aliases = [];
     }
