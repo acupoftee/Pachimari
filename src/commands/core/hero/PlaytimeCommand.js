@@ -49,7 +49,7 @@ class PlaytimeCommand extends Command {
         }
         // creates an array of entries and sorts them by value in descending order
         const sortedPlaytimes = [...playtimes.entries()].sort((a, b) => b[1] - a[1]);
-
+        console.log(sortedPlaytimes)
         let heroPlaytimeDescription = [];
         let counter = 1;
 
@@ -59,6 +59,7 @@ class PlaytimeCommand extends Command {
             let roleMoji = Emojis[heroRole.toUpperCase()];
             let heroTitle = HeroManager.getHeroTitle(entry[0]);
             let timePlayed = NumberUtil.toTimeString(entry[1]);
+            console.log(`${heroTitle} playtime: ${timePlayed}`)
             let heroString = `\`${String(counter).padStart(2, "0")}\`. ${roleMoji}${heroMoji} **${heroTitle}:** ${timePlayed}`;
             heroPlaytimeDescription.push(heroString);
             if (counter % 10 == 0) {
