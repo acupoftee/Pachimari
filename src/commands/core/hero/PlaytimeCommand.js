@@ -49,7 +49,6 @@ class PlaytimeCommand extends Command {
         }
         // creates an array of entries and sorts them by value in descending order
         const sortedPlaytimes = [...playtimes.entries()].sort((a, b) => b[1] - a[1]);
-        console.log(sortedPlaytimes)
         let heroPlaytimeDescription = [];
         let counter = 1;
 
