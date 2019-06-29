@@ -32,7 +32,7 @@ const {
     TopTenCommand,
     PrideCommand,
     PlaytimeCommand,
-    MapCommand
+    // MapCommand
  } = require('./commands');
 const { CommandHandler, GuildEvent } = require('./events');
 const Twitch = require('./social/Twitch');
@@ -90,7 +90,7 @@ new Promise(function (resolve, reject) {
         new TopTenCommand(),
         new PrideCommand(),
         new PlaytimeCommand(),
-        new MapCommand()
+        // new MapCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
