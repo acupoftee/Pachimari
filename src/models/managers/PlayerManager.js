@@ -59,7 +59,8 @@ class PlayerManager {
             const data = body.data.player;
             let heroArray = [];
 
-            if (data.attributes.heroes !== undefined) {
+            console.log(data.attributes.heroes)
+            if (data.attributes.heroes !== undefined && data.attributes.heroes !== null) {
                 heroData.forEach(hero => {
                     if (data.attributes.heroes.includes(hero.key)) {
                         heroArray.push(hero.title);

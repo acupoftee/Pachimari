@@ -90,7 +90,7 @@ new Promise(function (resolve, reject) {
         new TopTenCommand(),
         new PrideCommand(),
         new PlaytimeCommand(),
-        // new MapCommand()
+        //new MapCommand()
     );
 }).then(function (result) {
     return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
@@ -104,8 +104,8 @@ new Promise(function (resolve, reject) {
     return new HeroWatcher().watchForHeroUpdates();
 }).then(function (result) {
     return new PlayerStatsWatcher().watchForPlayerStatUpdates();
-// }).then(function (result) {
-//     return new RosterWatcher().watchForTeamSwaps();
+}).then(function (result) {
+    return new RosterWatcher().watchForTeamSwaps();
 
 // // }).then(function(result) {
 //     return new PredictionManager().watch();
