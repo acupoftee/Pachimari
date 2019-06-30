@@ -18,7 +18,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("MAPS"));
         return new Promise((resolve, reject) => {
             body.forEach(element => {
-                if (element.guid == guid) {
+                if (element.guid === guid) {
                     resolve(MessageUtil.capitalizeSentence(element.name.en_US));
                 }
             });
@@ -34,7 +34,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("MAPS"));
         return new Promise((resolve, reject) => {
             body.forEach(element => {
-                if (element.guid == guid) {
+                if (element.guid === guid) {
                     resolve(MessageUtil.capitalize(element.type));
                 }
             });
@@ -50,7 +50,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("MAPS"));
         return new Promise((resolve, reject) => {
             body.forEach(element => {
-                if (element.guid == guid) {
+                if (element.guid === guid) {
                     resolve(element.icon);
                 }
             });
@@ -66,7 +66,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("MAPS"));
         return new Promise((resolve, reject) => {
             body.forEach(element => {
-                if (element.guid == guid) {
+                if (element.guid === guid) {
                     resolve(element.thumbnail);
                 }
             });
@@ -82,7 +82,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("LIVE-MATCH"));
         return new Promise((resolve, reject) => {
             body.data.liveMatch.games.forEach(element => {
-                if (element.attributes.mapGuid == guid) {
+                if (element.attributes.mapGuid === guid) {
                     resolve(element.state);
                 }
             });
@@ -94,7 +94,7 @@ class MapManager {
         const body = await JsonUtil.parse(Endpoints.get("LIVE-MATCH"));
         return new Promise((resolve, reject) => {
             body.data.nextMatch.games.forEach(element => {
-                if (element.attributes.mapGuid == guid) {
+                if (element.attributes.mapGuid === guid) {
                     resolve(element.state);
                 }
             });

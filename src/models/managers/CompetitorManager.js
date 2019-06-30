@@ -65,7 +65,7 @@ class CompetitorManager {
             const id = this._competitors[i];
             const body = await JsonUtil.parse(Endpoints.get('COMPETITOR', id));
             const data = body.data;
-            let dark =  data.abbreviatedName == "LDN" ? data.logo.main.png : data.logo.altDark.png;
+            let dark = data.abbreviatedName === 'LDN' ? data.logo.main.png : data.logo.altDark.png;
             
 
             let competitor = new Competitor(
@@ -115,14 +115,14 @@ class CompetitorManager {
             const id = competitor.id;
 
             // return id if keys are equal
-            if (key == id) {
+            if (key === id) {
                 return id;
             }
 
             // return id if names are equal
             for (let j = 0; j < competitor.values.length; j++) {
                 const value = competitor.values[j];
-                if (key == value) {
+                if (key === value) {
                     return id;
                 }
             }
@@ -227,7 +227,7 @@ class CompetitorManager {
                 }
             } else if (typeof division === 'number') {
                 let long = div.values[0];
-                if (division == div.id) {
+                if (division === div.id) {
                     if (abbreviated) {
                         return div.abbrev;
                     }

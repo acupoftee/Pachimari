@@ -11,12 +11,12 @@ class HeroManager {
         let hero;
         for (let i = 0; i < heroes.length; i++) {
             // return id if names are equal
-            if (heroes[i].key == name) {
+            if (heroes[i].key === name) {
                 hero = heroes[i].key;
                 break;
             } else {
                 for (let j = 0; j < heroes[i].aliases.length; j++) {
-                    if (heroes[i].aliases[j] == name) {
+                    if (heroes[i].aliases[j] === name) {
                         hero = heroes[i].key;
                         break;
                     }
