@@ -59,7 +59,7 @@ class PlayerManager {
             const data = body.data.player;
             let heroArray = [];
 
-            console.log(data.attributes.heroes)
+            // console.log(data.attributes.heroes)
             if (data.attributes.heroes !== undefined && data.attributes.heroes !== null) {
                 heroData.forEach(hero => {
                     if (data.attributes.heroes.includes(hero.key)) {
@@ -73,7 +73,7 @@ class PlayerManager {
                 data.teams[0].team.id,
                 data.attributes.player_number,
                 data.name,
-                data.homeLocation,
+                data.homeLocation === undefined ? '' : data.homeLocation,
                 data.familyName,
                 data.givenName,
                 data.nationality,
