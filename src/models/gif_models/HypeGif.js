@@ -1,8 +1,8 @@
-'use strict';
-const GIFEncoder = require('gifencoder');
-const { LeagueLogo } = require('../../constants');
-const { createCanvas, loadImage, registerFont } = require('canvas');
-const fs = require('fs');
+'use strict'
+const GIFEncoder = require('gifencoder')
+const { LeagueLogo } = require('../../constants')
+const { createCanvas, loadImage, registerFont } = require('canvas')
+const fs = require('fs')
 
 /**
  * @class HypeGid
@@ -10,67 +10,72 @@ const fs = require('fs');
  * avatar with the appropriate hype hashtag and banner color
  */
 class HypeGif {
-	/**
-	 * Creates a random number
-	 * @param {number} min 
-	 * @param {number} max 
-	 */
-	randomize(min, max) {
-		return Math.floor(Math.random() * (max - min + 1) + min);
-	}
+/**
+ * Creates a random number
+ * @param {number} min
+ * @param {number} max
+ */
+  randomize (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
-	async buildHypeGif(profilePic, message) {
-		const encoder = new GIFEncoder(400, 400);
-		encoder.createReadStream().pipe(fs.createWriteStream('src/res/hype.gif'));
+  /**
+   * Builds a gif when invoking `!hype`
+   * @param {String} profilePic
+   * @param {String} message
+   */
+  async buildHypeGif (profilePic, message) {
+    const encoder = new GIFEncoder(400, 400)
+    encoder.createReadStream().pipe(fs.createWriteStream('src/res/hype.gif'))
 
-		const canvas = createCanvas(400, 400);
-		const ctx = canvas.getContext('2d');
-		const frames = 15;
-		const frameRate = 30;
+    const canvas = createCanvas(400, 400)
+    const ctx = canvas.getContext('2d')
+    const frames = 15
+    const frameRate = 30
 
-		encoder.start();
-		encoder.setRepeat(0);
-		encoder.setDelay(500);
-		encoder.setQuality(10);
-		encoder.setFrameRate(frameRate);
+    encoder.start()
+    encoder.setRepeat(0)
+    encoder.setDelay(500)
+    encoder.setQuality(10)
+    encoder.setFrameRate(frameRate)
 
-		// https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas 
-		registerFont('assets/BigNoodleTooOblique.ttf',
-			{ family: 'Big Noodle Too' });
+    // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
+    registerFont('assets/BigNoodleTooOblique.ttf',
+      { family: 'Big Noodle Too' })
 
-		registerFont('assets/Impact.ttf',
-			{ family: 'Impact' });
-		let text, textWidth;
-		let hashtag = "#OWL2019 - by @PachimariApp";
+    registerFont('assets/Impact.ttf',
+      { family: 'Impact' })
+    let text, textWidth
+    const hashtag = '#OWL2019 - by @PachimariApp'
 
-		let image = await loadImage(profilePic);
-		let owllogo = await loadImage(LeagueLogo.URL);
-		for (let i = 0; i < frames; i++) {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			let d = this.randomize(10, 40);
-			ctx.save();
-			let dx = this.randomize(0, d);
-			let dy = this.randomize(0, d);
+    const image = await loadImage(profilePic)
+    const owllogo = await loadImage(LeagueLogo.URL)
+    for (let i = 0; i < frames; i++) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const d = this.randomize(10, 40)
+      ctx.save()
+      const dx = this.randomize(0, d)
+      const dy = this.randomize(0, d)
 
-			ctx.drawImage(image, -d + dx, -d + dy, 400 + d, 400 + d);
-			ctx.font = '50px Impact';
-			ctx.strokeStyle = 'black';
-			ctx.lineWidth = 3;
-			text = "[HYPE INTENSIFIES]";
-			textWidth = ctx.measureText(text).width;
-			ctx.strokeText(text, (canvas.width - textWidth) / 2, 330);
-			ctx.fillStyle = 'white';
-			ctx.fillText(text, (canvas.width - textWidth) / 2, 330);
-			ctx.fillStyle = 'black';
-			ctx.fillRect(0, 350, 400, 50);
-			ctx.fillStyle = 'white';
-			ctx.font = '30px "Big Noodle Too"';
-			textWidth = ctx.measureText(hashtag).width;
-			ctx.drawImage(owllogo, 20, 358, owllogo.width / 30, owllogo.height / 30);
-			ctx.fillText(hashtag, ((canvas.width - textWidth) / 2) + 20, 385);
-			encoder.addFrame(ctx);
-		}
-		encoder.finish();
-	}
+      ctx.drawImage(image, -d + dx, -d + dy, 400 + d, 400 + d)
+      ctx.font = '50px Impact'
+      ctx.strokeStyle = 'black'
+      ctx.lineWidth = 3
+      text = '[HYPE INTENSIFIES]'
+      textWidth = ctx.measureText(text).width
+      ctx.strokeText(text, (canvas.width - textWidth) / 2, 330)
+      ctx.fillStyle = 'white'
+      ctx.fillText(text, (canvas.width - textWidth) / 2, 330)
+      ctx.fillStyle = 'black'
+      ctx.fillRect(0, 350, 400, 50)
+      ctx.fillStyle = 'white'
+      ctx.font = '30px "Big Noodle Too"'
+      textWidth = ctx.measureText(hashtag).width
+      ctx.drawImage(owllogo, 20, 358, owllogo.width / 30, owllogo.height / 30)
+      ctx.fillText(hashtag, ((canvas.width - textWidth) / 2) + 20, 385)
+      encoder.addFrame(ctx)
+    }
+    encoder.finish()
+  }
 }
-module.exports = HypeGif;
+module.exports = HypeGif
