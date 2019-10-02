@@ -1,36 +1,37 @@
-'use strict';
+'use strict'
 
 class Video {
-    constructor(uniqueId, date, title, description, thumbnail, shareURL) {
-        this._uniqueId = uniqueId;
-        this._date = date;
-        this._title = title;
-        this._description = description;
-        this._thumbnail = thumbnail;
-        this._shareURL = shareURL;
-    }
+  constructor (uniqueId, date, title, description, thumbnail, shareURL) {
+    this._uniqueId = uniqueId
+    this._date = date
+    this._title = title
+    this._description = description
+    this._thumbnail = thumbnail
+    this._shareURL = shareURL
+  }
 
-    get uniqueId() {
-        return this._uniqueId;
-    }
+  get uniqueId () {
+    return this._uniqueId
+  }
 
-    get date() {
-        return this._date;
-    }
-    get title() {
-        return this._title;
-    }
+  get date () {
+    return this._date
+  }
 
-    get description() {
-        return this._description;
-    }
+  get title () {
+    return this._title
+  }
 
-    get thumbnail() {
-        return this._thumbnail;
-    }
+  get description () {
+    return this._description
+  }
 
-    get shareURL() {
-        return this._shareURL;
-    }
+  get thumbnail () {
+    return this._thumbnail
+  }
+
+  get shareURL () {
+    return this._shareURL
+  }
 }
-module.exports = Video;
+module.exports = Video
