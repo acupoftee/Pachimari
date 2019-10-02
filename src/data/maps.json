@@ -1,0 +1,57 @@
+[
+    {
+        "name": "havana",
+        "guid": "0x0800000000000B56",
+        "aliases": []
+    },
+    {
+        "name": "temple-of-anubis",
+        "guid": "0x080000000000005B",
+        "aliases": ["anubis"]
+    },
+    {
+        "name": "kings-row",
+        "guid": "0x08000000000000D4",
+        "aliases": ["kingsrow", "kings row", "kr"]
+    },
+    {
+        "name": "hanamura",
+        "guid": "0x0800000000000165",
+        "aliases": ["hana", "mura"]
+    },
+    {
+        "name": "watchpoint-gibralter",
+        "guid": "0x0800000000000184",
+        "aliases": ["gibralter", "watchpoint", "wpg", "wp"]
+    },
+    {
+        "name": "numbani",
+        "guid": "0x08000000000001D4",
+        "aliases": []
+    },
+    {
+        "name": "volskaya-industries",
+        "guid": "0x08000000000001DB",
+        "aliases": ["volskaya", "vi", "volkskayaindustries"]
+    },
+    {
+        "name": "hollywood",
+        "guid": "0x08000000000002AF",
+        "aliases": []
+    },
+    {
+        "name": "dorado",
+        "guid": "0x08000000000002C3",
+        "aliases": []
+    },
+    {
+        "name": "nepal",
+        "guid": "0x08000000000004B7",
+        "aliases": []
+    },
+    {
+        "name": "route-66",
+        "guid": "0x08000000000005BB",
+        "aliases": []
+    }
+]
