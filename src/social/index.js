@@ -1,5 +1,5 @@
-const Tweets = require('./Tweets');
+const Tweets = require('./Tweets')
 
 module.exports = {
-    Tweets
+  Tweets
 }

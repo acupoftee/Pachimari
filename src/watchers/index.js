@@ -1,10 +1,9 @@
-const HeroWatcher = require('./HeroWatcher');
-const PlayerStatsWatcher = require('./PlayerStatsWatcher');
-const RosterWatcher = require('./RosterWatcher');
-
+const HeroWatcher = require('./HeroWatcher')
+const PlayerStatsWatcher = require('./PlayerStatsWatcher')
+const RosterWatcher = require('./RosterWatcher')
 
 module.exports = {
-    HeroWatcher,
-    PlayerStatsWatcher,
-    RosterWatcher
+  HeroWatcher,
+  PlayerStatsWatcher,
+  RosterWatcher
 }

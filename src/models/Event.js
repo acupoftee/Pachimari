@@ -1,20 +1,13 @@
-'use strict';
-
-const { Client } = require('discord.js');
+'use strict'
 
 /**
  * Super class for Events
  */
 class Event {
-    /**
-     * @constructor
-     */
-    constructor() {}
-
-    /**
+  /**
      * Executes an event
-     * @param {Client} a Discord bot client 
+     * @param {Client} a Discord bot client
      */
-    async execute(client) {}
+  async execute (client) {}
 }
-module.exports = Event;
+module.exports = Event
