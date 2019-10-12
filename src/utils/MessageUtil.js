@@ -85,7 +85,7 @@ class MessageUtil {
      */
   static getFlag (countryCode) {
     if (countryCode) {
-      return `:flag_${countryCode.toLowerCase()}:`
+      return `:flag_${countryCode === 'TPE' ? 'tw' : countryCode.toLowerCase()}:`
     }
     return ':flag_white:'
   }
