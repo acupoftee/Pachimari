@@ -29,31 +29,35 @@ class ScheduleCommand extends Command {
     // message.channel.send(Emojis["LOADING"]);
     const body = await JsonUtil.parse(Endpoints.get('SCHEDULE'))
     const promise = new Promise(function (resolve, reject) {
-      const currentTime = new Date().getTime()
-      let slug = null
-      for (let i = 0; i < stageData.length; i++) {
-        const stage = stageData[i]
-        if (currentTime < stage.endDate) {
-          slug = stage.slug
-          break
-        }
-      }
+      // const currentTime = new Date().getTime()
+      // let slug = null
+      // for (let i = 0; i < stageData.length; i++) {
+      //   const stage = stageData[i]
+      //   if (currentTime < stage.endDate) {
+      //     slug = stage.slug
+      //     break
+      //   } 
+      // }
       // organize data by stage and week
       for (const _stage of body.data.stages) {
-        if (_stage.slug === slug) {
+        if (_stage.slug === 'all-star') {
+          continue
+        }
+        // if (_stage.slug === slug) {
           for (const week of _stage.weeks) {
-            if ((currentTime < week.endDate) || (currentTime > week.startDate && currentTime < week.endDate)) {
+            // if ((currentTime < week.endDate) || (currentTime > week.startDate && currentTime < week.endDate)) {
               stageWeek = `${_stage.name}/${week.name}`
               week.matches.forEach(_match => {
+                console.log('home team', _match.competitors[1])
                 const home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName))
                 const away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName))
                 const match = new Match(_match.id, (_match.state === 'PENDING'),
                   _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value)
                 matches.push(match)
               })
-              break
-            }
-          }
+              // break
+            // }
+          // }
         }
       }
       resolve(1)
@@ -92,7 +96,7 @@ class ScheduleCommand extends Command {
       embed.setTitle(`__${dates[days - 1]} - ${stageWeek}__`)
       embed.setDescription(pages[page - 1])
       embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
-      Logger.custom('SCHEDULE_COMMAND', `Loading schedule for ${stageWeek}`)
+      Logger.custom('SCHEDULE_COMMAND', `Loading schedule for ${all}`)
     })
     promise.then(function (result) {
       const mess = embed.buildEmbed().getEmbed
