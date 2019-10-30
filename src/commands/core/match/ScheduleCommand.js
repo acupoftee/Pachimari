@@ -19,9 +19,13 @@ class ScheduleCommand extends Command {
   async execute (client, message, args) {
     const embed = new PachimariEmbed(client)
     const matches = []
-    let stageWeek = ''
-    const pages = []; const dates = []
-    let page = 1; let days = 1
+    // let stageWeek = ''
+    const pages = []
+    const dates = []
+    // const stageWeeks = []
+    let page = 1
+    let days = 1
+    // let weeks = 1
 
     const loading = message.channel.send(Emojis.LOADING)
 
@@ -36,7 +40,7 @@ class ScheduleCommand extends Command {
       //   if (currentTime < stage.endDate) {
       //     slug = stage.slug
       //     break
-      //   } 
+      //   }
       // }
       // organize data by stage and week
       for (const _stage of body.data.stages) {
@@ -44,19 +48,19 @@ class ScheduleCommand extends Command {
           continue
         }
         // if (_stage.slug === slug) {
-          for (const week of _stage.weeks) {
-            // if ((currentTime < week.endDate) || (currentTime > week.startDate && currentTime < week.endDate)) {
-              stageWeek = `${_stage.name}/${week.name}`
-              week.matches.forEach(_match => {
-                console.log('home team', _match.competitors[1])
-                const home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName))
-                const away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName))
-                const match = new Match(_match.id, (_match.state === 'PENDING'),
-                  _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value)
-                matches.push(match)
-              })
-              // break
-            // }
+        for (const week of _stage.weeks) {
+          // if ((currentTime < week.endDate) || (currentTime > week.startDate && currentTime < week.endDate)) {
+          // stageWeeks.push(`${_stage.name}/${week.name}`)
+          week.matches.forEach(_match => {
+            // console.log('home team', _match.competitors[1])
+            const home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[1].abbreviatedName))
+            const away = CompetitorManager.competitors.get(CompetitorManager.locateTeam(_match.competitors[0].abbreviatedName))
+            const match = new Match(_match.id, (_match.state === 'PENDING'),
+              _match.state, _match.startDate, home, away, _match.scores[1].value, _match.scores[0].value)
+            matches.push(match)
+          })
+          // break
+          // }
           // }
         }
       }
@@ -93,11 +97,12 @@ class ScheduleCommand extends Command {
         }
       }
 
-      embed.setTitle(`__${dates[days - 1]} - ${stageWeek}__`)
+      embed.setTitle(`__${dates[days - 1]}__`)
       embed.setDescription(pages[page - 1])
       embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
-      Logger.custom('SCHEDULE_COMMAND', `Loading schedule for ${all}`)
+      Logger.custom('SCHEDULE_COMMAND', 'Loading schedule')
     })
+
     promise.then(function (result) {
       const mess = embed.buildEmbed().getEmbed
       // loading.then(message => message.delete());
@@ -118,7 +123,7 @@ class ScheduleCommand extends Command {
             }
             page--
             days--
-            embed.setTitle(`__${dates[days - 1]} - ${stageWeek}__`)
+            embed.setTitle(`__${dates[days - 1]}__`)
             embed.setDescription(pages[page - 1])
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
             await r.remove(message.author.id)
@@ -132,7 +137,7 @@ class ScheduleCommand extends Command {
             }
             page++
             days++
-            embed.setTitle(`__${dates[days - 1]} - ${stageWeek}__`)
+            embed.setTitle(`__${dates[days - 1]}__`)
             embed.setDescription(pages[page - 1])
             embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
             await r.remove(message.author.id)
