@@ -105,6 +105,7 @@ class CompetitorManager {
      * @returns the Competitor's ID
      */
   static locateTeam (val) {
+    console.log('locate team method:', val)
     const key = val.toLowerCase()
     for (let i = 0; i < teamNames.length; i++) {
       const competitor = teamNames[i]
