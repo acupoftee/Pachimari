@@ -2,8 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const config = new Schema({
-  guild: {
+  prefix: {
     type: String,
-    required: true
+    required: true,
+    default: '!'
   }
 })
+
+module.exports = mongoose.Model('Server', config)
