@@ -22,12 +22,17 @@ class SettingsCommand extends Command {
       embed.setTitle('Settings')
       embed.setDescription(`Use the format \`\`${client.prefix}settings <setting>\`\` for more information.`)
 
-      for (let i = 0; i < botsettings.length; i++) {
-        const setting = botsettings[i]
-        embed.addFields(setting.title,
-                    `\`\`${client.prefix}settings ${setting.commandKey}\`\``,
-                    true)
-      }
+      // for (let i = 0; i < botsettings.length; i++) {
+      //   const setting = botsettings[i]
+      //   embed.addFields(setting.title,
+      //               `\`\`${client.prefix}settings ${setting.commandKey}\`\``,
+      //               true)
+      // }
+      const setting = botsettings[0]
+      embed.addFields(setting.title,
+        `\`\`${client.prefix}settings ${setting.commandKey}\`\``,
+        true)
+
       embed.buildEmbed().post(message.channel)
     } else {
       const option = args[0].toLowerCase()
