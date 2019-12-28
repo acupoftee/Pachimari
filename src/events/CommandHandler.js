@@ -39,21 +39,10 @@ class CommandHandler extends Event {
           return
         }
 
-<<<<<<< HEAD
-      // const row = await Queries.getGuild(message.guild.id);
-      client.prefix = process.env.COMMAND_PREFIX
-      if (!message.content.startsWith(client.prefix) || message.author.bot) {
-        return
-      }
-      if (message.channel.type !== 'text') {
-        return
-      }
-=======
         // https://anidiots.guide/first-bot/command-with-arguments
         const args = message.content.slice(client.prefix.length).trim().split(/ +/g)
         const commandName = args.shift().toLowerCase()
         const command = client.commands.get(commandName)
->>>>>>> development
 
         if (!command) {
           return
