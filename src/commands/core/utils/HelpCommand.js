@@ -1,6 +1,6 @@
 const { Command, PachimariEmbed } = require('../../../models')
 const { MessageUtil, Logger } = require('../../../utils')
-
+const Server = require('../../../dbv2/serverdb')
 class HelpCommand extends Command {
   constructor () {
     super()
@@ -13,15 +13,16 @@ class HelpCommand extends Command {
   async execute (client, message, args) {
     const embed = new PachimariEmbed(client)
     embed.setThumbnail(client.user.avatarURL)
-
+    const server = await Server.findOne({ guildID: message.guild.id.toString() })
+    const prefix = server.prefix
     if (args.length <= 0) {
       Logger.custom('HELP_COMMAND', 'Loading command list')
       embed.setTitle('Commands')
-      embed.setDescription('Use The Command Format ``!help <command>`` for more information.')
+      embed.setDescription('Use ``' + prefix + 'help <command>`` for more info.')
       const cmds = []
 
       client.commands.forEach(command => {
-        cmds.push(`**!${command.name}**:\t${command.description}`)
+        cmds.push(`**${prefix}${command.name}**:\t${command.description}`)
       })
       embed.addFields('Descriptions', cmds)
       embed.buildEmbed().post(message.channel)
@@ -32,7 +33,7 @@ class HelpCommand extends Command {
       embed.setTitle(MessageUtil.capitalize(cmd.name) + ' Command')
       Logger.custom('HELP_COMMAND CMD', `Loading help for ${cmd.name} Command`)
       embed.setDescription(cmd.description)
-      embed.addFields('Usage', `!${cmd.usage}`)
+      embed.addFields('Usage', `${prefix}${cmd.usage}`)
       embed.buildEmbed().post(message.channel)
     }
   }
