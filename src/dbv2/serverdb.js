@@ -5,7 +5,7 @@ const config = new Schema({
   prefix: {
     type: String,
     required: true,
-    default: '?'
+    default: '!'
   },
   guildID: {
     type: String,
