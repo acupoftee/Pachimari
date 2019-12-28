@@ -2,6 +2,7 @@
 
 const Database = require('./Database')
 const { Logger } = require('../utils')
+// const Server = require('../dbv2/serverdb')
 // const { TextChannel } = require(
 //   'discord.js'
 // )
@@ -9,15 +10,15 @@ const { Logger } = require('../utils')
 class SettingsQueries {
   static getOwlAnnounceChannels () {
     return new Promise(function (resolve, reject) {
-      Database.connection.query(
-        'SELECT * FROM guilds WHERE announce_owl = \'true\'',
-        function (err, rows) {
-          if (err) {
-            reject(err)
-          }
-          resolve(rows)
-        }
-      )
+      // Database.connection.query(
+      //   'SELECT * FROM guilds WHERE announce_owl = \'true\'',
+      //   function (err, rows) {
+      //     if (err) {
+      //       reject(err)
+      //     }
+      //     resolve(rows)
+      //   }
+      // )
     })
   }
 

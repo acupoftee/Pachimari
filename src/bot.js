@@ -2,6 +2,10 @@
 
 const pckg = require('../package.json')
 const mongoose = require('mongoose')
+<<<<<<< HEAD
+=======
+const db = require('./db/config')
+>>>>>>> development
 const { PachimariClient } = require('./models')
 // const Database = require('./db/Database')
 const { CompetitorManager, PlayerManager } = require('./models/owl_models')
@@ -63,8 +67,12 @@ new Promise(function (resolve, reject) {
   //   .catch(function (err) {
   //     Logger.error(err.stack)
   //   })
+<<<<<<< HEAD
 
   mongoose.connect('mongodb://localhost:27017/pachimari', {
+=======
+  mongoose.connect(db, {
+>>>>>>> development
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
