@@ -7,7 +7,6 @@ const { Logger } = require('../utils')
 // const mongoose = require('mongoose')
 const Server = require('../dbv2/serverdb')
 
-
 /**
  * Responsible for handling various Pachimari Commands
  * @extends {Event}
@@ -20,11 +19,6 @@ class CommandHandler extends Event {
      */
   async execute (client) {
     client.on('message', async message => {
-      // if ((await Queries.getGuild(message.guild.id)) === undefined) {
-      //     await Queries.addGuild(message.guild.id);
-      // }
-
-      // const row = await Queries.getGuild(message.guild.id);
       const serverGuild = client.guilds.get(message.guild.id)
       Server.findOne({
         guildID: serverGuild.id
