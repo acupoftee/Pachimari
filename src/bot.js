@@ -24,7 +24,7 @@ const {
   // PredictCommand,
   // PredictionsCommand,
   MatchCommand,
-  // SettingsCommand,
+  SettingsCommand,
   // ProfileCommand,
   InfoCommand,
   VodCommand,
@@ -64,13 +64,13 @@ new Promise(function (resolve, reject) {
   //     Logger.error(err.stack)
   //   })
   mongoose.connect('mongodb://localhost:27017/pachimari', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true
-}, err => {
-  if(err) return console.error(err)
-  console.log('Connected to PachiDB')
-})
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  }, err => {
+    if (err) return console.error(err)
+    console.log('Connected to PachiDB')
+  })
 }).then(function (result) {
   client.runEvents(new CommandHandler())
 }).then(function (result) {
@@ -91,7 +91,7 @@ new Promise(function (resolve, reject) {
     // new PredictCommand(),
     // new PredictionsCommand(),
     new MatchCommand(),
-    // new SettingsCommand(),
+    new SettingsCommand(),
     // new ProfileCommand()
     new InfoCommand(),
     new VodCommand(),

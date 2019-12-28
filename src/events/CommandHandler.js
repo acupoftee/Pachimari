@@ -13,7 +13,6 @@ const Server = require('../dbv2/serverdb')
  * @extends {Event}
  */
 class CommandHandler extends Event {
-
   /**
      * Executes a command based on the command parsed in the
      * Message content.
