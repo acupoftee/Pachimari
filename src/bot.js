@@ -1,6 +1,7 @@
 'use strict'
 
 const pckg = require('../package.json')
+const mongoose = require('mongoose')
 const { PachimariClient } = require('./models')
 // const Database = require('./db/Database')
 const { CompetitorManager, PlayerManager } = require('./models/owl_models')
@@ -34,8 +35,8 @@ const {
   PlaytimeCommand
   // MapCommand
 } = require('./commands')
-// const { CommandHandler, GuildEvent } = require('./events')
 const { CommandHandler } = require('./events')
+// const { CommandHandler } = require('./events')
 // const Twitch = require('./social/Twitch')
 // const Tweets = require('./social/Tweets')
 const { performance } = require('perf_hooks')
@@ -55,13 +56,21 @@ new Promise(function (resolve, reject) {
   boot = performance.now()
   Logger.info('Logging on')
   setTimeout(() => resolve(1), 1)
-// }).then(function() {
-//     return new Database()
-//         .init()
-//         .then(db => db.connect())
-//         .catch(function(err) {
-//             Logger.error(err.stack);
-//         });
+}).then(function () {
+  // return new Database()
+  //   .init()
+  //   .then(db => db.connect())
+  //   .catch(function (err) {
+  //     Logger.error(err.stack)
+  //   })
+  mongoose.connect('mongodb://localhost:27017/pachimari', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+}, err => {
+  if(err) return console.error(err)
+  console.log('Connected to PachiDB')
+})
 }).then(function (result) {
   client.runEvents(new CommandHandler())
 }).then(function (result) {
@@ -108,15 +117,15 @@ new Promise(function (resolve, reject) {
 }).then(function (result) {
   return new RosterWatcher().watchForTeamSwaps()
 
-// // }).then(function(result) {
-//     return new PredictionManager().watch();
-// }).then(function(result) {
-//     return new Twitch(client).watch();
-// }).then(function(result) {
-//     return new Tweets(client).watch();
+  // // }).then(function(result) {
+  //     return new PredictionManager().watch();
+  // }).then(function(result) {
+  //     return new Twitch(client).watch();
+  // }).then(function(result) {
+  //     return new Tweets(client).watch();
 }).then(function (result) {
   client.login().then(() => {
-    Logger.info(`${client.user.tag} is logged in and active. Serving 
+    Logger.info(`${client.user.tag} is logged in and active. Serving
         ${client.users.array().length} members. Took ${((performance.now() - boot) / 1000).toFixed(0)} seconds.`)
     client.user.setPresence({
       game: {

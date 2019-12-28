@@ -5,8 +5,12 @@ const config = new Schema({
   prefix: {
     type: String,
     required: true,
-    default: '!'
+    default: '?'
+  },
+  guildID: {
+    type: String,
+    required: true
   }
 })
 
-module.exports = mongoose.Model('Server', config)
+module.exports = mongoose.model('Server', config)
