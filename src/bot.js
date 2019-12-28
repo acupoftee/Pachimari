@@ -31,7 +31,7 @@ const {
   HypeCommand,
   WambulanceCommad,
   TopTenCommand,
-  PrideCommand,
+  // PrideCommand,
   PlaytimeCommand
   // MapCommand
 } = require('./commands')
@@ -98,7 +98,7 @@ new Promise(function (resolve, reject) {
     new HypeCommand(),
     new WambulanceCommad(),
     new TopTenCommand(),
-    new PrideCommand(),
+    // new PrideCommand(),
     new PlaytimeCommand()
     // new MapCommand()
   )
