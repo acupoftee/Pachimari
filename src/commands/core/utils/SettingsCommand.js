@@ -17,6 +17,12 @@ class SettingsCommand extends Command {
   }
 
   async execute (client, message, args) {
+    const guild = client.guilds.get(message.guild.id)
+    const member = guild.members.get(message.author.id)
+    if (!member.hasPermission('MANAGE_GUILD')) {
+      MessageUtil.sendError(message.channel, 'Sorry, only members with the "**Manage Server**" permission can use this command.')
+      return
+    }
     if (args.length <= 0) {
       const embed = new PachimariEmbed(client)
       embed.setTitle('Settings')
