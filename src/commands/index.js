@@ -26,6 +26,7 @@ const TopTenCommand = require('./core/player/TopTenCommand')
 const PrideCommand = require('./social/misc/PrideCommand')
 const PlaytimeCommand = require('./core/hero/PlaytimeCommand')
 const MapCommand = require('./core/team/MapCommand')
+const ContendersTeamCommand = require('./core/contenders/ContendersTeamsCommand')
 
 module.exports = {
   PingCommand,
@@ -53,5 +54,6 @@ module.exports = {
   TopTenCommand,
   PrideCommand,
   PlaytimeCommand,
-  MapCommand
+  MapCommand,
+  ContendersTeamCommand
 }

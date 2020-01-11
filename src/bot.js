@@ -6,6 +6,7 @@ const db = require('./db/config')
 const { PachimariClient } = require('./models')
 // const Database = require('./db/Database')
 const { CompetitorManager, PlayerManager } = require('./models/owl_models')
+const { ContendersCompetitorManager } = require('./models/contenders')
 const { HeroWatcher, PlayerStatsWatcher, RosterWatcher } = require('./watchers')
 const { Logger } = require('./utils')
 const {
@@ -33,8 +34,9 @@ const {
   WambulanceCommad,
   TopTenCommand,
   // PrideCommand,
-  PlaytimeCommand
-  // MapCommand
+  PlaytimeCommand,
+  // MapCommand,
+  ContendersTeamCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
 // const { CommandHandler } = require('./events')
@@ -100,11 +102,16 @@ new Promise(function (resolve, reject) {
     new WambulanceCommad(),
     new TopTenCommand(),
     // new PrideCommand(),
-    new PlaytimeCommand()
-    // new MapCommand()
+    new PlaytimeCommand(),
+    // new MapCommand(),
+    new ContendersTeamCommand()
   )
 }).then(function (result) {
   return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+    Logger.error(err.stack)
+  })
+}).then(function (result) {
+  return new ContendersCompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
     Logger.error(err.stack)
   })
 }).then(function (result) {
