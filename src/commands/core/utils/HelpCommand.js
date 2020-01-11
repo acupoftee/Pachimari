@@ -24,7 +24,7 @@ class HelpCommand extends Command {
       client.commands.forEach(command => {
         cmds.push(`**${prefix}${command.name}**:\t${command.description}`)
       })
-      embed.addFields('Descriptions', cmds)
+      embed.setDescription('Use ``' + prefix + 'help <command>`` for more info.\n__Descriptions__:' + '\n' + cmds.join('\n'))
       embed.buildEmbed().post(message.channel)
     } else {
       const command = args[0].toLowerCase()
