@@ -2,9 +2,8 @@
 
 const { Command, PachimariEmbed } = require('../../../models')
 const { ContendersCompetitorManager } = require('../../../models/contenders')
-const { NumberUtil, MessageUtil, JsonUtil, AlertUtil, Logger } = require('../../../utils')
+const { MessageUtil, Logger } = require('../../../utils')
 const { Emojis } = require('../../../constants')
-// const momentTimezone = require('moment-timezone')
 
 /**
  * @class ContendersTeamCommand
