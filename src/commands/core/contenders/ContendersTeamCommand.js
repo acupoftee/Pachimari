@@ -41,7 +41,7 @@ class ContendersTeamCommand extends Command {
     const embed = new PachimariEmbed(client)
     embed.setColor(competitor.primaryColor)
     embed.setThumbnail(competitor.logo)
-    const teamEmoji = Emojis[competitor.abbreviatedName]
+    const teamEmoji = Emojis[competitor.abbreviatedName.toUpperCase()]
     const loading = message.channel.send(Emojis.LOADING)
 
     if (args[1] === undefined) {
