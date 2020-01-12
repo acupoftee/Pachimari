@@ -68,7 +68,8 @@ class CompetitorManager {
         continue
       }
 
-      const abbreviatedName = data.name === 'Meta Athena' ? 'ATHE' : data.abbreviatedName
+      let abbreviatedName = data.name === 'Meta Athena' ? 'ATHE' : data.abbreviatedName
+      abbreviatedName = data.name === 'ATL Academy' ? 'ATLA' : data.abbreviatedName
 
       const competitor = new Competitor(
         data.id,
