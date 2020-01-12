@@ -4,7 +4,6 @@ const pckg = require('../package.json')
 const mongoose = require('mongoose')
 const db = require('./db/config')
 const { PachimariClient } = require('./models')
-// const Database = require('./db/Database')
 const { CompetitorManager, PlayerManager } = require('./models/owl_models')
 const { ContendersCompetitorManager } = require('./models/contenders')
 const { HeroWatcher, PlayerStatsWatcher, RosterWatcher } = require('./watchers')
@@ -41,7 +40,6 @@ const {
   // GetEmotesCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
-// const { CommandHandler } = require('./events')
 // const Twitch = require('./social/Twitch')
 // const Tweets = require('./social/Tweets')
 const { performance } = require('perf_hooks')
@@ -62,12 +60,6 @@ new Promise(function (resolve, reject) {
   Logger.info('Logging on')
   setTimeout(() => resolve(1), 1)
 }).then(function () {
-  // return new Database()
-  //   .init()
-  //   .then(db => db.connect())
-  //   .catch(function (err) {
-  //     Logger.error(err.stack)
-  //   })
   mongoose.connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -110,18 +102,18 @@ new Promise(function (resolve, reject) {
     new ContendersTeamCommand(),
     // new GetEmotesCommand()
   )
-// }).then(function (result) {
-//   return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-//     Logger.error(err.stack)
-//   })
+}).then(function (result) {
+  return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+    Logger.error(err.stack)
+  })
 }).then(function (result) {
   return new ContendersCompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
     Logger.error(err.stack)
   })
-// }).then(function (result) {
-//   return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
-//     Logger.error(err.stack)
-//   })
+}).then(function (result) {
+  return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+    Logger.error(err.stack)
+  })
 }).then(function (result) {
   return new HeroWatcher().watchForHeroUpdates()
 }).then(function (result) {
