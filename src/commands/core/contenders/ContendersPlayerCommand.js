@@ -58,7 +58,7 @@ class ContendersPlayerCommand extends Command {
     info.push(foundPlayer.role ? `${MessageUtil.capitalize(foundPlayer.role)} player for ${team.name}` : `Player for ${team.name}`)
     embed.setDescription(info)
     embed.setThumbnail('https://bnetcmsus-a.akamaihd.net/cms/page_media/S02042JXNHF81515718127993.png')
-    if (foundPlayer.heroes) {
+    if (foundPlayer.heroes && foundPlayer.heroes.length > 0) {
       const newHeroArray = foundPlayer.heroes.map(hero => {
         const heroName = HeroManager.getHeroTitle(hero.name)
         const heroMoji = Emojis[hero.name.toUpperCase()]
@@ -66,7 +66,7 @@ class ContendersPlayerCommand extends Command {
       })
       embed.addFields('Top Heroes', newHeroArray, true)
     }
-    if (foundPlayer.accounts) {
+    if (foundPlayer.accounts && foundPlayer.accounts.length > 0) {
       const newAccountArray = foundPlayer.accounts.map(account => {
         let type = account.accountType
         for (let i = 0; i < accountTypes.length; i++) {
