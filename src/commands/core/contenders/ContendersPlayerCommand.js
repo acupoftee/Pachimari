@@ -39,7 +39,7 @@ class ContendersPlayerCommand extends Command {
     }
 
     if (foundPlayer === null) {
-      loading.then(message => message.edit(AlertUtil.ERROR("Couldn't find that player. :C")))
+      loading.then(message => message.edit(AlertUtil.ERROR("I couldn't find info for that player. :C")))
       return
     }
 
