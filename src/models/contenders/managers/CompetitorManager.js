@@ -1,11 +1,12 @@
 'use strict'
 
 const { JsonUtil, Logger } = require('../../../utils')
+
 const { Collection } = require('discord.js')
 const Competitor = require('../Competitor')
 const Player = require('../Player')
 const contendersTeamNames = require('../../../data/contendersteams.json')
-const fs = require('fs')
+const accountTypes = require('../../../data/accounts.json')
 // const Account = require('../../owl_models/Account')
 // const teamNames = require('../../data/teamnames.json')
 // const divisions = require('../../data/divisions.json')
@@ -87,6 +88,21 @@ class CompetitorManager {
           player.name, player.givenName, player.familyName, player.nationality)
         competitor.players.set(player.id, newPlayer)
       })
+
+      const teamFullInfo = await JsonUtil.parse(`https://api.overwatchcontenders.com/teams/${data.id}`)
+      if (!teamFullInfo.id) {
+        console.log(`no info for ${data.name}`)
+        continue
+      } else {
+        const fullRoster = teamFullInfo.players
+        for (const player of fullRoster) {
+          const teamMember = competitor.players.get(player.id)
+          teamMember.role = player.attributes.role
+          teamMember.heroes = player.attributes.heroes
+          teamMember.accounts = player.accounts
+          console.log('team member', teamMember)
+        }
+      }
 
       competitorsContenders.set(data.id, competitor)
       Logger.custom('CONTENDERS TEAM', `Loaded ${data.id} ${data.name}`)
