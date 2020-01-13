@@ -52,7 +52,7 @@ class ContendersTeamCommand extends Command {
 
       competitor.players.forEach(player => {
         const countryEmoji = MessageUtil.getFlag(player.nationality)
-        members.push(`${countryEmoji} ${player.givenName} '**${player.name}**' ${player.familyName}`)
+        members.push(`${countryEmoji} ${player.givenName || ''} '**${player.name}**' ${player.familyName || ''}`)
       })
 
       if (members.length > 0) {

@@ -29,6 +29,7 @@ const MapCommand = require('./core/team/MapCommand')
 const ContendersTeamsCommand = require('./core/contenders/ContendersTeamsCommand')
 const ContendersTeamCommand = require('./core/contenders/ContendersTeamCommand')
 const GetEmotesCommand = require('./core/utils/GetEmotesCommand')
+const ContendersPlayerCommand = require('./core/contenders/ContendersPlayerCommand')
 
 module.exports = {
   PingCommand,
@@ -59,5 +60,6 @@ module.exports = {
   MapCommand,
   ContendersTeamsCommand,
   ContendersTeamCommand,
+  ContendersPlayerCommand,
   GetEmotesCommand
 }

@@ -37,6 +37,7 @@ const {
   // MapCommand,
   ContendersTeamsCommand,
   ContendersTeamCommand,
+  ContendersPlayerCommand
   // GetEmotesCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
@@ -100,6 +101,7 @@ new Promise(function (resolve, reject) {
     // new MapCommand(),
     new ContendersTeamsCommand(),
     new ContendersTeamCommand(),
+    new ContendersPlayerCommand()
     // new GetEmotesCommand()
   )
 }).then(function (result) {
