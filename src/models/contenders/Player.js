@@ -20,7 +20,7 @@ class Player {
      * @param {String[]} heroes Player's Overwatch heroes.
      */
   constructor (id, competitorId, playerNumber = null, name,
-    familyName, givenName, nationality, role = null, heroes = null) {
+    familyName, givenName, nationality, role = null, heroes = null, accounts = null) {
     this._id = id
     this._competitorId = competitorId
     this._playerNumber = playerNumber
@@ -32,12 +32,12 @@ class Player {
     this._heroes = heroes
     // this._playedHeroes = playedHeroes;
 
-    /**
-     * A Collection of Accounts
-     * @type {Collection<string, Account>}
-     * @private
-     */
-    this._accounts = new Collection()
+    // /**
+    //  * A Collection of Accounts
+    //  * @type {Collection<string, Account>}
+    //  * @private
+    //  */
+    // this._accounts = []
 
     /**
      * A Collection of Played Heroes
@@ -122,12 +122,20 @@ class Player {
     return this._role
   }
 
+  set role (role) {
+    this._role = role
+  }
+
   /**
      * Returns a Player's heroes
      * @returns {String[]} player's heroes
      */
   get heroes () {
     return this._heroes
+  }
+
+  set heroes (heroes) {
+    this._heroes = heroes
   }
 
   /**
@@ -138,12 +146,16 @@ class Player {
     return this._accounts
   }
 
+  set accounts (accounts) {
+    this._accounts = accounts
+  }
+
   /**
      * Returns all played heroes
      * @returns {Hero[]} played heroes
      */
-  get playedHeroes () {
-    return this._playedHeroes
-  }
+  // get playedHeroes () {
+  //   return this._playedHeroes
+  // }
 }
 module.exports = Player

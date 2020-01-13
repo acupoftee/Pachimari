@@ -90,17 +90,14 @@ class CompetitorManager {
       })
 
       const teamFullInfo = await JsonUtil.parse(`https://api.overwatchcontenders.com/teams/${data.id}`)
-      if (!teamFullInfo.id) {
-        console.log(`no info for ${data.name}`)
-        continue
-      } else {
+      if (teamFullInfo.id) {
         const fullRoster = teamFullInfo.players
         for (const player of fullRoster) {
           const teamMember = competitor.players.get(player.id)
           teamMember.role = player.attributes.role
           teamMember.heroes = player.attributes.heroes
           teamMember.accounts = player.accounts
-          console.log('team member', teamMember)
+          // console.log('team member', teamMember)
         }
       }
 
