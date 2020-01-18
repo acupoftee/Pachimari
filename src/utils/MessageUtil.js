@@ -87,7 +87,7 @@ class MessageUtil {
     if (countryCode) {
       return `:flag_${countryCode === 'TPE' ? 'tw' : countryCode.toLowerCase()}:`
     }
-    return ':flag_white:'
+    return ':united_nations:'
   }
 }
 module.exports = MessageUtil
