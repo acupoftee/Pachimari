@@ -25,6 +25,10 @@ class InfoCommand extends Command {
     // embed.addFields("Creator", "dustybutton#7350");
     embed.addFields('Users', client.users.size, true)
     embed.addFields(
+      ':money_with_wings: Support Pachimari\'s development <3',
+      'https://www.paypal.me/pachimariapp'
+    )
+    embed.addFields(
       ':sos: Support Server',
       ' https://discord.gg/KUg6rKz'
     )
@@ -32,12 +36,10 @@ class InfoCommand extends Command {
       ':signal_strength: Website',
       'https://acupoftee.github.io/Pachimari-Dashboard'
     )
-
     embed.addFields(
       ':heart_decoration: Invite me to your server ヾ(๑╹◡╹)ﾉ',
       'https://tinyurl.com/y48es8jw'
     )
-
     embed.addFields(
       ':up: Upvote me on Discordbots.org (╹◡╹๑)',
       'https://tinyurl.com/y3mhfr8l'
