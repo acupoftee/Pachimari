@@ -30,6 +30,7 @@ const ContendersTeamsCommand = require('./core/contenders/ContendersTeamsCommand
 const ContendersTeamCommand = require('./core/contenders/ContendersTeamCommand')
 const GetEmotesCommand = require('./core/utils/GetEmotesCommand')
 const ContendersPlayerCommand = require('./core/contenders/ContendersPlayerCommand')
+const ContendersScheduleCommand = require('./core/contenders/ContendersScheduleCommand')
 
 module.exports = {
   PingCommand,
@@ -61,5 +62,6 @@ module.exports = {
   ContendersTeamsCommand,
   ContendersTeamCommand,
   ContendersPlayerCommand,
+  ContendersScheduleCommand,
   GetEmotesCommand
 }

@@ -37,7 +37,8 @@ const {
   // MapCommand,
   ContendersTeamsCommand,
   ContendersTeamCommand,
-  ContendersPlayerCommand
+  ContendersPlayerCommand,
+  ContendersScheduleCommand
   // GetEmotesCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
@@ -101,21 +102,22 @@ new Promise(function (resolve, reject) {
     // new MapCommand(),
     new ContendersTeamsCommand(),
     new ContendersTeamCommand(),
-    new ContendersPlayerCommand()
+    new ContendersPlayerCommand(),
+    new ContendersScheduleCommand()
     // new GetEmotesCommand()
   )
-}).then(function (result) {
-  return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-    Logger.error(err.stack)
-  })
+// }).then(function (result) {
+//   return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+//     Logger.error(err.stack)
+//   })
 }).then(function (result) {
   return new ContendersCompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
     Logger.error(err.stack)
   })
-}).then(function (result) {
-  return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
-    Logger.error(err.stack)
-  })
+// }).then(function (result) {
+//   return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+//     Logger.error(err.stack)
+//   })
 }).then(function (result) {
   return new HeroWatcher().watchForHeroUpdates()
 }).then(function (result) {

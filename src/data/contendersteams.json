@@ -66,5 +66,11 @@
   { "id": 8161, "values": ["wgs", "wgs"] },
   { "id": 5101, "values": ["xavieresports", "xve", "xavier"] },
   { "id": 5139, "values": ["xl2academy", "xl2"] },
-  { "id": 4865, "values": ["youngandbeautiful", "yab", "young", "beautiful", "yb"] }
+  { "id": 4865, "values": ["youngandbeautiful", "yab", "young", "beautiful", "yb"] },
+  { "id": 9051, "values": ["awakening", "awk", "awake"] },
+  { "id": 6049, "values": ["betrayed", "bt"] },
+  { "id": 5110, "values": ["patitos", "pat"] },
+  { "id": 5114, "values": ["horusgaming", "horus", "hrg"] },
+  { "id": 5112, "values": ["teamnotfound", "tnt", "404"] },
+  { "id": 5109, "values": ["warpigs", "wp", "war", "pigs"] }
 ]

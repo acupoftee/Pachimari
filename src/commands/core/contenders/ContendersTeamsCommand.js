@@ -42,7 +42,7 @@ class ContendersTeamsCommand extends Command {
     ]
 
     ContendersCompetitorManager.contendersCompetitors.forEach(competitor => {
-      const teamEmoji = Emojis[competitor.abbreviatedName.toUpperCase()]
+      const teamEmoji = Emojis[competitor.abbreviatedName.toUpperCase()] || '⚔️'
       const key = this.getRegionEmoji(competitor.region)
       if (!regions[key]) {
         regions[key] = []
