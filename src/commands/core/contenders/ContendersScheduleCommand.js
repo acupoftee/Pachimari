@@ -99,6 +99,8 @@ class ContendersScheduleCommand extends Command {
 
     embed.setTitle(`__${dates[days - 1]}${stageTitle ? ' - ' + stageTitle : ''}__`)
     embed.setDescription(pages[page - 1])
+    embed.setThumbnail('http://esportsjunkie.com/wp-content/uploads/2018/02/Overwatch-Contenders-New-Logo.png')
+    embed.setColor('#afe915')
     embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
     Logger.custom('SCHEDULE_COMMAND', 'Loading schedule')
     const mess = embed.buildEmbed().getEmbed
