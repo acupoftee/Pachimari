@@ -16,7 +16,7 @@ const {
   TeamcordsCommand,
   StandingsCommand,
   NewsCommand,
-  ScheduleCommand,
+  // ScheduleCommand,
   LiveCommand,
   NextCommand,
   CompareCommand,
@@ -38,7 +38,8 @@ const {
   ContendersTeamsCommand,
   ContendersTeamCommand,
   ContendersPlayerCommand,
-  ContendersScheduleCommand
+  ContendersScheduleCommand,
+  ScheduleCommandv2
   // GetEmotesCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
@@ -80,7 +81,7 @@ new Promise(function (resolve, reject) {
     new TeamcordsCommand(),
     new StandingsCommand(),
     new NewsCommand(),
-    new ScheduleCommand(),
+    // new ScheduleCommand(),
     new LiveCommand(),
     new NextCommand(),
     new PingCommand(),
@@ -103,7 +104,8 @@ new Promise(function (resolve, reject) {
     new ContendersTeamsCommand(),
     new ContendersTeamCommand(),
     new ContendersPlayerCommand(),
-    new ContendersScheduleCommand()
+    new ContendersScheduleCommand(),
+    new ScheduleCommandv2()
     // new GetEmotesCommand()
   )
 }).then(function (result) {

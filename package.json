@@ -26,6 +26,7 @@
     "erlpack": "github:discordapp/erlpack",
     "express": "^4.16.4",
     "gifencoder": "^2.0.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
     "mongodb": "^3.3.2",
