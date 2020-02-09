@@ -16,7 +16,7 @@ const {
   TeamcordsCommand,
   StandingsCommand,
   NewsCommand,
-  ScheduleCommand,
+  // ScheduleCommand,
   LiveCommand,
   NextCommand,
   CompareCommand,
