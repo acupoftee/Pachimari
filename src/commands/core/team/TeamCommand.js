@@ -34,7 +34,7 @@ class TeamCommand extends Command {
     const locateId = CompetitorManager.locateTeam(args[0])
     const competitor = CompetitorManager.competitors.get(locateId)
     const pages = []
-    let page = 1
+    const page = 1
 
     if (competitor === undefined) {
       MessageUtil.sendError(message.channel, 'Could not locate team.')

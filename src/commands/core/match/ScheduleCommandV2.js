@@ -7,7 +7,7 @@ const momentTimezone = require('moment-timezone')
 const _ = require('lodash')
 
 class ScheduleCommandv2 extends Command {
-  constructor() {
+  constructor () {
     super()
     this.name = 'schedule'
     this.description = 'Shows matches for the current stage and week'
@@ -15,9 +15,9 @@ class ScheduleCommandv2 extends Command {
     this.aliases = ['matches']
   }
 
-  async execute(client, message, args) {
+  async execute (client, message, args) {
     const embed = new PachimariEmbed(client)
-    const headers = { 'Content-Type': 'application/json', 'referer': 'https://overwatchleague.com/en-us' }
+    const headers = { 'Content-Type': 'application/json', referer: 'https://overwatchleague.com/en-us' }
     // const weeks = 27
     const titles = []
     const games = []
@@ -98,7 +98,7 @@ class ScheduleCommandv2 extends Command {
     })
   }
 
-  getSchedule(body, titles, addresses, games) {
+  getSchedule (body, titles, addresses, games) {
     const events = body.content.tableData.events
 
     for (let i = 0; i < events.length; i++) {

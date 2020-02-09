@@ -13,7 +13,7 @@ class JsonUtil {
      * @param {string} uri
      * @param {Object} headers
      */
-  static async parse(uri, headers = null) {
+  static async parse (uri, headers = null) {
     return new Promise(function (resolve, reject) {
       request({
         url: uri,

@@ -8,7 +8,7 @@ const { Emojis } = require('../../../constants')
 const momentTimezone = require('moment-timezone')
 
 class ScheduleCommand extends Command {
-  constructor() {
+  constructor () {
     super()
     this.name = 'schedule'
     this.description = 'Shows matches for the current stage and week'
@@ -16,7 +16,7 @@ class ScheduleCommand extends Command {
     this.aliases = ['matches']
   }
 
-  async execute(client, message, args) {
+  async execute (client, message, args) {
     const embed = new PachimariEmbed(client)
     const matches = []
     const pages = []
@@ -35,8 +35,7 @@ class ScheduleCommand extends Command {
       if (isNaN(stageNumber)) {
         loading.then(message => message.edit(AlertUtil.ERROR(':C Please enter a valid stage number')))
         return
-      }
-      else if (stageNumber < 1 || stageNumber > 4) {
+      } else if (stageNumber < 1 || stageNumber > 4) {
         loading.then(message => message.edit(AlertUtil.ERROR(':C Sorry I could not find that stage')))
         return
       }
@@ -67,7 +66,6 @@ class ScheduleCommand extends Command {
         this.getMatchesByWeek(stage, matches)
       }
     }
-
 
     // add dummy match as a stop value
     const last = matches[0]
@@ -146,7 +144,7 @@ class ScheduleCommand extends Command {
     })
   }
 
-  getMatchesByWeek(stage, matches) {
+  getMatchesByWeek (stage, matches) {
     for (const week of stage.weeks) {
       for (const match of week.matches) {
         const home = CompetitorManager.competitors.get(CompetitorManager.locateTeam(match.competitors[1].abbreviatedName))

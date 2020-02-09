@@ -19,7 +19,7 @@ class Competitor {
    * @param {string} region origin region
    */
   constructor (id, name, abbreviatedName, logo,
-    primaryColor='#afe915', secondaryColor='#afe915', region) {
+    primaryColor = '#afe915', secondaryColor = '#afe915', region) {
     this._id = id
     this._name = name
     this._abbreviatedName = abbreviatedName

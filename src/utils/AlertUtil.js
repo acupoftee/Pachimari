@@ -5,4 +5,4 @@ module.exports = {
   ERROR: function (string) {
     return `:x: ${string}`
   }
-};
+}
