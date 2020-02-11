@@ -71,8 +71,8 @@ class ScheduleCommandv2 extends Command {
           page--
           title--
           address--
-          embed.setTitle(`__${venues[title - 1][title].embedTitle !== 'New Match' ? venues[title - 1][title].embedTitle : venues[title - 2][title].embedTitle}__`)
-          embed.setThumbnail(venues[title - 1][title].thumbnail !== 'New Image' ? venues[title - 1][title].thumbnail : venues[title - 2][title].thumbnail)
+          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 2].embedTitle}__`)
+          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 2].thumbnail)
           embed.setDescription(`${buildings[address - 1][address]}\n\n ${pages[page - 1].join('\n')}`)
           embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
           await r.remove(message.author.id)
@@ -87,9 +87,9 @@ class ScheduleCommandv2 extends Command {
           page++
           title++
           address++
-          embed.setTitle(`__${venues[title - 1][title].embedTitle !== 'New Match' ? venues[title - 1][title].embedTitle : venues[title - 2][title].embedTitle}__`)
-          embed.setThumbnail(venues[title - 1][title].thumbnail !== 'New Image' ? venues[title - 1][title].thumbnail : venues[title - 2][title].thumbnail)
-          embed.setDescription(`${buildings[address - 1][address] || buildings[address - 2][address]}\n\n ${pages[page - 1].join('\n')}`)
+          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 2].embedTitle}__`)
+          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 2].thumbnail)
+          embed.setDescription(`${buildings[address - 1][address - 1] || buildings[address - 2][address - 2]}\n\n ${pages[page - 1].join('\n')}`)
           embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
           await r.remove(message.author.id)
           msg.edit(embed.buildEmbed().getEmbed)
@@ -106,7 +106,6 @@ class ScheduleCommandv2 extends Command {
 
       for (let j = 0; j < matches.length; j++) {
         titles.push({ embedTitle: events[i].eventBanner !== null ? events[i].eventBanner.title.replace('Banner', '') : 'New Match', thumbnail: events[i].eventBanner !== null ? events[i].eventBanner.featuredImage : 'New Image' })
-
         const venue = events[i].eventBanner && `Venue: ${events[i].eventBanner.venue.name}\n${events[i].eventBanner.venue.location}\n🎟 [Buy Tickets](${events[i].eventBanner && events[i].eventBanner.ticket.link.href})`
         addresses.push(venue)
         const date = momentTimezone(matches[j].startDate).tz('America/Los_Angeles').format('ddd. MMM Do, YYYY')
