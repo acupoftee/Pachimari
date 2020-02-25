@@ -14,7 +14,7 @@ const {
   TeamCommand,
   PlayerCommand,
   TeamcordsCommand,
-  StandingsCommand,
+  // StandingsCommand,
   NewsCommand,
   // ScheduleCommand,
   LiveCommand,
@@ -39,7 +39,8 @@ const {
   ContendersTeamCommand,
   ContendersPlayerCommand,
   ContendersScheduleCommand,
-  ScheduleCommandv2
+  ScheduleCommandv2,
+  StandingsCommandv2
   // GetEmotesCommand
 } = require('./commands')
 const { CommandHandler } = require('./events')
@@ -79,7 +80,7 @@ new Promise(function (resolve, reject) {
     new TeamCommand(),
     new PlayerCommand(),
     new TeamcordsCommand(),
-    new StandingsCommand(),
+    // new StandingsCommand(),
     new NewsCommand(),
     // new ScheduleCommand(),
     new LiveCommand(),
@@ -105,21 +106,22 @@ new Promise(function (resolve, reject) {
     new ContendersTeamCommand(),
     new ContendersPlayerCommand(),
     new ContendersScheduleCommand(),
-    new ScheduleCommandv2()
+    new ScheduleCommandv2(),
+    new StandingsCommandv2()
     // new GetEmotesCommand()
   )
-}).then(function (result) {
-  return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-    Logger.error(err.stack)
-  })
-}).then(function (result) {
-  return new ContendersCompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
-    Logger.error(err.stack)
-  })
-}).then(function (result) {
-  return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
-    Logger.error(err.stack)
-  })
+  // }).then(function (result) {
+  //   return new CompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+  //     Logger.error(err.stack)
+  //   })
+  // }).then(function (result) {
+  //   return new ContendersCompetitorManager().getTeams().then(c => c.loadCompetitors()).catch(function (err) {
+  //     Logger.error(err.stack)
+  //   })
+  // }).then(function (result) {
+  //   return new PlayerManager().getPlayers().then(p => p.loadPlayers()).catch(function (err) {
+  //     Logger.error(err.stack)
+  //   })
 }).then(function (result) {
   return new HeroWatcher().watchForHeroUpdates()
 }).then(function (result) {

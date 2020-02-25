@@ -71,9 +71,9 @@ class ScheduleCommandv2 extends Command {
           page--
           title--
           address--
-          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 2].embedTitle}__`)
-          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 2].thumbnail)
-          embed.setDescription(`${buildings[address - 1][address]}\n\n ${pages[page - 1].join('\n')}`)
+          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 1].embedTitle}__`)
+          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 1].thumbnail)
+          embed.setDescription(`${buildings[address - 1][address - 1]}\n\n ${pages[page - 1].join('\n')}`)
           embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
           await r.remove(message.author.id)
           msg.edit(embed.buildEmbed().getEmbed)
@@ -87,8 +87,8 @@ class ScheduleCommandv2 extends Command {
           page++
           title++
           address++
-          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 2].embedTitle}__`)
-          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 2].thumbnail)
+          embed.setTitle(`__${venues[title - 1][title - 1].embedTitle !== 'New Match' ? venues[title - 1][title - 1].embedTitle : venues[title - 2][title - 1].embedTitle}__`)
+          embed.setThumbnail(venues[title - 1][title - 1].thumbnail !== 'New Image' ? venues[title - 1][title - 1].thumbnail : venues[title - 2][title - 1].thumbnail)
           embed.setDescription(`${buildings[address - 1][address - 1] || buildings[address - 2][address - 2]}\n\n ${pages[page - 1].join('\n')}`)
           embed.setFooter(`Page ${page} of ${pages.length}. Only command author can turn pages`)
           await r.remove(message.author.id)
