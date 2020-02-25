@@ -31,8 +31,8 @@ const ContendersTeamCommand = require('./core/contenders/ContendersTeamCommand')
 const GetEmotesCommand = require('./core/utils/GetEmotesCommand')
 const ContendersPlayerCommand = require('./core/contenders/ContendersPlayerCommand')
 const ContendersScheduleCommand = require('./core/contenders/ContendersScheduleCommand')
-const ScheduleCommandv2 = require('./core/match/ScheduleCommandv2')
-const StandingsCommandv2 = require('./core/match/StandingsCommandv2')
+const ScheduleCommandv2 = require('./core/match/ScheduleCommandV2')
+const StandingsCommandv2 = require('./core/match/StandingsCommandV2')
 
 module.exports = {
   PingCommand,
