@@ -8,7 +8,7 @@
 ## 2020 Update
 The Overwatch League API which was once open to the public had shut down in 2019 in favor of the Stats Lab. I and several other developers tried to leverage the stats lab to no avail. It wasn't until some further complications that I had to shut the bot down. 
 
-It has been a pleasure developing this bot. It's growth and influence was unexpected! If I can't run this bot anymore, I figured now's a perfect time to point and laugh at the spaghetti code behind Pachimari. Enjoy!
+It has been a pleasure developing this bot. It's growth and influence was unexpected! If I can't run this bot anymore, I figured now's a perfect time to point and laugh at my spaghetti code behind Pachimari (Don't worry, there's plenty more where that came from). Enjoy!
 
 # Features 
 
